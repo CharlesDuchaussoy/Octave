@@ -815,8 +815,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                           child: PlaybackControls(
                             isPlaying: provider.isPlaying,
                             isShuffleEnabled: provider.shuffleEnabled,
-                            isRepeatEnabled:
-                                provider.repeatMode != RepeatMode.off,
+                            repeatMode: provider.repeatMode,
                             accentColor: accentColor,
                             onPlayPause: () => provider.togglePlayPause(),
                             onNext: () => provider.skipNext(),
@@ -984,7 +983,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 child: PlaybackControls(
                   isPlaying: provider.isPlaying,
                   isShuffleEnabled: provider.shuffleEnabled,
-                  isRepeatEnabled: provider.repeatMode != RepeatMode.off,
+                  repeatMode: provider.repeatMode,
                   accentColor: accentColor,
                   onPlayPause: () => provider.togglePlayPause(),
                   onNext: () => provider.skipNext(),

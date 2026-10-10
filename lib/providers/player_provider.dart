@@ -208,6 +208,24 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _audioHandler.onSeekTo = seek;
     _audioHandler.onTogglePlayPause = togglePlayPause;
     _audioHandler.onSetRemoteVolume = _onRemoteVolumeChange;
+    _audioHandler.onSetRepeatMode = (mode) {
+      switch (mode) {
+        case AudioServiceRepeatMode.none:
+          setRepeatMode(RepeatMode.off);
+          break;
+        case AudioServiceRepeatMode.one:
+          setRepeatMode(RepeatMode.one);
+          break;
+        case AudioServiceRepeatMode.all:
+        case AudioServiceRepeatMode.group:
+          setRepeatMode(RepeatMode.all);
+          break;
+      }
+    };
+    _audioHandler.onSetShuffleMode = (mode) {
+      final enabled = mode != AudioServiceShuffleMode.none;
+      toggleShuffle(forceValue: enabled);
+    };
   }
 
   void _saveQueueState() {
@@ -904,6 +922,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _storageService.getRepeatMode().then((saved) {
       _repeatMode =
           RepeatMode.values[saved.clamp(0, RepeatMode.values.length - 1)];
+      _applyRepeatModeToAudioPlayer();
       notifyListeners();
     });
 
@@ -1135,6 +1154,15 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     }
 
     if (_concatenatingSource != null && !_isRenderingRemotely) {
+      if (_repeatMode == RepeatMode.one) {
+        await seek(Duration.zero);
+        await play();
+        return;
+      } else if (_repeatMode == RepeatMode.all && _queue.isNotEmpty) {
+        await _audioPlayer.seek(Duration.zero, index: 0);
+        await play();
+        return;
+      }
       await _handleEndOfQueue();
       return;
     }
@@ -2158,8 +2186,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     }
   }
 
-  void setRepeatMode(RepeatMode mode) {
-    _repeatMode = mode;
+  void _applyRepeatModeToAudioPlayer() {
     switch (_repeatMode) {
       case RepeatMode.off:
         _audioPlayer.setLoopMode(LoopMode.off);
@@ -2171,6 +2198,11 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         _audioPlayer.setLoopMode(LoopMode.one);
         break;
     }
+  }
+
+  void setRepeatMode(RepeatMode mode) {
+    _repeatMode = mode;
+    _applyRepeatModeToAudioPlayer();
     _storageService.saveRepeatMode(_repeatMode.index);
 
     notifyListeners();

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide RepeatMode;
 import 'package:flutter/services.dart';
+import '../../providers/player_provider.dart' show RepeatMode;
 
 class PlaybackControls extends StatelessWidget {
   final bool isPlaying;
@@ -8,7 +9,8 @@ class PlaybackControls extends StatelessWidget {
   final VoidCallback onPrevious;
   final bool isShuffleEnabled;
   final VoidCallback onShuffleToggle;
-  final bool isRepeatEnabled;
+  final RepeatMode? repeatMode;
+  final bool? isRepeatEnabled;
   final VoidCallback onRepeatToggle;
   final Color accentColor;
 
@@ -20,20 +22,41 @@ class PlaybackControls extends StatelessWidget {
     required this.onPrevious,
     required this.isShuffleEnabled,
     required this.onShuffleToggle,
-    required this.isRepeatEnabled,
+    this.repeatMode,
+    this.isRepeatEnabled,
     required this.onRepeatToggle,
     this.accentColor = Colors.white,
   });
 
+  RepeatMode get _effectiveRepeatMode {
+    if (repeatMode != null) return repeatMode!;
+    if (isRepeatEnabled != null) {
+      return isRepeatEnabled! ? RepeatMode.all : RepeatMode.off;
+    }
+    return RepeatMode.off;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final mode = _effectiveRepeatMode;
+    final isRepeatActive = mode != RepeatMode.off;
+    final IconData repeatIcon = mode == RepeatMode.one
+        ? Icons.repeat_one_rounded
+        : Icons.repeat_rounded;
+
+    final themePrimary = Theme.of(context).colorScheme.primary;
+    final effectiveActiveColor = (accentColor == Colors.white ||
+            accentColor.computeLuminance() > 0.85)
+        ? (themePrimary != Colors.white ? themePrimary : const Color(0xFFFA243C))
+        : accentColor;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SecondaryControlButton(
-          icon: Icons.shuffle,
+          icon: Icons.shuffle_rounded,
           isActive: isShuffleEnabled,
-          activeColor: accentColor,
+          activeColor: effectiveActiveColor,
           onTap: onShuffleToggle,
         ),
         _MainControlButton(
@@ -52,9 +75,9 @@ class PlaybackControls extends StatelessWidget {
           onTap: onNext,
         ),
         _SecondaryControlButton(
-          icon: Icons.repeat,
-          isActive: isRepeatEnabled,
-          activeColor: accentColor,
+          icon: repeatIcon,
+          isActive: isRepeatActive,
+          activeColor: effectiveActiveColor,
           onTap: onRepeatToggle,
         ),
       ],
@@ -174,27 +197,44 @@ class _SecondaryControlButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: Stack(
-        alignment: Alignment.center,
-        children: [
-          Icon(
-            icon,
-            color: isActive ? activeColor : Colors.white.withValues(alpha: 0.5),
-            size: 24,
-          ),
-          if (isActive)
-            Positioned(
-              bottom: -6,
-              child: Container(
-                width: 4,
-                height: 4,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: activeColor,
-                ),
+      icon: SizedBox(
+        width: 38,
+        height: 38,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isActive
+                    ? activeColor.withValues(alpha: 0.16)
+                    : Colors.transparent,
+              ),
+              child: Icon(
+                icon,
+                color: isActive
+                    ? activeColor
+                    : Colors.white.withValues(alpha: 0.45),
+                size: 24,
               ),
             ),
-        ],
+            if (isActive)
+              Positioned(
+                bottom: 2,
+                child: Container(
+                  width: 4,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: activeColor,
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
       onPressed: () {
         HapticFeedback.lightImpact();
