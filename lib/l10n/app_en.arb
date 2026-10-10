@@ -1220,6 +1220,50 @@
   "@createPlaylist": {
     "description": "Tooltip/label for the create-playlist button in the sidebar library header"
   },
+  "importPlaylist": "Import Playlist",
+  "@importPlaylist": {
+    "description": "Label for importing a playlist from Spotify or YouTube Music"
+  },
+  "importPlaylistSubtitle": "Import from Spotify or YouTube Music (no login)",
+  "@importPlaylistSubtitle": {
+    "description": "Subtitle for the import playlist option"
+  },
+  "checkForUpdates": "Check for updates",
+  "@checkForUpdates": {
+    "description": "Label for checking app updates"
+  },
+  "checkingForUpdates": "Checking for updates...",
+  "@checkingForUpdates": {
+    "description": "Message shown while checking for updates"
+  },
+  "appUpToDate": "Musly is up to date",
+  "@appUpToDate": {
+    "description": "Message shown when app is on the latest version"
+  },
+  "updateAvailable": "Update available",
+  "@updateAvailable": {
+    "description": "Title when an update is available"
+  },
+  "updateNow": "Update now",
+  "@updateNow": {
+    "description": "Button to start update"
+  },
+  "downloadingUpdate": "Downloading update...",
+  "@downloadingUpdate": {
+    "description": "Progress message while downloading update"
+  },
+  "openOnGitHub": "Open on GitHub",
+  "@openOnGitHub": {
+    "description": "Button to open release on GitHub"
+  },
+  "skipThisVersion": "Skip this version",
+  "@skipThisVersion": {
+    "description": "Button to skip the current update version"
+  },
+  "updateDownloaded": "Download complete. Starting installation...",
+  "@updateDownloaded": {
+    "description": "Message shown when update download finishes"
+  },
   "likedSongsSidebar": "Liked Songs",
   "@likedSongsSidebar": {
     "description": "Liked Songs item label in the desktop sidebar"

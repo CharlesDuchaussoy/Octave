@@ -8,7 +8,6 @@ import 'package:musly/services/analytics_service.dart';
 import 'package:musly/widgets/dialogs/support_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
-import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/utils/context_extensions.dart';
 import 'package:flutter/foundation.dart';
@@ -17,6 +16,7 @@ import 'package:musly/screens/onboarding/onboarding_screen.dart';
 import 'package:musly/screens/wrapped/wrapped_screen.dart';
 import 'package:musly/services/wrapped_service.dart';
 import 'package:musly/services/update_service.dart';
+import 'package:musly/widgets/dialogs/update_dialog.dart';
 
 class SettingsAboutTab extends StatefulWidget {
   const SettingsAboutTab({super.key});
@@ -29,6 +29,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
   bool _hasRated = false;
   int _versionTapCount = 0;
   bool _devWrappedUnlocked = false;
+  bool _isCheckingUpdates = false;
 
   bool get _isDesktop =>
       !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux);
@@ -69,6 +70,24 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               iconColor: const Color(0xFF007AFF),
               title: AppLocalizations.of(context)!.aboutPlatform,
               subtitle: Theme.of(context).platform.name.toUpperCase(),
+            ),
+            _buildDivider(context),
+            _buildActionTile(
+              context,
+              icon: CupertinoIcons.arrow_2_circlepath,
+              iconColor: const Color(0xFF34C759),
+              title: AppLocalizations.of(context)!.checkForUpdates,
+              subtitle: _isCheckingUpdates
+                  ? AppLocalizations.of(context)!.checkingForUpdates
+                  : null,
+              trailing: _isCheckingUpdates
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : null,
+              onTap: _isCheckingUpdates ? null : _checkForUpdatesManual,
             ),
           ],
         ),
@@ -421,7 +440,8 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
     required IconData icon,
     required Color iconColor,
     required String title,
-    required String subtitle,
+    String? subtitle,
+    Widget? trailing,
     VoidCallback? onTap,
   }) {
     return SettingsListTile(
@@ -438,16 +458,63 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
       ),
       title: title,
       subtitle: subtitle,
-      trailing: onTap != null
-          ? Icon(
-              CupertinoIcons.chevron_forward,
-              size: 18,
-              color: context.isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
-            )
-          : null,
+      trailing: trailing ??
+          (onTap != null
+              ? Icon(
+                  CupertinoIcons.chevron_forward,
+                  size: 18,
+                  color: context.isDark
+                      ? AppTheme.darkSecondaryText
+                      : AppTheme.lightSecondaryText,
+                )
+              : null),
       onTap: onTap,
     );
+  }
+
+  Future<void> _checkForUpdatesManual() async {
+    if (_isCheckingUpdates) return;
+    setState(() => _isCheckingUpdates = true);
+
+    final l10n = AppLocalizations.of(context)!;
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(l10n.checkingForUpdates),
+        duration: const Duration(seconds: 2),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+
+    try {
+      final release = await UpdateService.checkForUpdate(force: true);
+      if (!mounted) return;
+
+      if (release != null) {
+        await UpdateDialog.show(context, release);
+      } else {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(l10n.appUpToDate),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: $e'),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isCheckingUpdates = false);
+      }
+    }
   }
 }

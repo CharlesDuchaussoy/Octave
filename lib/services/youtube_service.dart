@@ -57,7 +57,17 @@ class _YoutubeStreamAudioSource extends StreamAudioSource {
 
   @override
   Future<StreamAudioResponse> request([int? start, int? end]) async {
-    final cleanId = _videoId.replaceFirst('ytmusic://', '');
+    var cleanId = _videoId.replaceFirst('ytmusic://', '');
+    if (cleanId.startsWith('ytsearch:') || cleanId.startsWith('sp_')) {
+      final query = Uri.decodeComponent(
+          cleanId.replaceFirst(RegExp(r'^(ytsearch:|sp_)'), ''));
+      try {
+        final results = await _ytdlp.search(query, limit: 1);
+        if (results.isNotEmpty && results.first['id'] != null) {
+          cleanId = results.first['id'] as String;
+        }
+      } catch (_) {}
+    }
 
     final cachedFile = await _getCachedFile(cleanId);
     if (cachedFile != null) {
@@ -256,12 +266,33 @@ class YoutubeService {
   String getStreamUrl(String videoId) => 'ytmusic://$videoId';
 
   Future<String> resolveStreamUrl(String videoId) async {
-    final cleanId = videoId.replaceFirst('ytmusic://', '');
+    String cleanId = videoId.replaceFirst('ytmusic://', '');
+    if (cleanId.startsWith('ytsearch:') || cleanId.startsWith('sp_')) {
+      final query = Uri.decodeComponent(
+          cleanId.replaceFirst(RegExp(r'^(ytsearch:|sp_)'), ''));
+      try {
+        final results = await _ytdlp.search(query, limit: 1);
+        if (results.isNotEmpty && results.first['id'] != null) {
+          cleanId = results.first['id'] as String;
+        }
+      } catch (_) {}
+    }
     return await _ytdlp.resolveStreamUrl(cleanId);
   }
 
   Future<StreamAudioSource> buildAudioSource(String videoId) async {
-    return _YoutubeStreamAudioSource(videoId, _ytdlp);
+    String cleanId = videoId.replaceFirst('ytmusic://', '');
+    if (cleanId.startsWith('ytsearch:') || cleanId.startsWith('sp_')) {
+      final query = Uri.decodeComponent(
+          cleanId.replaceFirst(RegExp(r'^(ytsearch:|sp_)'), ''));
+      try {
+        final results = await _ytdlp.search(query, limit: 1);
+        if (results.isNotEmpty && results.first['id'] != null) {
+          cleanId = results.first['id'] as String;
+        }
+      } catch (_) {}
+    }
+    return _YoutubeStreamAudioSource(cleanId, _ytdlp);
   }
 
   Song _mapDictToSong(Map<String, dynamic> d) {

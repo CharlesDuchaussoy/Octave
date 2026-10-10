@@ -21,6 +21,7 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
+import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
 import 'package:musly/models/playlist.dart';
 import 'package:musly/models/album.dart';
 import 'package:musly/models/artist.dart';
@@ -135,6 +136,28 @@ class _LibraryScreenState extends State<LibraryScreen> {
               onTap: () {
                 Navigator.pop(ctx);
                 _showCreatePlaylistDialog(context);
+              },
+            ),
+            const SizedBox(height: 8),
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(CupertinoIcons.square_arrow_down,
+                    color: Color(0xFF10B981), size: 22),
+              ),
+              title: Text(AppLocalizations.of(context)!.importPlaylist,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text(
+                  AppLocalizations.of(context)!.importPlaylistSubtitle,
+                  style: const TextStyle(fontSize: 12)),
+              onTap: () {
+                Navigator.pop(ctx);
+                ImportPlaylistDialog.show(context);
               },
             ),
             const SizedBox(height: 8),

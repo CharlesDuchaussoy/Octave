@@ -88,7 +88,7 @@ import 'app_localizations_zh.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -111,11 +111,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -145,7 +145,7 @@ abstract class AppLocalizations {
     Locale('tr'),
     Locale('uk'),
     Locale('vi'),
-    Locale('zh'),
+    Locale('zh')
   ];
 
   /// Application name
@@ -2308,6 +2308,72 @@ abstract class AppLocalizations {
   /// **'Create playlist'**
   String get createPlaylist;
 
+  /// Label for importing a playlist from Spotify or YouTube Music
+  ///
+  /// In en, this message translates to:
+  /// **'Import Playlist'**
+  String get importPlaylist;
+
+  /// Subtitle for the import playlist option
+  ///
+  /// In en, this message translates to:
+  /// **'Import from Spotify or YouTube Music (no login)'**
+  String get importPlaylistSubtitle;
+
+  /// Label for checking app updates
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get checkForUpdates;
+
+  /// Message shown while checking for updates
+  ///
+  /// In en, this message translates to:
+  /// **'Checking for updates...'**
+  String get checkingForUpdates;
+
+  /// Message shown when app is on the latest version
+  ///
+  /// In en, this message translates to:
+  /// **'Musly is up to date'**
+  String get appUpToDate;
+
+  /// Title of the update available dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Update Available'**
+  String get updateAvailable;
+
+  /// Button to start update
+  ///
+  /// In en, this message translates to:
+  /// **'Update now'**
+  String get updateNow;
+
+  /// Progress message while downloading update
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading update...'**
+  String get downloadingUpdate;
+
+  /// Button to open release on GitHub
+  ///
+  /// In en, this message translates to:
+  /// **'Open on GitHub'**
+  String get openOnGitHub;
+
+  /// Button to skip the current update version
+  ///
+  /// In en, this message translates to:
+  /// **'Skip this version'**
+  String get skipThisVersion;
+
+  /// Message shown when update download finishes
+  ///
+  /// In en, this message translates to:
+  /// **'Download complete. Starting installation...'**
+  String get updateDownloaded;
+
   /// Liked Songs item label in the desktop sidebar
   ///
   /// In en, this message translates to:
@@ -2379,12 +2445,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Offline Mode – Playing downloaded music only'**
   String get offlineModeBanner;
-
-  /// Title of the update available dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Update Available'**
-  String get updateAvailable;
 
   /// Subtitle in the update dialog
   ///
@@ -5716,34 +5776,34 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) => <String>[
-    'ar',
-    'az',
-    'bn',
-    'da',
-    'de',
-    'el',
-    'en',
-    'es',
-    'fi',
-    'fr',
-    'ga',
-    'hi',
-    'id',
-    'it',
-    'nl',
-    'no',
-    'pl',
-    'pt',
-    'ro',
-    'ru',
-    'sq',
-    'sv',
-    'te',
-    'tr',
-    'uk',
-    'vi',
-    'zh',
-  ].contains(locale.languageCode);
+        'ar',
+        'az',
+        'bn',
+        'da',
+        'de',
+        'el',
+        'en',
+        'es',
+        'fi',
+        'fr',
+        'ga',
+        'hi',
+        'id',
+        'it',
+        'nl',
+        'no',
+        'pl',
+        'pt',
+        'ro',
+        'ru',
+        'sq',
+        'sv',
+        'te',
+        'tr',
+        'uk',
+        'vi',
+        'zh'
+      ].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -5809,9 +5869,8 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

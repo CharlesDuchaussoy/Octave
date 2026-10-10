@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -1193,6 +1192,40 @@ class AppLocalizationsPt extends AppLocalizations {
   String get createPlaylist => 'Criar Playlist';
 
   @override
+  String get importPlaylist => 'Import Playlist';
+
+  @override
+  String get importPlaylistSubtitle =>
+      'Import from Spotify or YouTube Music (no login)';
+
+  @override
+  String get checkForUpdates => 'Check for updates';
+
+  @override
+  String get checkingForUpdates => 'Checking for updates...';
+
+  @override
+  String get appUpToDate => 'Musly is up to date';
+
+  @override
+  String get updateAvailable => 'Atualização disponível';
+
+  @override
+  String get updateNow => 'Update now';
+
+  @override
+  String get downloadingUpdate => 'Downloading update...';
+
+  @override
+  String get openOnGitHub => 'Open on GitHub';
+
+  @override
+  String get skipThisVersion => 'Skip this version';
+
+  @override
+  String get updateDownloaded => 'Download complete. Starting installation...';
+
+  @override
   String get likedSongsSidebar => 'Músicas favoritas';
 
   @override
@@ -1231,9 +1264,6 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get offlineModeBanner =>
       'Modo Offline – Reproduzindo apenas músicas baixadas';
-
-  @override
-  String get updateAvailable => 'Atualização disponível';
 
   @override
   String get updateAvailableSubtitle =>

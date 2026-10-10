@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -1176,6 +1175,40 @@ class AppLocalizationsZh extends AppLocalizations {
   String get createPlaylist => '创建歌单';
 
   @override
+  String get importPlaylist => 'Import Playlist';
+
+  @override
+  String get importPlaylistSubtitle =>
+      'Import from Spotify or YouTube Music (no login)';
+
+  @override
+  String get checkForUpdates => 'Check for updates';
+
+  @override
+  String get checkingForUpdates => 'Checking for updates...';
+
+  @override
+  String get appUpToDate => 'Musly is up to date';
+
+  @override
+  String get updateAvailable => '有可用更新';
+
+  @override
+  String get updateNow => 'Update now';
+
+  @override
+  String get downloadingUpdate => 'Downloading update...';
+
+  @override
+  String get openOnGitHub => 'Open on GitHub';
+
+  @override
+  String get skipThisVersion => 'Skip this version';
+
+  @override
+  String get updateDownloaded => 'Download complete. Starting installation...';
+
+  @override
   String get likedSongsSidebar => '喜欢的歌曲';
 
   @override
@@ -1212,9 +1245,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get offlineModeBanner => '离线模式 - 仅播放已下载的音乐';
-
-  @override
-  String get updateAvailable => '有可用更新';
 
   @override
   String get updateAvailableSubtitle => '新版本的 Musly 已可用！';

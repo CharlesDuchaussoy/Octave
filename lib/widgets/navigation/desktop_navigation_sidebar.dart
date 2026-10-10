@@ -11,6 +11,8 @@ import 'package:musly/screens/media/playlists_screen.dart';
 import 'package:musly/screens/media/radio_screen.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
 import 'tv_remote_scope.dart';
 import '../../services/tv_detection_service.dart';
 
@@ -390,6 +392,23 @@ class _LibrarySection extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Tooltip(
+                    message: 'Import playlist',
+                    child: InkWell(
+                      onTap: () => ImportPlaylistDialog.show(context),
+                      borderRadius: BorderRadius.circular(50),
+                      hoverColor: Colors.white.withValues(alpha: 0.1),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Icon(
+                          CupertinoIcons.square_arrow_down,
+                          size: 16,
+                          color: Color(0xFF9CA3AF),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
                   Tooltip(
                     message: 'Create playlist',
                     child: InkWell(

@@ -695,6 +695,34 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     await loadPlaylists();
   }
 
+  Future<Playlist> importPlaylistFromPreview({
+    required PlaylistImportPreview preview,
+    String? customName,
+    void Function(int current, int total, String status)? onProgress,
+  }) async {
+    final playlist = await PlaylistImportService().importFromPreview(
+      preview,
+      customName: customName,
+      onProgress: onProgress,
+    );
+    await loadPlaylists();
+    return playlist;
+  }
+
+  Future<Playlist> importPlaylistFromUrl({
+    required String urlOrId,
+    String? customName,
+    void Function(int current, int total, String status)? onProgress,
+  }) async {
+    final playlist = await PlaylistImportService().importFromUrl(
+      urlOrId,
+      customName: customName,
+      onProgress: onProgress,
+    );
+    await loadPlaylists();
+    return playlist;
+  }
+
   Future<void> deletePlaylist(String playlistId) async {
     await _subsonicService.deletePlaylist(playlistId);
     await loadPlaylists();

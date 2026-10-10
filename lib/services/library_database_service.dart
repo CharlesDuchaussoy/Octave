@@ -300,7 +300,13 @@ class LibraryDatabaseService {
     final songIds = playlist.songs?.map((s) => s.id).toList() ?? [];
     if (songIds.isNotEmpty) {
       final fullSongs = await getSongs(songIds);
-      return playlist.copyWith(songs: fullSongs);
+      if (fullSongs.isNotEmpty && fullSongs.length == songIds.length) {
+        return playlist.copyWith(songs: fullSongs);
+      } else if (playlist.songs != null && playlist.songs!.isNotEmpty) {
+        final fullMap = {for (final s in fullSongs) s.id: s};
+        final merged = playlist.songs!.map((s) => fullMap[s.id] ?? s).toList();
+        return playlist.copyWith(songs: merged);
+      }
     }
     return playlist;
   }
