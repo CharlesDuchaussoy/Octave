@@ -2029,6 +2029,13 @@ class AppLocalizationsIt extends AppLocalizations {
       'Effetto di bagliore sottile sulla riga del testo attualmente in riproduzione';
 
   @override
+  String get lyricsKeepScreenOn => 'Tieni schermo acceso';
+
+  @override
+  String get lyricsKeepScreenOnSubtitle =>
+      'Evita che lo schermo si spenga durante la visualizzazione dei testi';
+
+  @override
   String get hideWindowTitlebar =>
       'Nascondi barra del titolo / decorazioni della finestra';
 

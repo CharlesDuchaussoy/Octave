@@ -2017,6 +2017,13 @@ class AppLocalizationsHi extends AppLocalizations {
       'Subtle glow effect on currently playing lyric line';
 
   @override
+  String get lyricsKeepScreenOn => 'Keep Screen On';
+
+  @override
+  String get lyricsKeepScreenOnSubtitle =>
+      'Prevent the screen from turning off while reading lyrics';
+
+  @override
   String get hideWindowTitlebar => 'Hide Window Titlebar / Decorations';
 
   @override

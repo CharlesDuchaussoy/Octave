@@ -3814,6 +3814,18 @@ abstract class AppLocalizations {
   /// **'Subtle glow effect on currently playing lyric line'**
   String get lyricsGlowEffectSubtitle;
 
+  /// Toggle to keep the screen on while viewing lyrics
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Screen On'**
+  String get lyricsKeepScreenOn;
+
+  /// Subtitle for keep screen on while viewing lyrics toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Prevent the screen from turning off while reading lyrics'**
+  String get lyricsKeepScreenOnSubtitle;
+
   /// Toggle to hide native desktop window titlebar
   ///
   /// In en, this message translates to:

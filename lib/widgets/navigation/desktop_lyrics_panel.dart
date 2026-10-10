@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:musly/models/lyric_line.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/services/lrc_ttml_parser.dart';
-import 'package:musly/services/subsonic_service.dart';
+import 'package:musly/services/services.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/utils/navigation_helper.dart';
 
@@ -33,6 +33,10 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
   @override
   void initState() {
     super.initState();
+    _syncDesktopWakelock();
+    PlayerUiSettingsService()
+        .lyricsKeepScreenOnNotifier
+        .addListener(_syncDesktopWakelock);
     _loadLyricsForCurrentSong();
   }
 
@@ -161,9 +165,21 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
 
   @override
   void dispose() {
+    PlayerUiSettingsService()
+        .lyricsKeepScreenOnNotifier
+        .removeListener(_syncDesktopWakelock);
+    WakelockService().disable('desktop_lyrics_panel');
     _scrollController.dispose();
     _resumeAutoScrollTimer?.cancel();
     super.dispose();
+  }
+
+  void _syncDesktopWakelock() {
+    if (PlayerUiSettingsService().getLyricsKeepScreenOn()) {
+      WakelockService().enable('desktop_lyrics_panel');
+    } else {
+      WakelockService().disable('desktop_lyrics_panel');
+    }
   }
 
   @override

@@ -39,6 +39,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
   bool _lyricsBlurUnfocused = false;
   String _lyricsAlignment = 'left';
   bool _lyricsGlowEffect = true;
+  bool _lyricsKeepScreenOn = true;
   bool _hideWindowTitlebar = false;
   String _artworkResolution = 'normal';
 
@@ -75,6 +76,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       _lyricsBlurUnfocused = _playerUiSettings.getLyricsBlurUnfocused();
       _lyricsAlignment = _playerUiSettings.getLyricsAlignment();
       _lyricsGlowEffect = _playerUiSettings.getLyricsGlowEffect();
+      _lyricsKeepScreenOn = _playerUiSettings.getLyricsKeepScreenOn();
       _artworkResolution = _playerUiSettings.getArtworkResolution();
       _themeMode = themeService.themeMode;
       _accentColor = themeService.accentColor;
@@ -161,6 +163,8 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             _buildLyricsAlignmentSelector(),
             const SettingsDivider(),
             _buildLyricsGlowToggle(),
+            const SettingsDivider(),
+            _buildLyricsKeepScreenOnToggle(),
           ],
         ),
         const SizedBox(height: 24),
@@ -968,6 +972,19 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       onChanged: (val) async {
         await _playerUiSettings.setLyricsGlowEffect(val);
         setState(() => _lyricsGlowEffect = val);
+      },
+    );
+  }
+
+  Widget _buildLyricsKeepScreenOnToggle() {
+    final l10n = AppLocalizations.of(context)!;
+    return SwitchListTile.adaptive(
+      title: Text(l10n.lyricsKeepScreenOn),
+      subtitle: Text(l10n.lyricsKeepScreenOnSubtitle),
+      value: _lyricsKeepScreenOn,
+      onChanged: (val) async {
+        await _playerUiSettings.setLyricsKeepScreenOn(val);
+        setState(() => _lyricsKeepScreenOn = val);
       },
     );
   }

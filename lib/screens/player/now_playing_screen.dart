@@ -20,6 +20,7 @@ import 'package:musly/widgets/now_playing/now_playing_more_menu.dart';
 import 'package:musly/widgets/now_playing/add_to_menu.dart';
 import 'package:musly/widgets/common/multi_artist_widget.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
+import 'package:musly/services/wakelock_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:musly/services/tv_detection_service.dart';
@@ -49,7 +50,8 @@ class NowPlayingScreen extends StatefulWidget {
   State<NowPlayingScreen> createState() => _NowPlayingScreenState();
 }
 
-class _NowPlayingScreenState extends State<NowPlayingScreen> {
+class _NowPlayingScreenState extends State<NowPlayingScreen>
+    with WidgetsBindingObserver {
   late PageController _pageController;
   int _currentPage = 0;
   List<Color> _bgColors = [];
@@ -61,6 +63,10 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    PlayerUiSettingsService()
+        .lyricsKeepScreenOnNotifier
+        .addListener(_syncLyricsWakelock);
     _pageController = PageController(initialPage: 0);
     _fetchedLyrics = widget.lyrics;
     _currentImageProvider = widget.image;
@@ -181,7 +187,34 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _syncLyricsWakelock();
+    } else if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.hidden) {
+      WakelockService().disable('lyrics_view');
+    }
+  }
+
+  void _syncLyricsWakelock({int? page}) {
+    final activePage = page ?? _currentPage;
+    final isLyricsActive = activePage == 1;
+    final keepScreenOn = PlayerUiSettingsService().getLyricsKeepScreenOn();
+    if (isLyricsActive && keepScreenOn) {
+      WakelockService().enable('lyrics_view');
+    } else {
+      WakelockService().disable('lyrics_view');
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    PlayerUiSettingsService()
+        .lyricsKeepScreenOnNotifier
+        .removeListener(_syncLyricsWakelock);
+    WakelockService().disable('lyrics_view');
     _pageController.dispose();
     super.dispose();
   }
@@ -190,6 +223,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
 
   void _onVerticalDragEnd(DragEndDetails details) {
     if (details.primaryVelocity != null && details.primaryVelocity! > 300) {
+      WakelockService().disable('lyrics_view');
       Navigator.of(context).pop();
     }
   }
@@ -244,6 +278,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                         setState(() {
                           _currentPage = index;
                         });
+                        _syncLyricsWakelock(page: index);
                       },
                       children: [
                         _buildMainView(
@@ -335,6 +370,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                       ),
                       onPressed: () {
                         if (_currentPage != 0) {
+                          _syncLyricsWakelock(page: 0);
                           _pageController.animateToPage(0,
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut);
@@ -410,6 +446,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
+                    _syncLyricsWakelock(page: 1);
                     _pageController.animateToPage(
                       1,
                       duration: const Duration(milliseconds: 300),
@@ -843,10 +880,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                           accentColor: accentColor,
                           onLyricsTap: () {
                             if (_currentPage == 1) {
+                              _syncLyricsWakelock(page: 0);
                               _pageController.animateToPage(0,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
                             } else {
+                              _syncLyricsWakelock(page: 1);
                               _pageController.animateToPage(1,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
@@ -854,10 +893,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                           },
                           onQueueTap: () {
                             if (_currentPage == 2) {
+                              _syncLyricsWakelock(page: 0);
                               _pageController.animateToPage(0,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
                             } else {
+                              _syncLyricsWakelock(page: 2);
                               _pageController.animateToPage(2,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
@@ -1010,10 +1051,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 accentColor: accentColor,
                 onLyricsTap: () {
                   if (_currentPage == 1) {
+                    _syncLyricsWakelock(page: 0);
                     _pageController.animateToPage(0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
                   } else {
+                    _syncLyricsWakelock(page: 1);
                     _pageController.animateToPage(1,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
@@ -1021,10 +1064,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 },
                 onQueueTap: () {
                   if (_currentPage == 2) {
+                    _syncLyricsWakelock(page: 0);
                     _pageController.animateToPage(0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
                   } else {
+                    _syncLyricsWakelock(page: 2);
                     _pageController.animateToPage(2,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);

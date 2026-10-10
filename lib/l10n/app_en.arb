@@ -2346,6 +2346,14 @@
   "@lyricsGlowEffectSubtitle": {
     "description": "Subtitle for active lyric line glow effect toggle"
   },
+  "lyricsKeepScreenOn": "Keep Screen On",
+  "@lyricsKeepScreenOn": {
+    "description": "Toggle to keep the screen on while viewing lyrics"
+  },
+  "lyricsKeepScreenOnSubtitle": "Prevent the screen from turning off while reading lyrics",
+  "@lyricsKeepScreenOnSubtitle": {
+    "description": "Subtitle for keep screen on while viewing lyrics toggle"
+  },
   "hideWindowTitlebar": "Hide Window Titlebar / Decorations",
   "@hideWindowTitlebar": {
     "description": "Toggle to hide native desktop window titlebar"

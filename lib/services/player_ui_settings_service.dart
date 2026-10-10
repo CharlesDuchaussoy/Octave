@@ -15,6 +15,7 @@ class PlayerUiSettingsService {
   static const String _keyLyricsBlurUnfocused = 'lyrics_blur_unfocused';
   static const String _keyLyricsAlignment = 'lyrics_alignment';
   static const String _keyLyricsGlowEffect = 'lyrics_glow_effect';
+  static const String _keyLyricsKeepScreenOn = 'lyrics_keep_screen_on';
   static const String _keyShowLiveLyricUnderArtwork =
       'player_show_live_lyric_under_artwork';
 
@@ -44,6 +45,7 @@ class PlayerUiSettingsService {
   final ValueNotifier<bool> lyricsBlurUnfocusedNotifier = ValueNotifier(false);
   final ValueNotifier<String> lyricsAlignmentNotifier = ValueNotifier('left');
   final ValueNotifier<bool> lyricsGlowEffectNotifier = ValueNotifier(true);
+  final ValueNotifier<bool> lyricsKeepScreenOnNotifier = ValueNotifier(true);
   final ValueNotifier<bool> showLiveLyricUnderArtworkNotifier =
       ValueNotifier(false);
 
@@ -63,6 +65,7 @@ class PlayerUiSettingsService {
     lyricsBlurUnfocusedNotifier.value = getLyricsBlurUnfocused();
     lyricsAlignmentNotifier.value = getLyricsAlignment();
     lyricsGlowEffectNotifier.value = getLyricsGlowEffect();
+    lyricsKeepScreenOnNotifier.value = getLyricsKeepScreenOn();
     showLiveLyricUnderArtworkNotifier.value = getShowLiveLyricUnderArtwork();
   }
 
@@ -216,6 +219,16 @@ class PlayerUiSettingsService {
     return _prefs?.getBool(_keyLyricsGlowEffect) ?? true;
   }
 
+  Future<void> setLyricsKeepScreenOn(bool enabled) async {
+    await initialize();
+    await _prefs!.setBool(_keyLyricsKeepScreenOn, enabled);
+    lyricsKeepScreenOnNotifier.value = enabled;
+  }
+
+  bool getLyricsKeepScreenOn() {
+    return _prefs?.getBool(_keyLyricsKeepScreenOn) ?? true;
+  }
+
   void dispose() {
     showStarRatingsNotifier.dispose();
     showMiniPlayerHeartNotifier.dispose();
@@ -230,5 +243,6 @@ class PlayerUiSettingsService {
     lyricsBlurUnfocusedNotifier.dispose();
     lyricsAlignmentNotifier.dispose();
     lyricsGlowEffectNotifier.dispose();
+    lyricsKeepScreenOnNotifier.dispose();
   }
 }

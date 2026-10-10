@@ -1869,6 +1869,8 @@
   "alignCenter": "Centro",
   "lyricsGlowEffect": "Bagliore riga attiva",
   "lyricsGlowEffectSubtitle": "Effetto di bagliore sottile sulla riga del testo attualmente in riproduzione",
+  "lyricsKeepScreenOn": "Tieni schermo acceso",
+  "lyricsKeepScreenOnSubtitle": "Evita che lo schermo si spenga durante la visualizzazione dei testi",
   "hideWindowTitlebar": "Nascondi barra del titolo / decorazioni della finestra",
   "hideWindowTitlebarSubtitle": "Nasconde la barra del titolo nativa (utile per Linux Wayland e tiling window manager)",
   "sectionSmartCrossfade": "SMART CROSSFADE",
