@@ -20,6 +20,8 @@ class PlayerUiSettingsService {
       'player_show_live_lyric_under_artwork';
 
   static const String _keyArtworkResolution = 'artwork_resolution';
+  static const String _keyShowFavoritePlaylistsOnHome =
+      'home_show_favorite_playlists';
 
   static final PlayerUiSettingsService _instance =
       PlayerUiSettingsService._internal();
@@ -48,6 +50,8 @@ class PlayerUiSettingsService {
   final ValueNotifier<bool> lyricsKeepScreenOnNotifier = ValueNotifier(true);
   final ValueNotifier<bool> showLiveLyricUnderArtworkNotifier =
       ValueNotifier(false);
+  final ValueNotifier<bool> showFavoritePlaylistsOnHomeNotifier =
+      ValueNotifier(false);
 
   Future<void> initialize() async {
     _prefs ??= await SharedPreferences.getInstance();
@@ -67,6 +71,18 @@ class PlayerUiSettingsService {
     lyricsGlowEffectNotifier.value = getLyricsGlowEffect();
     lyricsKeepScreenOnNotifier.value = getLyricsKeepScreenOn();
     showLiveLyricUnderArtworkNotifier.value = getShowLiveLyricUnderArtwork();
+    showFavoritePlaylistsOnHomeNotifier.value =
+        getShowFavoritePlaylistsOnHome();
+  }
+
+  Future<void> setShowFavoritePlaylistsOnHome(bool show) async {
+    await initialize();
+    await _prefs!.setBool(_keyShowFavoritePlaylistsOnHome, show);
+    showFavoritePlaylistsOnHomeNotifier.value = show;
+  }
+
+  bool getShowFavoritePlaylistsOnHome() {
+    return _prefs?.getBool(_keyShowFavoritePlaylistsOnHome) ?? false;
   }
 
   Future<void> setShowLiveLyricUnderArtwork(bool show) async {
