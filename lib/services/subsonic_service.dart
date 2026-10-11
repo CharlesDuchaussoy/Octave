@@ -498,7 +498,7 @@ class SubsonicService {
     }
   }
 
-  String getCoverArtUrl(String? coverArt, {int size = 300}) {
+  String getCoverArtUrl(String? coverArt, {int size = 600}) {
     if (_jellyfin != null) {
       return _jellyfin!.getCoverArtUrl(coverArt, size: size);
     }

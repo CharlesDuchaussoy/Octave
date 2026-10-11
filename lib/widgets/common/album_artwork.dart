@@ -70,23 +70,29 @@ class AlbumArtwork extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final svc = PlayerUiSettingsService();
-    final shape = svc.getArtworkShape();
-    final globalRadius = svc.getAlbumArtCornerRadius();
-    final shadowLevel = svc.getArtworkShadow();
-    final shadowColor = svc.getArtworkShadowColor();
+    return ValueListenableBuilder<String>(
+      valueListenable: svc.artworkResolutionNotifier,
+      builder: (context, resolutionSetting, _) {
+        final shape = svc.getArtworkShape();
+        final globalRadius = svc.getAlbumArtCornerRadius();
+        final shadowLevel = svc.getArtworkShadow();
+        final shadowColor = svc.getArtworkShadowColor();
 
-    final resolvedRadius = borderRadius ??
-        (shape == 'circle'
-            ? 9999.0
-            : shape == 'square'
-                ? 0.0
-                : globalRadius);
+        final resolvedRadius = borderRadius ??
+            (shape == 'circle'
+                ? 9999.0
+                : shape == 'square'
+                    ? 0.0
+                    : globalRadius);
 
-    return _buildContent(
-      context,
-      resolvedRadius,
-      shadowLevel,
-      shadowColor,
+        return _buildContent(
+          context,
+          resolvedRadius,
+          shadowLevel,
+          shadowColor,
+          resolutionSetting,
+        );
+      },
     );
   }
 
@@ -138,21 +144,20 @@ class AlbumArtwork extends StatelessWidget {
     double resolvedRadius,
     String shadowLevel,
     String shadowColor,
+    String resolutionSetting,
   ) {
     final validSize = size.isFinite && !size.isNaN ? size : 150.0;
 
     final dpr = MediaQuery.devicePixelRatioOf(context);
     final baseSize = (validSize * dpr).toInt();
 
-    final resolutionSetting = PlayerUiSettingsService().getArtworkResolution();
-    
     final int cacheSize;
     if (resolutionSetting == 'high') {
       cacheSize = 0; // Use original or maximum available size
     } else if (resolutionSetting == 'low') {
-      cacheSize = baseSize.clamp(100, 300);
+      cacheSize = baseSize > 300 ? baseSize.clamp(300, 600) : 300;
     } else {
-      cacheSize = baseSize.clamp(100, 600); // normal
+      cacheSize = baseSize > 600 ? baseSize.clamp(600, 1000) : 600; // normal (at least 600px)
     }
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -196,14 +201,24 @@ class AlbumArtwork extends StatelessWidget {
   Widget _buildImageNatural(bool isDark, int cacheSize) {
     if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(isDark);
 
+    final int? memCacheSize = cacheSize > 0 ? cacheSize : null;
+    final int? diskCacheSize =
+        cacheSize > 0 ? (cacheSize > 600 ? cacheSize : 600) : null;
+    final String keySuffix = cacheSize == 0 ? 'orig' : '$cacheSize';
+    final String artId =
+        coverArt!.startsWith('http://') || coverArt!.startsWith('https://')
+            ? coverArt!.hashCode.toString()
+            : coverArt!;
+    final String cacheKey = 'cover_natural_${artId}_$keySuffix';
+
     if (isLocalFilePath(coverArt)) {
       final artFile = File(coverArt!);
       return Image.file(
         artFile,
         key: ValueKey(coverArt),
         fit: BoxFit.contain,
-        cacheWidth: cacheSize,
-        cacheHeight: cacheSize,
+        cacheWidth: memCacheSize,
+        cacheHeight: memCacheSize,
         errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
       );
     }
@@ -216,8 +231,8 @@ class AlbumArtwork extends StatelessWidget {
           File(offlinePath),
           key: ValueKey('offline_natural_$coverArt'),
           fit: BoxFit.contain,
-          cacheWidth: cacheSize,
-          cacheHeight: cacheSize,
+          cacheWidth: memCacheSize,
+          cacheHeight: memCacheSize,
           errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
         );
       }
@@ -233,13 +248,13 @@ class AlbumArtwork extends StatelessWidget {
         if (imageUrl.isEmpty) return _buildPlaceholder(isDark);
         return CachedNetworkImage(
           imageUrl: imageUrl,
-          cacheKey: 'cover_natural_$coverArt',
-          key: ValueKey('cover_natural_$coverArt'),
+          cacheKey: cacheKey,
+          key: ValueKey(cacheKey),
           fit: BoxFit.contain,
-          memCacheWidth: cacheSize,
-          memCacheHeight: cacheSize,
-          maxWidthDiskCache: cacheSize > 600 ? cacheSize : 600,
-          maxHeightDiskCache: cacheSize > 600 ? cacheSize : 600,
+          memCacheWidth: memCacheSize,
+          memCacheHeight: memCacheSize,
+          maxWidthDiskCache: diskCacheSize,
+          maxHeightDiskCache: diskCacheSize,
           fadeInDuration: Duration.zero,
           fadeOutDuration: Duration.zero,
           useOldImageOnUrlChange: true,
@@ -255,14 +270,24 @@ class AlbumArtwork extends StatelessWidget {
   Widget _buildImage(bool isDark, int cacheSize) {
     if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(isDark);
 
+    final int? memCacheSize = cacheSize > 0 ? cacheSize : null;
+    final int? diskCacheSize =
+        cacheSize > 0 ? (cacheSize > 600 ? cacheSize : 600) : null;
+    final String keySuffix = cacheSize == 0 ? 'orig' : '$cacheSize';
+    final String artId =
+        coverArt!.startsWith('http://') || coverArt!.startsWith('https://')
+            ? coverArt!.hashCode.toString()
+            : coverArt!;
+    final String cacheKey = 'cover_${artId}_$keySuffix';
+
     if (isLocalFilePath(coverArt)) {
       final artFile = File(coverArt!);
       return Image.file(
         artFile,
         key: ValueKey(coverArt),
         fit: BoxFit.cover,
-        cacheWidth: cacheSize,
-        cacheHeight: cacheSize,
+        cacheWidth: memCacheSize,
+        cacheHeight: memCacheSize,
         errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
       );
     }
@@ -275,8 +300,8 @@ class AlbumArtwork extends StatelessWidget {
           File(offlinePath),
           key: ValueKey('offline_$coverArt'),
           fit: BoxFit.cover,
-          cacheWidth: cacheSize,
-          cacheHeight: cacheSize,
+          cacheWidth: memCacheSize,
+          cacheHeight: memCacheSize,
           errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
         );
       }
@@ -292,13 +317,13 @@ class AlbumArtwork extends StatelessWidget {
         if (imageUrl.isEmpty) return _buildPlaceholder(isDark);
         return CachedNetworkImage(
           imageUrl: imageUrl,
-          cacheKey: 'cover_$coverArt',
-          key: ValueKey('cover_$coverArt'),
+          cacheKey: cacheKey,
+          key: ValueKey(cacheKey),
           fit: BoxFit.cover,
-          memCacheWidth: cacheSize,
-          memCacheHeight: cacheSize,
-          maxWidthDiskCache: cacheSize > 600 ? cacheSize : 600,
-          maxHeightDiskCache: cacheSize > 600 ? cacheSize : 600,
+          memCacheWidth: memCacheSize,
+          memCacheHeight: memCacheSize,
+          maxWidthDiskCache: diskCacheSize,
+          maxHeightDiskCache: diskCacheSize,
           fadeInDuration: Duration.zero,
           fadeOutDuration: Duration.zero,
           useOldImageOnUrlChange: true,

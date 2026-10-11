@@ -122,8 +122,9 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     _serverOfflineMode = offline;
   }
 
+  @override
   String getCoverArtUrl(String? coverArt) {
-    return _subsonicService.getCoverArtUrl(coverArt, size: 300);
+    return _subsonicService.getCoverArtUrl(coverArt, size: 600);
   }
 
   List<Album> get cachedAllAlbums {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/player_provider.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import '../../services/subsonic_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../modals/song_options_modal.dart';
+import '../common/album_artwork.dart';
 
 class QueueView extends StatelessWidget {
   const QueueView({super.key});
@@ -16,7 +15,6 @@ class QueueView extends StatelessWidget {
       builder: (context, provider, child) {
         final queue = provider.queue;
         final currentIndex = provider.currentIndex;
-        final subsonic = Provider.of<SubsonicService>(context, listen: false);
 
         if (queue.isEmpty) {
           return Center(
@@ -68,35 +66,14 @@ class QueueView extends StatelessWidget {
               final isPlaying = index == currentIndex;
               final isPast = index < currentIndex;
 
-              final coverUrl = song.coverArt != null
-                  ? subsonic.getCoverArtUrl(song.coverArt, size: 100)
-                  : null;
-
               return ListTile(
                 key: ValueKey('queue_item_${song.id}_$index'),
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: coverUrl != null
-                      ? CachedNetworkImage(
-                          imageUrl: coverUrl,
-                          width: 48,
-                          height: 48,
-                          fit: BoxFit.cover,
-                          placeholder: (context, url) =>
-                              Container(color: Colors.white10),
-                          errorWidget: (context, url, error) => const Icon(
-                              Icons.music_note,
-                              color: Colors.white54),
-                        )
-                      : Container(
-                          width: 48,
-                          height: 48,
-                          color: Colors.white10,
-                          child: const Icon(Icons.music_note,
-                              color: Colors.white54),
-                        ),
+                leading: AlbumArtwork(
+                  coverArt: song.coverArt,
+                  size: 48,
+                  borderRadius: 8,
                 ),
                 title: Text(
                   song.title,

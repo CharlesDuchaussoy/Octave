@@ -14,10 +14,10 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
-import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
 import 'package:musly/utils/context_extensions.dart';
 import 'package:musly/services/storage_service.dart';
+import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:window_manager/window_manager.dart';
 
 class SettingsDisplayTab extends StatefulWidget {
@@ -928,6 +928,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             if (val != null) {
               setState(() => _artworkResolution = val);
               _playerUiSettings.setArtworkResolution(val);
+              ImageUrlCache.clear();
             }
           },
         ),
