@@ -15,6 +15,7 @@ import 'package:musly/utils/screen_helper.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/screens/player/now_playing_screen.dart';
+import 'package:musly/widgets/modals/song_options_modal.dart';
 
 class MiniPlayer extends StatelessWidget {
   final VoidCallback? onTap;
@@ -125,6 +126,9 @@ class MiniPlayer extends StatelessWidget {
               ),
               child: GestureDetector(
                 onTap: handleTap,
+                onLongPress: currentSong != null
+                    ? () => SongOptionsModal.show(context, currentSong)
+                    : null,
                 child: Container(
                   height: 64,
                   clipBehavior: Clip.antiAlias,
@@ -161,6 +165,9 @@ class MiniPlayer extends StatelessWidget {
         return RepaintBoundary(
           child: GestureDetector(
             onTap: handleTap,
+            onLongPress: currentSong != null
+                ? () => SongOptionsModal.show(context, currentSong)
+                : null,
             child: Container(
               height: 64,
               decoration: BoxDecoration(

@@ -12,6 +12,7 @@ import 'package:musly/services/subsonic_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:musly/screens/player/now_playing_screen.dart';
 import 'package:musly/services/tv_detection_service.dart';
+import 'package:musly/widgets/modals/song_options_modal.dart';
 import 'tv_remote_scope.dart';
 
 class DesktopPlayerBar extends StatefulWidget {
@@ -296,9 +297,42 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                       tooltip: isStarred
                           ? AppLocalizations.of(context)!.removeFromFavorites
                           : AppLocalizations.of(context)!.addToFavorites,
+                      visualDensity: VisualDensity.compact,
+                      padding: const EdgeInsets.all(6),
+                      constraints: const BoxConstraints(),
                       hoverColor: Colors.white.withValues(alpha: 0.1),
                     );
                   },
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.playlist_add_rounded,
+                    size: 20,
+                    color: Color(0xFF6B7280),
+                  ),
+                  onPressed: () {
+                    SongOptionsModal.showPlaylistPicker(context, currentSong);
+                  },
+                  tooltip: AppLocalizations.of(context)!.addToPlaylist,
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.all(6),
+                  constraints: const BoxConstraints(),
+                  hoverColor: Colors.white.withValues(alpha: 0.1),
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.more_horiz,
+                    size: 18,
+                    color: Color(0xFF6B7280),
+                  ),
+                  onPressed: () {
+                    SongOptionsModal.show(context, currentSong);
+                  },
+                  tooltip: AppLocalizations.of(context)!.moreOptions,
+                  visualDensity: VisualDensity.compact,
+                  padding: const EdgeInsets.all(6),
+                  constraints: const BoxConstraints(),
+                  hoverColor: Colors.white.withValues(alpha: 0.1),
                 ),
               ],
             ),

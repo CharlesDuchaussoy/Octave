@@ -29,6 +29,204 @@ class SongOptionsModal extends StatefulWidget {
     );
   }
 
+  static Future<void> showPlaylistPicker(BuildContext context, Song song) {
+    HapticFeedback.selectionClick();
+    final libraryProvider = Provider.of<LibraryProvider>(
+      context,
+      listen: false,
+    );
+    if (libraryProvider.playlists.isEmpty) {
+      libraryProvider.loadPlaylists().catchError((_) {});
+    }
+
+    return showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (sheetContext) => Container(
+        decoration: BoxDecoration(
+          color: Theme.of(sheetContext).scaffoldBackgroundColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(sheetContext).size.height * 0.7,
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 8),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Text(
+                    AppLocalizations.of(sheetContext)!.addToPlaylist,
+                    style: Theme.of(sheetContext).textTheme.titleLarge,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Flexible(
+              child: Consumer<LibraryProvider>(
+                builder: (context, libProvider, _) {
+                  if (libProvider.playlists.isEmpty) {
+                    return Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Text(AppLocalizations.of(context)!.noPlaylists),
+                    );
+                  }
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: libProvider.playlists.length,
+                    itemBuilder: (context, index) {
+                      final playlist = libProvider.playlists[index];
+                      return ListTile(
+                        leading: const Icon(Icons.queue_music_rounded),
+                        title: Text(playlist.name),
+                        subtitle: Text(AppLocalizations.of(context)!
+                            .songsCount(playlist.songCount ?? 0)),
+                        onTap: () async {
+                          Navigator.pop(context);
+
+                          final subsonicService = Provider.of<SubsonicService>(
+                            context,
+                            listen: false,
+                          );
+                          final l10n = AppLocalizations.of(context)!;
+                          final messenger = ScaffoldMessenger.of(context);
+
+                          bool isDuplicate = false;
+                          try {
+                            final fullPlaylist =
+                                await subsonicService.getPlaylist(playlist.id);
+                            final existingSongs =
+                                fullPlaylist.songs ?? playlist.songs ?? [];
+                            isDuplicate = existingSongs.any(
+                              (s) =>
+                                  s.id == song.id ||
+                                  (s.title.trim().toLowerCase() ==
+                                          song.title.trim().toLowerCase() &&
+                                      (s.artist ?? '').trim().toLowerCase() ==
+                                          (song.artist ?? '')
+                                              .trim()
+                                              .toLowerCase()),
+                            );
+                          } catch (_) {
+                            if (playlist.songs != null) {
+                              isDuplicate =
+                                  playlist.songs!.any((s) => s.id == song.id);
+                            }
+                          }
+
+                          if (isDuplicate) {
+                            if (!context.mounted) return;
+                            final confirmed = await showDialog<bool>(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text(l10n.alreadyInPlaylist),
+                                content: Text(
+                                  l10n.alreadyInPlaylistConfirm(
+                                      song.title, playlist.name),
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(ctx, false),
+                                    child: Text(l10n.cancel),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(ctx, true),
+                                    child: Text(l10n.addAnyway),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirmed != true) return;
+                          }
+
+                          try {
+                            debugPrint(
+                              'Attempting to add song ${song.id} (${song.title}) to playlist ${playlist.id} (${playlist.name})',
+                            );
+
+                            await subsonicService.updatePlaylist(
+                              playlistId: playlist.id,
+                              songIdsToAdd: [song.id],
+                            );
+
+                            debugPrint(
+                                'Successfully added song to playlist via API');
+
+                            await libProvider.loadPlaylists();
+
+                            debugPrint('Playlists refreshed');
+
+                            messenger.showSnackBar(
+                              SnackBar(
+                                content: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.check_circle,
+                                      color: Colors.white,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: Text(
+                                        'Added "${song.title}" to ${playlist.name}',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                duration: const Duration(seconds: 2),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          } catch (e) {
+                            debugPrint('Error adding song to playlist: $e');
+                            messenger.showSnackBar(
+                              SnackBar(
+                                content: Row(
+                                  children: [
+                                    const Icon(
+                                        Icons.error, color: Colors.white),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child:
+                                          Text(l10n.errorAddingToPlaylist(e)),
+                                    ),
+                                  ],
+                                ),
+                                duration: const Duration(seconds: 3),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 16),
+          ],
+        ),
+      ),
+      ),
+    );
+  }
+
   final Song song;
 
   const SongOptionsModal({super.key, required this.song});
@@ -66,9 +264,11 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
         color: isDark ? AppTheme.darkSurface : Colors.white,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+      child: Material(
+        color: Colors.transparent,
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 8),
             Container(
@@ -199,7 +399,8 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                       title: AppLocalizations.of(context)!.addToPlaylist,
                       onTap: () {
                         Navigator.pop(context);
-                        _showPlaylistPicker(context, widget.song);
+                        SongOptionsModal.showPlaylistPicker(
+                            context, widget.song);
                       },
                     ),
                     _OptionTile(
@@ -236,6 +437,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
@@ -494,6 +696,10 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
       context,
       listen: false,
     );
+    final libraryProvider = Provider.of<LibraryProvider>(
+      context,
+      listen: false,
+    );
     final l10n = AppLocalizations.of(context)!;
     final messenger = ScaffoldMessenger.of(context);
 
@@ -514,10 +720,11 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
       } else {
         await subsonicService.star(id: widget.song.id);
         try {
-          final libraryProvider = Provider.of<LibraryProvider>(context, listen: false);
-          await OfflineService().autoDownloadIfEnabled(widget.song, subsonicService, libraryProvider);
+          await OfflineService().autoDownloadIfEnabled(
+              widget.song, subsonicService, libraryProvider);
         } catch (e) {
-          await OfflineService().autoDownloadIfEnabled(widget.song, subsonicService, null);
+          await OfflineService()
+              .autoDownloadIfEnabled(widget.song, subsonicService, null);
         }
         setState(() {
           _isStarred = true;
@@ -606,176 +813,6 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
     }
   }
 
-  void _showPlaylistPicker(BuildContext context, Song song) {
-    final libraryProvider = Provider.of<LibraryProvider>(
-      context,
-      listen: false,
-    );
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 8),
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.addToPlaylist,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            if (libraryProvider.playlists.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(32),
-                child: Text(AppLocalizations.of(context)!.noPlaylists),
-              )
-            else
-              ...libraryProvider.playlists.map(
-                (playlist) => ListTile(
-                  leading: const Icon(Icons.queue_music_rounded),
-                  title: Text(playlist.name),
-                  subtitle: Text(AppLocalizations.of(context)!
-                      .songsCount(playlist.songCount ?? 0)),
-                  onTap: () async {
-                    Navigator.pop(context);
-
-                    final subsonicService = Provider.of<SubsonicService>(
-                      context,
-                      listen: false,
-                    );
-                    final l10n = AppLocalizations.of(context)!;
-                    final messenger = ScaffoldMessenger.of(context);
-
-                    bool isDuplicate = false;
-                    try {
-                      final fullPlaylist =
-                          await subsonicService.getPlaylist(playlist.id);
-                      final existingSongs =
-                          fullPlaylist.songs ?? playlist.songs ?? [];
-                      isDuplicate = existingSongs.any(
-                        (s) =>
-                            s.id == song.id ||
-                            (s.title.trim().toLowerCase() ==
-                                    song.title.trim().toLowerCase() &&
-                                (s.artist ?? '').trim().toLowerCase() ==
-                                    (song.artist ?? '').trim().toLowerCase()),
-                      );
-                    } catch (_) {
-                      if (playlist.songs != null) {
-                        isDuplicate =
-                            playlist.songs!.any((s) => s.id == song.id);
-                      }
-                    }
-
-                    if (isDuplicate) {
-                      if (!context.mounted) return;
-                      final confirmed = await showDialog<bool>(
-                        context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: Text(l10n.alreadyInPlaylist),
-                          content: Text(
-                            l10n.alreadyInPlaylistConfirm(
-                                song.title, playlist.name),
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(ctx, false),
-                              child: Text(l10n.cancel),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.pop(ctx, true),
-                              child: Text(l10n.addAnyway),
-                            ),
-                          ],
-                        ),
-                      );
-                      if (confirmed != true) return;
-                    }
-
-                    try {
-                      debugPrint(
-                        'Attempting to add song ${song.id} (${song.title}) to playlist ${playlist.id} (${playlist.name})',
-                      );
-
-                      await subsonicService.updatePlaylist(
-                        playlistId: playlist.id,
-                        songIdsToAdd: [song.id],
-                      );
-
-                      debugPrint('Successfully added song to playlist via API');
-
-                      await libraryProvider.loadPlaylists();
-
-                      debugPrint('Playlists refreshed');
-
-                      messenger.showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              const Icon(
-                                Icons.check_circle,
-                                color: Colors.white,
-                              ),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  'Added "${song.title}" to ${playlist.name}',
-                                ),
-                              ),
-                            ],
-                          ),
-                          duration: const Duration(seconds: 2),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    } catch (e) {
-                      debugPrint('Error adding song to playlist: $e');
-                      messenger.showSnackBar(
-                        SnackBar(
-                          content: Row(
-                            children: [
-                              const Icon(Icons.error, color: Colors.white),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(l10n.errorAddingToPlaylist(e)),
-                              ),
-                            ],
-                          ),
-                          duration: const Duration(seconds: 3),
-                          backgroundColor: Colors.red,
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-            const SizedBox(height: 16),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class _OptionTile extends StatelessWidget {
