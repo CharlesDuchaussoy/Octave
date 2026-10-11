@@ -120,6 +120,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
       if (rawLyrics == null && !offlineService.isOfflineMode) {
         rawLyrics = await subsonic.getLyricsBySongId(_lastSong!.id) ??
             await subsonic.getLyrics(
+              id: _lastSong!.id,
               artist: _lastSong!.artist,
               title: _lastSong!.title,
               duration: _lastSong!.duration,
@@ -127,26 +128,31 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
       }
 
       if (rawLyrics != null) {
-        if (rawLyrics['value'] != null) {
-          final lrcText = rawLyrics['value'] as String;
-          if (mounted) {
-            setState(() {
-              _fetchedLyrics = LrcParser.parseLrc(lrcText);
-              _isLoadingLyrics = false;
-            });
-          }
-          return;
-        } else if (rawLyrics['structuredLyrics'] != null) {
-          final structured = rawLyrics['structuredLyrics'] as List?;
-          if (structured != null && structured.isNotEmpty) {
-            final lines = structured.first['line'] as List?;
-            if (lines != null) {
-              final parsedLines = lines.map((l) {
-                return LyricLine(
-                  startTime: Duration(milliseconds: l['start'] as int),
-                  text: l['value'] as String,
+        final structured = (rawLyrics['structuredLyrics'] ??
+            rawLyrics['lyricsList']?['structuredLyrics']) as List?;
+        if (structured != null && structured.isNotEmpty) {
+          final lines = structured.first['line'] as List?;
+          if (lines != null) {
+            final parsedLines = lines
+                .map((l) => LyricLine(
+                      startTime:
+                          Duration(milliseconds: l['start'] as int? ?? 0),
+                      text: l['value'] as String? ?? '',
+                    ))
+                .where((l) => l.text.trim().isNotEmpty)
+                .toList();
+            if (parsedLines.isNotEmpty) {
+              parsedLines.sort((a, b) => a.startTime.compareTo(b.startTime));
+              for (var i = 0; i < parsedLines.length - 1; i++) {
+                final current = parsedLines[i];
+                final next = parsedLines[i + 1];
+                parsedLines[i] = LyricLine(
+                  text: current.text,
+                  startTime: current.startTime,
+                  endTime: next.startTime - const Duration(milliseconds: 1),
+                  words: current.words,
                 );
-              }).toList();
+              }
               if (mounted) {
                 setState(() {
                   _fetchedLyrics = parsedLines;
@@ -156,6 +162,18 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
               return;
             }
           }
+        }
+
+        final lrcText =
+            (rawLyrics['value'] ?? rawLyrics['lyrics']?['value']) as String?;
+        if (lrcText != null && lrcText.trim().isNotEmpty) {
+          if (mounted) {
+            setState(() {
+              _fetchedLyrics = LrcParser.parseLrc(lrcText);
+              _isLoadingLyrics = false;
+            });
+          }
+          return;
         }
       }
 

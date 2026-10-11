@@ -1036,6 +1036,14 @@ class SubsonicService {
       }
       return null;
     }
+    if (id != null && id.isNotEmpty) {
+      final songLyrics = await getLyricsBySongId(id);
+      if (songLyrics != null &&
+          songLyrics['structuredLyrics'] is List &&
+          (songLyrics['structuredLyrics'] as List).isNotEmpty) {
+        return songLyrics;
+      }
+    }
     try {
       final params = <String, String>{};
       if (artist != null) params['artist'] = artist;

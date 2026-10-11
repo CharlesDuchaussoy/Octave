@@ -69,40 +69,76 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
       _lines = [];
       _plainText = null;
       _isSynced = false;
+      _activeIndex = -1;
       _lineKeys.clear();
     });
 
     try {
       final subsonic = Provider.of<SubsonicService>(context, listen: false);
-      final rawLyrics = await subsonic.getLyrics(
-        id: song.id,
-        artist: song.artist,
-        title: song.title,
-        duration: song.duration,
-      );
+      final offlineService = OfflineService();
+
+      Map<String, dynamic>? rawLyrics;
+
+      if (offlineService.isOfflineMode ||
+          song.isLocal ||
+          offlineService.isSongDownloaded(song.id)) {
+        rawLyrics = await offlineService.getLocalLyrics(song.id);
+      }
+
+      if (rawLyrics == null && !offlineService.isOfflineMode) {
+        rawLyrics = await subsonic.getLyricsBySongId(song.id) ??
+            await subsonic.getLyrics(
+              id: song.id,
+              artist: song.artist,
+              title: song.title,
+              duration: song.duration,
+            );
+      }
 
       if (!mounted || _currentSongId != song.id) return;
 
       if (rawLyrics != null) {
-        if (rawLyrics['structuredLyrics'] != null) {
-          final structured = rawLyrics['structuredLyrics'] as List?;
-          if (structured != null && structured.isNotEmpty) {
-            final first = structured.first;
-            final isSynced = first['synced'] == true;
-            final lines = first['line'] as List?;
-            if (lines != null) {
-              final parsed = lines
-                  .map((l) => LyricLine(
-                        startTime:
-                            Duration(milliseconds: l['start'] as int? ?? 0),
-                        text: l['value'] as String? ?? '',
-                      ))
-                  .where((l) => l.text.trim().isNotEmpty)
-                  .toList();
-              if (parsed.isNotEmpty) {
+        final structured = (rawLyrics['structuredLyrics'] ??
+            rawLyrics['lyricsList']?['structuredLyrics']) as List?;
+        if (structured != null && structured.isNotEmpty) {
+          final first = structured.first;
+          final isSynced = first['synced'] == true;
+          final lines = first['line'] as List?;
+          if (lines != null) {
+            final parsed = lines
+                .map((l) => LyricLine(
+                      startTime:
+                          Duration(milliseconds: l['start'] as int? ?? 0),
+                      text: l['value'] as String? ?? '',
+                    ))
+                .where((l) => l.text.trim().isNotEmpty)
+                .toList();
+            if (parsed.isNotEmpty) {
+              parsed.sort((a, b) => a.startTime.compareTo(b.startTime));
+              for (var i = 0; i < parsed.length - 1; i++) {
+                final current = parsed[i];
+                final next = parsed[i + 1];
+                parsed[i] = LyricLine(
+                  text: current.text,
+                  startTime: current.startTime,
+                  endTime: next.startTime - const Duration(milliseconds: 1),
+                  words: current.words,
+                );
+              }
+              final hasTimestamps = LrcParser.hasTimestamps(parsed);
+              if (isSynced && hasTimestamps) {
                 setState(() {
                   _lines = parsed;
-                  _isSynced = isSynced;
+                  _plainText = null;
+                  _isSynced = true;
+                  _isLoading = false;
+                });
+                return;
+              } else {
+                setState(() {
+                  _lines = [];
+                  _plainText = parsed.map((l) => l.text).join('\n');
+                  _isSynced = false;
                   _isLoading = false;
                 });
                 return;
@@ -111,18 +147,22 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
           }
         }
 
-        final lrcText = rawLyrics['value'] as String?;
+        final lrcText =
+            (rawLyrics['value'] ?? rawLyrics['lyrics']?['value']) as String?;
         if (lrcText != null && lrcText.trim().isNotEmpty) {
           final parsed = LrcParser.parseLrc(lrcText);
-          if (parsed.length > 2) {
+          final hasTimestamps = LrcParser.hasTimestamps(parsed);
+          if (hasTimestamps) {
             setState(() {
               _lines = parsed;
+              _plainText = null;
               _isSynced = true;
               _isLoading = false;
             });
             return;
           } else {
             setState(() {
+              _lines = [];
               _plainText = lrcText;
               _isSynced = false;
               _isLoading = false;
@@ -402,11 +442,13 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
           final position = snapshot.data ?? Duration.zero;
 
           int activeIndex = -1;
-          for (int i = 0; i < _lines.length; i++) {
-            if (position >= _lines[i].startTime) {
-              activeIndex = i;
-            } else {
-              break;
+          if (_lines.any((l) => l.startTime > Duration.zero)) {
+            for (int i = 0; i < _lines.length; i++) {
+              if (position >= _lines[i].startTime) {
+                activeIndex = i;
+              } else {
+                break;
+              }
             }
           }
 
@@ -477,14 +519,17 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
       );
     }
 
-    if (_plainText != null && _plainText!.trim().isNotEmpty) {
-      final lines = _plainText!.split('\n');
+    final plainLines = _plainText != null && _plainText!.trim().isNotEmpty
+        ? _plainText!.split('\n')
+        : (_lines.isNotEmpty ? _lines.map((l) => l.text).toList() : null);
+
+    if (plainLines != null && plainLines.isNotEmpty) {
       return ListView.builder(
         controller: _scrollController,
         padding: const EdgeInsets.fromLTRB(28, 40, 28, 40),
-        itemCount: lines.length,
+        itemCount: plainLines.length,
         itemBuilder: (context, index) {
-          final line = lines[index];
+          final line = plainLines[index];
           final isEmpty = line.trim().isEmpty;
           return Padding(
             padding: EdgeInsets.only(bottom: isEmpty ? 16 : 10),
