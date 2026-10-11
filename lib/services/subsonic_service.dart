@@ -675,11 +675,14 @@ class SubsonicService {
       'offset': offset.toString(),
     });
 
-    final albumsData = response['albumList2']?['album'];
+    final albumsData =
+        response['albumList2']?['album'] ?? response['albumList']?['album'];
     if (albumsData is List) {
       return albumsData
           .map((a) => Album.fromJson(a as Map<String, dynamic>))
           .toList();
+    } else if (albumsData is Map<String, dynamic>) {
+      return [Album.fromJson(albumsData)];
     }
 
     return [];
@@ -701,6 +704,8 @@ class SubsonicService {
       return songsData
           .map((s) => Song.fromJson(s as Map<String, dynamic>))
           .toList();
+    } else if (songsData is Map<String, dynamic>) {
+      return [Song.fromJson(songsData)];
     }
     return [];
   }
