@@ -559,8 +559,20 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         );
         if (cachedIndex != -1) {
           final cached = _cachedPlaylists[cachedIndex];
+          final effectiveCoverArt = (newPlaylist.coverArt != null &&
+                  newPlaylist.coverArt!.isNotEmpty)
+              ? newPlaylist.coverArt
+              : cached.coverArt;
           if (cached.songs != null && cached.songs!.isNotEmpty) {
-            mergedPlaylists.add(newPlaylist.copyWith(songs: cached.songs));
+            mergedPlaylists.add(newPlaylist.copyWith(
+              songs: cached.songs,
+              coverArt: effectiveCoverArt,
+            ));
+            continue;
+          }
+          if (effectiveCoverArt != newPlaylist.coverArt) {
+            mergedPlaylists
+                .add(newPlaylist.copyWith(coverArt: effectiveCoverArt));
             continue;
           }
         }
@@ -664,9 +676,14 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     }
 
     try {
-      final playlist = await _subsonicService.getPlaylist(playlistId);
+      var playlist = await _subsonicService.getPlaylist(playlistId);
       final index = _playlists.indexWhere((p) => p.id == playlistId);
       if (index != -1) {
+        if ((playlist.coverArt == null || playlist.coverArt!.isEmpty) &&
+            _playlists[index].coverArt != null &&
+            _playlists[index].coverArt!.isNotEmpty) {
+          playlist = playlist.copyWith(coverArt: _playlists[index].coverArt);
+        }
         _playlists[index] = playlist;
       } else {
         _playlists.add(playlist);

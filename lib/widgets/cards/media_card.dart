@@ -6,6 +6,7 @@ import 'package:musly/widgets/common/album_artwork.dart';
 
 class MediaCard extends StatefulWidget {
   final String? coverArt;
+  final Widget? artwork;
   final String title;
   final String? subtitle;
   final VoidCallback? onTap;
@@ -16,6 +17,7 @@ class MediaCard extends StatefulWidget {
   const MediaCard({
     super.key,
     this.coverArt,
+    this.artwork,
     required this.title,
     this.subtitle,
     this.onTap,
@@ -36,7 +38,10 @@ class _MediaCardState extends State<MediaCard> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
+    bool isTv = false;
+    try {
+      isTv = Provider.of<TvDetectionService>(context).isTvMode;
+    } catch (_) {}
 
     return RepaintBoundary(
       child: FocusableActionDetector(
@@ -104,11 +109,12 @@ class _MediaCardState extends State<MediaCard> {
                         ClipRRect(
                           borderRadius:
                               BorderRadius.circular(widget.isRound ? 999 : 4),
-                          child: AlbumArtwork(
-                            coverArt: widget.coverArt,
-                            size: widget.size - 24,
-                            borderRadius: widget.isRound ? 999 : 4,
-                          ),
+                          child: widget.artwork ??
+                              AlbumArtwork(
+                                coverArt: widget.coverArt,
+                                size: widget.size - 24,
+                                borderRadius: widget.isRound ? 999 : 4,
+                              ),
                         ),
                         if (_isHovered && widget.onPlayPressed != null)
                           Positioned(

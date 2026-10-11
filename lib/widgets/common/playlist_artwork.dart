@@ -34,7 +34,21 @@ class PlaylistArtwork extends StatelessWidget {
       builder: (context, _, __) {
         final playlistId = playlist?.id ?? '';
 
-        final effectiveCoverArt = coverArt ?? playlist?.coverArt;
+        var effectiveCoverArt = coverArt ?? playlist?.coverArt;
+        if ((effectiveCoverArt == null || effectiveCoverArt.isEmpty) &&
+            playlistId.isNotEmpty) {
+          try {
+            final lib = Provider.of<LibraryProvider>(context, listen: false);
+            final found = lib.playlists.firstWhere(
+              (p) => p.id == playlistId,
+              orElse: () => playlist!,
+            );
+            if (found.coverArt != null && found.coverArt!.isNotEmpty) {
+              effectiveCoverArt = found.coverArt;
+            }
+          } catch (_) {}
+        }
+
         if (effectiveCoverArt != null && effectiveCoverArt.isNotEmpty) {
           return AlbumArtwork(
             coverArt: effectiveCoverArt,

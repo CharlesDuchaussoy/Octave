@@ -42,6 +42,16 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   void initState() {
     super.initState();
+    final lib = Provider.of<LibraryProvider>(context, listen: false);
+    final existingIndex =
+        lib.playlists.indexWhere((p) => p.id == widget.playlistId);
+    if (existingIndex != -1) {
+      final existing = lib.playlists[existingIndex];
+      _playlist = existing;
+      if (existing.songs != null && existing.songs!.isNotEmpty) {
+        _isLoading = false;
+      }
+    }
     _loadPlaylist();
     OfflineService().downloadedPlaylistIds.addListener(_updateDownloadState);
     OfflineService().queuedPlaylistIds.addListener(_updateDownloadState);
@@ -87,7 +97,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         });
         _updateDownloadState();
       }
-      if (playlist.songs != null && playlist.songs!.isNotEmpty) {
+      if ((playlist.coverArt == null || playlist.coverArt!.isEmpty) &&
+          playlist.songs != null &&
+          playlist.songs!.isNotEmpty) {
         PlaylistCoverService().checkAndGenerateCover(
           playlistId: widget.playlistId,
           songs: playlist.songs!,
@@ -131,11 +143,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           songs: updatedSongs,
         );
       });
-      PlaylistCoverService().checkAndGenerateCover(
-        playlistId: widget.playlistId,
-        songs: updatedSongs,
-        subsonicService: subsonicService,
-      );
+      if ((_playlist?.coverArt == null || _playlist!.coverArt!.isEmpty) &&
+          updatedSongs.isNotEmpty) {
+        PlaylistCoverService().checkAndGenerateCover(
+          playlistId: widget.playlistId,
+          songs: updatedSongs,
+          subsonicService: subsonicService,
+        );
+      }
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -193,11 +208,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       _playlist = _playlist!.copyWith(songs: updatedSongs);
     });
 
-    PlaylistCoverService().checkAndGenerateCover(
-      playlistId: widget.playlistId,
-      songs: updatedSongs,
-      subsonicService: subsonicService,
-    );
+    if ((_playlist?.coverArt == null || _playlist!.coverArt!.isEmpty) &&
+        updatedSongs.isNotEmpty) {
+      PlaylistCoverService().checkAndGenerateCover(
+        playlistId: widget.playlistId,
+        songs: updatedSongs,
+        subsonicService: subsonicService,
+      );
+    }
 
     try {
       await subsonicService.updatePlaylist(

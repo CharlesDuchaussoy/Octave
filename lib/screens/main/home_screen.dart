@@ -364,11 +364,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: EdgeInsets.symmetric(horizontal: hPad),
                             cardSize: isDesktop ? 180 : 155,
                             children: playlists.take(12).map((playlist) {
+                              final cardSize = isDesktop ? 180.0 : 155.0;
                               return MediaCard(
                                 title: playlist.name,
                                 subtitle: 'Playlist • Musly',
                                 coverArt: playlist.coverArt,
-                                size: isDesktop ? 180 : 155,
+                                artwork: PlaylistArtwork(
+                                  playlist: playlist,
+                                  size: cardSize - 24,
+                                  borderRadius: 4,
+                                ),
+                                size: cardSize,
                                 onTap: () => _openPlaylist(context, playlist),
                               );
                             }).toList(),
