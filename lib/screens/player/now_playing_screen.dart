@@ -230,7 +230,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
+    bool isTv = false;
+    try {
+      isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
+    } catch (_) {
+      isTv = TvDetectionService().isTvMode;
+    }
     if (isTv) {
       return TvNowPlayingScreen(
         image: _currentImageProvider ?? widget.image,

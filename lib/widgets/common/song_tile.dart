@@ -48,11 +48,17 @@ class SongTile extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
+    bool isTv = false;
+    try {
+      isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
+    } catch (_) {
+      isTv = TvDetectionService().isTvMode;
+    }
 
     return Consumer<PlayerProvider>(
       builder: (context, playerProvider, child) {
-        final isPlaying = playerProvider.currentSong?.id == song.id;
+        final isCurrentSong = playerProvider.currentSong?.id == song.id;
+        final isPlaying = isCurrentSong && playerProvider.isPlaying;
 
         final actualOnTap = onTap ?? () => _playSong(context);
         final actualOnLongPress = onLongPress ?? () => _showOptions(context);
@@ -61,14 +67,18 @@ class SongTile extends StatelessWidget {
           dense: true,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-          leading: _buildLeading(context, isPlaying),
+          leading: _buildLeading(
+            context,
+            isCurrentSong: isCurrentSong,
+            isPlaying: isPlaying,
+          ),
           title: Text(
             song.title,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: isPlaying ? FontWeight.bold : FontWeight.w500,
-              color: isPlaying
+              fontWeight: isCurrentSong ? FontWeight.bold : FontWeight.w500,
+              color: isCurrentSong
                   ? theme.colorScheme.primary
                   : (isDark ? Colors.white : Colors.black87),
             ),
@@ -127,21 +137,62 @@ class SongTile extends StatelessWidget {
     );
   }
 
-  Widget? _buildLeading(BuildContext context, bool isPlaying) {
-    if (isPlaying) {
-      return SizedBox(
-        width: 44,
-        height: 44,
-        child: Center(
-          child: AnimatedEqualizer(
-            color: Theme.of(context).colorScheme.primary,
-            isPlaying: true,
-          ),
-        ),
+  Widget? _buildLeading(
+    BuildContext context, {
+    required bool isCurrentSong,
+    required bool isPlaying,
+  }) {
+    if (showArtwork) {
+      final artwork = AlbumArtwork(
+        coverArt: song.coverArt,
+        size: 44,
+        borderRadius: 6,
       );
+
+      if (isCurrentSong) {
+        return SizedBox(
+          width: 44,
+          height: 44,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              artwork,
+              Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  color: Colors.black.withValues(alpha: 0.5),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
+              Center(
+                child: AnimatedEqualizer(
+                  color: Colors.white,
+                  isPlaying: isPlaying,
+                ),
+              ),
+            ],
+          ),
+        );
+      }
+
+      return artwork;
     }
 
     if (showTrackNumber && song.track != null) {
+      if (isCurrentSong) {
+        return SizedBox(
+          width: 32,
+          height: 44,
+          child: Center(
+            child: AnimatedEqualizer(
+              color: Theme.of(context).colorScheme.primary,
+              isPlaying: isPlaying,
+            ),
+          ),
+        );
+      }
+
       return SizedBox(
         width: 32,
         height: 44,
@@ -154,11 +205,16 @@ class SongTile extends StatelessWidget {
       );
     }
 
-    if (showArtwork) {
-      return AlbumArtwork(
-        coverArt: song.coverArt,
-        size: 44,
-        borderRadius: 6,
+    if (isCurrentSong) {
+      return SizedBox(
+        width: 44,
+        height: 44,
+        child: Center(
+          child: AnimatedEqualizer(
+            color: Theme.of(context).colorScheme.primary,
+            isPlaying: isPlaying,
+          ),
+        ),
       );
     }
 
