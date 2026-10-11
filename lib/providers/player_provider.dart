@@ -875,7 +875,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _sleepTimerFadePeriodicTimer?.cancel();
     final steps = fadeDurationSeconds.clamp(5, 300);
     const stepDuration = Duration(seconds: 1);
-    final originalVolume = _volume;
+    final originalVolume = _audioPlayer.volume > 0
+        ? _audioPlayer.volume
+        : getEffectiveVolumeForSong(_currentSong);
     int step = 0;
     _sleepTimerFadePeriodicTimer = Timer.periodic(stepDuration, (t) {
       step++;
@@ -891,7 +893,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   void _doSleepTimerStop() {
     _sleepTimerFadePeriodicTimer?.cancel();
     _sleepTimerFadePeriodicTimer = null;
-    _audioPlayer.setVolume(_volume);
+    _audioPlayer.setVolume(getEffectiveVolumeForSong(_currentSong));
     pause();
     _sleepTimer = null;
     _sleepTimerEnd = null;
@@ -903,10 +905,11 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
 
   void _initializePlayer() {
     _configureAudioSession();
+    _replayGainService.initialize();
 
     _storageService.getVolume().then((savedVolume) {
       _volume = savedVolume;
-      _audioPlayer.setVolume(_volume);
+      _audioPlayer.setVolume(getEffectiveVolumeForSong(_currentSong));
       notifyListeners();
     });
 
@@ -979,6 +982,13 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
               '[Player] âŸ³ Buffering: "${_currentSong?.title ?? 'unknown'}"');
         }
 
+        if (state.processingState == ProcessingState.ready ||
+            (state.playing && !wasPlaying)) {
+          if (!_isFading) {
+            _applyReplayGain(_currentSong).catchError((_) {});
+          }
+        }
+
         if (wasPlaying != _isPlaying && !_reactivatingSession) {
           notifyListeners();
           _updateAndroidAuto();
@@ -1030,6 +1040,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
             index != _currentIndex &&
             !_isRenderingRemotely &&
             _concatenatingSource != null) {
+          if (index >= 0 && index < _queue.length) {
+            _applyReplayGain(_queue[index]).catchError((_) {});
+          }
           _onCurrentIndexChanged(index).catchError((e) {
             debugPrint('[Player] _onCurrentIndexChanged error: $e');
           });
@@ -1397,6 +1410,10 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
           final targetIndex =
               startIndex ?? playlist.indexWhere((s) => s.id == song.id);
           if (targetIndex != -1 && targetIndex != _currentIndex) {
+            _isCrossfadingOut = false;
+            if (targetIndex >= 0 && targetIndex < _queue.length) {
+              _applyReplayGain(_queue[targetIndex]).catchError((_) {});
+            }
             await _audioPlayer.seek(Duration.zero, index: targetIndex);
             return;
           } else if (targetIndex == _currentIndex && !_isPlaying) {
@@ -1559,6 +1576,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         }
         return;
       } else {
+        _isCrossfadingOut = false;
 
         final youtubeSource = song.isLocal != true
             ? await _subsonicService.getYoutubeAudioSource(song)
@@ -1567,7 +1585,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         if (youtubeSource != null) {
           _concatenatingSource = null;
           await _audioPlayer.setAudioSource(youtubeSource);
-          _applyReplayGain(song).catchError((_) {});
+          await _applyReplayGain(song);
           await _ensureAudioFocus(() => _audioPlayer.play());
         } else if (_subsonicService.isYoutube) {
           _concatenatingSource = null;
@@ -1583,7 +1601,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
             }
           }
           await _audioPlayer.setUrl(playUrl);
-          _applyReplayGain(song).catchError((_) {});
+          await _applyReplayGain(song);
           await _ensureAudioFocus(() => _audioPlayer.play());
         } else if (_gaplessEnabled) {
           try {
@@ -1601,7 +1619,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
               rethrow;
             }
           }
-          _applyReplayGain(song).catchError((_) {});
+          await _applyReplayGain(song);
           await _ensureAudioFocus(() => _audioPlayer.play());
         } else {
           final String playUrl;
@@ -1796,12 +1814,14 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       }
       await _ensureAudioFocus(() async {
         try {
+          await _applyReplayGain(_currentSong);
           await _audioPlayer.play();
           await _fadeIn();
         } catch (e) {
           debugPrint('Error playing audio: $e, attempting recovery...');
           if (_currentSong != null) {
             await _prepareCurrentSong();
+            await _applyReplayGain(_currentSong);
             await _audioPlayer.play();
             await _fadeIn();
           }
@@ -1873,15 +1893,17 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   Future<void> _fadeIn() async {
     _stopFade();
 
+    final targetVolume = getEffectiveVolumeForSong(_currentSong);
+
     if (!_fadeSettingsService.getFadeEnabled()) {
-      await _audioPlayer.setVolume(_volume);
+      await _audioPlayer.setVolume(targetVolume);
       return;
     }
 
     final fadeDurationMs = _fadeSettingsService.getFadeDurationMs();
     final steps = 20;
     final stepDurationMs = fadeDurationMs ~/ steps;
-    final volumeStep = _volume / steps;
+    final volumeStep = targetVolume / steps;
 
     _isFading = true;
     await _audioPlayer.setVolume(0.0);
@@ -1896,7 +1918,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       }
       currentStep++;
       final newVolume = volumeStep * currentStep;
-      await _audioPlayer.setVolume(newVolume.clamp(0.0, _volume));
+      await _audioPlayer.setVolume(newVolume.clamp(0.0, targetVolume));
     });
   }
 
@@ -2625,6 +2647,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   Future<void> adoptTrackAt(int newIndex) async {
     if (newIndex < 0 || newIndex >= _queue.length) return;
 
+    _isCrossfadingOut = false;
     _currentIndex = newIndex;
     _currentSong = _queue[_currentIndex];
     _lastPreloadedSongId = null;
@@ -2635,6 +2658,10 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       _duration = Duration.zero;
     }
     _resolvedArtworkUrl = null;
+
+    if (_currentSong != null) {
+      await _applyReplayGain(_currentSong);
+    }
 
     _resetScrobbleTracking(_currentSong!);
     notifyListeners();
@@ -2653,31 +2680,39 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     }
 
     await _refreshArtworkUrl();
-    if (_currentSong != null) {
-      await _applyReplayGain(_currentSong);
-    }
 
     _updateAllServices();
     _updateAndroidAuto();
   }
 
-  Future<void> _applyReplayGain(Song? song) async {
-    await _replayGainService.initialize();
-
+  double getEffectiveVolumeForSong(Song? song) {
     final replayGainMultiplier = _replayGainService.calculateVolumeMultiplier(
       trackGain: song?.replayGainTrackGain,
       albumGain: song?.replayGainAlbumGain,
       trackPeak: song?.replayGainTrackPeak,
       albumPeak: song?.replayGainAlbumPeak,
     );
+    return (_volume * replayGainMultiplier).clamp(0.0, 1.0);
+  }
+
+  Future<void> _applyReplayGain(Song? song) async {
+    if (_isRenderingRemotely ||
+        _castService.isConnected ||
+        _upnpService.isConnected) {
+      return;
+    }
+
+    await _replayGainService.initialize();
 
     // initialize() above is awaited, so two rapid transitions can reach this
     // line out of order and leave an outgoing track's gain as the last write.
     // The gain belongs to [song]; if something else is playing by now, the
     // transition that overtook us has already applied its own.
-    if (song != null && _currentSong?.id != song.id) return;
+    if (song != null && _currentSong != null && _currentSong?.id != song.id) {
+      return;
+    }
 
-    final effectiveVolume = _volume * replayGainMultiplier;
+    final effectiveVolume = getEffectiveVolumeForSong(song ?? _currentSong);
     await _audioPlayer.setVolume(effectiveVolume);
   }
 
@@ -2718,6 +2753,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     Timer.periodic(Duration(milliseconds: stepDurationMs), (timer) {
       if (!_isCrossfadingOut || !_isPlaying || step >= steps) {
         timer.cancel();
+        _isCrossfadingOut = false;
         return;
       }
       step++;

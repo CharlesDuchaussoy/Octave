@@ -58,6 +58,20 @@ class Song {
   });
 
   factory Song.fromJson(Map<String, dynamic> json) {
+    double? parseGain(dynamic val) {
+      if (val == null) return null;
+      if (val is num) return val.toDouble();
+      if (val is String) {
+        final cleaned = val
+            .replaceAll('dB', '')
+            .replaceAll('db', '')
+            .replaceAll('%', '')
+            .trim();
+        return double.tryParse(cleaned);
+      }
+      return null;
+    }
+
     final replayGain = json['replayGain'] as Map<String, dynamic>?;
 
     return Song(
@@ -80,10 +94,22 @@ class Song {
       starred: json['starred'] != null,
       userRating: json['userRating'] as int?,
       isLocal: json['isLocal'] as bool? ?? false,
-      replayGainTrackGain: (replayGain?['trackGain'] as num?)?.toDouble(),
-      replayGainAlbumGain: (replayGain?['albumGain'] as num?)?.toDouble(),
-      replayGainTrackPeak: (replayGain?['trackPeak'] as num?)?.toDouble(),
-      replayGainAlbumPeak: (replayGain?['albumPeak'] as num?)?.toDouble(),
+      replayGainTrackGain: parseGain(replayGain?['trackGain'] ??
+          json['replayGainTrackGain'] ??
+          json['trackGain'] ??
+          json['rgTrackGain']),
+      replayGainAlbumGain: parseGain(replayGain?['albumGain'] ??
+          json['replayGainAlbumGain'] ??
+          json['albumGain'] ??
+          json['rgAlbumGain']),
+      replayGainTrackPeak: parseGain(replayGain?['trackPeak'] ??
+          json['replayGainTrackPeak'] ??
+          json['trackPeak'] ??
+          json['rgTrackPeak']),
+      replayGainAlbumPeak: parseGain(replayGain?['albumPeak'] ??
+          json['replayGainAlbumPeak'] ??
+          json['albumPeak'] ??
+          json['rgAlbumPeak']),
       artistParticipants: ArtistRef.parseList(json['artists']),
       created: json['created'] != null
           ? DateTime.tryParse(json['created'].toString())

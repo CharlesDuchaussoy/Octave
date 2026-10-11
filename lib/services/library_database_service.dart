@@ -500,10 +500,10 @@ class LibraryDatabaseService {
       size: m['size'] as int?,
       path: m['path'] as String?,
       isLocal: (m['isLocal'] as int?) == 1,
-      replayGainTrackGain: m['replayGainTrackGain'] as double?,
-      replayGainAlbumGain: m['replayGainAlbumGain'] as double?,
-      replayGainTrackPeak: m['replayGainTrackPeak'] as double?,
-      replayGainAlbumPeak: m['replayGainAlbumPeak'] as double?,
+      replayGainTrackGain: (m['replayGainTrackGain'] as num?)?.toDouble(),
+      replayGainAlbumGain: (m['replayGainAlbumGain'] as num?)?.toDouble(),
+      replayGainTrackPeak: (m['replayGainTrackPeak'] as num?)?.toDouble(),
+      replayGainAlbumPeak: (m['replayGainAlbumPeak'] as num?)?.toDouble(),
       artistParticipants: participantsJson != null
           ? ArtistRef.parseList(jsonDecode(participantsJson))
           : null,

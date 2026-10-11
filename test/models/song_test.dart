@@ -71,15 +71,40 @@ void main() {
       expect(json['track'], 5);
     });
 
-    test('should format duration correctly', () {
-      final song1 = Song(id: '1', title: 'Song 1', duration: 180);
-      expect(song1.formattedDuration, '3:00');
+    test('should parse replayGain values from nested map with numbers or strings', () {
+      final json = {
+        'id': '123',
+        'title': 'Test Song',
+        'replayGain': {
+          'trackGain': -7.2,
+          'albumGain': '-6.5 dB',
+          'trackPeak': '0.985000',
+          'albumPeak': 1.0,
+        },
+      };
 
-      final song2 = Song(id: '2', title: 'Song 2', duration: 65);
-      expect(song2.formattedDuration, '1:05');
+      final song = Song.fromJson(json);
 
-      final song3 = Song(id: '3', title: 'Song 3', duration: null);
-      expect(song3.formattedDuration, '0:00');
+      expect(song.replayGainTrackGain, -7.2);
+      expect(song.replayGainAlbumGain, -6.5);
+      expect(song.replayGainTrackPeak, 0.985);
+      expect(song.replayGainAlbumPeak, 1.0);
+    });
+
+    test('should parse replayGain values from flat fallback keys', () {
+      final json = {
+        'id': '123',
+        'title': 'Test Song',
+        'replayGainTrackGain': '-8.1 dB',
+        'albumGain': -5.4,
+        'rgTrackPeak': 0.95,
+      };
+
+      final song = Song.fromJson(json);
+
+      expect(song.replayGainTrackGain, -8.1);
+      expect(song.replayGainAlbumGain, -5.4);
+      expect(song.replayGainTrackPeak, 0.95);
     });
   });
 }
