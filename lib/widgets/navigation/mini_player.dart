@@ -26,7 +26,7 @@ class MiniPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDesktop =
         !kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS);
-    if (isDesktop) return const SizedBox.shrink();
+    if (isDesktop && ScreenHelper.isDesktop(context)) return const SizedBox.shrink();
 
     return Selector<PlayerProvider, (Song?, RadioStation?, bool)>(
       selector: (_, p) =>
@@ -217,15 +217,12 @@ class _MiniPlayerProgressBar extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final primary = theme.colorScheme.primary;
 
-    return Selector<PlayerProvider, (double, bool)>(
-      selector: (_, p) => (p.progress, p.isPlayingRadio),
+    return Selector<PlayerProvider, (Duration, int?, bool)>(
+      selector: (_, p) =>
+          (p.duration, p.currentSong?.duration, p.isPlayingRadio),
       builder: (context, data, _) {
-        final (progress, isRadio) = data;
+        final (duration, songDurationSec, isRadio) = data;
         if (isRadio) return const SizedBox.shrink();
-
-        final cleanProgress = progress.isNaN || progress.isInfinite
-            ? 0.0
-            : progress.clamp(0.0, 1.0);
 
         final trackColor = isDark
             ? (isGlass
@@ -235,32 +232,54 @@ class _MiniPlayerProgressBar extends StatelessWidget {
                 ? Colors.black.withValues(alpha: 0.06)
                 : Colors.black.withValues(alpha: 0.08));
 
-        return ClipRRect(
-          borderRadius:
-              BorderRadius.vertical(bottom: Radius.circular(borderRadius)),
-          child: Container(
-            height: 2.5,
-            width: double.infinity,
-            color: trackColor,
-            alignment: Alignment.centerLeft,
-            child: FractionallySizedBox(
-              widthFactor: cleanProgress,
+        final totalMs = duration.inMilliseconds > 0
+            ? duration.inMilliseconds
+            : (songDurationSec != null && songDurationSec > 0
+                ? songDurationSec * 1000
+                : 0);
+
+        final playerProvider = context.read<PlayerProvider>();
+
+        return StreamBuilder<Duration>(
+          stream: playerProvider.positionStream,
+          initialData: playerProvider.position,
+          builder: (context, snapshot) {
+            final position = snapshot.data ?? playerProvider.position;
+            final progress = totalMs > 0
+                ? (position.inMilliseconds / totalMs).clamp(0.0, 1.0)
+                : 0.0;
+            final cleanProgress = progress.isNaN || progress.isInfinite
+                ? 0.0
+                : progress.clamp(0.0, 1.0);
+
+            return ClipRRect(
+              borderRadius:
+                  BorderRadius.vertical(bottom: Radius.circular(borderRadius)),
               child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      primary,
-                      primary.withValues(alpha: 0.85),
-                    ],
+                height: 2.5,
+                width: double.infinity,
+                color: trackColor,
+                alignment: Alignment.centerLeft,
+                child: FractionallySizedBox(
+                  widthFactor: cleanProgress,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          primary,
+                          primary.withValues(alpha: 0.85),
+                        ],
+                      ),
+                      borderRadius: cleanProgress >= 0.98
+                          ? BorderRadius.vertical(
+                              bottom: Radius.circular(borderRadius))
+                          : BorderRadius.zero,
+                    ),
                   ),
-                  borderRadius: cleanProgress >= 0.98
-                      ? BorderRadius.vertical(
-                          bottom: Radius.circular(borderRadius))
-                      : BorderRadius.zero,
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

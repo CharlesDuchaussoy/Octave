@@ -409,12 +409,9 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                       onTap: () {
                         Navigator.pop(context);
                         if (widget.song.albumId != null) {
-                          Navigator.push(
+                          NavigationHelper.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  AlbumScreen(albumId: widget.song.albumId!),
-                            ),
+                            AlbumScreen(albumId: widget.song.albumId!),
                           );
                         }
                       },

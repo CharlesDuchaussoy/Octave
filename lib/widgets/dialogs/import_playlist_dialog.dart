@@ -7,6 +7,7 @@ import '../../models/models.dart';
 import '../../providers/providers.dart';
 import '../../services/playlist_import_service.dart';
 import '../../screens/detail/playlist_screen.dart';
+import '../../utils/navigation_helper.dart';
 
 class ImportPlaylistDialog extends StatefulWidget {
   const ImportPlaylistDialog({super.key});
@@ -149,12 +150,11 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
     if (_importedPlaylist != null && mounted) {
       final p = _importedPlaylist!;
       Navigator.of(context).pop(p);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => PlaylistScreen(
-            playlistId: p.id,
-            playlistName: p.name,
-          ),
+      NavigationHelper.push(
+        context,
+        PlaylistScreen(
+          playlistId: p.id,
+          playlistName: p.name,
         ),
       );
     } else {

@@ -7,6 +7,7 @@ import '../../theme/app_theme.dart';
 import '../../utils/screen_helper.dart';
 import '../../widgets/widgets.dart';
 import '../detail/album_screen.dart';
+import '../../utils/navigation_helper.dart';
 
 enum AlbumCollectionType {
   recent,
@@ -322,11 +323,9 @@ class _AlbumCollectionScreenState extends State<AlbumCollectionScreen> {
               album: album,
               size: double.infinity,
               onTap: () {
-                Navigator.push(
+                NavigationHelper.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => AlbumScreen(albumId: album.id),
-                  ),
+                  AlbumScreen(albumId: album.id),
                 );
               },
             );

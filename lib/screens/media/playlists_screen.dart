@@ -8,6 +8,7 @@ import 'package:musly/theme/app_theme.dart';
 import 'package:musly/widgets/widgets.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/screens/detail/playlist_screen.dart';
+import 'package:musly/utils/navigation_helper.dart';
 
 class PlaylistsScreen extends StatelessWidget {
   const PlaylistsScreen({super.key});
@@ -98,13 +99,11 @@ class PlaylistsScreen extends StatelessWidget {
   }
 
   void _openPlaylist(BuildContext context, Playlist playlist) {
-    Navigator.push(
+    NavigationHelper.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => PlaylistScreen(
-          playlistId: playlist.id,
-          playlistName: playlist.name,
-        ),
+      PlaylistScreen(
+        playlistId: playlist.id,
+        playlistName: playlist.name,
       ),
     );
   }

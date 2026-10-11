@@ -6,6 +6,7 @@ import 'package:musly/models/models.dart';
 import 'package:musly/providers/providers.dart';
 import 'package:musly/widgets/widgets.dart';
 import 'album_screen.dart';
+import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/services/offline_service.dart';
 
 class ArtistScreen extends StatefulWidget {
@@ -56,7 +57,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
         final artistFuture = subsonicService.getArtist(widget.artistId).catchError((e) {
           debugPrint('[ArtistScreen] getArtist failed: $e – trying fallbacks');
           throw e;
-        }).then((val) => val).catchError((_) => null);
+        }).then<Artist?>((val) => val).catchError((_) => null);
 
         final infoFuture = subsonicService.getArtistInfo(widget.artistId).catchError((_) => null);
         final topSongsFuture = subsonicService.getArtistTopSongs(widget.artistId).catchError((_) => <Song>[]);
@@ -398,11 +399,9 @@ class _ArtistScreenState extends State<ArtistScreen> {
                                 return AlbumCard(
                                   album: album,
                                   size: double.infinity,
-                                  onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          AlbumScreen(albumId: album.id),
-                                    ),
+                                  onTap: () => NavigationHelper.push(
+                                    context,
+                                    AlbumScreen(albumId: album.id),
                                   ),
                                 );
                               },
@@ -431,11 +430,9 @@ class _ArtistScreenState extends State<ArtistScreen> {
                                 return AlbumCard(
                                   album: album,
                                   size: double.infinity,
-                                  onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          AlbumScreen(albumId: album.id),
-                                    ),
+                                  onTap: () => NavigationHelper.push(
+                                    context,
+                                    AlbumScreen(albumId: album.id),
                                   ),
                                 );
                               },
@@ -464,11 +461,9 @@ class _ArtistScreenState extends State<ArtistScreen> {
                                 return AlbumCard(
                                   album: album,
                                   size: double.infinity,
-                                  onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) =>
-                                          AlbumScreen(albumId: album.id),
-                                    ),
+                                  onTap: () => NavigationHelper.push(
+                                    context,
+                                    AlbumScreen(albumId: album.id),
                                   ),
                                 );
                               },

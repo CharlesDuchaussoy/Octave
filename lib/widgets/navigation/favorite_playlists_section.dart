@@ -9,6 +9,7 @@ import 'package:musly/services/offline_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
+import 'package:musly/utils/navigation_helper.dart';
 
 class FavoritePlaylistsSection extends StatelessWidget {
   const FavoritePlaylistsSection({super.key});
@@ -82,13 +83,11 @@ class FavoritePlaylistsSection extends StatelessWidget {
                       return _PlaylistCard(
                         playlist: playlist,
                         onTap: () {
-                          Navigator.push(
+                          NavigationHelper.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (_) => PlaylistScreen(
-                                playlistId: playlist.id,
-                                playlistName: playlist.name,
-                              ),
+                            PlaylistScreen(
+                              playlistId: playlist.id,
+                              playlistName: playlist.name,
                             ),
                           );
                         },

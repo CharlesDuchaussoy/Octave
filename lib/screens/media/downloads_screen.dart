@@ -6,6 +6,7 @@ import '../../services/offline_service.dart';
 import '../../widgets/widgets.dart';
 import '../../l10n/app_localizations.dart';
 import '../detail/album_screen.dart';
+import '../../utils/navigation_helper.dart';
 
 class DownloadsScreen extends StatefulWidget {
   const DownloadsScreen({super.key});
@@ -153,11 +154,9 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
             return AlbumCard(
               album: album,
               size: double.infinity,
-              onTap: () => Navigator.push(
+              onTap: () => NavigationHelper.push(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => AlbumScreen(albumId: album.id),
-                ),
+                AlbumScreen(albumId: album.id),
               ),
             );
           },
