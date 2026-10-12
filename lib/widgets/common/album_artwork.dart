@@ -160,6 +160,12 @@ class AlbumArtwork extends StatelessWidget {
       cacheSize = baseSize > 600 ? baseSize.clamp(600, 1000) : 600; // normal (at least 600px)
     }
 
+    // For small thumbnails (e.g. lists, mini player), decode in memory at device resolution
+    // rather than decoding a full 600px+ raster, saving ~90% RAM during long list scrolling.
+    final int? memCacheSize = cacheSize == 0
+        ? null
+        : (validSize <= 80 ? baseSize.clamp(64, 200) : cacheSize);
+
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final resolvedShadow = _resolvedShadow(
       context,
@@ -178,7 +184,7 @@ class AlbumArtwork extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(resolvedRadius),
-          child: _buildImageNatural(isDark, cacheSize),
+          child: _buildImageNatural(isDark, cacheSize, memCacheSize),
         ),
       );
     }
@@ -193,15 +199,14 @@ class AlbumArtwork extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(resolvedRadius),
-        child: _buildImage(isDark, cacheSize),
+        child: _buildImage(isDark, cacheSize, memCacheSize),
       ),
     );
   }
 
-  Widget _buildImageNatural(bool isDark, int cacheSize) {
+  Widget _buildImageNatural(bool isDark, int cacheSize, int? memCacheSize) {
     if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(isDark);
 
-    final int? memCacheSize = cacheSize > 0 ? cacheSize : null;
     final int? diskCacheSize =
         cacheSize > 0 ? (cacheSize > 600 ? cacheSize : 600) : null;
     final String keySuffix = cacheSize == 0 ? 'orig' : '$cacheSize';
@@ -267,10 +272,9 @@ class AlbumArtwork extends StatelessWidget {
     );
   }
 
-  Widget _buildImage(bool isDark, int cacheSize) {
+  Widget _buildImage(bool isDark, int cacheSize, int? memCacheSize) {
     if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(isDark);
 
-    final int? memCacheSize = cacheSize > 0 ? cacheSize : null;
     final int? diskCacheSize =
         cacheSize > 0 ? (cacheSize > 600 ? cacheSize : 600) : null;
     final String keySuffix = cacheSize == 0 ? 'orig' : '$cacheSize';

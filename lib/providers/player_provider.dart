@@ -2870,6 +2870,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     }
 
     _audioPlayer.stop().catchError((_) {});
+    _audioPlayer.dispose().catchError((_) {});
 
     _audioHandler.customAction('dispose').catchError((e) {
       debugPrint('Error disposing audio handler: $e');

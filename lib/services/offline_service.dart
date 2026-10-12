@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'wakelock_service.dart';
@@ -158,7 +159,7 @@ class OfflineService {
     if (await offDir.exists()) {
       await for (final entity in offDir.list()) {
         if (entity is File && entity.path.endsWith('.mp3')) {
-          final songId = entity.path.split('/').last.replaceAll('.mp3', '');
+          final songId = p.basenameWithoutExtension(entity.path);
           if (_isFileValid(songId, entity)) diskIds.add(songId);
         }
       }

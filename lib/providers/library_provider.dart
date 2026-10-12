@@ -125,57 +125,76 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     _serverOfflineMode = offline;
   }
 
+  List<Album>? _mergedAlbumsCache;
+  List<Song>? _mergedSongsCache;
+  List<Artist>? _mergedArtistsCache;
+
+  void _invalidateMergedCache() {
+    _mergedAlbumsCache = null;
+    _mergedSongsCache = null;
+    _mergedArtistsCache = null;
+  }
+
+  @override
+  void notifyListeners() {
+    _invalidateMergedCache();
+    super.notifyListeners();
+  }
+
   @override
   String getCoverArtUrl(String? coverArt) {
     return _subsonicService.getCoverArtUrl(coverArt, size: 600);
   }
 
+  @override
   List<Album> get cachedAllAlbums {
     if (!_mergeLocalLibrary ||
         _localMusicService == null ||
         _localMusicService!.isEmpty) {
       return _cachedAllAlbums;
     }
+    if (_mergedAlbumsCache != null) return _mergedAlbumsCache!;
     final localAlbums = _localMusicService!.albums;
-    final merged = [..._cachedAllAlbums];
-    for (final localAlbum in localAlbums) {
-      if (!merged.any((album) => album.id == localAlbum.id)) {
-        merged.add(localAlbum);
-      }
-    }
-    return merged;
+    final serverIds = _cachedAllAlbums.map((album) => album.id).toSet();
+    _mergedAlbumsCache = [
+      ..._cachedAllAlbums,
+      ...localAlbums.where((album) => !serverIds.contains(album.id)),
+    ];
+    return _mergedAlbumsCache!;
   }
 
+  @override
   List<Song> get cachedAllSongs {
     if (!_mergeLocalLibrary ||
         _localMusicService == null ||
         _localMusicService!.isEmpty) {
       return _cachedAllSongs;
     }
+    if (_mergedSongsCache != null) return _mergedSongsCache!;
     final localSongs = _localMusicService!.songs;
-    final merged = [..._cachedAllSongs];
-    for (final localSong in localSongs) {
-      if (!merged.any((song) => song.id == localSong.id)) {
-        merged.add(localSong);
-      }
-    }
-    return merged;
+    final serverIds = _cachedAllSongs.map((song) => song.id).toSet();
+    _mergedSongsCache = [
+      ..._cachedAllSongs,
+      ...localSongs.where((song) => !serverIds.contains(song.id)),
+    ];
+    return _mergedSongsCache!;
   }
 
+  @override
   List<Artist> get artists {
     if (!_mergeLocalLibrary ||
         _localMusicService == null ||
         _localMusicService!.isEmpty) {
       return _artists;
     }
+    if (_mergedArtistsCache != null) return _mergedArtistsCache!;
     final localArtists = _localMusicService!.artists;
-    final merged = [..._artists];
-    for (final localArtist in localArtists) {
-      if (!merged.any((artist) => artist.id == localArtist.id)) {
-        merged.add(localArtist);
-      }
-    }
-    return merged;
+    final serverIds = _artists.map((artist) => artist.id).toSet();
+    _mergedArtistsCache = [
+      ..._artists,
+      ...localArtists.where((artist) => !serverIds.contains(artist.id)),
+    ];
+    return _mergedArtistsCache!;
   }
 
   Future<void> initialize() async {
