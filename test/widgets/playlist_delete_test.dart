@@ -12,6 +12,14 @@ import '../test_helpers.dart';
 import '../bootstrap.dart';
 
 class FakePlaylistSubsonicService extends SubsonicService {
+  String? deletedPlaylistId;
+  final bool _isYoutube;
+
+  FakePlaylistSubsonicService({bool isYoutube = false}) : _isYoutube = isYoutube;
+
+  @override
+  bool get isYoutube => _isYoutube;
+
   @override
   Future<Playlist> getPlaylist(String id) async {
     return Playlist(
@@ -22,20 +30,36 @@ class FakePlaylistSubsonicService extends SubsonicService {
       ],
     );
   }
+
+  @override
+  Future<void> deletePlaylist(String id) async {
+    deletedPlaylistId = id;
+  }
 }
 
 class TestPlaylistLibraryProvider extends LibraryProvider {
   final List<Playlist> _testPlaylists;
+  String? lastDeletedId;
 
   TestPlaylistLibraryProvider({
     required SubsonicService subsonicService,
     required MuslyAudioHandler audioHandler,
     required List<Playlist> testPlaylists,
-  })  : _testPlaylists = testPlaylists,
+  })  : _testPlaylists = List.from(testPlaylists),
         super(subsonicService, audioHandler);
 
   @override
   List<Playlist> get playlists => _testPlaylists;
+
+  @override
+  Future<void> deletePlaylist(String playlistId) async {
+    lastDeletedId = playlistId;
+    _testPlaylists.removeWhere((p) => p.id == playlistId);
+    notifyListeners();
+    try {
+      await subsonicService.deletePlaylist(playlistId);
+    } catch (_) {}
+  }
 }
 
 void main() {
@@ -109,5 +133,57 @@ void main() {
 
       expect(find.byIcon(CupertinoIcons.trash), findsOneWidget);
     });
+
+    testWidgets('Deleting playlist removes it from LibraryProvider and calls subsonicService on Web Stream', (
+      WidgetTester tester,
+    ) async {
+      final fakeSubsonic = FakePlaylistSubsonicService();
+      final testPlaylist = Playlist(
+        id: 'yt-playlist-123',
+        name: 'My Web Stream Playlist',
+        songCount: 2,
+      );
+
+      final testLibraryProvider = TestPlaylistLibraryProvider(
+        subsonicService: fakeSubsonic,
+        audioHandler: MuslyAudioHandler(),
+        testPlaylists: [testPlaylist],
+      );
+
+      await tester.pumpWidget(
+        createTestApp(
+          subsonicService: fakeSubsonic,
+          libraryProvider: testLibraryProvider,
+          child: Builder(
+            builder: (context) => ElevatedButton(
+              onPressed: () async {
+                await PlaylistOptionsModal.confirmAndDelete(context, testPlaylist);
+              },
+              child: const Text('Delete'),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Delete'));
+      await tester.pumpAndSettle();
+
+      // Tap confirm button in AlertDialog
+      final deleteConfirmButton = find.widgetWithText(TextButton, 'Elimina');
+      final fallbackDeleteButton = find.widgetWithText(TextButton, 'Delete');
+      if (deleteConfirmButton.evaluate().isNotEmpty) {
+        await tester.tap(deleteConfirmButton);
+      } else {
+        await tester.tap(fallbackDeleteButton);
+      }
+      await tester.pumpAndSettle();
+
+      // Verify the playlist is removed from provider and subsonicService was called
+      expect(testLibraryProvider.playlists.any((p) => p.id == 'yt-playlist-123'), isFalse);
+      expect(testLibraryProvider.lastDeletedId, equals('yt-playlist-123'));
+      expect(fakeSubsonic.deletedPlaylistId, equals('yt-playlist-123'));
+    });
   });
 }
+

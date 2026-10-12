@@ -827,6 +827,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     _audioHandler
         .notifyAutoChildrenChanged([MuslyAudioHandler.mediaIdPlaylists]);
     try {
+      await _db.deletePlaylist(playlistId);
       await _subsonicService.deletePlaylist(playlistId);
     } finally {
       await loadPlaylists();

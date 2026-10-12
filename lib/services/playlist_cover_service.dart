@@ -62,6 +62,26 @@ class PlaylistCoverService {
     }
   }
 
+  Future<void> deleteCover(String playlistId) async {
+    _coverPaths.remove(playlistId);
+    if (_coverDir != null && _coverDir!.existsSync()) {
+      try {
+        final matches = _coverDir!
+            .listSync()
+            .whereType<File>()
+            .where((f) =>
+                f.path.contains('playlist_mosaic_${playlistId}_') &&
+                f.path.endsWith('.png'));
+        for (final file in matches) {
+          try {
+            await file.delete();
+          } catch (_) {}
+        }
+      } catch (_) {}
+    }
+    coverUpdates.value++;
+  }
+
   String? getCoverPath(String playlistId) {
     final path = _coverPaths[playlistId];
     if (path != null && File(path).existsSync()) {

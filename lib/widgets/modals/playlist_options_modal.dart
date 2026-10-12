@@ -9,6 +9,7 @@ import '../../providers/library_provider.dart';
 import '../../providers/player_provider.dart';
 import '../../services/favorite_playlists_service.dart';
 import '../../services/offline_service.dart';
+import '../../services/playlist_cover_service.dart';
 import '../../services/subsonic_service.dart';
 import '../../theme/app_theme.dart';
 import '../common/playlist_artwork.dart';
@@ -74,6 +75,7 @@ class PlaylistOptionsModal extends StatelessWidget {
       await OfflineService().deletePlaylistDownloads(songs);
     }
     await FavoritePlaylistsService().removeFavorite(playlist.id);
+    await PlaylistCoverService().deleteCover(playlist.id);
 
     messenger.showSnackBar(
       SnackBar(

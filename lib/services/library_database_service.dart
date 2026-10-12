@@ -311,9 +311,14 @@ class LibraryDatabaseService {
     return playlist;
   }
 
-  Future<void> deletePlaylist(String playlistId) async {
+  Future<int> deletePlaylist(String playlistId) async {
     final db = await database;
-    await db.delete('playlists', where: 'id = ?', whereArgs: [playlistId]);
+    final trimmedId = playlistId.trim();
+    return await db.delete(
+      'playlists',
+      where: 'id = ? OR id = ?',
+      whereArgs: [playlistId, trimmedId],
+    );
   }
 
   Future<void> setSongStarred(String songId, bool starred) async {
