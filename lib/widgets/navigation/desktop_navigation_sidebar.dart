@@ -11,10 +11,10 @@ import 'package:musly/screens/media/playlists_screen.dart';
 import 'package:musly/screens/media/radio_screen.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
+import 'package:musly/widgets/modals/playlist_options_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
 import 'tv_remote_scope.dart';
-import '../../services/tv_detection_service.dart';
 
 class DesktopNavigationSidebar extends StatefulWidget {
   final int selectedIndex;
@@ -584,6 +584,10 @@ class _PlaylistTileState extends State<_PlaylistTile> {
           waitDuration: const Duration(milliseconds: 400),
           child: InkWell(
             onTap: widget.onTap,
+            onLongPress: () =>
+                PlaylistOptionsModal.show(context, widget.playlist),
+            onSecondaryTap: () =>
+                PlaylistOptionsModal.show(context, widget.playlist),
             borderRadius: BorderRadius.circular(4),
             hoverColor: Colors.white.withValues(alpha: 0.08),
             child: PlaylistArtwork(
@@ -602,6 +606,10 @@ class _PlaylistTileState extends State<_PlaylistTile> {
       child: InkWell(
         key: ValueKey(widget.playlist.id),
         onTap: widget.onTap,
+        onLongPress: () =>
+            PlaylistOptionsModal.show(context, widget.playlist),
+        onSecondaryTap: () =>
+            PlaylistOptionsModal.show(context, widget.playlist),
         borderRadius: BorderRadius.circular(6),
         hoverColor: Colors.white.withValues(alpha: 0.05),
         splashColor: Colors.transparent,
@@ -646,6 +654,18 @@ class _PlaylistTileState extends State<_PlaylistTile> {
                   ],
                 ),
               ),
+              if (_isHovered)
+                IconButton(
+                  icon: const Icon(Icons.more_vert, size: 16),
+                  color: const Color(0xFF9CA3AF),
+                  padding: EdgeInsets.zero,
+                  constraints:
+                      const BoxConstraints(minWidth: 24, minHeight: 24),
+                  tooltip: AppLocalizations.of(context)?.moreOptions ??
+                      'Options',
+                  onPressed: () =>
+                      PlaylistOptionsModal.show(context, widget.playlist),
+                ),
             ],
           ),
         ),

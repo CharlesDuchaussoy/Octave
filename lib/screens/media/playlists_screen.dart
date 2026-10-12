@@ -91,6 +91,7 @@ class PlaylistsScreen extends StatelessWidget {
                 return _PlaylistTile(
                   playlist: playlist,
                   onTap: () => _openPlaylist(context, playlist),
+                  onOptions: () => _showPlaylistOptions(context, playlist),
                   onLongPress: () => _showPlaylistOptions(context, playlist),
                 );
               },
@@ -148,59 +149,22 @@ class PlaylistsScreen extends StatelessWidget {
   }
 
   void _showPlaylistOptions(BuildContext context, Playlist playlist) {
-    final libraryProvider = Provider.of<LibraryProvider>(
-      context,
-      listen: false,
-    );
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final l10n = AppLocalizations.of(context)!;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (context) => Container(
-        decoration: BoxDecoration(
-          color: isDark ? AppTheme.darkSurface : Colors.white,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 8),
-              Container(
-                width: 36,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: isDark ? AppTheme.darkDivider : AppTheme.lightDivider,
-                  borderRadius: BorderRadius.circular(2.5),
-                ),
-              ),
-              const SizedBox(height: 16),
-              ListTile(
-                leading: const Icon(CupertinoIcons.trash, color: Colors.red),
-                title: Text(l10n.deletePlaylist),
-                onTap: () async {
-                  Navigator.pop(context);
-                  await OfflineService().cancelPlaylistDownload(playlist.id);
-                  await libraryProvider.deletePlaylist(playlist.id);
-                },
-              ),
-              const SizedBox(height: 16),
-            ],
-          ),
-        ),
-      ),
-    );
+    PlaylistOptionsModal.show(context, playlist);
   }
 }
 
 class _PlaylistTile extends StatelessWidget {
   final Playlist playlist;
   final VoidCallback? onTap;
+  final VoidCallback? onOptions;
   final VoidCallback? onLongPress;
 
-  const _PlaylistTile({required this.playlist, this.onTap, this.onLongPress});
+  const _PlaylistTile({
+    required this.playlist,
+    this.onTap,
+    this.onOptions,
+    this.onLongPress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -223,31 +187,44 @@ class _PlaylistTile extends StatelessWidget {
         '${playlist.songCount ?? 0} songs',
         style: theme.textTheme.bodySmall,
       ),
-      trailing: ValueListenableBuilder<Set<String>>(
-        valueListenable: OfflineService().downloadedPlaylistIds,
-        builder: (context, downloaded, _) {
-          return ValueListenableBuilder<Set<String>>(
-            valueListenable: OfflineService().queuedPlaylistIds,
-            builder: (context, queued, _) {
-              if (downloaded.contains(playlist.id)) {
-                return const Icon(Icons.check_circle,
-                    size: 20, color: Colors.green);
-              }
-              if (queued.contains(playlist.id)) {
-                return const Icon(Icons.check_circle_outline,
-                    size: 20, color: Colors.green);
-              }
-              return const Icon(
-                CupertinoIcons.chevron_right,
-                size: 18,
-                color: AppTheme.lightSecondaryText,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ValueListenableBuilder<Set<String>>(
+            valueListenable: OfflineService().downloadedPlaylistIds,
+            builder: (context, downloaded, _) {
+              return ValueListenableBuilder<Set<String>>(
+                valueListenable: OfflineService().queuedPlaylistIds,
+                builder: (context, queued, _) {
+                  if (downloaded.contains(playlist.id)) {
+                    return const Padding(
+                      padding: EdgeInsets.only(right: 4),
+                      child: Icon(Icons.check_circle,
+                          size: 20, color: Colors.green),
+                    );
+                  }
+                  if (queued.contains(playlist.id)) {
+                    return const Padding(
+                      padding: EdgeInsets.only(right: 4),
+                      child: Icon(Icons.check_circle_outline,
+                          size: 20, color: Colors.green),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               );
             },
-          );
-        },
+          ),
+          IconButton(
+            icon: const Icon(Icons.more_vert, size: 20),
+            onPressed: onOptions ??
+                () => PlaylistOptionsModal.show(context, playlist),
+          ),
+        ],
       ),
       onTap: onTap,
-      onLongPress: onLongPress,
+      onLongPress: onLongPress ??
+          () => PlaylistOptionsModal.show(context, playlist),
     );
   }
 }

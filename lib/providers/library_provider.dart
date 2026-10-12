@@ -820,9 +820,19 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   }
 
   Future<void> deletePlaylist(String playlistId) async {
-    await _subsonicService.deletePlaylist(playlistId);
-    await loadPlaylists();
+    _playlists.removeWhere((p) => p.id == playlistId);
+    _cachedPlaylists.removeWhere((p) => p.id == playlistId);
+    _saveCachedData();
+    notifyListeners();
+    _audioHandler
+        .notifyAutoChildrenChanged([MuslyAudioHandler.mediaIdPlaylists]);
+    try {
+      await _subsonicService.deletePlaylist(playlistId);
+    } finally {
+      await loadPlaylists();
+    }
   }
+
 
   Future<void> addSongToPlaylist(String playlistId, String songId) async {
     await _subsonicService.updatePlaylist(

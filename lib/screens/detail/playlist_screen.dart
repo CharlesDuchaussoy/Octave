@@ -354,6 +354,19 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     }
   }
 
+  Future<void> _deletePlaylist() async {
+    final playlist = _playlist ??
+        Playlist(
+          id: widget.playlistId,
+          name: widget.playlistName ?? '',
+        );
+    final deleted =
+        await PlaylistOptionsModal.confirmAndDelete(context, playlist);
+    if (deleted && mounted) {
+      Navigator.of(context).pop();
+    }
+  }
+
   Future<void> _downloadPlaylist() async {
     final songs = _playlist?.songs;
     if (songs == null || songs.isEmpty) return;
@@ -722,6 +735,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                             content: Text(AppLocalizations.of(context)!
                                 .songsAddedToQueue(songs.length))),
                       );
+                    } else if (value == 'delete_playlist') {
+                      _deletePlaylist();
                     }
                   },
                   itemBuilder: (context) => [
@@ -732,6 +747,20 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           const Icon(CupertinoIcons.text_badge_plus, size: 18),
                           const SizedBox(width: 12),
                           Text(AppLocalizations.of(context)!.addAllToQueue),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'delete_playlist',
+                      child: Row(
+                        children: [
+                          const Icon(CupertinoIcons.trash,
+                              size: 18, color: Colors.red),
+                          const SizedBox(width: 12),
+                          Text(
+                            AppLocalizations.of(context)!.deletePlaylist,
+                            style: const TextStyle(color: Colors.red),
+                          ),
                         ],
                       ),
                     ),

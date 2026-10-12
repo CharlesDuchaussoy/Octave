@@ -9,6 +9,7 @@ import 'package:musly/services/offline_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
+import 'package:musly/widgets/modals/playlist_options_modal.dart';
 import 'package:musly/utils/navigation_helper.dart';
 
 class FavoritePlaylistsSection extends StatelessWidget {
@@ -120,6 +121,8 @@ class _PlaylistCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
+      onLongPress: () => PlaylistOptionsModal.show(context, playlist),
+      onSecondaryTap: () => PlaylistOptionsModal.show(context, playlist),
       child: Container(
         width: 140,
         margin: const EdgeInsets.only(right: 12),

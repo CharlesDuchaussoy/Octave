@@ -22,6 +22,7 @@ import 'package:musly/services/offline_service.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
 import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
+import 'package:musly/widgets/modals/playlist_options_modal.dart';
 import 'package:musly/models/playlist.dart';
 import 'package:musly/models/album.dart';
 import 'package:musly/models/artist.dart';
@@ -999,7 +1000,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   : AppTheme.lightSecondaryText,
             ),
           ),
+          trailing: IconButton(
+            icon: const Icon(Icons.more_vert, size: 20),
+            onPressed: () => PlaylistOptionsModal.show(context, playlist),
+          ),
           onTap: item.onTap,
+          onLongPress: () => PlaylistOptionsModal.show(context, playlist),
         );
 
       case _LibraryItemType.album:
@@ -1197,6 +1203,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
             child: PlaylistArtwork(playlist: playlist, size: 240),
           ),
           onTap: item.onTap,
+          onLongPress: () => PlaylistOptionsModal.show(context, playlist),
+          onSecondaryTap: () => PlaylistOptionsModal.show(context, playlist),
         );
 
       case _LibraryItemType.album:
@@ -1281,10 +1289,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
     Widget? customArtwork,
     bool isRound = false,
     required VoidCallback onTap,
+    VoidCallback? onLongPress,
+    VoidCallback? onSecondaryTap,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
+      onSecondaryTap: onSecondaryTap,
       borderRadius: BorderRadius.circular(8),
       child: Column(
         crossAxisAlignment:
