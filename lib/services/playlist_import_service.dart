@@ -14,6 +14,16 @@ enum PlaylistImportSource {
   unknown,
 }
 
+class _YtMusicCandidate {
+  final String id;
+  final int? durationSeconds;
+
+  const _YtMusicCandidate({
+    required this.id,
+    this.durationSeconds,
+  });
+}
+
 class PlaylistImportTrack {
   final String title;
   final String artist;
@@ -423,14 +433,43 @@ class PlaylistImportService {
     String artist, {
     int? duration,
   }) async {
-    final query = '$artist $title'.trim();
+    // 1. Clean query removing noisy suffixes often present in metadata
+    final cleanTitle = title
+        .replaceAll(RegExp(r'\s*\([^)]*(feat\.|ft\.|remaster|deluxe|version)[^)]*\)', caseSensitive: false), '')
+        .replaceAll(RegExp(r'\s*\[[^\]]*(feat\.|ft\.|remaster|deluxe|version)[^\]]*\]', caseSensitive: false), '')
+        .trim();
+    final cleanArtist = artist.split(',').first.split('&').first.trim();
 
+    final queriesToTry = [
+      '$cleanArtist $cleanTitle'.trim(),
+      if (cleanTitle != title || cleanArtist != artist) '$artist $title'.trim(),
+      cleanTitle,
+    ];
+
+    for (final query in queriesToTry) {
+      if (query.isEmpty) continue;
+      final matchId = await _queryYouTubeMusicTrack(query, targetDuration: duration);
+      if (matchId != null) {
+        return matchId;
+      }
+    }
+
+    return null;
+  }
+
+  Future<String?> _queryYouTubeMusicTrack(
+    String query, {
+    int? targetDuration,
+  }) async {
     try {
-      final uri = Uri.parse('https://music.youtube.com/youtubei/v1/search');
+      final uri = Uri.parse('https://music.youtube.com/youtubei/v1/search?prettyPrint=false');
       final req = await _client.postUrl(uri);
       req.headers.set('Content-Type', 'application/json');
       req.headers.set('User-Agent', _defaultUserAgent);
+      req.headers.set('Origin', 'https://music.youtube.com');
+      req.headers.set('Referer', 'https://music.youtube.com/');
 
+      // Official YouTube Music filter param for 'Songs' category
       final payload = {
         'context': {
           'client': {
@@ -441,6 +480,7 @@ class PlaylistImportService {
           }
         },
         'query': query,
+        'params': 'EgWKAQIIAWoKEAUQAxAEEAkQBQ==',
       };
 
       req.add(utf8.encode(jsonEncode(payload)));
@@ -448,44 +488,86 @@ class PlaylistImportService {
       final body = await res.transform(utf8.decoder).join();
       final data = jsonDecode(body) as Map<String, dynamic>;
 
-      String? foundId;
-      void find(dynamic obj) {
-        if (foundId != null) return;
+      final candidates = <_YtMusicCandidate>[];
+
+      void extractCandidates(dynamic obj) {
         if (obj is Map) {
           if (obj.containsKey('musicResponsiveListItemRenderer')) {
             final item =
                 obj['musicResponsiveListItemRenderer'] as Map<String, dynamic>;
-            final id = item['playlistItemData']?['videoId'] ??
+            final videoId = item['playlistItemData']?['videoId'] ??
                 item['overlay']?['musicItemThumbnailOverlayRenderer']
                     ?['content']?['musicPlayButtonRenderer']
                     ?['playNavigationEndpoint']?['watchEndpoint']?['videoId'];
-            if (id != null && id.toString().length == 11) {
-              foundId = id.toString();
-              return;
+
+            if (videoId != null && videoId.toString().length == 11) {
+              int? candDuration;
+              final fixedCols = item['fixedColumns'] as List? ?? [];
+              if (fixedCols.isNotEmpty) {
+                final durRuns = fixedCols[0]
+                        ['musicResponsiveListItemFixedColumnRenderer']?['text']
+                    ?['runs'] as List?;
+                if (durRuns != null && durRuns.isNotEmpty) {
+                  final durStr = durRuns[0]['text'] as String?;
+                  if (durStr != null && durStr.contains(':')) {
+                    final parts = durStr.split(':');
+                    if (parts.length == 2) {
+                      candDuration = (int.tryParse(parts[0]) ?? 0) * 60 +
+                          (int.tryParse(parts[1]) ?? 0);
+                    } else if (parts.length == 3) {
+                      candDuration = (int.tryParse(parts[0]) ?? 0) * 3600 +
+                          (int.tryParse(parts[1]) ?? 0) * 60 +
+                          (int.tryParse(parts[2]) ?? 0);
+                    }
+                  }
+                }
+              }
+
+              candidates.add(_YtMusicCandidate(
+                id: videoId.toString(),
+                durationSeconds: candDuration,
+              ));
             }
           }
           for (final v in obj.values) {
-            find(v);
+            extractCandidates(v);
           }
         } else if (obj is List) {
           for (final e in obj) {
-            find(e);
+            extractCandidates(e);
           }
         }
       }
 
-      find(data);
-      if (foundId != null) return foundId;
-    } catch (_) {}
+      extractCandidates(data);
 
-    try {
-      final searchResults = await _ytdlp.search(query, limit: 1);
-      if (searchResults.isNotEmpty && searchResults.first['id'] != null) {
-        return searchResults.first['id'] as String;
+      if (candidates.isEmpty) return null;
+
+      // If targetDuration is available, find the closest matching candidate
+      if (targetDuration != null && targetDuration > 0) {
+        _YtMusicCandidate? bestCandidate;
+        int minDiff = 999999;
+        for (final cand in candidates) {
+          if (cand.durationSeconds != null) {
+            final diff = (cand.durationSeconds! - targetDuration).abs();
+            if (diff < minDiff) {
+              minDiff = diff;
+              bestCandidate = cand;
+            }
+          }
+        }
+        // If the closest candidate is within 15 seconds, pick it
+        if (bestCandidate != null && minDiff <= 15) {
+          return bestCandidate.id;
+        }
       }
-    } catch (_) {}
 
-    return null;
+      // Default to the first official Song result from YouTube Music
+      return candidates.first.id;
+    } catch (e) {
+      debugPrint('[PlaylistImport] YouTube Music search error: $e');
+      return null;
+    }
   }
 
   Future<Playlist> importFromPreview(

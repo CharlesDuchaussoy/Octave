@@ -130,5 +130,16 @@ void main() {
       expect(preview.tracks.first.youtubeVideoId, isNotNull);
       expect(preview.tracks.first.youtubeVideoId!.length, 11);
     });
+
+    test('matches Spotify track to YouTube Music track', () async {
+      final videoId = await service.matchSpotifyTrackToYouTube(
+        'Blinding Lights',
+        'The Weeknd',
+        duration: 200,
+      );
+
+      expect(videoId, isNotNull);
+      expect(videoId!.length, 11);
+    });
   });
 }
