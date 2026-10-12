@@ -316,8 +316,8 @@ class LibraryDatabaseService {
     final trimmedId = playlistId.trim();
     return await db.delete(
       'playlists',
-      where: 'id = ? OR id = ?',
-      whereArgs: [playlistId, trimmedId],
+      where: 'id = ? OR id = ? OR LOWER(id) = ?',
+      whereArgs: [playlistId, trimmedId, trimmedId.toLowerCase()],
     );
   }
 

@@ -184,6 +184,124 @@ void main() {
       expect(testLibraryProvider.lastDeletedId, equals('yt-playlist-123'));
       expect(fakeSubsonic.deletedPlaylistId, equals('yt-playlist-123'));
     });
+
+    testWidgets('Tapping delete inside PlaylistOptionsModal bottom sheet deletes the playlist on Web Stream', (
+      WidgetTester tester,
+    ) async {
+      final fakeSubsonic = FakePlaylistSubsonicService(isYoutube: true);
+      final testPlaylist = Playlist(
+        id: 'yt-playlist-456',
+        name: 'My Web Stream Playlist 2',
+        songCount: 3,
+      );
+
+      final testLibraryProvider = TestPlaylistLibraryProvider(
+        subsonicService: fakeSubsonic,
+        audioHandler: MuslyAudioHandler(),
+        testPlaylists: [testPlaylist],
+      );
+
+      await tester.pumpWidget(
+        createTestApp(
+          subsonicService: fakeSubsonic,
+          libraryProvider: testLibraryProvider,
+          child: Builder(
+            builder: (context) => ElevatedButton(
+              onPressed: () {
+                PlaylistOptionsModal.show(context, testPlaylist);
+              },
+              child: const Text('Open Modal'),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Open Modal'));
+      await tester.pumpAndSettle();
+
+      // Find trash icon inside the modal bottom sheet
+      expect(find.byIcon(CupertinoIcons.trash), findsOneWidget);
+      await tester.tap(find.byIcon(CupertinoIcons.trash));
+      await tester.pumpAndSettle();
+
+      // Tap confirm button in AlertDialog
+      final deleteConfirmButton = find.widgetWithText(TextButton, 'Elimina');
+      final fallbackDeleteButton = find.widgetWithText(TextButton, 'Delete');
+      if (deleteConfirmButton.evaluate().isNotEmpty) {
+        await tester.tap(deleteConfirmButton);
+      } else {
+        await tester.tap(fallbackDeleteButton);
+      }
+      await tester.pumpAndSettle();
+
+      // Verify the playlist is removed from provider and subsonicService was called
+      expect(testLibraryProvider.playlists.any((p) => p.id == 'yt-playlist-456'), isFalse);
+      expect(testLibraryProvider.lastDeletedId, equals('yt-playlist-456'));
+      expect(fakeSubsonic.deletedPlaylistId, equals('yt-playlist-456'));
+    });
+
+    testWidgets('Deleting playlist from PlaylistScreen 3-dots menu removes it and calls subsonicService', (
+      WidgetTester tester,
+    ) async {
+      final fakeSubsonic = FakePlaylistSubsonicService(isYoutube: true);
+      final testPlaylist = Playlist(
+        id: 'pl-detail-1',
+        name: 'Detail Screen Playlist',
+        songs: [
+          Song(id: 's1', title: 'Song 1', artist: 'Artist 1'),
+        ],
+      );
+      final testLibraryProvider = TestPlaylistLibraryProvider(
+        subsonicService: fakeSubsonic,
+        audioHandler: MuslyAudioHandler(),
+        testPlaylists: [testPlaylist],
+      );
+
+      await tester.pumpWidget(
+        createTestApp(
+          subsonicService: fakeSubsonic,
+          libraryProvider: testLibraryProvider,
+          child: Navigator(
+            onGenerateRoute: (_) => MaterialPageRoute(
+              builder: (ctx) => const PlaylistScreen(
+                playlistId: 'pl-detail-1',
+                playlistName: 'Detail Screen Playlist',
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final popupMenu = find.byType(PopupMenuButton<String>);
+      expect(popupMenu, findsOneWidget);
+
+      await tester.tap(popupMenu);
+      await tester.pumpAndSettle();
+
+      final deleteMenuItem = find.text('Elimina Playlist');
+      final fallbackMenuItem = find.text('Delete Playlist');
+      if (deleteMenuItem.evaluate().isNotEmpty) {
+        await tester.tap(deleteMenuItem);
+      } else if (fallbackMenuItem.evaluate().isNotEmpty) {
+        await tester.tap(fallbackMenuItem);
+      }
+      await tester.pumpAndSettle();
+
+      final deleteConfirmButton = find.widgetWithText(TextButton, 'Elimina');
+      final fallbackDeleteButton = find.widgetWithText(TextButton, 'Delete');
+      if (deleteConfirmButton.evaluate().isNotEmpty) {
+        await tester.tap(deleteConfirmButton);
+      } else {
+        await tester.tap(fallbackDeleteButton);
+      }
+      await tester.pumpAndSettle();
+
+      expect(testLibraryProvider.playlists.any((p) => p.id == 'pl-detail-1'), isFalse);
+      expect(testLibraryProvider.lastDeletedId, equals('pl-detail-1'));
+      expect(fakeSubsonic.deletedPlaylistId, equals('pl-detail-1'));
+    });
   });
 }
 

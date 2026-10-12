@@ -34,6 +34,10 @@ class PlaylistOptionsModal extends StatelessWidget {
     Playlist playlist,
   ) async {
     final l10n = AppLocalizations.of(context)!;
+    final libraryProvider =
+        Provider.of<LibraryProvider>(context, listen: false);
+    final messenger = ScaffoldMessenger.of(context);
+
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -55,36 +59,41 @@ class PlaylistOptionsModal extends StatelessWidget {
       ),
     );
 
-    if (confirmed != true || !context.mounted) return false;
-
-    final libraryProvider =
-        Provider.of<LibraryProvider>(context, listen: false);
-    final messenger = ScaffoldMessenger.of(context);
-
-    List<Song> songs = playlist.songs ?? [];
-    if (songs.isEmpty) {
-      final index =
-          libraryProvider.playlists.indexWhere((p) => p.id == playlist.id);
-      if (index != -1) {
-        songs = libraryProvider.playlists[index].songs ?? [];
-      }
-    }
-
-    OfflineService().cancelPlaylistDownload(playlist.id);
-    if (songs.isNotEmpty) {
-      await OfflineService().deletePlaylistDownloads(songs);
-    }
-    await FavoritePlaylistsService().removeFavorite(playlist.id);
-    await PlaylistCoverService().deleteCover(playlist.id);
-
-    messenger.showSnackBar(
-      SnackBar(
-        content: Text(l10n.playlistDeleted(playlist.name)),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
+    if (confirmed != true) return false;
 
     try {
+      List<Song> songs = playlist.songs ?? [];
+      if (songs.isEmpty) {
+        final index =
+            libraryProvider.playlists.indexWhere((p) => p.id == playlist.id);
+        if (index != -1) {
+          songs = libraryProvider.playlists[index].songs ?? [];
+        }
+      }
+
+      final isDownloaded =
+          OfflineService().downloadedPlaylistIds.value.contains(playlist.id) ||
+              OfflineService().queuedPlaylistIds.value.contains(playlist.id);
+      OfflineService().cancelPlaylistDownload(playlist.id);
+      if (isDownloaded && songs.isNotEmpty) {
+        try {
+          await OfflineService().deletePlaylistDownloads(songs);
+        } catch (_) {}
+      }
+      try {
+        await FavoritePlaylistsService().removeFavorite(playlist.id);
+      } catch (_) {}
+      try {
+        await PlaylistCoverService().deleteCover(playlist.id);
+      } catch (_) {}
+
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(l10n.playlistDeleted(playlist.name)),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+
       await libraryProvider.deletePlaylist(playlist.id);
     } catch (_) {}
 
@@ -268,9 +277,13 @@ class PlaylistOptionsModal extends StatelessWidget {
                       title: l10n.deletePlaylist,
                       iconColor: Colors.red,
                       titleColor: Colors.red,
-                      onTap: () {
-                        Navigator.pop(context);
-                        confirmAndDelete(context, playlist);
+                      onTap: () async {
+                        final navigator = Navigator.of(context);
+                        final deleted =
+                            await confirmAndDelete(context, playlist);
+                        if (deleted && navigator.canPop()) {
+                          navigator.pop();
+                        }
                       },
                     ),
                     const SizedBox(height: 16),
