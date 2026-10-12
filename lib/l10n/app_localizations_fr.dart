@@ -3152,4 +3152,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Use app\'s active server';
+
+  @override
+  String get desktopOverlaySection => 'Overlay Bureau';
+
+  @override
+  String get spotverlayTitle => 'Spotverlay';
+
+  @override
+  String get spotverlayDescription =>
+      'Si vous souhaitez un overlay élégant et léger \"Made for Musly\", vous pouvez utiliser Spotverlay (https://github.com/dddevid/Spotverlay)';
 }

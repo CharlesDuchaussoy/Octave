@@ -13,6 +13,7 @@ import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
+import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
 import 'package:musly/utils/context_extensions.dart';
@@ -142,6 +143,10 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             ],
           ],
         ),
+        if (_isDesktop) ...[
+          const SizedBox(height: 24),
+          _buildSpotverlaySection(),
+        ],
         const SizedBox(height: 24),
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.homeSection.toUpperCase(),
@@ -1030,6 +1035,38 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           } catch (_) {}
         }
       },
+    );
+  }
+
+  Widget _buildSpotverlaySection() {
+    final l10n = AppLocalizations.of(context)!;
+    return SettingsSectionCard(
+      title: l10n.desktopOverlaySection.toUpperCase(),
+      children: [
+        SettingsListTile(
+          gradientColors: const [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+          icon: CupertinoIcons.layers_alt_fill,
+          title: l10n.spotverlayTitle,
+          subtitle: l10n.spotverlayDescription,
+          trailing: Icon(
+            Icons.open_in_new_rounded,
+            size: 18,
+            color: context.isDark
+                ? AppTheme.darkSecondaryText
+                : AppTheme.lightSecondaryText,
+          ),
+          onTap: () async {
+            final uri = Uri.parse('https://github.com/dddevid/Spotverlay');
+            try {
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              }
+            } catch (e) {
+              debugPrint('Error launching Spotverlay URL: $e');
+            }
+          },
+        ),
+      ],
     );
   }
 }

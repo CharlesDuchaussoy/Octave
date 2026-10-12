@@ -112,6 +112,9 @@ Widget createTestApp({
       ChangeNotifierProvider<ThemeService>(
         create: (_) => themeService ?? ThemeService(),
       ),
+      ChangeNotifierProvider<LocaleService>(
+        create: (_) => LocaleService(),
+      ),
       ChangeNotifierProvider<TranscodingService>(
           create: (_) => TranscodingService()),
     ],

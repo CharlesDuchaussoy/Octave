@@ -5793,6 +5793,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use app\'s active server'**
   String get androidAutoUseActiveServer;
+
+  /// Settings section header for desktop overlay recommendation
+  ///
+  /// In en, this message translates to:
+  /// **'Desktop Overlay'**
+  String get desktopOverlaySection;
+
+  /// Title for Spotverlay desktop overlay
+  ///
+  /// In en, this message translates to:
+  /// **'Spotverlay'**
+  String get spotverlayTitle;
+
+  /// Message recommending Spotverlay desktop overlay for Musly
+  ///
+  /// In en, this message translates to:
+  /// **'If you want a beautiful and lightweight \"Made for Musly\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)'**
+  String get spotverlayDescription;
 }
 
 class _AppLocalizationsDelegate

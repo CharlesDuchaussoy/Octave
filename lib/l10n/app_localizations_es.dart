@@ -3145,4 +3145,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Use app\'s active server';
+
+  @override
+  String get desktopOverlaySection => 'Superposición de escritorio';
+
+  @override
+  String get spotverlayTitle => 'Spotverlay';
+
+  @override
+  String get spotverlayDescription =>
+      'Si quieres una superposición hermosa y ligera \"Made for Musly\", puedes usar Spotverlay (https://github.com/dddevid/Spotverlay)';
 }

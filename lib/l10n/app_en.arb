@@ -3806,5 +3806,17 @@
   "androidAutoServerSection": "Server",
   "androidAutoDefaultServer": "Default Server",
   "androidAutoDefaultServerDesc": "Select which server to use when you start Android Auto",
-  "androidAutoUseActiveServer": "Use app's active server"
+  "androidAutoUseActiveServer": "Use app's active server",
+  "desktopOverlaySection": "Desktop Overlay",
+  "@desktopOverlaySection": {
+    "description": "Settings section header for desktop overlay recommendation"
+  },
+  "spotverlayTitle": "Spotverlay",
+  "@spotverlayTitle": {
+    "description": "Title for Spotverlay desktop overlay"
+  },
+  "spotverlayDescription": "If you want a beautiful and lightweight \"Made for Musly\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)",
+  "@spotverlayDescription": {
+    "description": "Message recommending Spotverlay desktop overlay for Musly"
+  }
 }

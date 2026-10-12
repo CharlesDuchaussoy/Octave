@@ -128,6 +128,16 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               title: AppLocalizations.of(context)!.aboutLinkDiscord,
               url: 'https://discord.gg/k9FqpbT65M',
             ),
+            if (_isDesktop) ...[
+              _buildDivider(context),
+              _buildLinkTile(
+                context,
+                icon: CupertinoIcons.layers_alt_fill,
+                title: AppLocalizations.of(context)!.spotverlayTitle,
+                subtitle: AppLocalizations.of(context)!.spotverlayDescription,
+                url: 'https://github.com/dddevid/Spotverlay',
+              ),
+            ],
             _buildDivider(context),
             _buildActionTile(
               context,
@@ -312,6 +322,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
     BuildContext context, {
     required IconData icon,
     required String title,
+    String? subtitle,
     required String url,
   }) {
     return SettingsListTile(
@@ -329,6 +340,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
         ),
       ),
       title: title,
+      subtitle: subtitle,
       trailing: Icon(
         Icons.open_in_new_rounded,
         size: 18,
