@@ -43,7 +43,7 @@ class MiniPlayer extends StatelessWidget {
             final subsonic =
                 Provider.of<SubsonicService>(context, listen: false);
             final coverUrl = currentSong.coverArt != null
-                ? subsonic.getCoverArtUrl(currentSong.coverArt, size: 600)
+                ? subsonic.getCoverArtUrl(currentSong.coverArt, size: 800)
                 : null;
             final imageProvider = (coverUrl != null && coverUrl.isNotEmpty)
                 ? CachedNetworkImageProvider(coverUrl) as ImageProvider

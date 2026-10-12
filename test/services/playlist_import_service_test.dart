@@ -141,5 +141,38 @@ void main() {
       expect(videoId, isNotNull);
       expect(videoId!.length, 11);
     });
+
+    test('matches Spotify track with high-res 1:1 square cover art', () async {
+      final details = await service.matchSpotifyTrackToYouTubeDetails(
+        'Blinding Lights',
+        'The Weeknd',
+        duration: 200,
+      );
+
+      expect(details, isNotNull);
+      expect(details!.videoId.length, 11);
+      expect(details.coverArt, isNotNull);
+      expect(details.coverArt, isNot(contains('hqdefault.jpg')));
+      // Should be upscaled Google CDN image (800x800)
+      if (details.coverArt!.contains('googleusercontent.com') ||
+          details.coverArt!.contains('ggpht.com')) {
+        expect(details.coverArt, contains('w800-h800'));
+      }
+    });
+
+    test('YouTube Music preview provides high-res 1:1 cover art', () async {
+      final preview = await service.fetchYouTubeMusicPreview(
+          'https://music.youtube.com/playlist?list=PLFgquLnL59alW3xmYiWRaoz0oM3H17Lth');
+
+      expect(preview.tracks, isNotEmpty);
+      final firstTrack = preview.tracks.first;
+      expect(firstTrack.coverArt, isNotNull);
+      expect(firstTrack.coverArt, isNot(contains('hqdefault.jpg')));
+      if (firstTrack.coverArt!.contains('googleusercontent.com') ||
+          firstTrack.coverArt!.contains('ggpht.com')) {
+        expect(firstTrack.coverArt, contains('w800-h800'));
+      }
+    });
   });
 }
+

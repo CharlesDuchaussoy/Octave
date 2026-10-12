@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:musly/models/server_config.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
+import 'package:musly/widgets/now_playing/album_art_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../test_helpers.dart';
 
@@ -72,5 +74,57 @@ void main() {
       final defaultUrl = service.getCoverArtUrl('al-cover');
       expect(defaultUrl, contains('size=600'));
     });
+
+    test('ImageUrlCache upscales Google CDN image URLs dynamically by size', () {
+      final service = SubsonicService();
+      const googleThumb =
+          'https://yt3.googleusercontent.com/abc123xyz=w60-h60-l90-rj';
+
+      final url60 = ImageUrlCache.getUrl(service, googleThumb, 60);
+      expect(url60, contains('=w60-h60-l90-rj'));
+
+      final url800 = ImageUrlCache.getUrl(service, googleThumb, 800);
+      expect(url800, contains('=w800-h800-l90-rj'));
+      expect(url800, isNot(contains('=w60-h60')));
+    });
+
+    test('ImageUrlCache upgrades legacy YouTube hqdefault.jpg to hq720.jpg', () {
+      final service = SubsonicService();
+      const legacyYtThumb =
+          'https://i.ytimg.com/vi/b53QJYP-lqY/hqdefault.jpg';
+
+      final upgraded = ImageUrlCache.getUrl(service, legacyYtThumb, 600);
+      expect(upgraded, 'https://i.ytimg.com/vi/b53QJYP-lqY/hq720.jpg');
+      expect(upgraded, isNot(contains('hqdefault.jpg')));
+    });
+
+    testWidgets('AlbumArtView enforces 1:1 square AspectRatio and BoxFit.cover',
+        (tester) async {
+      await tester.pumpWidget(
+        createTestApp(
+          child: const SizedBox(
+            width: 400,
+            height: 300,
+            child: AlbumArtView(
+              image: AssetImage('assets/logo.png'),
+              tag: 'test_tag',
+            ),
+          ),
+        ),
+      );
+
+      final aspectRatioFinder = find.byType(AspectRatio);
+      expect(aspectRatioFinder, findsOneWidget);
+      final AspectRatio aspectRatioWidget = tester.widget(aspectRatioFinder);
+      expect(aspectRatioWidget.aspectRatio, 1.0);
+
+      final imageFinder = find.byType(Image);
+      expect(imageFinder, findsOneWidget);
+      final Image imageWidget = tester.widget(imageFinder);
+      expect(imageWidget.fit, BoxFit.cover);
+      expect(imageWidget.width, double.infinity);
+      expect(imageWidget.height, double.infinity);
+    });
   });
 }
+

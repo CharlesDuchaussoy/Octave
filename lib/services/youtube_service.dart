@@ -251,14 +251,14 @@ class YoutubeService {
         final match = RegExp(r'/vi/([a-zA-Z0-9_-]{11})').firstMatch(id);
         if (match != null) {
           final vid = match.group(1);
-          return 'https://i.ytimg.com/vi/$vid/hqdefault.jpg';
+          return 'https://i.ytimg.com/vi/$vid/hq720.jpg';
         }
       }
       return id;
     }
 
     if (RegExp(r'^[a-zA-Z0-9_-]{11}$').hasMatch(id)) {
-      return 'https://i.ytimg.com/vi/$id/hqdefault.jpg';
+      return 'https://i.ytimg.com/vi/$id/hq720.jpg';
     }
     return '';
   }

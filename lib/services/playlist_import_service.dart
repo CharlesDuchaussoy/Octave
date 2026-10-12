@@ -17,10 +17,12 @@ enum PlaylistImportSource {
 class _YtMusicCandidate {
   final String id;
   final int? durationSeconds;
+  final String? thumbnailUrl;
 
   const _YtMusicCandidate({
     required this.id,
     this.durationSeconds,
+    this.thumbnailUrl,
   });
 }
 
@@ -103,6 +105,21 @@ class PlaylistImportService {
 
   static const String _defaultUserAgent =
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+
+  static String? _normalizeThumbnailUrl(String? url) {
+    if (url == null || url.isEmpty) return null;
+    if (url.contains('googleusercontent.com') || url.contains('ggpht.com')) {
+      final base = url.split('=')[0];
+      return '$base=w800-h800-l90-rj';
+    }
+    if (url.contains('i.ytimg.com') || url.contains('img.youtube.com')) {
+      final match = RegExp(r'/vi/([a-zA-Z0-9_-]{11})').firstMatch(url);
+      if (match != null) {
+        return 'https://i.ytimg.com/vi/${match.group(1)}/hq720.jpg';
+      }
+    }
+    return url;
+  }
 
   PlaylistImportSource detectSource(String input) {
     final trimmed = input.trim();
@@ -258,13 +275,18 @@ class PlaylistImportService {
       if (rawItems.isNotEmpty) {
         final tracks = rawItems.map((item) {
           final id = item['id'] as String;
+          var thumb = item['thumbnailUrl'] as String?;
+          if (thumb != null &&
+              (thumb.contains('googleusercontent.com') ||
+               thumb.contains('ggpht.com'))) {
+            thumb = '${thumb.split('=')[0]}=w800-h800-l90-rj';
+          }
           return PlaylistImportTrack(
             title: item['title'] as String? ?? 'Unknown Title',
             artist: item['artist'] as String? ?? 'Unknown Artist',
             album: item['album'] as String?,
             duration: item['duration'] as int?,
-            coverArt: item['thumbnailUrl'] as String? ??
-                'https://i.ytimg.com/vi/$id/hqdefault.jpg',
+            coverArt: thumb ?? 'https://i.ytimg.com/vi/$id/hq720.jpg',
             youtubeVideoId: id,
           );
         }).toList();
@@ -326,7 +348,7 @@ class PlaylistImportService {
           final thumbs = h['thumbnail']?['musicThumbnailRenderer']?['thumbnail']
               ?['thumbnails'] as List?;
           if (thumbs != null && thumbs.isNotEmpty) {
-            playlistCover = thumbs.last['url'];
+            playlistCover = _normalizeThumbnailUrl(thumbs.last['url'] as String?);
           }
           return;
         }
@@ -392,7 +414,7 @@ class PlaylistImportService {
             final thumbs = item['thumbnail']?['musicThumbnailRenderer']
                 ?['thumbnail']?['thumbnails'] as List?;
             if (thumbs != null && thumbs.isNotEmpty) {
-              thumb = thumbs.last['url'];
+              thumb = _normalizeThumbnailUrl(thumbs.last['url'] as String?);
             }
 
             tracks.add(PlaylistImportTrack(
@@ -400,7 +422,7 @@ class PlaylistImportService {
               artist: artist,
               album: album ?? playlistTitle,
               duration: duration,
-              coverArt: thumb ?? 'https://i.ytimg.com/vi/$videoId/hqdefault.jpg',
+              coverArt: thumb ?? playlistCover ?? 'https://i.ytimg.com/vi/$videoId/hq720.jpg',
               youtubeVideoId: videoId.toString(),
             ));
           }
@@ -428,7 +450,7 @@ class PlaylistImportService {
     );
   }
 
-  Future<String?> matchSpotifyTrackToYouTube(
+  Future<({String videoId, String? coverArt})?> matchSpotifyTrackToYouTubeDetails(
     String title,
     String artist, {
     int? duration,
@@ -448,16 +470,25 @@ class PlaylistImportService {
 
     for (final query in queriesToTry) {
       if (query.isEmpty) continue;
-      final matchId = await _queryYouTubeMusicTrack(query, targetDuration: duration);
-      if (matchId != null) {
-        return matchId;
+      final candidate = await _queryYouTubeMusicCandidate(query, targetDuration: duration);
+      if (candidate != null) {
+        return (videoId: candidate.id, coverArt: candidate.thumbnailUrl);
       }
     }
 
     return null;
   }
 
-  Future<String?> _queryYouTubeMusicTrack(
+  Future<String?> matchSpotifyTrackToYouTube(
+    String title,
+    String artist, {
+    int? duration,
+  }) async {
+    final details = await matchSpotifyTrackToYouTubeDetails(title, artist, duration: duration);
+    return details?.videoId;
+  }
+
+  Future<_YtMusicCandidate?> _queryYouTubeMusicCandidate(
     String query, {
     int? targetDuration,
   }) async {
@@ -523,9 +554,17 @@ class PlaylistImportService {
                 }
               }
 
+              String? thumb;
+              final thumbs = item['thumbnail']?['musicThumbnailRenderer']
+                  ?['thumbnail']?['thumbnails'] as List?;
+              if (thumbs != null && thumbs.isNotEmpty) {
+                thumb = _normalizeThumbnailUrl(thumbs.last['url'] as String?);
+              }
+
               candidates.add(_YtMusicCandidate(
                 id: videoId.toString(),
                 durationSeconds: candDuration,
+                thumbnailUrl: thumb,
               ));
             }
           }
@@ -558,12 +597,12 @@ class PlaylistImportService {
         }
         // If the closest candidate is within 15 seconds, pick it
         if (bestCandidate != null && minDiff <= 15) {
-          return bestCandidate.id;
+          return bestCandidate;
         }
       }
 
       // Default to the first official Song result from YouTube Music
-      return candidates.first.id;
+      return candidates.first;
     } catch (e) {
       debugPrint('[PlaylistImport] YouTube Music search error: $e');
       return null;
@@ -594,7 +633,9 @@ class PlaylistImportService {
           artist: t.artist,
           album: t.album ?? finalName,
           duration: t.duration,
-          coverArt: t.coverArt ?? 'https://i.ytimg.com/vi/$songId/hqdefault.jpg',
+          coverArt: _normalizeThumbnailUrl(t.coverArt) ??
+              _normalizeThumbnailUrl(preview.coverArtUrl) ??
+              'https://i.ytimg.com/vi/$songId/hq720.jpg',
         ));
         onProgress?.call(i + 1, total, 'Aggiunto: ${t.title}');
       }
@@ -612,15 +653,25 @@ class PlaylistImportService {
 
         final batchResults = await Future.wait(batch.map((track) async {
           String? vid = track.youtubeVideoId;
+          String? matchedCover;
           if (vid == null || vid.isEmpty) {
-            vid = await matchSpotifyTrackToYouTube(
+            final match = await matchSpotifyTrackToYouTubeDetails(
               track.title,
               track.artist,
               duration: track.duration,
             );
+            vid = match?.videoId;
+            matchedCover = match?.coverArt;
           }
           final effectiveId =
               vid ?? 'ytsearch:${Uri.encodeComponent('${track.artist} ${track.title}')}';
+
+          final effectiveCover = _normalizeThumbnailUrl(matchedCover) ??
+              _normalizeThumbnailUrl(track.coverArt) ??
+              _normalizeThumbnailUrl(preview.coverArtUrl) ??
+              (effectiveId.length == 11 && !effectiveId.contains(':')
+                  ? 'https://i.ytimg.com/vi/$effectiveId/hq720.jpg'
+                  : null);
 
           return Song(
             id: effectiveId,
@@ -628,9 +679,7 @@ class PlaylistImportService {
             artist: track.artist,
             album: track.album ?? finalName,
             duration: track.duration,
-            coverArt: (effectiveId.length == 11 && !effectiveId.contains(':'))
-                ? 'https://i.ytimg.com/vi/$effectiveId/hqdefault.jpg'
-                : (track.coverArt ?? preview.coverArtUrl),
+            coverArt: effectiveCover,
           );
         }));
 
