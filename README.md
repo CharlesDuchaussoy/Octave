@@ -1,163 +1,141 @@
-
-# Musly - Universal Music Streaming Player & Client
-
-**Musly** is a free, modern, and elegant music player and streaming client. Stream your self-hosted music library from **Navidrome**, **Subsonic**, **Jellyfin**, **Emby**, or **Airsonic**, listen to live **Web Streams & Internet Radio**, or play **Local Music Files** directly from your device on Android, iOS, Windows, Linux, and macOS.
-
-## GitAds Sponsored
-[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=dddevid/musly@github)](https://gitads.dev/v1/ad-track?source=dddevid/musly@github)
-
-
-🌐 **Website:** [musly.devid.lol](https://musly.devid.lol/)
-
-[![Download Musly](https://img.shields.io/badge/Download-Musly%20v2.0.2-fa243c?style=for-the-badge&logo=github)](https://github.com/dddevid/Musly/releases/tag/v2.0.2)
-[![Navidrome](https://img.shields.io/badge/Navidrome-Supported-blue?style=for-the-badge)](https://musly.devid.lol)
-[![Jellyfin](https://img.shields.io/badge/Jellyfin-Supported-purple?style=for-the-badge)](https://musly.devid.lol)
-[![Emby](https://img.shields.io/badge/Emby-Supported-52B54B?style=for-the-badge)](https://musly.devid.lol)
-[![Subsonic](https://img.shields.io/badge/Subsonic-Supported-green?style=for-the-badge)](https://musly.devid.lol)
-[![Crowdin](https://badges.crowdin.net/musly/localized.svg)](https://crowdin.com/project/musly)
-
-## Why Choose Musly?
-
-Musly is a versatile, high-performance music client offering:
-
-- 🎵 **Multi-Source Streaming** - Stream seamlessly from Navidrome, Subsonic, Jellyfin, Emby, or Airsonic servers
-- 📁 **Local Audio Files** - Play local music stored directly on your device storage
-- 📻 **Live Web Streams & Internet Radio** - Search, browse, and listen to thousands of web radio stations worldwide
-- 🎨 **Modern & Adaptive UI** - Sleek interface with Material 3 Dynamic Colors (Material You), smooth glassmorphism, and responsive layouts
-- 🌙 **Dark/Light Mode** - Automatic theme switching based on system settings
-- 📱 **Cross-Platform & Responsive** - Fully optimized for phones, tablets, foldables, and desktop computers
-- 🎧 **Time-Synced Lyrics** - Synchronized lyrics with interactive tap-to-seek and desktop fullscreen mode
-- 📡 **Casting & Remote Playback** - Stream audio directly to Google Cast, UPnP, and DLNA devices
-- 🔀 **Smart Radio Queues & Auto-Refill** - Continuous automated queue replenishment based on your favorite tracks and artists
-- 💾 **Offline Downloads** - Download tracks, albums, and playlists for offline high-fidelity listening
-- 🚗 **Android Auto** - Full native Android Auto integration
-- 📊 **Musly Wrapped & Statistics** - Personalized listening statistics, top genres, and yearly rewinds
-
-### Prerequisites
-
-- Flutter SDK 3.10.0 or higher
-- A supported music source (Navidrome, Subsonic, Jellyfin, Emby, Web Stream, or Local Files)
-
-## Supported Platforms
-
-Musly is a cross-platform application that supports:
-- 📱 **Android**
-- 🍏 **iOS**
-- 🪟 **Windows**
-- 🐧 **Linux**
-- 🍎 **macOS**
-
-## Download Musly
-
-You can download the latest release of Musly:
-👉 **[Download Musly v2.0.2](https://github.com/dddevid/Musly/releases/tag/v2.0.2)**
-
-## Community
-
-Join our Discord community to get support, share feedback, and connect with other Musly users!
-
 <div align="center">
 
-[![Discord](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/k9FqpbT65M)
+# Octave
 
-**[Join Discord Server](https://discord.gg/k9FqpbT65M)** 💬
+**Ton serveur de musique, dans ta poche.**
+
+Le lecteur de musique de notre serveur privé, pour la famille et les amis.<br>
+Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour Navidrome et Octo.
+
+[![Licence CC BY-NC-SA 4.0](https://img.shields.io/badge/licence-CC%20BY--NC--SA%204.0-lightgrey?style=for-the-badge)](LICENSE)
+[![Basé sur Musly](https://img.shields.io/badge/bas%C3%A9%20sur-Musly-fa243c?style=for-the-badge)](https://github.com/dddevid/Musly)
+[![Flutter 3.41.7](https://img.shields.io/badge/Flutter-3.41.7-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://docs.flutter.dev/release/archive)
+
+![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white)
+![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat-square&logo=windows11&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
 
 </div>
 
-## 💖 Support the Project
-
-If you find Musly useful and want to support its development
-
-| Network | Address |
-| :--- | :--- |
-| **Bitcoin (BTC)** | `bc1qrfv880kc8qamanalc5kcqs9q5wszh90e5eggyz` |
-| **Solana (SOL)** | `E3JUcjyR6UCJtppU24iDrq82FyPeV9nhL1PKHx57iPXu` |
-| **ETH / Monad / Hype** | `0x01195b0Ae97b2D461aB0C746663bFE915eb9ac7c` |
-
 ---
 
-## Roadmap
+> [!NOTE]
+> **Octave est en préparation.** Aucune version n'est encore publiée. La première, la 1.0.0, reprendra Musly tel quel, avec son propre nom et sa propre icône.
 
-- [x] **Custom PC UX**: Basic desktop layout with persistent sidebar and dedicated player bar.
-- [x] **Desktop Lyrics & Fullscreen Mode**: Synced lyrics view with smooth scrolling and true fullscreen on desktop.
-- [-] **CarPlay Support**: Add a dedicated browsing interface for CarPlay. (Carplay needs a signed certificate, until the app is available on the appstore carplay wont work, only if selfsigned and with carplay enabled in the code)
-- [x] **Local Playlists**: Manage playlists locally, independent of the server.
-- [x] **Jellyfin & Emby Support**: Native connection and streaming from Jellyfin and Emby media servers.
-- [x] **Internet Radio & Web Streams**: Live radio stream exploration and playback.
-- [x] **Local Files Support**: Direct playback and library indexing of device audio files.
-- [ ] **Custom API Server**: Support for custom backend implementations and extended APIs.
-- [x] **Improved Offline Sync**: Reliable background downloading and offline caching.
-- [ ] **Tizen OS (Samsung TV) and WebOS (LG TV) Port**
+## Sommaire
 
-## Screenshots
+- [Pourquoi Octave](#pourquoi-octave)
+- [Avancement](#avancement)
+- [Fonctionnalités](#fonctionnalités)
+- [Plateformes](#plateformes)
+- [Installation](#installation)
+- [Compiler Octave](#compiler-octave)
+- [Suivre Musly](#suivre-musly)
+- [Licence et crédits](#licence-et-crédits)
 
-<p align="center">
-  <img src="screenshots/Screenshot_20260101_024726.png" width="200" />
-  <img src="screenshots/Screenshot_20260101_024746.png" width="200" />
-  <img src="screenshots/Screenshot_20260101_024751.png" width="200" />
-  <img src="screenshots/Screenshot_20260101_024803.png" width="200" />
-</p>
+## Pourquoi Octave
+
+Musly est un excellent client Subsonic, libre et gratuit. Octave part de Musly pour l'ajuster à un usage précis : un serveur personnel (Navidrome + Octo) partagé entre quelques proches, avec une app en français, simple à installer et qui se met à jour seule.
+
+Octave suit Musly de près et récupère régulièrement ses nouveautés et ses corrections.
+
+## Avancement
+
+| | Étape |
+|:-:|---|
+| ✅ | Base : Musly `master` du 27 septembre 2026 (`44ff278`), qui corrige notamment les titres lus deux fois sur Android ([Musly #244](https://github.com/dddevid/Musly/issues/244)) |
+| ⏳ | Nom, icône et identifiant Android propres, pour s'installer à côté de Musly |
+| ⏳ | Traduction française complète (926 textes sur 926) |
+| ⏳ | Compilation automatique des versions Android par GitHub Actions |
+| ⏳ | Mises à jour proposées et installées depuis l'app |
+| ⏳ | Versions Windows et Linux publiées |
+
+Le détail de chaque version est dans [CHANGELOG-octave.md](CHANGELOG-octave.md), dès la première.
+
+## Fonctionnalités
+
+Héritées de Musly :
+
+- 🎵 **Serveurs Navidrome, Subsonic, Jellyfin, Emby et Airsonic**
+- 💾 **Écoute hors ligne** de titres, albums et playlists
+- 🎧 **Paroles synchronisées**, avec un appui pour aller au bon moment
+- 🔀 **File d'attente qui se remplit seule** à partir de tes titres et artistes préférés
+- 📊 **Statistiques d'écoute** et bilan de l'année
+- 📡 **Diffusion** vers Google Cast, UPnP et DLNA
+- 🚗 **Android Auto**
+- 📻 **Radios en ligne** et fichiers audio du téléphone
+- 🌙 **Thème clair ou sombre**, couleurs Material You
+- 📱 **Interface adaptée** aux téléphones, tablettes et ordinateurs
+
+## Plateformes
+
+| Plateforme | État |
+|---|---|
+| **Android** | Priorité : c'est la version distribuée en premier |
+| **Windows** | Prévue |
+| **Linux** | Prévue |
+| iOS, macOS | Non distribuées : il faudrait un compte développeur Apple payant |
+
+Sur iPhone, l'app conseillée pour notre serveur reste **Arpeggi**, gratuite sur l'App Store.
 
 ## Installation
 
-1. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
-2. Run the app:
-   ```bash
-   flutter run
-   ```
+Les versions seront publiées dans la page [**Releases**](https://github.com/CharlesDuchaussoy/Octave/releases).
 
-### Connecting to Your Music Source
+1. Télécharge le fichier `app-arm64-v8a-release.apk` de la dernière version (il convient à presque tous les téléphones récents).
+2. Ouvre-le et autorise l'installation quand Android le demande.
+3. Lance Octave et connecte-toi avec l'adresse et le compte que tu as reçus.
 
-1. Launch the app
-2. Select your music source type:
-   - **Subsonic / Navidrome**: Enter server URL, username, and password (toggle "Legacy Authentication" if needed)
-   - **Jellyfin / Emby**: Enter server URL and credentials / API token
-   - **Internet Radio**: Browse live stations and web streams directly
-   - **Local Storage**: Grant storage permission to index and play local audio files
-3. Tap "Connect" and enjoy your music!
+Octave s'installe à côté de Musly sans le remplacer.
 
-## Translations
+## Compiler Octave
 
-[![Crowdin](https://badges.crowdin.net/musly/localized.svg)](https://crowdin.com/project/musly)
+### Prérequis
 
-Musly is translated into 27 languages! Help translate Musly into your language:
+- [Flutter](https://docs.flutter.dev/release/archive) **3.41.7** (stable)
+- [Android Studio](https://developer.android.com/studio) pour le SDK Android
+- Pour Windows : Visual Studio 2022 avec « Développement Desktop en C++ »
+- Pour Linux : `clang cmake ninja pkg-config gtk3 libmpv` et leurs dépendances
 
-📝 **[Contribute on Crowdin](https://crowdin.com/project/musly)**
+### Commandes
 
-See [TRANSLATIONS.md](TRANSLATIONS.md) for a complete guide on how to contribute translations.
+```sh
+git clone https://github.com/CharlesDuchaussoy/Octave.git
+cd Octave
+flutter pub get
+flutter run                                      # sur un téléphone branché
+flutter build apk --release --split-per-abi      # versions Android signées
+```
 
-## Supported Music Sources & Servers
+Une version signée a besoin d'un fichier `android/key.properties` qui pointe vers la clé de signature. Ce fichier et la clé ne sont **jamais** dans le dépôt.
 
-Musly works seamlessly across a wide variety of music sources:
+## Suivre Musly
 
-- **Navidrome** - [navidrome.org](https://www.navidrome.org/)
-- **Jellyfin** - [jellyfin.org](https://jellyfin.org/)
-- **Emby** - [emby.media](https://emby.media/)
-- **Subsonic** - [subsonic.org](http://www.subsonic.org/)
-- **Airsonic / Airsonic-Advanced** - [airsonic.github.io](https://airsonic.github.io/)
-- **Gonic** - [github.com/sentriz/gonic](https://github.com/sentriz/gonic)
-- **Web Streams & Live Radio** (Radio Browser API & custom stream URLs)
-- **Local Audio Files** (MP3, FLAC, AAC, WAV, OGG, OPUS, M4A)
+Le dépôt d'origine est déclaré comme `upstream` :
 
-## License
+```sh
+git remote add upstream https://github.com/dddevid/Musly.git
+git fetch upstream
+git merge upstream/master
+```
 
-> [!IMPORTANT]
-> **DO NOT redistribute this app to the Google Play Store or other commercial stores.**
+Les corrections de Musly arrivent ainsi dans Octave en gardant nos changements.
 
-This project is open source and available under the **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)** License. See the [LICENSE](LICENSE) file for details.
+## Licence et crédits
 
----
+Octave est une **œuvre dérivée de [Musly](https://github.com/dddevid/Musly)**, créé par [dddevid](https://github.com/dddevid) avec ses contributeurs. Tout le mérite de l'application d'origine leur revient.
+
+Octave est distribué sous la même licence que Musly : **[Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions 4.0 International (CC BY-NC-SA 4.0)](LICENSE)**.
+
+- ✅ Tu peux utiliser, modifier et partager Octave, en citant Musly et Octave.
+- ✅ Toute version modifiée doit rester sous cette même licence.
+- ❌ **Aucun usage commercial** : pas de vente, pas de publicité, pas de publication sur le Google Play Store ni sur un autre magasin d'applications.
+
+Les mentions d'attribution et la liste des modifications sont dans [NOTICE.md](NOTICE.md).
+
+Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Les noms Navidrome, Subsonic, Jellyfin, Emby, Android, Windows et Linux appartiennent à leurs détenteurs respectifs.
 
 <div align="center">
-  <sub>Made with <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2764.svg" width="14" height="14" alt="❤️"> in Italy <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1ee-1f1f9.svg" width="14" height="14" alt="🇮🇹"> by an Albanian developer <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f1e6-1f1f1.svg" width="14" height="14" alt="🇦🇱"></sub>
+<br>
+<sub>Fait avec soin pour écouter ensemble, en famille et entre amis.</sub>
 </div>
-
-<br/>
-
-<div align="center">
-
-[![Views](https://komarev.com/ghpvc/?username=dddevid-Musly&label=VIEWS&color=fa243c&style=for-the-badge)](https://github.com/dddevid/Musly)
-
