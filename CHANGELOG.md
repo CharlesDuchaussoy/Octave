@@ -5,6 +5,83 @@ All notable changes to Musly will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.3] - 2026-10-18
+
+### Added
+
+- **No-Login Playlist Import (Spotify & YouTube Music)**
+  - Added `PlaylistImportService` allowing users to import public playlists directly from Spotify and YouTube Music URLs without needing an account, login credentials, or developer API keys.
+  - Added modern interactive `ImportPlaylistDialog` with live preview, concurrent track matching, progress feedback, and persistent local SQLite database storage.
+  - Matches imported Spotify tracks exclusively against YouTube Music Song catalog items (`musicResponsiveListItemRenderer`) rather than generic videos, ensuring official audio tracks and avoiding music video versions.
+  - Resolves high-resolution 1:1 square artwork on playlist import for flawless fullscreen player display.
+
+- **In-App Auto-Update System & Release Manager**
+  - Added integrated `UpdateService` checking GitHub Releases API for new versions automatically on startup (throttled every 24h) and on demand via Settings.
+  - Multi-platform asset detection automatically downloading the appropriate installer/package for the running OS: Android (`.apk`), Windows (`-setup.exe`), macOS (`.dmg`), and Linux (`.tar.gz`).
+  - Added `UpdateDialog` featuring changelog viewer, animated download progress bar, installer launch, and "Skip version" option.
+  - Added manual "Check for Updates" action in Settings -> About tab.
+
+- **Desktop Player Bar Quick Actions & Playlist Navigation (Fixes #265)**
+  - Added dedicated playlist button (`Icons.queue_music_rounded`) and 3-dots more options button (`Icons.more_vert_rounded`) directly in the desktop player bar (`DesktopPlayerBar`).
+  - Clicking the playlist button navigates directly to the currently playing song's parent playlist detail screen, preserving active navigation state.
+  - Clicking the 3-dots button opens `SongOptionsModal` for quick access to track operations (favorite, add to playlist, view album/artist, download, etc.).
+
+- **Favorite Playlists on Home Screen (Fixes #267)**
+  - Added setting to display pinned and favorite playlists as dedicated horizontal scrolling rows on the Home screen.
+  - Fully integrated with `FavoritePlaylistsService` and localized toggle in Display Settings.
+
+- **Spotverlay Desktop Lyrics Overlay Recommendation**
+  - Added recommendation card for Spotverlay desktop overlay in Settings -> Display -> Desktop Integration.
+  - Fully localized across all 27 supported languages.
+
+- **Playlist Deletion & Lifecycle Management**
+  - Added delete playlist action with confirmation dialog in the playlist detail screen (`PlaylistScreen`), Library playlists tab, and playlist options modal (`PlaylistOptionsModal`).
+  - Seamlessly handles playlist deletion across Subsonic/Navidrome servers and Web Stream local playlists.
+
+### Fixed
+
+- **Repeat Button Visual State & Audio Session Sync (Fixes #253)**
+  - Distinctly renders `Icons.repeat_one_rounded` when `RepeatMode.one` is active, with active pill background and indicator dot.
+  - Synchronizes `RepeatMode` on app initialization with audio player `LoopMode` and wires media session repeat and shuffle handlers.
+
+- **Screen Timeout Pausing During Lyrics (Fixes #259)**
+  - Automatically pauses screen timeout via centralized `WakelockService` when viewing synchronized lyrics in Now Playing and Desktop lyrics panel.
+  - Added configurable "Keep Screen On" toggle in Settings -> Display -> Lyrics Display.
+
+- **ReplayGain Loudness Normalization on Track Start & Autoplay (Fixes #260)**
+  - Automatically parses and applies ReplayGain loudness normalization tags immediately when selecting a track and during gapless autoplay across Android, Windows, and Linux.
+  - Re-applies ReplayGain when native audio stream transitions to ready or starts playing, resolving Media Foundation and ExoPlayer volume resets.
+
+- **Playing Animated Equalizer Centering & Baseline Jitter (Fixes #261)**
+  - Centered animated equalizer bars over song cover and locked height to 16.0 to eliminate dynamic baseline jitter during animation playback.
+  - Equalizer animates strictly when the song is actively playing.
+
+- **Custom Playlist Cover Display Consistency (Fixes #262)**
+  - Ensured custom uploaded playlist covers are consistently rendered across sidebar, playlist details screen, and home page.
+
+- **Unsynced Lyrics Highlight on Windows (Fixes #263)**
+  - Resolved text rendering and highlight glitches for unsynced lyrics on Windows desktop.
+
+- **Home Page Song Cover Quality & Caching (Fixes #264)**
+  - Improved album and song artwork resolution caching and thumbnail decoding performance on the Home screen.
+
+- **Library Albums & Songs Loading (Fixes #266)**
+  - Fixed empty albums and songs tabs loading and background sync in `LibraryProvider`.
+
+- **Mini Player Progress Bar & Navbar Preservation**
+  - Fixed real-time position streaming in mini player progress bar and preserved navigation bar state during playlist transitions.
+
+- **Queue Auto-Scroll to Current Track (Fixes #268)**
+  - Opening the queue now automatically scrolls to center and highlight the currently playing track.
+
+- **Security & Performance Hardening**
+  - Optimized image decoding memory cache in `AlbumArtwork` for thumbnails.
+  - Cached merged local/remote lookups with O(1) performance in `LibraryProvider`.
+  - Properly disposed native audio resources in `PlayerProvider.dispose()`.
+  - Disabled `android:allowBackup` in AndroidManifest.xml for improved security.
+  - Per-installation encrypted fallback keys in `StorageService` with automatic migration.
+  - Cross-platform path handling for Windows in `OfflineService` and `SettingsStorageTab`.
+
 ## [2.0.2] - 2026-08-26
 
 ### Added

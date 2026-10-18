@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/models.dart';
 import '../services/audio_handler.dart';
-import '../services/android_auto_service.dart';
 import '../services/local_music_service.dart';
 import '../services/services.dart';
 import '../widgets/common/album_artwork.dart';

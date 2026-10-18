@@ -14,7 +14,6 @@ import 'package:musly/services/transcoding_service.dart';
 import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/navigation/desktop_player_bar.dart';
 import 'package:musly/widgets/modals/song_options_modal.dart';
-import 'package:musly/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../test_helpers.dart';
 import '../bootstrap.dart';

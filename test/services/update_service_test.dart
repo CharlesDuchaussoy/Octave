@@ -4,18 +4,19 @@ import 'package:musly/services/update_service.dart';
 void main() {
   group('UpdateService - Version Comparison', () {
     test('correctly identifies newer semantic versions', () {
-      expect(UpdateService.isNewerVersion('2.0.3', '2.0.2'), isTrue);
-      expect(UpdateService.isNewerVersion('2.1.0', '2.0.2'), isTrue);
-      expect(UpdateService.isNewerVersion('3.0.0', '2.0.2'), isTrue);
-      expect(UpdateService.isNewerVersion('2.0.2.1', '2.0.2'), isTrue);
+      expect(UpdateService.isNewerVersion('2.0.4', '2.0.3'), isTrue);
+      expect(UpdateService.isNewerVersion('2.1.0', '2.0.3'), isTrue);
+      expect(UpdateService.isNewerVersion('3.0.0', '2.0.3'), isTrue);
+      expect(UpdateService.isNewerVersion('2.0.3.1', '2.0.3'), isTrue);
       expect(UpdateService.isNewerVersion('10.0.0', '2.9.9'), isTrue);
     });
 
     test('correctly identifies older or equal versions', () {
-      expect(UpdateService.isNewerVersion('2.0.2', '2.0.2'), isFalse);
-      expect(UpdateService.isNewerVersion('2.0.1', '2.0.2'), isFalse);
-      expect(UpdateService.isNewerVersion('1.9.9', '2.0.2'), isFalse);
-      expect(UpdateService.isNewerVersion('2.0.0', '2.0.2'), isFalse);
+      expect(UpdateService.isNewerVersion('2.0.3', '2.0.3'), isFalse);
+      expect(UpdateService.isNewerVersion('2.0.2', '2.0.3'), isFalse);
+      expect(UpdateService.isNewerVersion('2.0.1', '2.0.3'), isFalse);
+      expect(UpdateService.isNewerVersion('1.9.9', '2.0.3'), isFalse);
+      expect(UpdateService.isNewerVersion('2.0.0', '2.0.3'), isFalse);
     });
   });
 

@@ -200,8 +200,8 @@ function PrivacyPolicy({ onBack }) {
         </section>
 
         <footer className="privacy-footer">
-          <p>Last updated: August 26, 2026</p>
-          <p className="version">Musly v2.0.2</p>
+          <p>Last updated: October 18, 2026</p>
+          <p className="version">Musly v2.0.3</p>
         </footer>
       </div>
       

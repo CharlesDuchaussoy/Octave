@@ -9,7 +9,7 @@
 
 🌐 **Website:** [musly.devid.lol](https://musly.devid.lol/)
 
-[![Download Musly](https://img.shields.io/badge/Download-Musly%20v2.0.2-fa243c?style=for-the-badge&logo=github)](https://github.com/dddevid/Musly/releases/tag/v2.0.2)
+[![Download Musly](https://img.shields.io/badge/Download-Musly%20v2.0.3-fa243c?style=for-the-badge&logo=github)](https://github.com/dddevid/Musly/releases/tag/v2.0.3)
 [![Navidrome](https://img.shields.io/badge/Navidrome-Supported-blue?style=for-the-badge)](https://musly.devid.lol)
 [![Jellyfin](https://img.shields.io/badge/Jellyfin-Supported-purple?style=for-the-badge)](https://musly.devid.lol)
 [![Emby](https://img.shields.io/badge/Emby-Supported-52B54B?style=for-the-badge)](https://musly.devid.lol)
@@ -50,7 +50,7 @@ Musly is a cross-platform application that supports:
 ## Download Musly
 
 You can download the latest release of Musly:
-👉 **[Download Musly v2.0.2](https://github.com/dddevid/Musly/releases/tag/v2.0.2)**
+👉 **[Download Musly v2.0.3](https://github.com/dddevid/Musly/releases/tag/v2.0.3)**
 
 ## Community
 

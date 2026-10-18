@@ -302,11 +302,14 @@ class _NavItemState extends State<_NavItem> {
     return Tooltip(
       message: widget.isCollapsed ? widget.label : '',
       waitDuration: const Duration(milliseconds: 400),
-      child: TvFocusableCard(
-        onTap: widget.onTap,
-        borderRadius: BorderRadius.circular(8),
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-        padding: EdgeInsets.symmetric(horizontal: widget.isCollapsed ? 0 : 12),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: TvFocusableCard(
+          onTap: widget.onTap,
+          borderRadius: BorderRadius.circular(8),
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+          padding: EdgeInsets.symmetric(horizontal: widget.isCollapsed ? 0 : 12),
         child: Container(
           height: 40,
           decoration: BoxDecoration(
@@ -345,6 +348,7 @@ class _NavItemState extends State<_NavItem> {
                     ),
                   ],
                 ),
+        ),
         ),
       ),
     );
