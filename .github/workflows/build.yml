@@ -268,41 +268,35 @@ jobs:
           cp -r build/linux/x64/release/bundle/* dist/deb/usr/lib/musly/
           cp "assets/Musly Icon.png" dist/deb/usr/share/icons/hicolor/512x512/apps/musly.png
 
-          cat << 'EOF' > dist/deb/usr/bin/musly
-#!/bin/sh
-exec /usr/lib/musly/musly "$@"
-EOF
+          echo '#!/bin/sh' > dist/deb/usr/bin/musly
+          echo 'exec /usr/lib/musly/musly "$@"' >> dist/deb/usr/bin/musly
           chmod 755 dist/deb/usr/bin/musly
 
-          cat << 'EOF' > dist/deb/usr/share/applications/musly.desktop
-[Desktop Entry]
-Name=Musly
-Comment=Universal Music Streaming Player & Client
-Exec=/usr/bin/musly %U
-Icon=musly
-Terminal=false
-Type=Application
-Categories=AudioVideo;Audio;Player;Music;
-StartupWMClass=musly
-EOF
+          echo '[Desktop Entry]' > dist/deb/usr/share/applications/musly.desktop
+          echo 'Name=Musly' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Comment=Universal Music Streaming Player & Client' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Exec=/usr/bin/musly %U' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Icon=musly' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Terminal=false' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Type=Application' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Categories=AudioVideo;Audio;Player;Music;' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'StartupWMClass=musly' >> dist/deb/usr/share/applications/musly.desktop
           chmod 644 dist/deb/usr/share/applications/musly.desktop
 
           # 2. Debian / Ubuntu (.deb)
           INST_SIZE=$(du -sk dist/deb/usr | cut -f1)
-          cat << EOF > dist/deb/DEBIAN/control
-Package: musly
-Version: ${VERSION}
-Architecture: amd64
-Maintainer: dddevid <devidrru@gmail.com>
-Installed-Size: ${INST_SIZE}
-Depends: libgtk-3-0, libnotify4, libsecret-1-0, libmpv2 | libmpv1, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0
-Section: sound
-Priority: optional
-Homepage: https://musly.devid.lol
-Description: Universal Music Streaming Player & Client
- Musly is a modern, elegant music streaming client for Navidrome, Subsonic,
- Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files.
-EOF
+          echo "Package: musly" > dist/deb/DEBIAN/control
+          echo "Version: ${VERSION}" >> dist/deb/DEBIAN/control
+          echo "Architecture: amd64" >> dist/deb/DEBIAN/control
+          echo "Maintainer: dddevid <devidrru@gmail.com>" >> dist/deb/DEBIAN/control
+          echo "Installed-Size: ${INST_SIZE}" >> dist/deb/DEBIAN/control
+          echo "Depends: libgtk-3-0, libnotify4, libsecret-1-0, libmpv2 | libmpv1, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0" >> dist/deb/DEBIAN/control
+          echo "Section: sound" >> dist/deb/DEBIAN/control
+          echo "Priority: optional" >> dist/deb/DEBIAN/control
+          echo "Homepage: https://musly.devid.lol" >> dist/deb/DEBIAN/control
+          echo "Description: Universal Music Streaming Player & Client" >> dist/deb/DEBIAN/control
+          echo " Musly is a modern, elegant music streaming client for Navidrome, Subsonic," >> dist/deb/DEBIAN/control
+          echo " Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files." >> dist/deb/DEBIAN/control
           dpkg-deb --build --root-owner-group dist/deb "linux_packages/musly_${VERSION}_amd64.deb"
 
           # 3. RedHat / Fedora / openSUSE (.rpm)
@@ -315,23 +309,21 @@ EOF
           mkdir -p dist/arch/usr
           cp -r dist/deb/usr/* dist/arch/usr/
           INST_SIZE_BYTES=$(du -sb dist/arch/usr | cut -f1)
-          cat << EOF > dist/arch/.PKGINFO
-pkgname = musly
-pkgver = ${VERSION}-1
-pkgdesc = Universal Music Streaming Player & Client
-url = https://musly.devid.lol
-builddate = $(date +%s)
-packager = dddevid <devidrru@gmail.com>
-size = ${INST_SIZE_BYTES}
-arch = x86_64
-license = MIT
-depend = gtk3
-depend = libnotify
-depend = libsecret
-depend = mpv
-depend = gstreamer
-depend = gst-plugins-base
-EOF
+          echo "pkgname = musly" > dist/arch/.PKGINFO
+          echo "pkgver = ${VERSION}-1" >> dist/arch/.PKGINFO
+          echo "pkgdesc = Universal Music Streaming Player & Client" >> dist/arch/.PKGINFO
+          echo "url = https://musly.devid.lol" >> dist/arch/.PKGINFO
+          echo "builddate = $(date +%s)" >> dist/arch/.PKGINFO
+          echo "packager = dddevid <devidrru@gmail.com>" >> dist/arch/.PKGINFO
+          echo "size = ${INST_SIZE_BYTES}" >> dist/arch/.PKGINFO
+          echo "arch = x86_64" >> dist/arch/.PKGINFO
+          echo "license = MIT" >> dist/arch/.PKGINFO
+          echo "depend = gtk3" >> dist/arch/.PKGINFO
+          echo "depend = libnotify" >> dist/arch/.PKGINFO
+          echo "depend = libsecret" >> dist/arch/.PKGINFO
+          echo "depend = mpv" >> dist/arch/.PKGINFO
+          echo "depend = gstreamer" >> dist/arch/.PKGINFO
+          echo "depend = gst-plugins-base" >> dist/arch/.PKGINFO
           (cd dist/arch && tar -cf - .PKGINFO usr | zstd -c > "../../linux_packages/musly-${VERSION}-x86_64.pkg.tar.zst") || true
 
           # 5. AppImage (.AppImage)
@@ -346,14 +338,12 @@ EOF
           cp "assets/Musly Icon.png" dist/appimage/AppDir/.DirIcon
           cp dist/deb/usr/share/applications/musly.desktop dist/appimage/AppDir/musly.desktop
 
-          cat << 'EOF' > dist/appimage/AppDir/AppRun
-#!/bin/sh
-SELF=$(readlink -f "$0")
-HERE=${SELF%/*}
-export PATH="${HERE}/usr/bin:${PATH}"
-export LD_LIBRARY_PATH="${HERE}/usr/lib:${HERE}/usr/lib/musly/lib:${LD_LIBRARY_PATH}"
-exec "${HERE}/usr/lib/musly/musly" "$@"
-EOF
+          echo '#!/bin/sh' > dist/appimage/AppDir/AppRun
+          echo 'SELF=$(readlink -f "$0")' >> dist/appimage/AppDir/AppRun
+          echo 'HERE=${SELF%/*}' >> dist/appimage/AppDir/AppRun
+          echo 'export PATH="${HERE}/usr/bin:${PATH}"' >> dist/appimage/AppDir/AppRun
+          echo 'export LD_LIBRARY_PATH="${HERE}/usr/lib:${HERE}/usr/lib/musly/lib:${LD_LIBRARY_PATH}"' >> dist/appimage/AppDir/AppRun
+          echo 'exec "${HERE}/usr/lib/musly/musly" "$@"' >> dist/appimage/AppDir/AppRun
           chmod +x dist/appimage/AppDir/AppRun
 
           wget -q https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage -O appimagetool.AppImage
@@ -370,31 +360,27 @@ EOF
             cp -r build/linux/x64/release/bundle/* dist/flatpak/app/files/
             cp "assets/Musly Icon.png" dist/flatpak/app/export/share/icons/hicolor/512x512/apps/com.dddevid.Musly.png
 
-            cat << 'EOF' > dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
-[Desktop Entry]
-Name=Musly
-Comment=Universal Music Streaming Player & Client
-Exec=musly %U
-Icon=com.dddevid.Musly
-Terminal=false
-Type=Application
-Categories=AudioVideo;Audio;Player;Music;
-StartupWMClass=musly
-EOF
+            echo '[Desktop Entry]' > dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Name=Musly' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Comment=Universal Music Streaming Player & Client' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Exec=musly %U' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Icon=com.dddevid.Musly' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Terminal=false' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Type=Application' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Categories=AudioVideo;Audio;Player;Music;' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'StartupWMClass=musly' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
 
-            cat << 'EOF' > dist/flatpak/app/metadata
-[Application]
-name=com.dddevid.Musly
-runtime=org.freedesktop.Platform/x86_64/24.04
-sdk=org.freedesktop.Sdk/x86_64/24.04
-command=musly
-
-[Context]
-shared=network;ipc;
-sockets=x11;wayland;pulseaudio;fallback-x11;
-devices=all;
-filesystems=host;xdg-run/dconf;~/.config/dconf:ro;
-EOF
+            echo '[Application]' > dist/flatpak/app/metadata
+            echo 'name=com.dddevid.Musly' >> dist/flatpak/app/metadata
+            echo 'runtime=org.freedesktop.Platform/x86_64/24.04' >> dist/flatpak/app/metadata
+            echo 'sdk=org.freedesktop.Sdk/x86_64/24.04' >> dist/flatpak/app/metadata
+            echo 'command=musly' >> dist/flatpak/app/metadata
+            echo '' >> dist/flatpak/app/metadata
+            echo '[Context]' >> dist/flatpak/app/metadata
+            echo 'shared=network;ipc;' >> dist/flatpak/app/metadata
+            echo 'sockets=x11;wayland;pulseaudio;fallback-x11;' >> dist/flatpak/app/metadata
+            echo 'devices=all;' >> dist/flatpak/app/metadata
+            echo 'filesystems=host;xdg-run/dconf;~/.config/dconf:ro;' >> dist/flatpak/app/metadata
 
             ostree init --mode=archive-z2 --repo=repo || true
             flatpak build-export repo dist/flatpak/app master || flatpak build-export repo dist/flatpak/app || true
@@ -408,22 +394,18 @@ EOF
           cp "assets/Musly Icon.png" dist/snap/meta/gui/icon.png
           cp dist/deb/usr/share/applications/musly.desktop dist/snap/meta/gui/musly.desktop
 
-          cat << EOF > dist/snap/meta/snap.yaml
-name: musly
-version: '${VERSION}'
-summary: Universal Music Streaming Player & Client
-description: |
-  Musly is a free, modern music streaming client for Navidrome, Subsonic,
-  Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files.
-architectures:
-  - amd64
-base: core24
-grade: stable
-confinement: classic
-apps:
-  musly:
-    command: musly/musly
-EOF
+          echo "name: musly" > dist/snap/meta/snap.yaml
+          echo "version: '${VERSION}'" >> dist/snap/meta/snap.yaml
+          echo "summary: Universal Music Streaming Player & Client" >> dist/snap/meta/snap.yaml
+          echo "description: Universal music streaming client for Navidrome, Subsonic, Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files." >> dist/snap/meta/snap.yaml
+          echo "architectures:" >> dist/snap/meta/snap.yaml
+          echo "  - amd64" >> dist/snap/meta/snap.yaml
+          echo "base: core24" >> dist/snap/meta/snap.yaml
+          echo "grade: stable" >> dist/snap/meta/snap.yaml
+          echo "confinement: classic" >> dist/snap/meta/snap.yaml
+          echo "apps:" >> dist/snap/meta/snap.yaml
+          echo "  musly:" >> dist/snap/meta/snap.yaml
+          echo "    command: musly/musly" >> dist/snap/meta/snap.yaml
 
           mksquashfs dist/snap "linux_packages/musly_${VERSION}_amd64.snap" -noappend -comp xz || true
 
