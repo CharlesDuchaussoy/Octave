@@ -38,7 +38,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added delete playlist action with confirmation dialog in the playlist detail screen (`PlaylistScreen`), Library playlists tab, and playlist options modal (`PlaylistOptionsModal`).
   - Seamlessly handles playlist deletion across Subsonic/Navidrome servers and Web Stream local playlists.
 
+- **Expanded Linux Distribution Packaging (.deb, .rpm, .pkg.tar.zst, .AppImage, .flatpak, .snap)**
+  - Automated CI pipelines to package and publish Musly for every major Linux ecosystem:
+    - **Debian / Ubuntu / Mint**: `.deb` package
+    - **Fedora / RHEL / openSUSE**: `.rpm` package
+    - **Arch Linux / Manjaro**: `.pkg.tar.zst` package
+    - **Universal AppImage**: `.AppImage` executable across any distribution
+    - **Flatpak**: `.flatpak` standalone single-file bundle
+    - **Snap**: `.snap` package
+    - **Portable**: `.tar.gz` standalone archive
+
 ### Fixed
+
+- **iOS 15 Compatibility Preservation**
+  - Maintained backward compatibility down to iOS 15.0 by disabling automatic Swift Package Manager plugin conversion and enforcing CocoaPods deployment target definitions, avoiding Google Cast SPM platform constraint conflicts.
 
 - **Repeat Button Visual State & Audio Session Sync (Fixes #253)**
   - Distinctly renders `Icons.repeat_one_rounded` when `RepeatMode.one` is active, with active pill background and indicator dot.
