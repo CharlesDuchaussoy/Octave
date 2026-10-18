@@ -20,6 +20,19 @@ class UpdateDialog extends StatefulWidget {
     );
   }
 
+  static Future<void> checkAndShow(BuildContext context) async {
+    if (UpdateService.hasCheckedStartup) return;
+    UpdateService.markStartupChecked();
+    try {
+      final release = await UpdateService.checkForUpdate();
+      if (release != null && context.mounted) {
+        await show(context, release);
+      }
+    } catch (e) {
+      debugPrint('UpdateDialog: startup check error – $e');
+    }
+  }
+
   @override
   State<UpdateDialog> createState() => _UpdateDialogState();
 }
@@ -30,11 +43,45 @@ class _UpdateDialogState extends State<UpdateDialog> {
   String _downloadStatusText = '';
   CancelToken? _cancelToken;
   String? _errorMessage;
+  late final String _changelog;
+  DateTime? _lastProgressUpdateTime;
+  double _lastProgressFraction = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _changelog = UpdateService.stripMarkdown(widget.release.body);
+  }
 
   @override
   void dispose() {
     _cancelToken?.cancel();
     super.dispose();
+  }
+
+  void _onDownloadProgress(int received, int total) {
+    if (!mounted) return;
+    if (total > 0) {
+      final fraction = (received / total).clamp(0.0, 1.0);
+      final now = DateTime.now();
+      final isDone = received >= total;
+      final timePassed = _lastProgressUpdateTime == null ||
+          now.difference(_lastProgressUpdateTime!).inMilliseconds >= 80;
+      final progressChanged =
+          (fraction - _lastProgressFraction).abs() >= 0.01;
+
+      if (isDone || (timePassed && progressChanged)) {
+        _lastProgressUpdateTime = now;
+        _lastProgressFraction = fraction;
+        final recMb = (received / (1024 * 1024)).toStringAsFixed(1);
+        final totMb = (total / (1024 * 1024)).toStringAsFixed(1);
+        final percent = (fraction * 100).toInt();
+        setState(() {
+          _downloadProgress = fraction;
+          _downloadStatusText = '$percent% ($recMb / $totMb MB)';
+        });
+      }
+    }
   }
 
   Future<void> _startDownloadAndInstall() async {
@@ -51,29 +98,20 @@ class _UpdateDialogState extends State<UpdateDialog> {
       _downloadStatusText = '0%';
       _errorMessage = null;
       _cancelToken = CancelToken();
+      _lastProgressUpdateTime = null;
+      _lastProgressFraction = 0.0;
     });
 
     try {
       final downloadedPath = await UpdateService.downloadAsset(
         asset,
         cancelToken: _cancelToken,
-        onProgress: (received, total) {
-          if (!mounted) return;
-          if (total > 0) {
-            final fraction = (received / total).clamp(0.0, 1.0);
-            final recMb = (received / (1024 * 1024)).toStringAsFixed(1);
-            final totMb = (total / (1024 * 1024)).toStringAsFixed(1);
-            setState(() {
-              _downloadProgress = fraction;
-              _downloadStatusText =
-                  '${(fraction * 100).toInt()}% ($recMb / $totMb MB)';
-            });
-          }
-        },
+        onProgress: _onDownloadProgress,
       );
 
       if (!mounted) return;
       setState(() {
+        _downloadProgress = 1.0;
         _downloadStatusText = 'Download completato!';
       });
 
@@ -91,6 +129,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
         setState(() {
           _isDownloading = false;
           _downloadProgress = 0.0;
+          _downloadStatusText = '';
         });
         return;
       }
@@ -106,6 +145,9 @@ class _UpdateDialogState extends State<UpdateDialog> {
     setState(() {
       _isDownloading = false;
       _downloadProgress = 0.0;
+      _downloadStatusText = '';
+      _lastProgressUpdateTime = null;
+      _lastProgressFraction = 0.0;
     });
   }
 
@@ -121,8 +163,6 @@ class _UpdateDialogState extends State<UpdateDialog> {
     final primaryColor = theme.colorScheme.primary;
     final l10n = AppLocalizations.of(context)!;
     final asset = widget.release.targetAsset;
-
-    final changelog = UpdateService.stripMarkdown(widget.release.body);
 
     return Dialog(
       backgroundColor: isDark ? const Color(0xFF1E1E22) : Colors.white,
@@ -274,8 +314,8 @@ class _UpdateDialogState extends State<UpdateDialog> {
                   ),
                   child: SingleChildScrollView(
                     child: Text(
-                      changelog.isNotEmpty
-                          ? changelog
+                      _changelog.isNotEmpty
+                          ? _changelog
                           : 'Nuovi miglioramenti e correzioni di bug.',
                       style: TextStyle(
                         fontSize: 13,

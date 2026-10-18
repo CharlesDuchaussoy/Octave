@@ -8,7 +8,6 @@ import '../../widgets/navigation/tv_remote_scope.dart';
 import '../../services/tv_detection_service.dart';
 import 'package:musly/services/recommendation_service.dart';
 import 'package:musly/services/theme_service.dart';
-import 'package:musly/services/update_service.dart';
 import 'package:musly/services/usage_time_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
@@ -162,9 +161,8 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> _checkForUpdate() async {
-    final release = await UpdateService.checkForUpdate();
-    if (release == null || !mounted) return;
-    await UpdateDialog.show(context, release);
+    if (!mounted) return;
+    await UpdateDialog.checkAndShow(context);
   }
 
   bool _isLargeScreen(BuildContext context) {

@@ -23,6 +23,7 @@ import 'services/tv_detection_service.dart';
 
 import 'package:musly/widgets/dialogs/privacy_policy_dialog.dart';
 import 'package:musly/widgets/dialogs/milestone_celebration_dialog.dart';
+import 'package:musly/widgets/dialogs/update_dialog.dart';
 import 'widgets/navigation/tv_remote_scope.dart';
 import 'providers/providers.dart';
 import 'screens/screens.dart';
@@ -316,6 +317,20 @@ class _AuthWrapperState extends State<AuthWrapper> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _checkOnboarding();
+    _checkUpdateOnStartup();
+  }
+
+  void _checkUpdateOnStartup() {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        if (!mounted) return;
+        final ctx = navigatorKey.currentContext ?? context;
+        if (ctx.mounted) {
+          UpdateDialog.checkAndShow(ctx);
+        }
+      });
+    });
   }
 
   @override

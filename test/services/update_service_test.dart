@@ -131,4 +131,17 @@ void main() {
       expect(clean.contains('Fixed bug'), isTrue);
     });
   });
+
+  group('UpdateService - Startup Check Lifecycle', () {
+    test('tracks startup check state correctly', () {
+      UpdateService.resetStartupCheck();
+      expect(UpdateService.hasCheckedStartup, isFalse);
+
+      UpdateService.markStartupChecked();
+      expect(UpdateService.hasCheckedStartup, isTrue);
+
+      UpdateService.resetStartupCheck();
+      expect(UpdateService.hasCheckedStartup, isFalse);
+    });
+  });
 }

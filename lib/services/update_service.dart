@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -106,7 +107,11 @@ class UpdateService {
 
   static const String _skippedVersionKey = 'skipped_update_version';
   static const String _lastCheckTimestampKey = 'last_update_check_timestamp';
-  static const Duration checkInterval = Duration(hours: 24);
+
+  static bool _hasCheckedStartup = false;
+  static bool get hasCheckedStartup => _hasCheckedStartup;
+  static void markStartupChecked() => _hasCheckedStartup = true;
+  static void resetStartupCheck() => _hasCheckedStartup = false;
 
   static final _dio = Dio(
     BaseOptions(
@@ -115,6 +120,7 @@ class UpdateService {
       headers: {
         'Accept': 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
+        'User-Agent': 'Musly-App/$currentVersion',
       },
     ),
   );
@@ -122,15 +128,6 @@ class UpdateService {
   static Future<ReleaseInfo?> checkForUpdate({bool force = false}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-
-      if (!force) {
-        final lastCheckMillis = prefs.getInt(_lastCheckTimestampKey) ?? 0;
-        final now = DateTime.now().millisecondsSinceEpoch;
-        if (now - lastCheckMillis < checkInterval.inMilliseconds) {
-          debugPrint('UpdateService: skipping check (checked within last 24h)');
-          return null;
-        }
-      }
 
       final response = await _dio.get<Map<String, dynamic>>(_apiUrl);
       final data = response.data;
@@ -199,39 +196,170 @@ class UpdateService {
     final tempDir = await getTemporaryDirectory();
     final sanitizedName = asset.name.replaceAll(RegExp(r'[^\w\.-]'), '_');
     final filePath = '${tempDir.path}/$sanitizedName';
+    final targetFile = File(filePath);
+
+    // If file already exists and is complete, reuse it immediately
+    if (targetFile.existsSync() && asset.size != null && asset.size! > 0) {
+      if (targetFile.lengthSync() == asset.size) {
+        onProgress?.call(asset.size!, asset.size!);
+        return filePath;
+      }
+    }
+
+    final partPath = '$filePath.part';
+    final partFile = File(partPath);
 
     final downloadDio = Dio(
       BaseOptions(
-        connectTimeout: const Duration(seconds: 30),
+        connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(minutes: 15),
+        headers: {
+          'Accept-Encoding': 'identity',
+          'User-Agent': 'Musly-App/$currentVersion',
+        },
       ),
     );
 
+    int existingLength = 0;
+    if (partFile.existsSync()) {
+      existingLength = partFile.lengthSync();
+      if (asset.size != null && existingLength >= asset.size!) {
+        try {
+          partFile.deleteSync();
+        } catch (_) {}
+        existingLength = 0;
+      }
+    }
+
+    if (existingLength > 0 && asset.size != null) {
+      try {
+        final sink = partFile.openSync(mode: FileMode.append);
+        final response = await downloadDio.get<ResponseBody>(
+          asset.browserDownloadUrl,
+          options: Options(
+            responseType: ResponseType.stream,
+            headers: {'Range': 'bytes=$existingLength-'},
+          ),
+          cancelToken: cancelToken,
+        );
+
+        final statusCode = response.statusCode ?? 200;
+        if (statusCode == 206) {
+          int received = existingLength;
+          final total = asset.size!;
+          onProgress?.call(received, total);
+
+          await for (final chunk in response.data!.stream) {
+            if (cancelToken?.isCancelled == true) {
+              sink.closeSync();
+              throw DioException(
+                requestOptions: response.requestOptions,
+                type: DioExceptionType.cancel,
+              );
+            }
+            sink.writeFromSync(chunk);
+            received += chunk.length;
+            onProgress?.call(received, total);
+          }
+          sink.closeSync();
+
+          try {
+            if (targetFile.existsSync()) {
+              targetFile.deleteSync();
+            }
+            partFile.renameSync(filePath);
+          } catch (_) {
+            partFile.copySync(filePath);
+            try {
+              partFile.deleteSync();
+            } catch (_) {}
+          }
+          return filePath;
+        } else {
+          sink.closeSync();
+          try {
+            partFile.deleteSync();
+          } catch (_) {}
+        }
+      } catch (e) {
+        if (e is DioException && e.type == DioExceptionType.cancel) {
+          rethrow;
+        }
+        if (partFile.existsSync()) {
+          try {
+            partFile.deleteSync();
+          } catch (_) {}
+        }
+      }
+    }
+
     await downloadDio.download(
       asset.browserDownloadUrl,
-      filePath,
-      onReceiveProgress: onProgress,
+      partPath,
+      onReceiveProgress: (rec, total) {
+        onProgress?.call(rec, total > 0 ? total : (asset.size ?? -1));
+      },
       cancelToken: cancelToken,
+      deleteOnError: true,
     );
+
+    try {
+      if (targetFile.existsSync()) {
+        targetFile.deleteSync();
+      }
+      File(partPath).renameSync(filePath);
+    } catch (_) {
+      File(partPath).copySync(filePath);
+      try {
+        File(partPath).deleteSync();
+      } catch (_) {}
+    }
 
     return filePath;
   }
+
+  static const MethodChannel _apkChannel =
+      MethodChannel('com.devid.musly/apk_installer');
 
   static Future<bool> launchInstallerOrFile(
     String filePath, {
     ReleaseInfo? release,
   }) async {
     try {
+      if (!kIsWeb && Platform.isAndroid) {
+        try {
+          final success = await _apkChannel.invokeMethod<bool>(
+            'installApk',
+            {'filePath': filePath},
+          );
+          if (success == true) return true;
+        } catch (e) {
+          debugPrint('UpdateService: Android native install error: $e');
+        }
+        final fileUri = Uri.file(filePath);
+        if (await canLaunchUrl(fileUri)) {
+          return await launchUrl(fileUri);
+        }
+        return false;
+      }
+
       if (!kIsWeb && Platform.isWindows) {
-        await Process.start(filePath, [], runInShell: true);
+        final winPath = filePath.replaceAll('/', '\\');
+        await Process.start(winPath, [], runInShell: false);
         return true;
       }
 
-      if (!kIsWeb && Platform.isAndroid) {
-        final uri = Uri.parse(release?.targetAsset?.browserDownloadUrl ??
-            release?.htmlUrl ??
-            'https://github.com/dddevid/Musly/releases/latest');
-        return await launchUrl(uri, mode: LaunchMode.externalApplication);
+      if (!kIsWeb && Platform.isMacOS) {
+        await Process.start('open', [filePath]);
+        return true;
+      }
+
+      if (!kIsWeb && Platform.isLinux) {
+        try {
+          await Process.run('chmod', ['+x', filePath]);
+        } catch (_) {}
+        await Process.start('xdg-open', [filePath]);
+        return true;
       }
 
       final uri = Uri.file(filePath);
@@ -240,10 +368,6 @@ class UpdateService {
       }
     } catch (e) {
       debugPrint('UpdateService: failed to launch file: $e');
-    }
-
-    if (release != null) {
-      return await openReleasePage(release);
     }
     return false;
   }
