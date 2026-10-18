@@ -99,10 +99,6 @@ Download the latest version for your platform from [GitHub Releases](https://git
 
 ## Building from Source
 
-### Prerequisites
-- Flutter SDK (3.27 or higher)
-- Dart SDK (3.6 or higher)
-
 ### Setup
 ```bash
 git clone https://github.com/dddevid/Musly.git
