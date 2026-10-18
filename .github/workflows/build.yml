@@ -9,7 +9,7 @@ on:
         type: string
 
 env:
-  FLUTTER_VERSION: '3.41.7'
+  FLUTTER_VERSION: '3.47.7'
 
 jobs:
   # Validate secrets exist
