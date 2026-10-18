@@ -19,7 +19,7 @@ A free, cross-platform music player and streaming client for self-hosted librari
 
 Musly connects to a wide variety of music sources in a single client:
 
-- **Web Stream**: Direct music search and on-demand streaming from open web sources. No server, user account, or login required — search for songs, discover tracks, create local playlists, cache audio locally, and get time-synced lyrics automatically.
+- **Web Stream**: Direct music search and on-demand streaming from open web sources. No server, user account, or login required, search for songs, discover tracks, create local playlists, cache audio locally, and get time-synced lyrics automatically.
 - **Navidrome**: Full Subsonic API support for browsing albums, artists, playlists, genres, and favorites.
 - **Jellyfin & Emby**: Direct API connection with user authentication and media library browsing.
 - **Subsonic / Airsonic / Gonic**: Standard Subsonic API compatible servers.
