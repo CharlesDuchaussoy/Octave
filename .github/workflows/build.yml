@@ -346,10 +346,12 @@ jobs:
           echo 'exec "${HERE}/usr/lib/musly/musly" "$@"' >> dist/appimage/AppDir/AppRun
           chmod +x dist/appimage/AppDir/AppRun
 
-          wget -q https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage -O appimagetool.AppImage
-          chmod +x appimagetool.AppImage
-          ./appimagetool.AppImage --appimage-extract
-          ARCH=x86_64 ./squashfs-root/AppRun dist/appimage/AppDir "linux_packages/musly-${VERSION}-x86_64.AppImage" || true
+          wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool.AppImage || wget -q https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage -O appimagetool.AppImage || true
+          chmod +x appimagetool.AppImage || true
+          ./appimagetool.AppImage --appimage-extract || true
+          if [ -f "./squashfs-root/AppRun" ]; then
+            ARCH=x86_64 ./squashfs-root/AppRun dist/appimage/AppDir "linux_packages/musly-${VERSION}-x86_64.AppImage" || true
+          fi
 
           # 6. Flatpak bundle (.flatpak)
           if command -v flatpak >/dev/null 2>&1; then
