@@ -578,7 +578,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(24),
                             child: Transform.translate(
-                              offset: const Offset(0, 8),
+                              offset: Offset.zero,
                               child: Image.asset(
                                 'assets/logobig.png',
                                 width: ScreenHelper.loginLogoSize(context),
