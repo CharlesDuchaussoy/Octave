@@ -1756,12 +1756,5 @@
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
   },
-  "aboutLinkDiscord": "Rejoignez la communauté Discord",
-  "@aboutLinkDiscord": {
-    "description": "Link tile title for the Discord server"
-  },
-  "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio",
-  "desktopOverlaySection": "Overlay Bureau",
-  "spotverlayTitle": "Spotverlay",
-  "spotverlayDescription": "Si vous souhaitez un overlay élégant et léger \"Made for Octave\", vous pouvez utiliser Spotverlay (https://github.com/dddevid/Spotverlay)"
+  "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio"
 }

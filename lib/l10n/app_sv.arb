@@ -1744,9 +1744,5 @@
   "aboutLinkReportIssue": "Rapportera Problem",
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
-  },
-  "aboutLinkDiscord": "Gå med Discord-communityn",
-  "@aboutLinkDiscord": {
-    "description": "Link tile title for the Discord server"
   }
 }

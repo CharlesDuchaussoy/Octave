@@ -1752,12 +1752,5 @@
   "aboutLinkReportIssue": "Reportar problema",
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
-  },
-  "aboutLinkDiscord": "Únete a la comunidad de Discord",
-  "@aboutLinkDiscord": {
-    "description": "Link tile title for the Discord server"
-  },
-  "desktopOverlaySection": "Superposición de escritorio",
-  "spotverlayTitle": "Spotverlay",
-  "spotverlayDescription": "Si quieres una superposición hermosa y ligera \"Made for Octave\", puedes usar Spotverlay (https://github.com/dddevid/Spotverlay)"
+  }
 }
