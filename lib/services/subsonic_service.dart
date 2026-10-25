@@ -34,7 +34,7 @@ class SubsonicService {
   JellyfinService? _jellyfin;
   YoutubeService? _youtube;
 
-  static const String _clientName = 'Musly';
+  static const String _clientName = 'Octave';
   static const String _apiVersion = '1.16.1';
 
   SubsonicService() : _dio = Dio() {

@@ -40,7 +40,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      expect(find.text('Musly'), findsWidgets);
+      expect(find.text('Octave'), findsWidgets);
       expect(find.text('Connect to your Subsonic server'), findsOneWidget);
     });
 

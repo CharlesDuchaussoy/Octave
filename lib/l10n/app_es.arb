@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   "@@last_modified": "2026-02-07T16:10:00Z",
-  "appName": "Musly",
+  "appName": "Octave",
   "@appName": {
     "description": "Application name"
   },
@@ -506,7 +506,7 @@
   "@communityTranslations": {
     "description": "Community translations credit label"
   },
-  "communityTranslationsSubtitle": "Ayude a traducir Musly en Crowdin",
+  "communityTranslationsSubtitle": "Ayude a traducir Octave en GitHub",
   "@communityTranslationsSubtitle": {
     "description": "Community translations credit subtitle"
   },
@@ -1167,7 +1167,7 @@
   "@updateAvailable": {
     "description": "Title of the update available dialog"
   },
-  "updateAvailableSubtitle": "¡Una nueva versión de Musly está disponible!",
+  "updateAvailableSubtitle": "¡Una nueva versión de Octave está disponible!",
   "@updateAvailableSubtitle": {
     "description": "Subtitle in the update dialog"
   },
@@ -1545,7 +1545,7 @@
   "@discordRpcStyleSong": {
     "description": "Discord RPC state style option: show song title"
   },
-  "discordRpcStyleApp": "Nombre de la aplicación (Musly)",
+  "discordRpcStyleApp": "Nombre de la aplicación (Octave)",
   "@discordRpcStyleApp": {
     "description": "Discord RPC state style option: show app name"
   },
@@ -1759,5 +1759,5 @@
   },
   "desktopOverlaySection": "Superposición de escritorio",
   "spotverlayTitle": "Spotverlay",
-  "spotverlayDescription": "Si quieres una superposición hermosa y ligera \"Made for Musly\", puedes usar Spotverlay (https://github.com/dddevid/Spotverlay)"
+  "spotverlayDescription": "Si quieres una superposición hermosa y ligera \"Made for Octave\", puedes usar Spotverlay (https://github.com/dddevid/Spotverlay)"
 }

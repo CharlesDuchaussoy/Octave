@@ -14,7 +14,7 @@ class LrcLibService {
       connectTimeout: const Duration(seconds: 6),
       receiveTimeout: const Duration(seconds: 6),
       headers: {
-        'User-Agent': 'Musly/1.0 (https://github.com/musly)',
+        'User-Agent': 'Octave/1.0 (https://github.com/CharlesDuchaussoy/Octave)',
       },
     ),
   );

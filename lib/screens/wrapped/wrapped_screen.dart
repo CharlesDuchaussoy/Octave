@@ -413,7 +413,7 @@ class _WrappedScreenState extends State<WrappedScreen>
               ),
               const SizedBox(height: 28),
               Text(
-                '${l10n?.muslyPlayback ?? 'Musly Playback'} ${WrappedService.getWrappedYear()}',
+                '${l10n?.muslyPlayback ?? 'Octave Playback'} ${WrappedService.getWrappedYear()}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -564,7 +564,7 @@ class _WrappedScreenState extends State<WrappedScreen>
               ),
               const SizedBox(height: 32),
               Text(
-                l10n?.wrappedSeasonal ?? 'Musly Playback is Seasonal',
+                l10n?.wrappedSeasonal ?? 'Octave Playback is Seasonal',
                 style: const TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.w900,
@@ -1799,7 +1799,7 @@ class _WrappedScreenState extends State<WrappedScreen>
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        l10n?.muslyPlaybackHeader ?? 'MUSLY PLAYBACK',
+                        l10n?.muslyPlaybackHeader ?? 'OCTAVE PLAYBACK',
                         style: const TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w900,

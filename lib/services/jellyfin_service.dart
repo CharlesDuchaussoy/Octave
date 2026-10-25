@@ -14,13 +14,13 @@ class JellyfinService {
   bool _allowSelfSigned = false;
   String? _selectedLibraryId;
 
-  static const _clientName = 'Musly';
+  static const _clientName = 'Octave';
   static const _clientVersion = '1.0.0';
 
   String get _authHeader {
     final parts = [
       'Client="$_clientName"',
-      'Device="Musly"',
+      'Device="Octave"',
       'DeviceId="$_deviceId"',
       'Version="$_clientVersion"',
       if (_token != null) 'Token="$_token"',

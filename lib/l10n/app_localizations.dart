@@ -151,7 +151,7 @@ abstract class AppLocalizations {
   /// Application name
   ///
   /// In en, this message translates to:
-  /// **'Musly'**
+  /// **'Octave'**
   String get appName;
 
   /// Title shown when the app detects it's running on an emulator
@@ -949,7 +949,7 @@ abstract class AppLocalizations {
   /// Community translations credit subtitle
   ///
   /// In en, this message translates to:
-  /// **'Help translate Musly on Crowdin'**
+  /// **'Help translate Octave on GitHub'**
   String get communityTranslationsSubtitle;
 
   /// Title for checking live OTA translation updates
@@ -2353,7 +2353,7 @@ abstract class AppLocalizations {
   /// Message shown when app is on the latest version
   ///
   /// In en, this message translates to:
-  /// **'Musly is up to date'**
+  /// **'Octave is up to date'**
   String get appUpToDate;
 
   /// Title of the update available dialog
@@ -2467,7 +2467,7 @@ abstract class AppLocalizations {
   /// Subtitle in the update dialog
   ///
   /// In en, this message translates to:
-  /// **'A new version of Musly is available!'**
+  /// **'A new version of Octave is available!'**
   String get updateAvailableSubtitle;
 
   /// Current version label in the update dialog
@@ -2959,7 +2959,7 @@ abstract class AppLocalizations {
   /// Discord RPC state style option: show app name
   ///
   /// In en, this message translates to:
-  /// **'App name (Musly)'**
+  /// **'App name (Octave)'**
   String get discordRpcStyleApp;
 
   /// Playback settings section header for ReplayGain
@@ -3247,7 +3247,7 @@ abstract class AppLocalizations {
   /// Subtitle explaining anonymous analytics
   ///
   /// In en, this message translates to:
-  /// **'Help improve Musly with anonymous crash reports and usage stats'**
+  /// **'Help improve Octave with anonymous crash reports and usage stats'**
   String get anonymousAnalyticsSubtitle;
 
   /// Title for device ID row
@@ -3637,7 +3637,7 @@ abstract class AppLocalizations {
   /// Title for Musly Connect feature
   ///
   /// In en, this message translates to:
-  /// **'Musly Connect'**
+  /// **'Octave Connect'**
   String get muslyConnect;
 
   /// Title for Connect to a Device sheet
@@ -3655,7 +3655,7 @@ abstract class AppLocalizations {
   /// Empty state when no peer devices are discovered
   ///
   /// In en, this message translates to:
-  /// **'No other Musly devices found on your Wi-Fi network.'**
+  /// **'No other Octave devices found on your Wi-Fi network.'**
   String get noDevicesFound;
 
   /// Tooltip for transferring playback to a device
@@ -3673,7 +3673,7 @@ abstract class AppLocalizations {
   /// Title for BeatSync feature
   ///
   /// In en, this message translates to:
-  /// **'Musly BeatSync'**
+  /// **'Octave BeatSync'**
   String get muslyBeatSync;
 
   /// Description of BeatSync party audio sync
@@ -3721,13 +3721,13 @@ abstract class AppLocalizations {
   /// Title for Musly Wrapped retrospective
   ///
   /// In en, this message translates to:
-  /// **'Musly Wrapped'**
+  /// **'Octave Wrapped'**
   String get muslyWrapped;
 
   /// Musly Playback seasonal dialog header
   ///
   /// In en, this message translates to:
-  /// **'Musly Playback is Seasonal'**
+  /// **'Octave Playback is Seasonal'**
   String get wrappedSeasonal;
 
   /// Wrapped summary card play button
@@ -3751,7 +3751,7 @@ abstract class AppLocalizations {
   /// Message for 50-song milestone
   ///
   /// In en, this message translates to:
-  /// **'You just reached the milestone of 50 songs listened to on Musly! Thank you for choosing this app for your daily music journey.'**
+  /// **'You just reached the milestone of 50 songs listened to on Octave! Thank you for choosing this app for your daily music journey.'**
   String get milestone50SongsMessage;
 
   /// Button to continue listening after milestone celebration
@@ -4123,7 +4123,7 @@ abstract class AppLocalizations {
   /// Musly Playback annual title in settings
   ///
   /// In en, this message translates to:
-  /// **'Musly Playback'**
+  /// **'Octave Playback'**
   String get muslyPlaybackAnnual;
 
   /// Musly Playback annual subtitle in settings
@@ -4147,7 +4147,7 @@ abstract class AppLocalizations {
   /// Title to rate the app
   ///
   /// In en, this message translates to:
-  /// **'Rate Musly'**
+  /// **'Rate Octave'**
   String get rateMusly;
 
   /// Subtitle when user has rated the app
@@ -4177,7 +4177,7 @@ abstract class AppLocalizations {
   /// Title of rating dialog
   ///
   /// In en, this message translates to:
-  /// **'Rate Musly'**
+  /// **'Rate Octave'**
   String get rateMuslyDialogTitle;
 
   /// Question in rating dialog
@@ -4303,7 +4303,7 @@ abstract class AppLocalizations {
   /// Description in support startup dialog
   ///
   /// In en, this message translates to:
-  /// **'Musly is a free, open-source project. Your support helps keep it alive!'**
+  /// **'Octave is a free, open-source project. Your support helps keep it alive!'**
   String get supportDialogDescription;
 
   /// Title of Discord button in support dialog
@@ -4609,13 +4609,13 @@ abstract class AppLocalizations {
   /// Wrapped summary card header
   ///
   /// In en, this message translates to:
-  /// **'MUSLY PLAYBACK'**
+  /// **'OCTAVE PLAYBACK'**
   String get muslyPlaybackHeader;
 
   /// Enable Musly connect setting title
   ///
   /// In en, this message translates to:
-  /// **'Enable Musly Connect'**
+  /// **'Enable Octave Connect'**
   String get enableMuslyConnect;
 
   /// Subtitle for enable Musly Connect setting
@@ -4699,7 +4699,7 @@ abstract class AppLocalizations {
   /// Telemetry free description
   ///
   /// In en, this message translates to:
-  /// **'Musly is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.'**
+  /// **'Octave is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.'**
   String get privateOpenDescription;
 
   /// Read full privacy policy link
@@ -5077,7 +5077,7 @@ abstract class AppLocalizations {
   /// Onboarding slide 2 description
   ///
   /// In en, this message translates to:
-  /// **'Musly learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.'**
+  /// **'Octave learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.'**
   String get onboardingSlide2Description;
 
   /// Onboarding slide 2 feature 1 title
@@ -5251,7 +5251,7 @@ abstract class AppLocalizations {
   /// Musly Playback / Wrapped title
   ///
   /// In en, this message translates to:
-  /// **'Musly Playback'**
+  /// **'Octave Playback'**
   String get muslyPlayback;
 
   /// Wrapped loading subtitle
@@ -5809,7 +5809,7 @@ abstract class AppLocalizations {
   /// Message recommending Spotverlay desktop overlay for Musly
   ///
   /// In en, this message translates to:
-  /// **'If you want a beautiful and lightweight \"Made for Musly\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)'**
+  /// **'If you want a beautiful and lightweight \"Made for Octave\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)'**
   String get spotverlayDescription;
 }
 

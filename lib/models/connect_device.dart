@@ -111,7 +111,7 @@ class ConnectDevice {
 
     return ConnectDevice(
       id: json['id'] as String? ?? 'unknown',
-      name: json['name'] as String? ?? 'Musly Device',
+      name: json['name'] as String? ?? 'Octave Device',
       platform: json['platform'] as String? ?? 'mobile',
       ip: overrideIp ?? json['ip'] as String? ?? '127.0.0.1',
       port: json['port'] as int? ?? 43883,

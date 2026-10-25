@@ -9,7 +9,7 @@ class AppLocalizationsIt extends AppLocalizations {
   AppLocalizationsIt([String locale = 'it']) : super(locale);
 
   @override
-  String get appName => 'Musly';
+  String get appName => 'Octave';
 
   @override
   String get emulatorDetected => 'Emulator Detected';
@@ -441,7 +441,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get communityTranslationsSubtitle =>
-      'Aiuta a tradurre Musly su Crowdin';
+      'Aiuta a tradurre Octave su GitHub';
 
   @override
   String get checkTranslationUpdates => 'Controlla aggiornamenti traduzioni';
@@ -1216,7 +1216,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get checkingForUpdates => 'Verifica aggiornamenti in corso...';
 
   @override
-  String get appUpToDate => 'Musly è aggiornato';
+  String get appUpToDate => 'Octave è aggiornato';
 
   @override
   String get updateAvailable => 'Aggiornamento disponibile';
@@ -1278,7 +1278,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get updateAvailableSubtitle =>
-      'Una nuova versione di Musly è disponibile!';
+      'Una nuova versione di Octave è disponibile!';
 
   @override
   String updateCurrentVersion(String version) {
@@ -1546,7 +1546,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get discordRpcStyleSong => 'Titolo del brano';
 
   @override
-  String get discordRpcStyleApp => 'Nome app (Musly)';
+  String get discordRpcStyleApp => 'Nome app (Octave)';
 
   @override
   String get sectionVolumeNormalization =>
@@ -1708,7 +1708,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get anonymousAnalyticsSubtitle =>
-      'Help improve Musly with anonymous crash reports and usage stats';
+      'Help improve Octave with anonymous crash reports and usage stats';
 
   @override
   String get deviceId => 'Device ID';
@@ -1931,7 +1931,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get endOfSong => 'Fine Brano';
 
   @override
-  String get muslyConnect => 'Musly Connect';
+  String get muslyConnect => 'Octave Connect';
 
   @override
   String get connectToDevice => 'Connetti a un Dispositivo';
@@ -1941,7 +1941,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get noDevicesFound =>
-      'Nessun altro dispositivo Musly trovato sulla tua rete Wi-Fi.';
+      'Nessun altro dispositivo Octave trovato sulla tua rete Wi-Fi.';
 
   @override
   String get transferPlaybackHere => 'Trasferisci la riproduzione qui';
@@ -1952,7 +1952,7 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get muslyBeatSync => 'Musly BeatSync';
+  String get muslyBeatSync => 'Octave BeatSync';
 
   @override
   String get beatSyncSubtitle =>
@@ -1978,10 +1978,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get partySpeakers => 'Altoparlanti Party';
 
   @override
-  String get muslyWrapped => 'Musly Wrapped';
+  String get muslyWrapped => 'Octave Wrapped';
 
   @override
-  String get wrappedSeasonal => 'Musly Playback è Stagionale';
+  String get wrappedSeasonal => 'Octave Playback è Stagionale';
 
   @override
   String get playYourTopSongs => 'Riproduci i tuoi brani top';
@@ -1994,7 +1994,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get milestone50SongsMessage =>
-      'Hai appena raggiunto il traguardo di 50 brani ascoltati su Musly! Grazie per aver scelto quest\'app per accompagnare la tua passione musicale ogni giorno.';
+      'Hai appena raggiunto il traguardo di 50 brani ascoltati su Octave! Grazie per aver scelto quest\'app per accompagnare la tua passione musicale ogni giorno.';
 
   @override
   String get continueListening => 'Continua ad ascoltare';
@@ -2209,7 +2209,7 @@ class AppLocalizationsIt extends AppLocalizations {
       'Esplora direttamente l\'anteprima del tuo Year-in-Review senza attendere novembre';
 
   @override
-  String get muslyPlaybackAnnual => 'Musly Playback';
+  String get muslyPlaybackAnnual => 'Octave Playback';
 
   @override
   String get muslyPlaybackAnnualSubtitle =>
@@ -2222,7 +2222,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get thanksForRating => 'Grazie per la valutazione!';
 
   @override
-  String get rateMusly => 'Valuta Musly';
+  String get rateMusly => 'Valuta Octave';
 
   @override
   String get alreadyRatedSubtitle => 'Hai già valutato l\'app';
@@ -2237,7 +2237,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get supportMuslySubtitle => 'Unisciti a Discord o fai una donazione';
 
   @override
-  String get rateMuslyDialogTitle => 'Valuta Musly';
+  String get rateMuslyDialogTitle => 'Valuta Octave';
 
   @override
   String get rateMuslyDialogQuestion => 'Come valuteresti la tua esperienza?';
@@ -2311,7 +2311,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get supportDialogDescription =>
-      'Musly è un progetto gratuito e open-source. Il tuo supporto aiuta a mantenerlo vivo!';
+      'Octave è un progetto gratuito e open-source. Il tuo supporto aiuta a mantenerlo vivo!';
 
   @override
   String get supportDialogJoinDiscord => 'Unisciti al nostro Discord';
@@ -2499,10 +2499,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get genreMetric => 'Genere';
 
   @override
-  String get muslyPlaybackHeader => 'MUSLY PLAYBACK';
+  String get muslyPlaybackHeader => 'OCTAVE PLAYBACK';
 
   @override
-  String get enableMuslyConnect => 'Abilita Musly Connect';
+  String get enableMuslyConnect => 'Abilita Octave Connect';
 
   @override
   String get enableMuslyConnectSubtitle =>
@@ -2557,7 +2557,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get privateOpenDescription =>
-      'Musly non raccoglie alcuna telemetria. Nessun identificatore, dato di tracciamento o analytics.';
+      'Octave non raccoglie alcuna telemetria. Nessun identificatore, dato di tracciamento o analytics.';
 
   @override
   String get readFullPrivacyPolicy => 'Leggi la Privacy Policy Completa';
@@ -2768,7 +2768,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get onboardingSlide2Description =>
-      'Musly apprende le tue abitudini sul dispositivo per creare mix quotidiani e riscoprire i tuoi brani preferiti.';
+      'Octave apprende le tue abitudini sul dispositivo per creare mix quotidiani e riscoprire i tuoi brani preferiti.';
 
   @override
   String get onboardingSlide2Feature1Title => 'Profilazione Gusti Algoritmica';
@@ -2866,7 +2866,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get dynamicColor => 'Material You (Colore dinamico)';
 
   @override
-  String get muslyPlayback => 'Musly Playback';
+  String get muslyPlayback => 'Octave Playback';
 
   @override
   String get synthesizingUniverse => 'Sintetizzando il tuo universo sonoro';
@@ -3161,5 +3161,5 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get spotverlayDescription =>
-      'Se desideri un overlay bello e leggero \"Made for Musly\", puoi utilizzare Spotverlay (https://github.com/dddevid/Spotverlay)';
+      'Se desideri un overlay bello e leggero \"Made for Octave\", puoi utilizzare Spotverlay (https://github.com/dddevid/Spotverlay)';
 }

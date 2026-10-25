@@ -72,7 +72,7 @@ class WindowsSystemService {
         _isInitialized = true;
 
         await localNotifier.setup(
-          appName: 'Musly',
+          appName: 'Octave',
           shortcutPolicy: ShortcutPolicy.requireNoCreate,
         );
 
