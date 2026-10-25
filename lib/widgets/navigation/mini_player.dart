@@ -10,6 +10,7 @@ import 'package:musly/models/radio_station.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/theme_service.dart';
+import 'package:musly/octave/widgets/glass.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/screen_helper.dart';
 import 'package:musly/services/subsonic_service.dart';
@@ -112,45 +113,29 @@ class MiniPlayer extends StatelessWidget {
 
         if (isGlass) {
           return RepaintBoundary(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(12, 4, 12, 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.18),
-                    blurRadius: 16,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
               child: GestureDetector(
                 onTap: handleTap,
                 onLongPress: currentSong != null
                     ? () => SongOptionsModal.show(context, currentSong)
                     : null,
-                child: Container(
-                  height: 64,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: context.octave.miniPlayer.withValues(alpha: 0.94),
-                    borderRadius: BorderRadius.circular(22),
-                    border: Border.all(
-                      color: context.octave.separator.withValues(alpha: 0.6),
-                      width: 0.8,
+                child: OctaveGlass(
+                  borderRadius: 20,
+                  child: SizedBox(
+                    height: 64,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(child: row),
+                        const Positioned(
+                          left: 14,
+                          right: 14,
+                          bottom: 0,
+                          child: _MiniPlayerProgressBar(
+                              borderRadius: 2, isGlass: true),
+                        ),
+                      ],
                     ),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned.fill(child: row),
-                      const Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: _MiniPlayerProgressBar(
-                            borderRadius: 22, isGlass: true),
-                      ),
-                    ],
                   ),
                 ),
               ),

@@ -276,7 +276,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
 
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 40),
+                    padding: EdgeInsets.only(
+                        bottom: 40 + MediaQuery.paddingOf(context).bottom),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

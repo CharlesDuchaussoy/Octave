@@ -9,6 +9,7 @@ import '../../services/tv_detection_service.dart';
 import 'package:musly/services/recommendation_service.dart';
 import 'package:musly/services/theme_service.dart';
 import 'package:musly/services/usage_time_service.dart';
+import 'package:musly/octave/widgets/glass.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/widgets/widgets.dart';
@@ -268,6 +269,7 @@ class _MainScreenState extends State<MainScreen> {
     }
 
     final bool liquidGlass = Provider.of<ThemeService>(context).liquidGlass;
+    final bool keyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
     return Selector<PlayerProvider, bool>(
       selector: (_, p) => p.currentSong != null || p.isPlayingRadio,
       builder: (context, hasCurrentSong, _) {
@@ -279,138 +281,173 @@ class _MainScreenState extends State<MainScreen> {
           },
           child: TvRemoteScope(
             child: Scaffold(
-            backgroundColor: context.octave.background,
-            resizeToAvoidBottomInset: false,
-            body: Column(
-              children: [
-                if (widget.isOfflineMode || isLocalMode)
-                  Container(
-                    width: double.infinity,
-                    color: isLocalMode
-                        ? context.octave.accentSoft
-                        : context.octave.warning,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                      horizontal: 16,
-                    ),
-                    child: SafeArea(
-                      bottom: false,
-                      child: Row(
-                        children: [
-                          Icon(
-                            isLocalMode
-                                ? CupertinoIcons.folder_fill
-                                : CupertinoIcons.wifi_slash,
-                            color: isLocalMode
-                                ? context.octave.onAccentSoft
-                                : context.octave.background,
-                            size: 18,
+              backgroundColor: context.octave.background,
+              resizeToAvoidBottomInset: false,
+              body: Stack(
+                children: [
+                  Column(
+                    children: [
+                      if (widget.isOfflineMode || isLocalMode)
+                        Container(
+                          width: double.infinity,
+                          color: isLocalMode
+                              ? context.octave.accentSoft
+                              : context.octave.warning,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 16,
                           ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              isLocalMode
-                                  ? AppLocalizations.of(
-                                      context,
-                                    )!
-                                      .localFilesModeBanner
-                                  : AppLocalizations.of(
-                                      context,
-                                    )!
-                                      .offlineModeBanner,
-                              style: TextStyle(
-                                color: isLocalMode
-                                    ? context.octave.onAccentSoft
-                                    : context.octave.background,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                              ),
+                          child: SafeArea(
+                            bottom: false,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  isLocalMode
+                                      ? CupertinoIcons.folder_fill
+                                      : CupertinoIcons.wifi_slash,
+                                  color: isLocalMode
+                                      ? context.octave.onAccentSoft
+                                      : context.octave.background,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    isLocalMode
+                                        ? AppLocalizations.of(
+                                            context,
+                                          )!
+                                            .localFilesModeBanner
+                                        : AppLocalizations.of(
+                                            context,
+                                          )!
+                                            .offlineModeBanner,
+                                    style: TextStyle(
+                                      color: isLocalMode
+                                          ? context.octave.onAccentSoft
+                                          : context.octave.background,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
+                        ),
+                      if (isLocalMode)
+                        Selector<LocalMusicService, (bool, double, String)>(
+                          selector: (_, s) =>
+                              (s.isScanning, s.scanProgress, s.scanStatus),
+                          builder: (context, data, _) {
+                            final (isScanning, progress, status) = data;
+                            if (!isScanning) return const SizedBox.shrink();
+                            return Container(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer
+                                  .withValues(alpha: 0.85),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      status,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  if (progress > 0)
+                                    Text(
+                                      '${(progress * 100).toStringAsFixed(0)}%',
+                                      style: const TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      Expanded(
+                        // With floating bars, content scrolls under them: its
+                        // bottom padding reserves their height.
+                        child: MediaQuery(
+                          data: MediaQuery.of(context).copyWith(
+                            padding: MediaQuery.paddingOf(context).copyWith(
+                              bottom: liquidGlass && !keyboardOpen
+                                  ? _floatingBarsHeight(context, hasCurrentSong)
+                                  : MediaQuery.paddingOf(context).bottom,
+                            ),
+                          ),
+                          child: Navigator(
+                            key: NavigationHelper.appNavigatorKey,
+                            onGenerateRoute: (settings) {
+                              return MaterialPageRoute(
+                                builder: (_) => LazyIndexedStack(
+                                  index: _currentIndex,
+                                  children: _screens,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      if (!liquidGlass && !keyboardOpen)
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            if (hasCurrentSong) const MiniPlayer(),
+                            _buildBottomNav(context),
+                          ],
+                        ),
+                    ],
+                  ),
+                  if (liquidGlass && !keyboardOpen)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (hasCurrentSong) const MiniPlayer(),
+                          _buildGlassBottomNav(context),
                         ],
                       ),
                     ),
-                  ),
-                if (isLocalMode)
-                  Selector<LocalMusicService, (bool, double, String)>(
-                    selector: (_, s) =>
-                        (s.isScanning, s.scanProgress, s.scanStatus),
-                    builder: (context, data, _) {
-                      final (isScanning, progress, status) = data;
-                      if (!isScanning) return const SizedBox.shrink();
-                      return Container(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .primaryContainer
-                            .withValues(alpha: 0.85),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 16,
-                              height: 16,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                status,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                            if (progress > 0)
-                              Text(
-                                '${(progress * 100).toStringAsFixed(0)}%',
-                                style: const TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 12,
-                                ),
-                              ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                Expanded(
-                  child: Navigator(
-                    key: NavigationHelper.appNavigatorKey,
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        builder: (_) => LazyIndexedStack(
-                          index: _currentIndex,
-                          children: _screens,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                if (MediaQuery.of(context).viewInsets.bottom == 0)
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (hasCurrentSong) const MiniPlayer(),
-                      liquidGlass
-                          ? _buildGlassBottomNav(context)
-                          : _buildBottomNav(context),
-                    ],
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
           ),
         );
       },
     );
+  }
+
+  /// Height of the floating mini player and tab bar, reserved at the
+  /// bottom of scrolling content.
+  double _floatingBarsHeight(BuildContext context, bool hasCurrentSong) {
+    final safeBottom = MediaQuery.paddingOf(context).bottom;
+    final navHeight = 4 + 62 + (safeBottom > 0 ? safeBottom : 12);
+    final miniPlayerHeight = hasCurrentSong ? 6 + 64 : 0;
+    return navHeight + miniPlayerHeight + 12;
   }
 
   void _handleBackButton() {
@@ -454,88 +491,88 @@ class _MainScreenState extends State<MainScreen> {
 
     return Padding(
       padding: EdgeInsets.fromLTRB(12, 4, 12, safeBottom > 0 ? safeBottom : 12),
-      child: Container(
-        height: 62,
-        decoration: BoxDecoration(
-          color: context.octave.bar.withValues(alpha: 0.94),
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(
-            color: context.octave.separator.withValues(alpha: 0.6),
-            width: 0.8,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.18),
-              blurRadius: 16,
-              offset: const Offset(0, 4),
+      child: OctaveGlass(
+        borderRadius: 31,
+        child: SizedBox(
+          height: 62,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: Row(
+              children: List.generate(items.length, (idx) {
+                final item = items[idx];
+                final isSelected = _currentIndex == idx;
+                return Expanded(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      final navigatorState =
+                          NavigationHelper.appNavigatorKey.currentState;
+                      navigatorState?.popUntil((route) => route.isFirst);
+
+                      if (idx == 2) {
+                        final now = DateTime.now();
+                        if (now.difference(_lastSearchTap).inSeconds > 3) {
+                          _searchTapCount = 0;
+                        }
+                        _searchTapCount++;
+                        _lastSearchTap = now;
+                        if (_searchTapCount >= 11) {
+                          _searchTapCount = 0;
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const FantasyScreen(),
+                            ),
+                          );
+                          return;
+                        }
+                      } else {
+                        _searchTapCount = 0;
+                      }
+
+                      setState(() => _currentIndex = idx);
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.easeOut,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? accent.withValues(alpha: 0.14)
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(26),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 150),
+                            child: Icon(
+                              isSelected ? item.activeIcon : item.icon,
+                              key: ValueKey(isSelected),
+                              color:
+                                  isSelected ? accent : (context.octave.text2),
+                              size: 22,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            item.label,
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: isSelected
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
+                              color:
+                                  isSelected ? accent : (context.octave.text2),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
             ),
-          ],
-        ),
-        child: Row(
-          children: List.generate(items.length, (idx) {
-            final item = items[idx];
-            final isSelected = _currentIndex == idx;
-            return Expanded(
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () {
-                  final navigatorState =
-                      NavigationHelper.appNavigatorKey.currentState;
-                  navigatorState?.popUntil((route) => route.isFirst);
-
-                  if (idx == 2) {
-                    final now = DateTime.now();
-                    if (now.difference(_lastSearchTap).inSeconds > 3) {
-                      _searchTapCount = 0;
-                    }
-                    _searchTapCount++;
-                    _lastSearchTap = now;
-                    if (_searchTapCount >= 11) {
-                      _searchTapCount = 0;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const FantasyScreen(),
-                        ),
-                      );
-                      return;
-                    }
-                  } else {
-                    _searchTapCount = 0;
-                  }
-
-                  setState(() => _currentIndex = idx);
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 150),
-                      child: Icon(
-                        isSelected ? item.activeIcon : item.icon,
-                        key: ValueKey(isSelected),
-                        color: isSelected
-                            ? accent
-                            : (context.octave.text3),
-                        size: 22,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      item.label,
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight:
-                            isSelected ? FontWeight.w600 : FontWeight.w400,
-                        color: isSelected
-                            ? accent
-                            : (context.octave.text3),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+          ),
         ),
       ),
     );

@@ -86,7 +86,7 @@ class ThemeService extends ChangeNotifier {
 
   ThemeMode _themeMode = ThemeMode.system;
   AccentColor _accentColor = AccentColor.octave;
-  bool _liquidGlass = false;
+  bool _liquidGlass = true;
   bool _pureBlack = false;
   double _intensity = OctavePalette.defaultIntensity;
 
@@ -109,7 +109,7 @@ class ThemeService extends ChangeNotifier {
     final colorKey = prefs.getString(_keyAccentColor) ?? 'octave';
     _accentColor = AccentColorExt.fromKey(colorKey);
 
-    _liquidGlass = prefs.getBool(_keyLiquidGlass) ?? false;
+    _liquidGlass = prefs.getBool(_keyLiquidGlass) ?? true;
     _pureBlack = prefs.getBool(_keyPureBlack) ?? false;
     _intensity =
         prefs.getDouble(_keyIntensity) ?? OctavePalette.defaultIntensity;
