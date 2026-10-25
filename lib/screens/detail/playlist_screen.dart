@@ -42,6 +42,16 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   void initState() {
     super.initState();
+    final lib = Provider.of<LibraryProvider>(context, listen: false);
+    final existingIndex =
+        lib.playlists.indexWhere((p) => p.id == widget.playlistId);
+    if (existingIndex != -1) {
+      final existing = lib.playlists[existingIndex];
+      _playlist = existing;
+      if (existing.songs != null && existing.songs!.isNotEmpty) {
+        _isLoading = false;
+      }
+    }
     _loadPlaylist();
     OfflineService().downloadedPlaylistIds.addListener(_updateDownloadState);
     OfflineService().queuedPlaylistIds.addListener(_updateDownloadState);
@@ -87,7 +97,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         });
         _updateDownloadState();
       }
-      if (playlist.songs != null && playlist.songs!.isNotEmpty) {
+      if ((playlist.coverArt == null || playlist.coverArt!.isEmpty) &&
+          playlist.songs != null &&
+          playlist.songs!.isNotEmpty) {
         PlaylistCoverService().checkAndGenerateCover(
           playlistId: widget.playlistId,
           songs: playlist.songs!,
@@ -131,11 +143,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           songs: updatedSongs,
         );
       });
-      PlaylistCoverService().checkAndGenerateCover(
-        playlistId: widget.playlistId,
-        songs: updatedSongs,
-        subsonicService: subsonicService,
-      );
+      if ((_playlist?.coverArt == null || _playlist!.coverArt!.isEmpty) &&
+          updatedSongs.isNotEmpty) {
+        PlaylistCoverService().checkAndGenerateCover(
+          playlistId: widget.playlistId,
+          songs: updatedSongs,
+          subsonicService: subsonicService,
+        );
+      }
       if (mounted) {
         final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
@@ -193,11 +208,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       _playlist = _playlist!.copyWith(songs: updatedSongs);
     });
 
-    PlaylistCoverService().checkAndGenerateCover(
-      playlistId: widget.playlistId,
-      songs: updatedSongs,
-      subsonicService: subsonicService,
-    );
+    if ((_playlist?.coverArt == null || _playlist!.coverArt!.isEmpty) &&
+        updatedSongs.isNotEmpty) {
+      PlaylistCoverService().checkAndGenerateCover(
+        playlistId: widget.playlistId,
+        songs: updatedSongs,
+        subsonicService: subsonicService,
+      );
+    }
 
     try {
       await subsonicService.updatePlaylist(
@@ -333,6 +351,19 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           duration: const Duration(seconds: 2),
         ),
       );
+    }
+  }
+
+  Future<void> _deletePlaylist() async {
+    final playlist = _playlist ??
+        Playlist(
+          id: widget.playlistId,
+          name: widget.playlistName ?? '',
+        );
+    final deleted =
+        await PlaylistOptionsModal.confirmAndDelete(context, playlist);
+    if (deleted && mounted) {
+      Navigator.of(context).pop();
     }
   }
 
@@ -704,6 +735,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                             content: Text(AppLocalizations.of(context)!
                                 .songsAddedToQueue(songs.length))),
                       );
+                    } else if (value == 'delete_playlist') {
+                      _deletePlaylist();
                     }
                   },
                   itemBuilder: (context) => [
@@ -714,6 +747,20 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           const Icon(CupertinoIcons.text_badge_plus, size: 18),
                           const SizedBox(width: 12),
                           Text(AppLocalizations.of(context)!.addAllToQueue),
+                        ],
+                      ),
+                    ),
+                    PopupMenuItem(
+                      value: 'delete_playlist',
+                      child: Row(
+                        children: [
+                          const Icon(CupertinoIcons.trash,
+                              size: 18, color: Colors.red),
+                          const SizedBox(width: 12),
+                          Text(
+                            AppLocalizations.of(context)!.deletePlaylist,
+                            style: const TextStyle(color: Colors.red),
+                          ),
                         ],
                       ),
                     ),

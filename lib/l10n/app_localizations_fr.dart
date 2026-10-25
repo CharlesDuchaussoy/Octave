@@ -594,6 +594,17 @@ class AppLocalizationsFr extends AppLocalizations {
       'Mettre à jour les résultats lorsque vous écrivez au lieu d\'afficher une liste déroulante';
 
   @override
+  String get homeSection => 'Accueil';
+
+  @override
+  String get showFavoritePlaylistsOnHome =>
+      'Playlists favorites sur l\'accueil';
+
+  @override
+  String get showFavoritePlaylistsOnHomeSubtitle =>
+      'Afficher chaque playlist favorite sur sa propre ligne en haut de l\'écran d\'accueil';
+
+  @override
   String get categoryMadeForYou => 'Fait pour vous';
 
   @override
@@ -1200,6 +1211,40 @@ class AppLocalizationsFr extends AppLocalizations {
   String get createPlaylist => 'Créer une liste de lecture';
 
   @override
+  String get importPlaylist => 'Import Playlist';
+
+  @override
+  String get importPlaylistSubtitle =>
+      'Import from Spotify or YouTube Music (no login)';
+
+  @override
+  String get checkForUpdates => 'Check for updates';
+
+  @override
+  String get checkingForUpdates => 'Checking for updates...';
+
+  @override
+  String get appUpToDate => 'Musly is up to date';
+
+  @override
+  String get updateAvailable => 'Mise à jour disponible';
+
+  @override
+  String get updateNow => 'Update now';
+
+  @override
+  String get downloadingUpdate => 'Downloading update...';
+
+  @override
+  String get openOnGitHub => 'Open on GitHub';
+
+  @override
+  String get skipThisVersion => 'Skip this version';
+
+  @override
+  String get updateDownloaded => 'Download complete. Starting installation...';
+
+  @override
   String get likedSongsSidebar => 'Pistes \"J\'aime\"';
 
   @override
@@ -1238,9 +1283,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get offlineModeBanner =>
       'Mode hors-ligne – Lecture de la musique téléchargée uniquement';
-
-  @override
-  String get updateAvailable => 'Mise à jour disponible';
 
   @override
   String get updateAvailableSubtitle =>
@@ -2005,6 +2047,13 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get lyricsGlowEffectSubtitle =>
       'Subtle glow effect on currently playing lyric line';
+
+  @override
+  String get lyricsKeepScreenOn => 'Keep Screen On';
+
+  @override
+  String get lyricsKeepScreenOnSubtitle =>
+      'Prevent the screen from turning off while reading lyrics';
 
   @override
   String get hideWindowTitlebar => 'Hide Window Titlebar / Decorations';
@@ -3104,4 +3153,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Use app\'s active server';
+
+  @override
+  String get desktopOverlaySection => 'Overlay Bureau';
+
+  @override
+  String get spotverlayTitle => 'Spotverlay';
+
+  @override
+  String get spotverlayDescription =>
+      'Si vous souhaitez un overlay élégant et léger \"Made for Musly\", vous pouvez utiliser Spotverlay (https://github.com/dddevid/Spotverlay)';
 }

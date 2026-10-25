@@ -11,8 +11,10 @@ import 'package:musly/screens/media/playlists_screen.dart';
 import 'package:musly/screens/media/radio_screen.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
+import 'package:musly/widgets/modals/playlist_options_modal.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
 import 'tv_remote_scope.dart';
-import '../../services/tv_detection_service.dart';
 
 class DesktopNavigationSidebar extends StatefulWidget {
   final int selectedIndex;
@@ -300,11 +302,14 @@ class _NavItemState extends State<_NavItem> {
     return Tooltip(
       message: widget.isCollapsed ? widget.label : '',
       waitDuration: const Duration(milliseconds: 400),
-      child: TvFocusableCard(
-        onTap: widget.onTap,
-        borderRadius: BorderRadius.circular(8),
-        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-        padding: EdgeInsets.symmetric(horizontal: widget.isCollapsed ? 0 : 12),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: TvFocusableCard(
+          onTap: widget.onTap,
+          borderRadius: BorderRadius.circular(8),
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+          padding: EdgeInsets.symmetric(horizontal: widget.isCollapsed ? 0 : 12),
         child: Container(
           height: 40,
           decoration: BoxDecoration(
@@ -343,6 +348,7 @@ class _NavItemState extends State<_NavItem> {
                     ),
                   ],
                 ),
+        ),
         ),
       ),
     );
@@ -390,6 +396,23 @@ class _LibrarySection extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Tooltip(
+                    message: 'Import playlist',
+                    child: InkWell(
+                      onTap: () => ImportPlaylistDialog.show(context),
+                      borderRadius: BorderRadius.circular(50),
+                      hoverColor: Colors.white.withValues(alpha: 0.1),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Icon(
+                          CupertinoIcons.square_arrow_down,
+                          size: 16,
+                          color: Color(0xFF9CA3AF),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
                   Tooltip(
                     message: 'Create playlist',
                     child: InkWell(
@@ -565,6 +588,10 @@ class _PlaylistTileState extends State<_PlaylistTile> {
           waitDuration: const Duration(milliseconds: 400),
           child: InkWell(
             onTap: widget.onTap,
+            onLongPress: () =>
+                PlaylistOptionsModal.show(context, widget.playlist),
+            onSecondaryTap: () =>
+                PlaylistOptionsModal.show(context, widget.playlist),
             borderRadius: BorderRadius.circular(4),
             hoverColor: Colors.white.withValues(alpha: 0.08),
             child: PlaylistArtwork(
@@ -583,6 +610,10 @@ class _PlaylistTileState extends State<_PlaylistTile> {
       child: InkWell(
         key: ValueKey(widget.playlist.id),
         onTap: widget.onTap,
+        onLongPress: () =>
+            PlaylistOptionsModal.show(context, widget.playlist),
+        onSecondaryTap: () =>
+            PlaylistOptionsModal.show(context, widget.playlist),
         borderRadius: BorderRadius.circular(6),
         hoverColor: Colors.white.withValues(alpha: 0.05),
         splashColor: Colors.transparent,
@@ -627,6 +658,18 @@ class _PlaylistTileState extends State<_PlaylistTile> {
                   ],
                 ),
               ),
+              if (_isHovered)
+                IconButton(
+                  icon: const Icon(Icons.more_vert, size: 16),
+                  color: const Color(0xFF9CA3AF),
+                  padding: EdgeInsets.zero,
+                  constraints:
+                      const BoxConstraints(minWidth: 24, minHeight: 24),
+                  tooltip: AppLocalizations.of(context)?.moreOptions ??
+                      'Options',
+                  onPressed: () =>
+                      PlaylistOptionsModal.show(context, widget.playlist),
+                ),
             ],
           ),
         ),

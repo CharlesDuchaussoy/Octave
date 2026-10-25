@@ -5,6 +5,7 @@ import 'package:musly/providers/providers.dart';
 import 'package:musly/services/services.dart';
 import 'package:musly/services/audio_handler.dart';
 import 'package:musly/services/transcoding_service.dart';
+import 'package:musly/services/tv_detection_service.dart';
 
 class FakeCastService extends CastService {
   bool _mockConnected = false;
@@ -83,6 +84,7 @@ Widget createTestApp({
   PlayerProvider? playerProvider,
   LibraryProvider? libraryProvider,
   AuthProvider? authProvider,
+  ThemeService? themeService,
 }) {
   final service = subsonicService ?? SubsonicService();
   final storage = storageService ?? StorageService();
@@ -108,8 +110,16 @@ Widget createTestApp({
       ChangeNotifierProvider<LibraryProvider>(
         create: (_) => libraryProvider ?? LibraryProvider(service, MuslyAudioHandler()),
       ),
+      ChangeNotifierProvider<ThemeService>(
+        create: (_) => themeService ?? ThemeService(),
+      ),
+      ChangeNotifierProvider<LocaleService>(
+        create: (_) => LocaleService(),
+      ),
       ChangeNotifierProvider<TranscodingService>(
           create: (_) => TranscodingService()),
+      ChangeNotifierProvider<TvDetectionService>.value(
+          value: TvDetectionService()),
     ],
     child: MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,

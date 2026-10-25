@@ -498,7 +498,7 @@ class SubsonicService {
     }
   }
 
-  String getCoverArtUrl(String? coverArt, {int size = 300}) {
+  String getCoverArtUrl(String? coverArt, {int size = 600}) {
     if (_jellyfin != null) {
       return _jellyfin!.getCoverArtUrl(coverArt, size: size);
     }
@@ -675,11 +675,14 @@ class SubsonicService {
       'offset': offset.toString(),
     });
 
-    final albumsData = response['albumList2']?['album'];
+    final albumsData =
+        response['albumList2']?['album'] ?? response['albumList']?['album'];
     if (albumsData is List) {
       return albumsData
           .map((a) => Album.fromJson(a as Map<String, dynamic>))
           .toList();
+    } else if (albumsData is Map<String, dynamic>) {
+      return [Album.fromJson(albumsData)];
     }
 
     return [];
@@ -701,6 +704,8 @@ class SubsonicService {
       return songsData
           .map((s) => Song.fromJson(s as Map<String, dynamic>))
           .toList();
+    } else if (songsData is Map<String, dynamic>) {
+      return [Song.fromJson(songsData)];
     }
     return [];
   }
@@ -1035,6 +1040,14 @@ class SubsonicService {
         return await getLyricsBySongId(id);
       }
       return null;
+    }
+    if (id != null && id.isNotEmpty) {
+      final songLyrics = await getLyricsBySongId(id);
+      if (songLyrics != null &&
+          songLyrics['structuredLyrics'] is List &&
+          (songLyrics['structuredLyrics'] as List).isNotEmpty) {
+        return songLyrics;
+      }
     }
     try {
       final params = <String, String>{};

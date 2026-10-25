@@ -1133,6 +1133,50 @@
   "@createPlaylist": {
     "description": "Tooltip/label for the create-playlist button in the sidebar library header"
   },
+  "importPlaylist": "Importa playlist",
+  "@importPlaylist": {
+    "description": "Label for importing a playlist from Spotify or YouTube Music"
+  },
+  "importPlaylistSubtitle": "Importa da Spotify o YouTube Music (senza login)",
+  "@importPlaylistSubtitle": {
+    "description": "Subtitle for the import playlist option"
+  },
+  "checkForUpdates": "Verifica aggiornamenti",
+  "@checkForUpdates": {
+    "description": "Label for checking app updates"
+  },
+  "checkingForUpdates": "Verifica aggiornamenti in corso...",
+  "@checkingForUpdates": {
+    "description": "Message shown while checking for updates"
+  },
+  "appUpToDate": "Musly è aggiornato",
+  "@appUpToDate": {
+    "description": "Message shown when app is on the latest version"
+  },
+  "updateAvailable": "Aggiornamento disponibile",
+  "@updateAvailable": {
+    "description": "Title of the update available dialog"
+  },
+  "updateNow": "Aggiorna ora",
+  "@updateNow": {
+    "description": "Button to start update"
+  },
+  "downloadingUpdate": "Download aggiornamento in corso...",
+  "@downloadingUpdate": {
+    "description": "Progress message while downloading update"
+  },
+  "openOnGitHub": "Apri su GitHub",
+  "@openOnGitHub": {
+    "description": "Button to open release on GitHub"
+  },
+  "skipThisVersion": "Salta questa versione",
+  "@skipThisVersion": {
+    "description": "Button to skip the current update version"
+  },
+  "updateDownloaded": "Download completato. Avvio installazione...",
+  "@updateDownloaded": {
+    "description": "Message shown when update download finishes"
+  },
   "likedSongsSidebar": "Brani piaciuti",
   "@likedSongsSidebar": {
     "description": "Liked Songs item label in the desktop sidebar"
@@ -1189,10 +1233,6 @@
     "description": "Banner shown at the top of the screen in offline mode"
   },
   "@_UPDATE_DIALOG": {},
-  "updateAvailable": "Aggiornamento disponibile",
-  "@updateAvailable": {
-    "description": "Title of the update available dialog"
-  },
   "updateAvailableSubtitle": "Una nuova versione di Musly è disponibile!",
   "@updateAvailableSubtitle": {
     "description": "Subtitle in the update dialog"
@@ -1807,8 +1847,8 @@
   "phaseCalibrationSubtitle": "Regola per compensare la latenza di cuffie o altoparlanti Bluetooth.",
   "partySpeakers": "Altoparlanti Party",
   "muslyWrapped": "Musly Wrapped",
-  "wrappedSeasonal": "Musly Wrapped è Stagionale",
-  "playYourTopSongs": "Riproduci i Tuoi Brani Preferiti",
+  "wrappedSeasonal": "Musly Playback è Stagionale",
+  "playYourTopSongs": "Riproduci i tuoi brani top",
   "milestone50SongsTitle": "Grazie di cuore!",
   "milestone50SongsBadge": "50 BRANI ASCOLTATI",
   "milestone50SongsMessage": "Hai appena raggiunto il traguardo di 50 brani ascoltati su Musly! Grazie per aver scelto quest'app per accompagnare la tua passione musicale ogni giorno.",
@@ -1825,6 +1865,8 @@
   "alignCenter": "Centro",
   "lyricsGlowEffect": "Bagliore riga attiva",
   "lyricsGlowEffectSubtitle": "Effetto di bagliore sottile sulla riga del testo attualmente in riproduzione",
+  "lyricsKeepScreenOn": "Tieni schermo acceso",
+  "lyricsKeepScreenOnSubtitle": "Evita che lo schermo si spenga durante la visualizzazione dei testi",
   "hideWindowTitlebar": "Nascondi barra del titolo / decorazioni della finestra",
   "hideWindowTitlebarSubtitle": "Nasconde la barra del titolo nativa (utile per Linux Wayland e tiling window manager)",
   "sectionSmartCrossfade": "SMART CROSSFADE",
@@ -1869,10 +1911,10 @@
   "addServerOrService": "Aggiungi server o servizio",
   "welcomeTourTitle": "Tour di benvenuto",
   "welcomeTourSubtitle": "Rivedi l'esperienza introduttiva iniziale",
-  "muslyPlaybackDev": "Musly Playback (Anteprima sviluppatore)",
-  "muslyPlaybackDevSubtitle": "Anteprima di test per sviluppatori del riepilogo dell'anno",
+  "muslyPlaybackDev": "Anteprima Playback (Modalità Test)",
+  "muslyPlaybackDevSubtitle": "Esplora direttamente l'anteprima del tuo Year-in-Review senza attendere novembre",
   "muslyPlaybackAnnual": "Musly Playback",
-  "muslyPlaybackAnnualSubtitle": "Il tuo riepilogo annuale e le tue statistiche di ascolto",
+  "muslyPlaybackAnnualSubtitle": "Il tuo Year-in-Review annuale si sblocca automaticamente ogni anno tra fine novembre e metà gennaio.\n\nContinua ad ascoltare musica per espandere il tuo universo sonoro!",
   "sectionAboutSupport": "SUPPORTO",
   "thanksForRating": "Grazie per la valutazione!",
   "rateMusly": "Valuta Musly",
@@ -1940,14 +1982,14 @@
   "addAnyway": "Aggiungi comunque",
   "offlineModeQuestion": "Modalità offline?",
   "drumroll": "RULLO DI TAMBURI...",
-  "readyToDiscoverTopSong": "Pronto a scoprire\nil tuo brano #1?",
+  "readyToDiscoverTopSong": "Pronto a scoprire\nla tua canzone #1?",
   "tapToBegin": "Tocca per iniziare",
-  "minutesListened": "MINUTI DI ASCOLTO",
+  "minutesListened": "MINUTI ASCOLTATI",
   "totalHours": "Ore totali",
   "uniqueTracks": "Brani unici",
-  "topSongsHeader": "TOP BRANI",
+  "topSongsHeader": "BRANI PREFERITI",
   "yourMostListenedSongs": "I tuoi brani più ascoltati",
-  "topArtistsHeader": "TOP ARTISTI",
+  "topArtistsHeader": "I TUOI ARTISTI TOP",
   "playsCount": "{count, plural, =1{1 ascolto} other{{count} ascolti}}",
   "topSongBadge": "Brano #1",
   "topArtistMetric": "Top Artista",
@@ -2060,39 +2102,16 @@
   "noLyricsFound": "Nessun testo disponibile",
   "dynamicColor": "Material You (Colore dinamico)",
   "muslyPlayback": "Musly Playback",
-  "wrappedSeasonal": "Musly Playback è Stagionale",
-  "muslyPlaybackAnnual": "Musly Playback",
-  "muslyPlaybackAnnualSubtitle": "Il tuo Year-in-Review annuale si sblocca automaticamente ogni anno tra fine novembre e metà gennaio.\n\nContinua ad ascoltare musica per espandere il tuo universo sonoro!",
-  "muslyPlaybackDev": "Anteprima Playback (Modalità Test)",
-  "muslyPlaybackDevSubtitle": "Esplora direttamente l'anteprima del tuo Year-in-Review senza attendere novembre",
   "synthesizingUniverse": "Sintetizzando il tuo universo sonoro",
-  "drumroll": "RULLO DI TAMBURI...",
-  "readyToDiscoverTopSong": "Pronto a scoprire\nla tua canzone #1?",
   "getReadyForBeatDrop": "Preparati al drop sonoro...",
   "yourYearInSound": "Il tuo {year}\nin Musica",
   "yourYearInSoundSubtitle": "Hai esplorato profondità sonore, rivissuto momenti e creato ricordi attraverso la musica.",
-  "tapToBegin": "Tocca per iniziare",
-  "minutesListened": "MINUTI ASCOLTATI",
-  "totalHours": "Ore totali",
-  "uniqueTracks": "Brani unici",
-  "artists": "Artisti",
   "yourMusicalChronotype": "IL TUO CRONOTIPO MUSICALE",
   "genreGalaxy": "GALASSIA DEI GENERI",
   "soundsThatGuidedYou": "I suoni che ti hanno guidato",
-  "topSongsHeader": "BRANI PREFERITI",
-  "nowPlayingHeader": "IN RIPRODUZIONE",
-  "yourMostListenedSongs": "I tuoi brani più ascoltati",
-  "topArtistsHeader": "I TUOI ARTISTI TOP",
   "yourMusicalAnchors": "I tuoi pilastri musicali",
   "yourListeningPersonality": "LA TUA PERSONALITÀ MUSICALE",
-  "muslyPlaybackHeader": "MUSLY PLAYBACK",
-  "topSongBadge": "Brano #1",
-  "minutes": "Minuti",
-  "topArtistMetric": "Top Artista",
-  "genreMetric": "Genere",
-  "playYourTopSongs": "Riproduci i tuoi brani top",
   "yourYearInReviewIsReady": "Il tuo Year in Review è pronto!",
-  "playsCount": "{count, plural, =1{1 ascolto} other{{count} ascolti}}",
   "chronotypeMidnightWanderer": "Esploratore Notturno 🌙",
   "chronotypeMidnightWandererDesc": "I tuoi momenti musicali più profondi avvengono a tarda notte, quando il mondo tace.",
   "chronotypeSunriseHarmonizer": "Armonizzatore dell'Alba ☀️",
@@ -2172,5 +2191,8 @@
   "androidAutoServerSection": "Server",
   "androidAutoDefaultServer": "Server Predefinito",
   "androidAutoDefaultServerDesc": "Seleziona quale server usare quando avvii Android Auto",
-  "androidAutoUseActiveServer": "Usa server attivo dell'app"
+  "androidAutoUseActiveServer": "Usa server attivo dell'app",
+  "desktopOverlaySection": "Overlay Desktop",
+  "spotverlayTitle": "Spotverlay",
+  "spotverlayDescription": "Se desideri un overlay bello e leggero \"Made for Musly\", puoi utilizzare Spotverlay (https://github.com/dddevid/Spotverlay)"
 }

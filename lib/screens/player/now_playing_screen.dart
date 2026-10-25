@@ -20,6 +20,7 @@ import 'package:musly/widgets/now_playing/now_playing_more_menu.dart';
 import 'package:musly/widgets/now_playing/add_to_menu.dart';
 import 'package:musly/widgets/common/multi_artist_widget.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
+import 'package:musly/services/wakelock_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:musly/services/tv_detection_service.dart';
@@ -49,7 +50,8 @@ class NowPlayingScreen extends StatefulWidget {
   State<NowPlayingScreen> createState() => _NowPlayingScreenState();
 }
 
-class _NowPlayingScreenState extends State<NowPlayingScreen> {
+class _NowPlayingScreenState extends State<NowPlayingScreen>
+    with WidgetsBindingObserver {
   late PageController _pageController;
   int _currentPage = 0;
   List<Color> _bgColors = [];
@@ -61,6 +63,10 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    PlayerUiSettingsService()
+        .lyricsKeepScreenOnNotifier
+        .addListener(_syncLyricsWakelock);
     _pageController = PageController(initialPage: 0);
     _fetchedLyrics = widget.lyrics;
     _currentImageProvider = widget.image;
@@ -85,7 +91,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
     if (_lastSong == null) return;
     final subsonic = Provider.of<SubsonicService>(context, listen: false);
     final coverUrl = _lastSong!.coverArt != null
-        ? subsonic.getCoverArtUrl(_lastSong!.coverArt, size: 600)
+        ? subsonic.getCoverArtUrl(_lastSong!.coverArt, size: 800)
         : null;
     if (coverUrl != null && coverUrl.isNotEmpty) {
       _currentImageProvider = CachedNetworkImageProvider(coverUrl);
@@ -114,6 +120,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
       if (rawLyrics == null && !offlineService.isOfflineMode) {
         rawLyrics = await subsonic.getLyricsBySongId(_lastSong!.id) ??
             await subsonic.getLyrics(
+              id: _lastSong!.id,
               artist: _lastSong!.artist,
               title: _lastSong!.title,
               duration: _lastSong!.duration,
@@ -121,26 +128,31 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
       }
 
       if (rawLyrics != null) {
-        if (rawLyrics['value'] != null) {
-          final lrcText = rawLyrics['value'] as String;
-          if (mounted) {
-            setState(() {
-              _fetchedLyrics = LrcParser.parseLrc(lrcText);
-              _isLoadingLyrics = false;
-            });
-          }
-          return;
-        } else if (rawLyrics['structuredLyrics'] != null) {
-          final structured = rawLyrics['structuredLyrics'] as List?;
-          if (structured != null && structured.isNotEmpty) {
-            final lines = structured.first['line'] as List?;
-            if (lines != null) {
-              final parsedLines = lines.map((l) {
-                return LyricLine(
-                  startTime: Duration(milliseconds: l['start'] as int),
-                  text: l['value'] as String,
+        final structured = (rawLyrics['structuredLyrics'] ??
+            rawLyrics['lyricsList']?['structuredLyrics']) as List?;
+        if (structured != null && structured.isNotEmpty) {
+          final lines = structured.first['line'] as List?;
+          if (lines != null) {
+            final parsedLines = lines
+                .map((l) => LyricLine(
+                      startTime:
+                          Duration(milliseconds: l['start'] as int? ?? 0),
+                      text: l['value'] as String? ?? '',
+                    ))
+                .where((l) => l.text.trim().isNotEmpty)
+                .toList();
+            if (parsedLines.isNotEmpty) {
+              parsedLines.sort((a, b) => a.startTime.compareTo(b.startTime));
+              for (var i = 0; i < parsedLines.length - 1; i++) {
+                final current = parsedLines[i];
+                final next = parsedLines[i + 1];
+                parsedLines[i] = LyricLine(
+                  text: current.text,
+                  startTime: current.startTime,
+                  endTime: next.startTime - const Duration(milliseconds: 1),
+                  words: current.words,
                 );
-              }).toList();
+              }
               if (mounted) {
                 setState(() {
                   _fetchedLyrics = parsedLines;
@@ -150,6 +162,18 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
               return;
             }
           }
+        }
+
+        final lrcText =
+            (rawLyrics['value'] ?? rawLyrics['lyrics']?['value']) as String?;
+        if (lrcText != null && lrcText.trim().isNotEmpty) {
+          if (mounted) {
+            setState(() {
+              _fetchedLyrics = LrcParser.parseLrc(lrcText);
+              _isLoadingLyrics = false;
+            });
+          }
+          return;
         }
       }
 
@@ -181,7 +205,34 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
   }
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _syncLyricsWakelock();
+    } else if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.hidden) {
+      WakelockService().disable('lyrics_view');
+    }
+  }
+
+  void _syncLyricsWakelock({int? page}) {
+    final activePage = page ?? _currentPage;
+    final isLyricsActive = activePage == 1;
+    final keepScreenOn = PlayerUiSettingsService().getLyricsKeepScreenOn();
+    if (isLyricsActive && keepScreenOn) {
+      WakelockService().enable('lyrics_view');
+    } else {
+      WakelockService().disable('lyrics_view');
+    }
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    PlayerUiSettingsService()
+        .lyricsKeepScreenOnNotifier
+        .removeListener(_syncLyricsWakelock);
+    WakelockService().disable('lyrics_view');
     _pageController.dispose();
     super.dispose();
   }
@@ -190,13 +241,19 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
 
   void _onVerticalDragEnd(DragEndDetails details) {
     if (details.primaryVelocity != null && details.primaryVelocity! > 300) {
+      WakelockService().disable('lyrics_view');
       Navigator.of(context).pop();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
+    bool isTv = false;
+    try {
+      isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
+    } catch (_) {
+      isTv = TvDetectionService().isTvMode;
+    }
     if (isTv) {
       return TvNowPlayingScreen(
         image: _currentImageProvider ?? widget.image,
@@ -244,6 +301,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                         setState(() {
                           _currentPage = index;
                         });
+                        _syncLyricsWakelock(page: index);
                       },
                       children: [
                         _buildMainView(
@@ -335,6 +393,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                       ),
                       onPressed: () {
                         if (_currentPage != 0) {
+                          _syncLyricsWakelock(page: 0);
                           _pageController.animateToPage(0,
                               duration: const Duration(milliseconds: 300),
                               curve: Curves.easeInOut);
@@ -410,6 +469,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(20),
                   onTap: () {
+                    _syncLyricsWakelock(page: 1);
                     _pageController.animateToPage(
                       1,
                       duration: const Duration(milliseconds: 300),
@@ -815,8 +875,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                           child: PlaybackControls(
                             isPlaying: provider.isPlaying,
                             isShuffleEnabled: provider.shuffleEnabled,
-                            isRepeatEnabled:
-                                provider.repeatMode != RepeatMode.off,
+                            repeatMode: provider.repeatMode,
                             accentColor: accentColor,
                             onPlayPause: () => provider.togglePlayPause(),
                             onNext: () => provider.skipNext(),
@@ -844,10 +903,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                           accentColor: accentColor,
                           onLyricsTap: () {
                             if (_currentPage == 1) {
+                              _syncLyricsWakelock(page: 0);
                               _pageController.animateToPage(0,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
                             } else {
+                              _syncLyricsWakelock(page: 1);
                               _pageController.animateToPage(1,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
@@ -855,10 +916,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                           },
                           onQueueTap: () {
                             if (_currentPage == 2) {
+                              _syncLyricsWakelock(page: 0);
                               _pageController.animateToPage(0,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
                             } else {
+                              _syncLyricsWakelock(page: 2);
                               _pageController.animateToPage(2,
                                   duration: const Duration(milliseconds: 300),
                                   curve: Curves.easeInOut);
@@ -984,7 +1047,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 child: PlaybackControls(
                   isPlaying: provider.isPlaying,
                   isShuffleEnabled: provider.shuffleEnabled,
-                  isRepeatEnabled: provider.repeatMode != RepeatMode.off,
+                  repeatMode: provider.repeatMode,
                   accentColor: accentColor,
                   onPlayPause: () => provider.togglePlayPause(),
                   onNext: () => provider.skipNext(),
@@ -1011,10 +1074,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 accentColor: accentColor,
                 onLyricsTap: () {
                   if (_currentPage == 1) {
+                    _syncLyricsWakelock(page: 0);
                     _pageController.animateToPage(0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
                   } else {
+                    _syncLyricsWakelock(page: 1);
                     _pageController.animateToPage(1,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
@@ -1022,10 +1087,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen> {
                 },
                 onQueueTap: () {
                   if (_currentPage == 2) {
+                    _syncLyricsWakelock(page: 0);
                     _pageController.animateToPage(0,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);
                   } else {
+                    _syncLyricsWakelock(page: 2);
                     _pageController.animateToPage(2,
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeInOut);

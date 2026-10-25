@@ -13,11 +13,12 @@ import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
-import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
+import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
 import 'package:musly/utils/context_extensions.dart';
 import 'package:musly/services/storage_service.dart';
+import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:window_manager/window_manager.dart';
 
 class SettingsDisplayTab extends StatefulWidget {
@@ -36,9 +37,11 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
   bool _showMiniPlayerShuffle = false;
   bool _showLiveLyricUnderArtwork = false;
   bool _liveSearch = true;
+  bool _showFavoritePlaylistsOnHome = false;
   bool _lyricsBlurUnfocused = false;
   String _lyricsAlignment = 'left';
   bool _lyricsGlowEffect = true;
+  bool _lyricsKeepScreenOn = true;
   bool _hideWindowTitlebar = false;
   String _artworkResolution = 'normal';
 
@@ -72,9 +75,12 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       _showLiveLyricUnderArtwork =
           _playerUiSettings.getShowLiveLyricUnderArtwork();
       _liveSearch = _playerUiSettings.getLiveSearch();
+      _showFavoritePlaylistsOnHome =
+          _playerUiSettings.getShowFavoritePlaylistsOnHome();
       _lyricsBlurUnfocused = _playerUiSettings.getLyricsBlurUnfocused();
       _lyricsAlignment = _playerUiSettings.getLyricsAlignment();
       _lyricsGlowEffect = _playerUiSettings.getLyricsGlowEffect();
+      _lyricsKeepScreenOn = _playerUiSettings.getLyricsKeepScreenOn();
       _artworkResolution = _playerUiSettings.getArtworkResolution();
       _themeMode = themeService.themeMode;
       _accentColor = themeService.accentColor;
@@ -137,6 +143,17 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             ],
           ],
         ),
+        if (_isDesktop) ...[
+          const SizedBox(height: 24),
+          _buildSpotverlaySection(),
+        ],
+        const SizedBox(height: 24),
+        SettingsSectionCard(
+          title: AppLocalizations.of(context)!.homeSection.toUpperCase(),
+          children: [
+            _buildFavoritePlaylistsOnHomeToggle(),
+          ],
+        ),
         const SizedBox(height: 24),
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.liveSearchSection.toUpperCase(),
@@ -161,6 +178,8 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             _buildLyricsAlignmentSelector(),
             const SettingsDivider(),
             _buildLyricsGlowToggle(),
+            const SettingsDivider(),
+            _buildLyricsKeepScreenOnToggle(),
           ],
         ),
         const SizedBox(height: 24),
@@ -355,6 +374,20 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           setState(() => _liveSearch = value);
           await _playerUiSettings.setLiveSearch(value);
         },
+    );
+  }
+
+  Widget _buildFavoritePlaylistsOnHomeToggle() {
+    return SettingsSwitchTile(
+      gradientColors: const [Color(0xFFFA243C), Color(0xFFFF2D55)],
+      icon: CupertinoIcons.heart_fill,
+      title: AppLocalizations.of(context)!.showFavoritePlaylistsOnHome,
+      subtitle: AppLocalizations.of(context)!.showFavoritePlaylistsOnHomeSubtitle,
+      value: _showFavoritePlaylistsOnHome,
+      onChanged: (value) async {
+        setState(() => _showFavoritePlaylistsOnHome = value);
+        await _playerUiSettings.setShowFavoritePlaylistsOnHome(value);
+      },
     );
   }
 
@@ -924,6 +957,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             if (val != null) {
               setState(() => _artworkResolution = val);
               _playerUiSettings.setArtworkResolution(val);
+              ImageUrlCache.clear();
             }
           },
         ),
@@ -972,6 +1006,19 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
     );
   }
 
+  Widget _buildLyricsKeepScreenOnToggle() {
+    final l10n = AppLocalizations.of(context)!;
+    return SwitchListTile.adaptive(
+      title: Text(l10n.lyricsKeepScreenOn),
+      subtitle: Text(l10n.lyricsKeepScreenOnSubtitle),
+      value: _lyricsKeepScreenOn,
+      onChanged: (val) async {
+        await _playerUiSettings.setLyricsKeepScreenOn(val);
+        setState(() => _lyricsKeepScreenOn = val);
+      },
+    );
+  }
+
   Widget _buildWindowTitlebarToggle() {
     final l10n = AppLocalizations.of(context)!;
     return SwitchListTile.adaptive(
@@ -988,6 +1035,38 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           } catch (_) {}
         }
       },
+    );
+  }
+
+  Widget _buildSpotverlaySection() {
+    final l10n = AppLocalizations.of(context)!;
+    return SettingsSectionCard(
+      title: l10n.desktopOverlaySection.toUpperCase(),
+      children: [
+        SettingsListTile(
+          gradientColors: const [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+          icon: CupertinoIcons.layers_alt_fill,
+          title: l10n.spotverlayTitle,
+          subtitle: l10n.spotverlayDescription,
+          trailing: Icon(
+            Icons.open_in_new_rounded,
+            size: 18,
+            color: context.isDark
+                ? AppTheme.darkSecondaryText
+                : AppTheme.lightSecondaryText,
+          ),
+          onTap: () async {
+            final uri = Uri.parse('https://github.com/dddevid/Spotverlay');
+            try {
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri, mode: LaunchMode.externalApplication);
+              }
+            } catch (e) {
+              debugPrint('Error launching Spotverlay URL: $e');
+            }
+          },
+        ),
+      ],
     );
   }
 }

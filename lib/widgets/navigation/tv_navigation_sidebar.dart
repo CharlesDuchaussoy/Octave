@@ -177,7 +177,7 @@ class _TvSidebarPlayerState extends State<_TvSidebarPlayer> {
     if (song == null) return;
     final subsonic = Provider.of<SubsonicService>(context, listen: false);
     final coverUrl = song.coverArt != null
-        ? subsonic.getCoverArtUrl(song.coverArt, size: 600)
+        ? subsonic.getCoverArtUrl(song.coverArt, size: 800)
         : null;
     final imageProvider = (coverUrl != null && coverUrl.isNotEmpty)
         ? CachedNetworkImageProvider(coverUrl) as ImageProvider

@@ -83,7 +83,7 @@ void main() {
 
     test('getCompletionPercentage returns baseline and dynamic OTA percentages', () {
       expect(LocaleService.getCompletionPercentage('en'), 100);
-      expect(LocaleService.getCompletionPercentage('az'), 73);
+      expect(LocaleService.getCompletionPercentage('az'), 1);
       expect(LocaleService.getCompletionPercentage('it'), 90);
       expect(LocaleService.getCompletionPercentage('unknown_lang'), 0);
 

@@ -125,10 +125,15 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
       trailing: DropdownButton<AutoDjMode>(
         value: _autoDjMode,
         underline: const SizedBox(),
+        isDense: true,
+        isExpanded: true,
         items: AutoDjMode.values.map((mode) {
           return DropdownMenuItem(
             value: mode,
-            child: Text(_getAutoDjModeLabel(mode)),
+            child: Text(
+              _getAutoDjModeLabel(mode),
+              overflow: TextOverflow.ellipsis,
+            ),
           );
         }).toList(),
         onChanged: (value) {

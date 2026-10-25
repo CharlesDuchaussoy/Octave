@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/models.dart';
 import '../services/audio_handler.dart';
-import '../services/android_auto_service.dart';
 import '../services/local_music_service.dart';
 import '../services/services.dart';
 import '../widgets/common/album_artwork.dart';
@@ -37,6 +36,8 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   DateTime? _lastCacheUpdate;
 
   bool _isLoading = false;
+  bool _isBackgroundSyncing = false;
+  Future<void>? _syncFuture;
   bool _isInitialized = false;
   String? _error;
 
@@ -60,6 +61,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   List<Genre> get richGenres => _richGenres;
   SearchResult? get starred => _starred;
   bool get isLoading => _isLoading;
+  bool get isBackgroundSyncing => _isBackgroundSyncing;
   bool get isInitialized => _isInitialized;
   String? get error => _error;
 
@@ -122,56 +124,76 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     _serverOfflineMode = offline;
   }
 
-  String getCoverArtUrl(String? coverArt) {
-    return _subsonicService.getCoverArtUrl(coverArt, size: 300);
+  List<Album>? _mergedAlbumsCache;
+  List<Song>? _mergedSongsCache;
+  List<Artist>? _mergedArtistsCache;
+
+  void _invalidateMergedCache() {
+    _mergedAlbumsCache = null;
+    _mergedSongsCache = null;
+    _mergedArtistsCache = null;
   }
 
+  @override
+  void notifyListeners() {
+    _invalidateMergedCache();
+    super.notifyListeners();
+  }
+
+  @override
+  String getCoverArtUrl(String? coverArt) {
+    return _subsonicService.getCoverArtUrl(coverArt, size: 600);
+  }
+
+  @override
   List<Album> get cachedAllAlbums {
     if (!_mergeLocalLibrary ||
         _localMusicService == null ||
         _localMusicService!.isEmpty) {
       return _cachedAllAlbums;
     }
+    if (_mergedAlbumsCache != null) return _mergedAlbumsCache!;
     final localAlbums = _localMusicService!.albums;
-    final merged = [..._cachedAllAlbums];
-    for (final localAlbum in localAlbums) {
-      if (!merged.any((album) => album.id == localAlbum.id)) {
-        merged.add(localAlbum);
-      }
-    }
-    return merged;
+    final serverIds = _cachedAllAlbums.map((album) => album.id).toSet();
+    _mergedAlbumsCache = [
+      ..._cachedAllAlbums,
+      ...localAlbums.where((album) => !serverIds.contains(album.id)),
+    ];
+    return _mergedAlbumsCache!;
   }
 
+  @override
   List<Song> get cachedAllSongs {
     if (!_mergeLocalLibrary ||
         _localMusicService == null ||
         _localMusicService!.isEmpty) {
       return _cachedAllSongs;
     }
+    if (_mergedSongsCache != null) return _mergedSongsCache!;
     final localSongs = _localMusicService!.songs;
-    final merged = [..._cachedAllSongs];
-    for (final localSong in localSongs) {
-      if (!merged.any((song) => song.id == localSong.id)) {
-        merged.add(localSong);
-      }
-    }
-    return merged;
+    final serverIds = _cachedAllSongs.map((song) => song.id).toSet();
+    _mergedSongsCache = [
+      ..._cachedAllSongs,
+      ...localSongs.where((song) => !serverIds.contains(song.id)),
+    ];
+    return _mergedSongsCache!;
   }
 
+  @override
   List<Artist> get artists {
     if (!_mergeLocalLibrary ||
         _localMusicService == null ||
         _localMusicService!.isEmpty) {
       return _artists;
     }
+    if (_mergedArtistsCache != null) return _mergedArtistsCache!;
     final localArtists = _localMusicService!.artists;
-    final merged = [..._artists];
-    for (final localArtist in localArtists) {
-      if (!merged.any((artist) => artist.id == localArtist.id)) {
-        merged.add(localArtist);
-      }
-    }
-    return merged;
+    final serverIds = _artists.map((artist) => artist.id).toSet();
+    _mergedArtistsCache = [
+      ..._artists,
+      ...localArtists.where((artist) => !serverIds.contains(artist.id)),
+    ];
+    return _mergedArtistsCache!;
   }
 
   Future<void> initialize() async {
@@ -234,8 +256,6 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   }
 
   Future<void> ensureLibraryLoaded() async {
-    if (_cachedAllSongs.isNotEmpty) return;
-
     if (_localOnlyMode && _localMusicService != null) {
       _cachedAllSongs = List.from(_localMusicService!.songs);
       _cachedAllAlbums = List.from(_localMusicService!.albums);
@@ -246,17 +266,29 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
       return;
     }
 
+    if (_subsonicService.isYoutube || _serverOfflineMode) return;
+
+    if (_cachedAllAlbums.isNotEmpty && _cachedAllSongs.isNotEmpty) return;
+
+    if (_isBackgroundSyncing && _syncFuture != null) {
+      await _syncFuture;
+      return;
+    }
+
     _isLoading = true;
     notifyListeners();
 
-    await _loadCachedData(loadFullLibrary: true);
+    try {
+      await _loadCachedData(loadFullLibrary: true);
 
-    if (_cachedAllSongs.isEmpty) {
-      await _refreshAllDataInBackground();
+      if (_cachedAllAlbums.isEmpty || _cachedAllSongs.isEmpty) {
+        _syncFuture = _refreshAllDataInBackground();
+        await _syncFuture;
+      }
+    } finally {
+      _isLoading = false;
+      notifyListeners();
     }
-
-    _isLoading = false;
-    notifyListeners();
   }
 
   Future<void> _loadCachedData({bool loadFullLibrary = false}) async {
@@ -333,27 +365,35 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   }
 
   void _scheduleBackgroundRefresh() {
-    if (_cachedAllSongs.isEmpty || _subsonicService.isYoutube) return;
+    if (_subsonicService.isYoutube || _serverOfflineMode || _localOnlyMode) return;
 
-    final shouldRefresh = _lastCacheUpdate == null ||
+    final isLibraryEmpty = _cachedAllAlbums.isEmpty || _cachedAllSongs.isEmpty;
+    final shouldRefresh = isLibraryEmpty ||
+        _lastCacheUpdate == null ||
         DateTime.now().difference(_lastCacheUpdate!) > const Duration(hours: 6);
 
     if (shouldRefresh) {
-      Future.delayed(const Duration(seconds: 5), () {
-        _refreshAllDataInBackground();
+      Future.delayed(const Duration(seconds: 2), () {
+        if (!_isBackgroundSyncing) {
+          _syncFuture = _refreshAllDataInBackground();
+        }
       });
     }
   }
 
   Future<void> _refreshAllDataInBackground() async {
-    if (_subsonicService.isYoutube) return;
+    if (_subsonicService.isYoutube || _serverOfflineMode || _localOnlyMode) return;
+    if (_isBackgroundSyncing) {
+      if (_syncFuture != null) await _syncFuture;
+      return;
+    }
+
+    _isBackgroundSyncing = true;
     try {
       const pageSize = 500;
       int offset = 0;
       final List<Album> allAlbums = [];
       final seenSongIds = <String>{};
-
-      await _db.clearServerData();
 
       while (true) {
         final page = await _subsonicService.getAlbumList(
@@ -368,6 +408,12 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         offset += pageSize;
       }
 
+      // Immediately publish albums so Albums view is instantly populated
+      if (allAlbums.isNotEmpty) {
+        _cachedAllAlbums = List.from(allAlbums);
+        notifyListeners();
+      }
+
       if (_subsonicService.isJellyfin) {
         try {
           final allSongs = await _subsonicService.getAllSongs();
@@ -375,12 +421,15 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
             seenSongIds.add(song.id);
           }
           await _db.insertSongsBatch(allSongs);
+          _cachedAllSongs = allSongs;
+          notifyListeners();
         } catch (_) {}
       }
 
       if (seenSongIds.isEmpty) {
         final albumCount = await _db.getAlbumCount();
         const albumBatchSize = 50;
+        const concurrency = 6;
         for (int batchOffset = 0;
             batchOffset < albumCount;
             batchOffset += albumBatchSize) {
@@ -388,26 +437,54 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
             limit: albumBatchSize,
             offset: batchOffset,
           );
-          for (final album in albums) {
-            try {
-              final albumSongs = await _subsonicService.getAlbumSongs(album.id);
-              final newSongs =
-                  albumSongs.where((song) => seenSongIds.add(song.id)).toList();
-              if (newSongs.isNotEmpty) {
-                await _db.insertSongsBatch(newSongs);
+          for (int i = 0; i < albums.length; i += concurrency) {
+            final end = (i + concurrency < albums.length)
+                ? i + concurrency
+                : albums.length;
+            final chunk = albums.sublist(i, end);
+            final results = await Future.wait(
+              chunk.map((album) async {
+                try {
+                  return await _subsonicService.getAlbumSongs(album.id);
+                } catch (_) {
+                  return <Song>[];
+                }
+              }),
+            );
+            final batchSongs = <Song>[];
+            for (final albumSongs in results) {
+              for (final song in albumSongs) {
+                if (seenSongIds.add(song.id)) {
+                  batchSongs.add(song);
+                }
               }
-            } catch (_) {}
+            }
+            if (batchSongs.isNotEmpty) {
+              await _db.insertSongsBatch(batchSongs);
+            }
+          }
+          final currentDbSongs = await _db.getAllSongs();
+          if (currentDbSongs.isNotEmpty) {
+            _cachedAllSongs = currentDbSongs;
+            notifyListeners();
           }
         }
       }
 
-      _cachedAllAlbums = allAlbums;
+      _cachedAllAlbums = allAlbums.isNotEmpty
+          ? allAlbums
+          : await _db.getAllAlbums();
       _cachedAllSongs = await _db.getAllSongs();
       _lastCacheUpdate = DateTime.now();
 
       await _saveCachedData();
       notifyListeners();
-    } catch (_) {}
+    } catch (e) {
+      debugPrint('[LibraryProvider] _refreshAllDataInBackground error: $e');
+    } finally {
+      _isBackgroundSyncing = false;
+      _syncFuture = null;
+    }
   }
 
   Future<void> _saveCachedData() async {
@@ -483,7 +560,8 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     await initialize();
 
     if (!_serverOfflineMode && !_localOnlyMode && !_subsonicService.isYoutube) {
-      _refreshAllDataInBackground();
+      _syncFuture = _refreshAllDataInBackground();
+      await _syncFuture;
     }
   }
 
@@ -559,8 +637,20 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         );
         if (cachedIndex != -1) {
           final cached = _cachedPlaylists[cachedIndex];
+          final effectiveCoverArt = (newPlaylist.coverArt != null &&
+                  newPlaylist.coverArt!.isNotEmpty)
+              ? newPlaylist.coverArt
+              : cached.coverArt;
           if (cached.songs != null && cached.songs!.isNotEmpty) {
-            mergedPlaylists.add(newPlaylist.copyWith(songs: cached.songs));
+            mergedPlaylists.add(newPlaylist.copyWith(
+              songs: cached.songs,
+              coverArt: effectiveCoverArt,
+            ));
+            continue;
+          }
+          if (effectiveCoverArt != newPlaylist.coverArt) {
+            mergedPlaylists
+                .add(newPlaylist.copyWith(coverArt: effectiveCoverArt));
             continue;
           }
         }
@@ -664,9 +754,14 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     }
 
     try {
-      final playlist = await _subsonicService.getPlaylist(playlistId);
+      var playlist = await _subsonicService.getPlaylist(playlistId);
       final index = _playlists.indexWhere((p) => p.id == playlistId);
       if (index != -1) {
+        if ((playlist.coverArt == null || playlist.coverArt!.isEmpty) &&
+            _playlists[index].coverArt != null &&
+            _playlists[index].coverArt!.isNotEmpty) {
+          playlist = playlist.copyWith(coverArt: _playlists[index].coverArt);
+        }
         _playlists[index] = playlist;
       } else {
         _playlists.add(playlist);
@@ -695,10 +790,49 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     await loadPlaylists();
   }
 
-  Future<void> deletePlaylist(String playlistId) async {
-    await _subsonicService.deletePlaylist(playlistId);
+  Future<Playlist> importPlaylistFromPreview({
+    required PlaylistImportPreview preview,
+    String? customName,
+    void Function(int current, int total, String status)? onProgress,
+  }) async {
+    final playlist = await PlaylistImportService().importFromPreview(
+      preview,
+      customName: customName,
+      onProgress: onProgress,
+    );
     await loadPlaylists();
+    return playlist;
   }
+
+  Future<Playlist> importPlaylistFromUrl({
+    required String urlOrId,
+    String? customName,
+    void Function(int current, int total, String status)? onProgress,
+  }) async {
+    final playlist = await PlaylistImportService().importFromUrl(
+      urlOrId,
+      customName: customName,
+      onProgress: onProgress,
+    );
+    await loadPlaylists();
+    return playlist;
+  }
+
+  Future<void> deletePlaylist(String playlistId) async {
+    _playlists.removeWhere((p) => p.id == playlistId);
+    _cachedPlaylists.removeWhere((p) => p.id == playlistId);
+    _saveCachedData();
+    notifyListeners();
+    _audioHandler
+        .notifyAutoChildrenChanged([MuslyAudioHandler.mediaIdPlaylists]);
+    try {
+      await _db.deletePlaylist(playlistId);
+      await _subsonicService.deletePlaylist(playlistId);
+    } finally {
+      await loadPlaylists();
+    }
+  }
+
 
   Future<void> addSongToPlaylist(String playlistId, String songId) async {
     await _subsonicService.updatePlaylist(

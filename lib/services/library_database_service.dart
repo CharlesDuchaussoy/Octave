@@ -300,14 +300,25 @@ class LibraryDatabaseService {
     final songIds = playlist.songs?.map((s) => s.id).toList() ?? [];
     if (songIds.isNotEmpty) {
       final fullSongs = await getSongs(songIds);
-      return playlist.copyWith(songs: fullSongs);
+      if (fullSongs.isNotEmpty && fullSongs.length == songIds.length) {
+        return playlist.copyWith(songs: fullSongs);
+      } else if (playlist.songs != null && playlist.songs!.isNotEmpty) {
+        final fullMap = {for (final s in fullSongs) s.id: s};
+        final merged = playlist.songs!.map((s) => fullMap[s.id] ?? s).toList();
+        return playlist.copyWith(songs: merged);
+      }
     }
     return playlist;
   }
 
-  Future<void> deletePlaylist(String playlistId) async {
+  Future<int> deletePlaylist(String playlistId) async {
     final db = await database;
-    await db.delete('playlists', where: 'id = ?', whereArgs: [playlistId]);
+    final trimmedId = playlistId.trim();
+    return await db.delete(
+      'playlists',
+      where: 'id = ? OR id = ? OR LOWER(id) = ?',
+      whereArgs: [playlistId, trimmedId, trimmedId.toLowerCase()],
+    );
   }
 
   Future<void> setSongStarred(String songId, bool starred) async {
@@ -494,10 +505,10 @@ class LibraryDatabaseService {
       size: m['size'] as int?,
       path: m['path'] as String?,
       isLocal: (m['isLocal'] as int?) == 1,
-      replayGainTrackGain: m['replayGainTrackGain'] as double?,
-      replayGainAlbumGain: m['replayGainAlbumGain'] as double?,
-      replayGainTrackPeak: m['replayGainTrackPeak'] as double?,
-      replayGainAlbumPeak: m['replayGainAlbumPeak'] as double?,
+      replayGainTrackGain: (m['replayGainTrackGain'] as num?)?.toDouble(),
+      replayGainAlbumGain: (m['replayGainAlbumGain'] as num?)?.toDouble(),
+      replayGainTrackPeak: (m['replayGainTrackPeak'] as num?)?.toDouble(),
+      replayGainAlbumPeak: (m['replayGainAlbumPeak'] as num?)?.toDouble(),
       artistParticipants: participantsJson != null
           ? ArtistRef.parseList(jsonDecode(participantsJson))
           : null,

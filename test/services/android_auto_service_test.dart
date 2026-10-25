@@ -5,6 +5,7 @@ import 'package:musly/services/android_auto_service.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:audio_service/audio_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockSubsonicService extends Mock implements SubsonicService {}
 class MockOfflineService extends Mock implements OfflineService {}
@@ -12,6 +13,8 @@ class MockPlayerDelegate extends Mock implements AndroidAutoDelegate {}
 class MockLibraryDelegate extends Mock implements AndroidAutoLibraryDelegate {}
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   late MockSubsonicService mockSubsonic;
   late MockOfflineService mockOffline;
   late MockPlayerDelegate mockPlayer;
@@ -19,6 +22,7 @@ void main() {
   late AndroidAutoService service;
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     mockSubsonic = MockSubsonicService();
     mockOffline = MockOfflineService();
     mockPlayer = MockPlayerDelegate();
@@ -26,6 +30,8 @@ void main() {
 
     when(() => mockSubsonic.isYoutube).thenReturn(false);
     when(() => mockOffline.isOfflineMode).thenReturn(false);
+    when(() => mockSubsonic.getCoverArtUrl(any(), size: any(named: 'size'))).thenReturn('http://cover.url');
+    when(() => mockLibrary.getCoverArtUrl(any())).thenReturn('http://cover.url');
 
     service = AndroidAutoService(
       subsonicService: mockSubsonic,

@@ -88,5 +88,73 @@ void main() {
       expect(find.byIcon(Icons.more_vert_rounded), findsNWidgets(2));
       expect(find.byIcon(Icons.drag_handle_rounded), findsNWidgets(2));
     });
+
+    testWidgets('scrolls to current song when opening queue with multiple songs', (tester) async {
+      final testPlayer = _TestQueuePlayerProvider(
+        subsonicService,
+        StorageService(),
+        FakeCastService(),
+        UpnpService(),
+        MuslyAudioHandler(),
+        JukeboxService(),
+        TranscodingService(),
+      );
+
+      final songs = List.generate(
+        40,
+        (i) => Song(id: '$i', title: 'Song $i', artist: 'Artist $i', duration: 180),
+      );
+      testPlayer.setMockQueue(songs, 25);
+
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            Provider<SubsonicService>.value(value: subsonicService),
+            ChangeNotifierProvider<PlayerProvider>.value(value: testPlayer),
+          ],
+          child: const MaterialApp(
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: Scaffold(body: QueueView()),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final scrollable = tester.state<ScrollableState>(find.byType(Scrollable).first);
+      expect(scrollable.position.pixels, greaterThan(0.0));
+      expect(find.text('Song 25'), findsOneWidget);
+
+      testPlayer.dispose();
+    });
   });
 }
+
+class _TestQueuePlayerProvider extends PlayerProvider {
+  final List<Song> _mockQueue = [];
+  int _mockIndex = 0;
+
+  _TestQueuePlayerProvider(
+    super.subsonicService,
+    super.storageService,
+    super.castService,
+    super.upnpService,
+    super.audioHandler,
+    super.jukeboxService,
+    super.transcodingService,
+  );
+
+  @override
+  List<Song> get queue => _mockQueue;
+
+  @override
+  int get currentIndex => _mockIndex;
+
+  void setMockQueue(List<Song> q, int index) {
+    _mockQueue.clear();
+    _mockQueue.addAll(q);
+    _mockIndex = index;
+    notifyListeners();
+  }
+}
+

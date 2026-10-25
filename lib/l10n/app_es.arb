@@ -1756,5 +1756,8 @@
   "aboutLinkDiscord": "Únete a la comunidad de Discord",
   "@aboutLinkDiscord": {
     "description": "Link tile title for the Discord server"
-  }
+  },
+  "desktopOverlaySection": "Superposición de escritorio",
+  "spotverlayTitle": "Spotverlay",
+  "spotverlayDescription": "Si quieres una superposición hermosa y ligera \"Made for Musly\", puedes usar Spotverlay (https://github.com/dddevid/Spotverlay)"
 }

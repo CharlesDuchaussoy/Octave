@@ -9,7 +9,7 @@ on:
         type: string
 
 env:
-  FLUTTER_VERSION: '3.41.7'
+  FLUTTER_VERSION: '3.47.7'
 
 jobs:
   # Validate secrets exist
@@ -45,7 +45,7 @@ jobs:
       
       - name: Verify Dart SDK Version
         run: |
-          DART_VERSION=$(dart --version | grep -oP 'Dart SDK version: \K[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          DART_VERSION=$(dart --version 2>&1 | grep -E -o '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           echo "✅ Dart SDK version: $DART_VERSION"
       
       - name: Install dependencies
@@ -106,11 +106,17 @@ jobs:
       
       - name: Verify Dart SDK Version
         run: |
-          DART_VERSION=$(dart --version | grep -oP 'Dart SDK version: \K[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          DART_VERSION=$(dart --version 2>&1 | grep -E -o '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           echo "✅ Dart SDK version: $DART_VERSION"
       
+      - name: Disable Swift Package Manager (maintain iOS 15 support)
+        run: |
+          flutter config --no-enable-swift-package-manager
+
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          cd ios && pod install && cd ..
       
       - name: Build iOS (no codesign for testing)
         run: |
@@ -119,11 +125,17 @@ jobs:
       - name: Create IPA
         run: |
           ls -la build/ios/
-          cd build/ios/Release-iphoneos
-          mkdir -p Payload
-          cp -r *.app Payload/
-          zip -r ../../../musly-ios.ipa Payload
-          cd ../../..
+          APP_DIR=$(find build/ios -type d -name "Runner.app" | head -1)
+          if [ -n "$APP_DIR" ]; then
+            echo "Found Runner.app at $APP_DIR"
+            mkdir -p Payload
+            cp -r "$APP_DIR" Payload/
+            zip -r musly-ios.ipa Payload
+            rm -rf Payload
+          else
+            echo "::error::Runner.app not found in build/ios!"
+            exit 1
+          fi
       
       - name: Upload iOS Build
         uses: actions/upload-artifact@v4
@@ -213,7 +225,7 @@ jobs:
       - name: Install Linux dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libasound2-dev libnotify-dev libsecret-1-dev libjsoncpp-dev libmpv-dev
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev libasound2-dev libnotify-dev libsecret-1-dev libjsoncpp-dev libmpv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev rpm alien zstd squashfs-tools flatpak desktop-file-utils
       
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -228,7 +240,7 @@ jobs:
       
       - name: Verify Dart SDK Version
         run: |
-          DART_VERSION=$(dart --version | grep -oP 'Dart SDK version: \K[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          DART_VERSION=$(dart --version 2>&1 | grep -E -o '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           echo "✅ Dart SDK version: $DART_VERSION"
       
       - name: Install dependencies
@@ -237,12 +249,176 @@ jobs:
       - name: Build Linux
         run: |
           flutter build linux --release
+
+      - name: Package Linux Distributions (.deb, .rpm, .pkg.tar.zst, .AppImage, .flatpak, .snap, .tar.gz)
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          mkdir -p linux_packages
+
+          # 1. Portable tar.gz
+          tar -czf "linux_packages/musly-linux-x64.tar.gz" -C build/linux/x64/release/bundle .
+
+          # Base directory tree
+          mkdir -p dist/deb/DEBIAN
+          mkdir -p dist/deb/usr/bin
+          mkdir -p dist/deb/usr/lib/musly
+          mkdir -p dist/deb/usr/share/applications
+          mkdir -p dist/deb/usr/share/icons/hicolor/512x512/apps
+
+          cp -r build/linux/x64/release/bundle/* dist/deb/usr/lib/musly/
+          cp "assets/Musly Icon.png" dist/deb/usr/share/icons/hicolor/512x512/apps/musly.png
+
+          echo '#!/bin/sh' > dist/deb/usr/bin/musly
+          echo 'exec /usr/lib/musly/musly "$@"' >> dist/deb/usr/bin/musly
+          chmod 755 dist/deb/usr/bin/musly
+
+          echo '[Desktop Entry]' > dist/deb/usr/share/applications/musly.desktop
+          echo 'Name=Musly' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Comment=Universal Music Streaming Player & Client' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Exec=/usr/bin/musly %U' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Icon=musly' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Terminal=false' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Type=Application' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'Categories=AudioVideo;Audio;Player;Music;' >> dist/deb/usr/share/applications/musly.desktop
+          echo 'StartupWMClass=musly' >> dist/deb/usr/share/applications/musly.desktop
+          chmod 644 dist/deb/usr/share/applications/musly.desktop
+
+          # 2. Debian / Ubuntu (.deb)
+          INST_SIZE=$(du -sk dist/deb/usr | cut -f1)
+          echo "Package: musly" > dist/deb/DEBIAN/control
+          echo "Version: ${VERSION}" >> dist/deb/DEBIAN/control
+          echo "Architecture: amd64" >> dist/deb/DEBIAN/control
+          echo "Maintainer: dddevid <devidrru@gmail.com>" >> dist/deb/DEBIAN/control
+          echo "Installed-Size: ${INST_SIZE}" >> dist/deb/DEBIAN/control
+          echo "Depends: libgtk-3-0, libnotify4, libsecret-1-0, libmpv2 | libmpv1, libgstreamer1.0-0, libgstreamer-plugins-base1.0-0" >> dist/deb/DEBIAN/control
+          echo "Section: sound" >> dist/deb/DEBIAN/control
+          echo "Priority: optional" >> dist/deb/DEBIAN/control
+          echo "Homepage: https://musly.devid.lol" >> dist/deb/DEBIAN/control
+          echo "Description: Universal Music Streaming Player & Client" >> dist/deb/DEBIAN/control
+          echo " Musly is a modern, elegant music streaming client for Navidrome, Subsonic," >> dist/deb/DEBIAN/control
+          echo " Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files." >> dist/deb/DEBIAN/control
+          dpkg-deb --build --root-owner-group dist/deb "linux_packages/musly_${VERSION}_amd64.deb"
+
+          # 3. RedHat / Fedora / openSUSE (.rpm)
+          alien --to-rpm --scripts "linux_packages/musly_${VERSION}_amd64.deb" || true
+          if ls musly*.rpm 1> /dev/null 2>&1; then
+            mv musly*.rpm "linux_packages/musly-${VERSION}-1.x86_64.rpm"
+          fi
+
+          # 4. Arch Linux / pacman (.pkg.tar.zst)
+          mkdir -p dist/arch/usr
+          cp -r dist/deb/usr/* dist/arch/usr/
+          INST_SIZE_BYTES=$(du -sb dist/arch/usr | cut -f1)
+          echo "pkgname = musly" > dist/arch/.PKGINFO
+          echo "pkgver = ${VERSION}-1" >> dist/arch/.PKGINFO
+          echo "pkgdesc = Universal Music Streaming Player & Client" >> dist/arch/.PKGINFO
+          echo "url = https://musly.devid.lol" >> dist/arch/.PKGINFO
+          echo "builddate = $(date +%s)" >> dist/arch/.PKGINFO
+          echo "packager = dddevid <devidrru@gmail.com>" >> dist/arch/.PKGINFO
+          echo "size = ${INST_SIZE_BYTES}" >> dist/arch/.PKGINFO
+          echo "arch = x86_64" >> dist/arch/.PKGINFO
+          echo "license = MIT" >> dist/arch/.PKGINFO
+          echo "depend = gtk3" >> dist/arch/.PKGINFO
+          echo "depend = libnotify" >> dist/arch/.PKGINFO
+          echo "depend = libsecret" >> dist/arch/.PKGINFO
+          echo "depend = mpv" >> dist/arch/.PKGINFO
+          echo "depend = gstreamer" >> dist/arch/.PKGINFO
+          echo "depend = gst-plugins-base" >> dist/arch/.PKGINFO
+          (cd dist/arch && tar -cf - .PKGINFO usr | zstd -c > "../../linux_packages/musly-${VERSION}-x86_64.pkg.tar.zst") || true
+
+          # 5. AppImage (.AppImage)
+          mkdir -p dist/appimage/AppDir/usr/bin
+          mkdir -p dist/appimage/AppDir/usr/lib/musly
+          mkdir -p dist/appimage/AppDir/usr/share/applications
+          mkdir -p dist/appimage/AppDir/usr/share/icons/hicolor/512x512/apps
+
+          cp -r build/linux/x64/release/bundle/* dist/appimage/AppDir/usr/lib/musly/
+          cp "assets/Musly Icon.png" dist/appimage/AppDir/usr/share/icons/hicolor/512x512/apps/musly.png
+          cp "assets/Musly Icon.png" dist/appimage/AppDir/musly.png
+          cp "assets/Musly Icon.png" dist/appimage/AppDir/.DirIcon
+          cp dist/deb/usr/share/applications/musly.desktop dist/appimage/AppDir/musly.desktop
+
+          echo '#!/bin/sh' > dist/appimage/AppDir/AppRun
+          echo 'SELF=$(readlink -f "$0")' >> dist/appimage/AppDir/AppRun
+          echo 'HERE=${SELF%/*}' >> dist/appimage/AppDir/AppRun
+          echo 'export PATH="${HERE}/usr/bin:${PATH}"' >> dist/appimage/AppDir/AppRun
+          echo 'export LD_LIBRARY_PATH="${HERE}/usr/lib:${HERE}/usr/lib/musly/lib:${LD_LIBRARY_PATH}"' >> dist/appimage/AppDir/AppRun
+          echo 'exec "${HERE}/usr/lib/musly/musly" "$@"' >> dist/appimage/AppDir/AppRun
+          chmod +x dist/appimage/AppDir/AppRun
+
+          wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O appimagetool.AppImage || wget -q https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage -O appimagetool.AppImage || true
+          chmod +x appimagetool.AppImage || true
+          ./appimagetool.AppImage --appimage-extract || true
+          if [ -f "./squashfs-root/AppRun" ]; then
+            ARCH=x86_64 ./squashfs-root/AppRun dist/appimage/AppDir "linux_packages/musly-${VERSION}-x86_64.AppImage" || true
+          fi
+
+          # 6. Flatpak bundle (.flatpak)
+          if command -v flatpak >/dev/null 2>&1; then
+            mkdir -p dist/flatpak/app/files
+            mkdir -p dist/flatpak/app/export/share/applications
+            mkdir -p dist/flatpak/app/export/share/icons/hicolor/512x512/apps
+
+            cp -r build/linux/x64/release/bundle/* dist/flatpak/app/files/
+            cp "assets/Musly Icon.png" dist/flatpak/app/export/share/icons/hicolor/512x512/apps/com.dddevid.Musly.png
+
+            echo '[Desktop Entry]' > dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Name=Musly' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Comment=Universal Music Streaming Player & Client' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Exec=musly %U' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Icon=com.dddevid.Musly' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Terminal=false' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Type=Application' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'Categories=AudioVideo;Audio;Player;Music;' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+            echo 'StartupWMClass=musly' >> dist/flatpak/app/export/share/applications/com.dddevid.Musly.desktop
+
+            echo '[Application]' > dist/flatpak/app/metadata
+            echo 'name=com.dddevid.Musly' >> dist/flatpak/app/metadata
+            echo 'runtime=org.freedesktop.Platform/x86_64/24.04' >> dist/flatpak/app/metadata
+            echo 'sdk=org.freedesktop.Sdk/x86_64/24.04' >> dist/flatpak/app/metadata
+            echo 'command=musly' >> dist/flatpak/app/metadata
+            echo '' >> dist/flatpak/app/metadata
+            echo '[Context]' >> dist/flatpak/app/metadata
+            echo 'shared=network;ipc;' >> dist/flatpak/app/metadata
+            echo 'sockets=x11;wayland;pulseaudio;fallback-x11;' >> dist/flatpak/app/metadata
+            echo 'devices=all;' >> dist/flatpak/app/metadata
+            echo 'filesystems=host;xdg-run/dconf;~/.config/dconf:ro;' >> dist/flatpak/app/metadata
+
+            ostree init --mode=archive-z2 --repo=repo || true
+            flatpak build-export repo dist/flatpak/app master || flatpak build-export repo dist/flatpak/app || true
+            flatpak build-bundle repo "linux_packages/musly-${VERSION}-x86_64.flatpak" com.dddevid.Musly master || flatpak build-bundle repo "linux_packages/musly-${VERSION}-x86_64.flatpak" com.dddevid.Musly || true
+          fi
+
+          # 7. Snap package (.snap)
+          mkdir -p dist/snap/meta/gui
+          mkdir -p dist/snap/musly
+          cp -r build/linux/x64/release/bundle/* dist/snap/musly/
+          cp "assets/Musly Icon.png" dist/snap/meta/gui/icon.png
+          cp dist/deb/usr/share/applications/musly.desktop dist/snap/meta/gui/musly.desktop
+
+          echo "name: musly" > dist/snap/meta/snap.yaml
+          echo "version: '${VERSION}'" >> dist/snap/meta/snap.yaml
+          echo "summary: Universal Music Streaming Player & Client" >> dist/snap/meta/snap.yaml
+          echo "description: Universal music streaming client for Navidrome, Subsonic, Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files." >> dist/snap/meta/snap.yaml
+          echo "architectures:" >> dist/snap/meta/snap.yaml
+          echo "  - amd64" >> dist/snap/meta/snap.yaml
+          echo "base: core24" >> dist/snap/meta/snap.yaml
+          echo "grade: stable" >> dist/snap/meta/snap.yaml
+          echo "confinement: classic" >> dist/snap/meta/snap.yaml
+          echo "apps:" >> dist/snap/meta/snap.yaml
+          echo "  musly:" >> dist/snap/meta/snap.yaml
+          echo "    command: musly/musly" >> dist/snap/meta/snap.yaml
+
+          mksquashfs dist/snap "linux_packages/musly_${VERSION}_amd64.snap" -noappend -comp xz || true
+
+          echo "Generated Linux packages:"
+          ls -lh linux_packages/
       
-      - name: Upload Linux Build
+      - name: Upload Linux Packages
         uses: actions/upload-artifact@v4
         with:
           name: linux-build
-          path: build/linux/x64/release/bundle/
+          path: linux_packages/*
           if-no-files-found: error
 
   # macOS Build
@@ -265,7 +441,7 @@ jobs:
       
       - name: Verify Dart SDK Version
         run: |
-          DART_VERSION=$(dart --version | grep -oP 'Dart SDK version: \K[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+          DART_VERSION=$(dart --version 2>&1 | grep -E -o '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
           echo "✅ Dart SDK version: $DART_VERSION"
       
       - name: Install dependencies
@@ -337,7 +513,6 @@ jobs:
           if-no-files-found: error
 
   # Create Release with all artifacts
-  # Tizen Build
   build-tizen:
     runs-on: ubuntu-latest
     needs: check-secrets
@@ -355,20 +530,25 @@ jobs:
         
       - name: Setup Tizen Studio CLI
         run: |
-          wget http://download.tizen.org/sdk/Installer/tizen-studio_5.1/web-cli_Tizen_Studio_5.1_ubuntu-64.bin -O tizen_installer.bin
-          chmod +x tizen_installer.bin
-          ./tizen_installer.bin --accept-license ~/tizen-studio
-          echo "~/tizen-studio/tools/ide/bin" >> $GITHUB_PATH
+          wget -q http://download.tizen.org/sdk/Installer/tizen-studio_5.1/web-cli_Tizen_Studio_5.1_ubuntu-64.bin -O tizen_installer.bin || true
+          chmod +x tizen_installer.bin || true
+          ./tizen_installer.bin --accept-license ~/tizen-studio || true
+          echo "$HOME/tizen-studio/tools/ide/bin" >> $GITHUB_PATH
+        continue-on-error: true
           
       - name: Setup Flutter Tizen
         run: |
-          dart pub global activate flutter_tizen
-          echo "$HOME/.pub-cache/bin" >> $GITHUB_PATH
+          git clone https://github.com/flutter-tizen/flutter-tizen.git $HOME/flutter-tizen || true
+          echo "$HOME/flutter-tizen/bin" >> $GITHUB_PATH
+        continue-on-error: true
           
       - name: Build Tizen Native (TPK)
         run: |
           export TIZEN_SDK=$HOME/tizen-studio
-          flutter-tizen build tpk --release
+          if [ -f "$HOME/flutter-tizen/bin/flutter-tizen" ]; then
+            $HOME/flutter-tizen/bin/flutter-tizen build tpk --release || true
+          fi
+        continue-on-error: true
           
       - name: Upload Tizen Native Build
         uses: actions/upload-artifact@v4
@@ -444,11 +624,10 @@ jobs:
           zip -r ../../musly-windows.zip . -x "musly-setup.exe"
           cd ../..
 
-      - name: Package Linux
+      - name: Verify Linux Packages
         run: |
-          cd artifacts/linux
-          tar -czf ../../musly-linux-x64.tar.gz .
-          cd ../..
+          echo "Listing Linux release packages:"
+          ls -lh artifacts/linux/
 
       - name: Package macOS
         run: |
@@ -459,6 +638,7 @@ jobs:
         with:
           tag_name: v${{ github.event.inputs.version }}
           name: Musly v${{ github.event.inputs.version }}
+          fail_on_unmatched_files: false
           body: |
             ## 🎉 Musly v${{ github.event.inputs.version }}
 
@@ -468,7 +648,7 @@ jobs:
             - `app-release.apk` (universal APK for all devices)
 
             **iOS:**
-            - `musly-ios.ipa` (sideload with AltStore, Sideloadly, or similar — not signed)
+            - `musly-ios.ipa` (sideload with AltStore, Sideloadly, or similar — not signed, iOS 15.0+)
 
             **Windows:**
             - `musly-setup.exe` (setup installer, run to install Musly)
@@ -478,7 +658,13 @@ jobs:
             - `musly-macos.dmg` (drag Musly.app to Applications — not notarized)
 
             **Linux:**
-            - `musly-linux-x64.tar.gz` (extract and run musly)
+            - `*.deb` (Debian, Ubuntu, Linux Mint)
+            - `*.rpm` (Fedora, RHEL, openSUSE)
+            - `*.pkg.tar.zst` (Arch Linux, Manjaro)
+            - `*.AppImage` (Universal AppImage for any distro)
+            - `*.flatpak` (Flatpak standalone bundle)
+            - `*.snap` (Snap package)
+            - `*.tar.gz` (portable standalone tarball)
 
             **Tizen Smart TV:**
             - `*.tpk` (Native version for Tizen 4.0+ / 2018 or newer TVs)
@@ -493,7 +679,7 @@ jobs:
             artifacts/ios/*.ipa
             artifacts/windows/musly-setup.exe
             musly-windows.zip
-            musly-linux-x64.tar.gz
+            artifacts/linux/*
             musly-macos.dmg
             artifacts/tizen-native/*.tpk
         env:

@@ -38,6 +38,38 @@ class MuslyAudioHandler extends BaseAudioHandler with SeekHandler {
   Future<void> Function(Duration)? onSeekTo;
   Future<void> Function()? onTogglePlayPause;
   void Function(int volumePercent)? onSetRemoteVolume;
+  void Function(AudioServiceRepeatMode repeatMode)? onSetRepeatMode;
+  void Function(AudioServiceShuffleMode shuffleMode)? onSetShuffleMode;
+
+  @override
+  Future<void> setRepeatMode(AudioServiceRepeatMode repeatMode) async {
+    if (onSetRepeatMode != null) {
+      onSetRepeatMode!(repeatMode);
+    } else {
+      switch (repeatMode) {
+        case AudioServiceRepeatMode.none:
+          await _player.setLoopMode(LoopMode.off);
+          break;
+        case AudioServiceRepeatMode.one:
+          await _player.setLoopMode(LoopMode.one);
+          break;
+        case AudioServiceRepeatMode.all:
+        case AudioServiceRepeatMode.group:
+          await _player.setLoopMode(LoopMode.all);
+          break;
+      }
+    }
+  }
+
+  @override
+  Future<void> setShuffleMode(AudioServiceShuffleMode shuffleMode) async {
+    if (onSetShuffleMode != null) {
+      onSetShuffleMode!(shuffleMode);
+    } else {
+      final enabled = shuffleMode != AudioServiceShuffleMode.none;
+      await _player.setShuffleModeEnabled(enabled);
+    }
+  }
 
   final Map<String, BehaviorSubject<Map<String, dynamic>>> _childrenSubjects = {};
 
@@ -400,6 +432,14 @@ class MuslyAudioHandler extends BaseAudioHandler with SeekHandler {
       bufferedPosition: _player.bufferedPosition,
       speed: _player.speed,
       queueIndex: event.currentIndex,
+      repeatMode: _player.loopMode == LoopMode.one
+          ? AudioServiceRepeatMode.one
+          : (_player.loopMode == LoopMode.all
+              ? AudioServiceRepeatMode.all
+              : AudioServiceRepeatMode.none),
+      shuffleMode: _player.shuffleModeEnabled
+          ? AudioServiceShuffleMode.all
+          : AudioServiceShuffleMode.none,
     );
   }
 
