@@ -16,6 +16,7 @@ import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/screens/player/now_playing_screen.dart';
 import 'package:musly/widgets/modals/song_options_modal.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class MiniPlayer extends StatelessWidget {
   final VoidCallback? onTap;
@@ -84,7 +85,8 @@ class MiniPlayer extends StatelessWidget {
 
         if (isPlayingRadio && currentRadioStation != null) {
           title = currentRadioStation.name;
-          subtitle = 'Internet Radio • LIVE';
+          subtitle =
+              '${AppLocalizations.of(context)!.internetRadio} • ${AppLocalizations.of(context)!.liveLabel}';
           coverArt = null;
         } else if (currentSong != null) {
           title = currentSong.title;
@@ -339,9 +341,9 @@ class _MiniPlayerRow extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary,
                             borderRadius: BorderRadius.circular(3),
                           ),
-                          child: const Text(
-                            'LIVE',
-                            style: TextStyle(
+                          child: Text(
+                            AppLocalizations.of(context)!.liveLabel,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 8,
                               fontWeight: FontWeight.bold,
@@ -351,7 +353,7 @@ class _MiniPlayerRow extends StatelessWidget {
                       ],
                       Expanded(
                         child: Text(
-                          isPlayingRadio ? 'Internet Radio' : subtitle!,
+                          isPlayingRadio ? AppLocalizations.of(context)!.internetRadio : subtitle!,
                           style: theme.textTheme.bodySmall,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

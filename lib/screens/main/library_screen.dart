@@ -102,6 +102,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       delegate: LibrarySearchDelegate(
         libraryProvider: Provider.of<LibraryProvider>(context, listen: false),
         isDark: Theme.of(context).brightness == Brightness.dark,
+        hint: AppLocalizations.of(context)!.librarySearchHint,
       ),
     );
   }
@@ -265,18 +266,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Text(
-                'Sort by',
+                AppLocalizations.of(context)!.sortBy,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            _buildSortOptionTile(ctx, 'Recents', _SortOption.recents),
+            _buildSortOptionTile(ctx, AppLocalizations.of(ctx)!.sortRecents, _SortOption.recents),
             _buildSortOptionTile(
-                ctx, 'Recently added', _SortOption.recentlyAdded),
-            _buildSortOptionTile(ctx, 'Alphabetical', _SortOption.alphabetical),
-            _buildSortOptionTile(ctx, 'Creator', _SortOption.creator),
+                ctx, AppLocalizations.of(ctx)!.recentlyAdded, _SortOption.recentlyAdded),
+            _buildSortOptionTile(ctx, AppLocalizations.of(ctx)!.sortAlphabetical, _SortOption.alphabetical),
+            _buildSortOptionTile(ctx, AppLocalizations.of(ctx)!.sortCreator, _SortOption.creator),
           ],
         ),
       ),
@@ -321,7 +322,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         _LibraryItem(
           type: _LibraryItemType.likedSongs,
           title: l10n?.likedSongs ?? 'Liked Songs',
-          subtitle: 'Playlist • Favorites',
+          subtitle: AppLocalizations.of(context)!.libraryLikedSongsSubtitle,
           onTap: () => _navigate(context, const FavoritesScreen()),
         ),
       );
@@ -332,7 +333,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         _LibraryItem(
           type: _LibraryItemType.downloadedSongs,
           title: l10n?.downloadedSongs ?? 'Downloaded Songs',
-          subtitle: '$downloadedCount songs saved offline',
+          subtitle: AppLocalizations.of(context)!.librarySongsSavedOffline(downloadedCount),
           onTap: () => _navigate(context, const DownloadsScreen()),
         ),
       );
@@ -346,7 +347,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           _LibraryItem(
             type: _LibraryItemType.playlist,
             title: p.name,
-            subtitle: 'Playlist • ${p.songCount ?? 0} songs',
+            subtitle: AppLocalizations.of(context)!.libraryPlaylistSubtitle(p.songCount ?? 0),
             data: p,
             onTap: () => _navigate(
               context,
@@ -368,7 +369,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           _LibraryItem(
             type: _LibraryItemType.album,
             title: a.name,
-            subtitle: 'Album \u2022 ${a.artist}',
+            subtitle: AppLocalizations.of(context)!.libraryAlbumSubtitle(a.artist ?? ''),
             data: a,
             onTap: () => _navigate(context, AlbumScreen(albumId: a.id)),
           ),
@@ -385,7 +386,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           _LibraryItem(
             type: _LibraryItemType.artist,
             title: art.name,
-            subtitle: 'Artist',
+            subtitle: AppLocalizations.of(context)!.artistSingular,
             data: art,
             onTap: () => _navigate(context, ArtistScreen(artistId: art.id)),
           ),
@@ -398,7 +399,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         _LibraryItem(
           type: _LibraryItemType.allSongs,
           title: l10n?.songs ?? 'All Songs',
-          subtitle: '${libraryProvider.cachedAllSongs.length} ${l10n?.songs.toLowerCase() ?? 'songs'}',
+          subtitle: AppLocalizations.of(context)!.songsCount(libraryProvider.cachedAllSongs.length),
           onTap: () => _navigate(context, const AllSongsScreen()),
         ),
       );
@@ -617,10 +618,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               const SizedBox(width: 6),
                               Text(
                                 switch (_currentSort) {
-                                  _SortOption.recents => 'Recents',
-                                  _SortOption.recentlyAdded => 'Recently added',
-                                  _SortOption.alphabetical => 'Alphabetical',
-                                  _SortOption.creator => 'Creator',
+                                  _SortOption.recents => AppLocalizations.of(context)!.sortRecents,
+                                  _SortOption.recentlyAdded =>
+                                    AppLocalizations.of(context)!.recentlyAdded,
+                                  _SortOption.alphabetical =>
+                                    AppLocalizations.of(context)!.sortAlphabetical,
+                                  _SortOption.creator => AppLocalizations.of(context)!.sortCreator,
                                 },
                                 style: const TextStyle(
                                     fontSize: 13, fontWeight: FontWeight.w600),
@@ -637,7 +640,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                           size: 18,
                         ),
                         tooltip:
-                            _isGridView ? 'Switch to List' : 'Switch to Grid',
+                            _isGridView ? AppLocalizations.of(context)!.switchToList : AppLocalizations.of(context)!.switchToGrid,
                         onPressed: () =>
                             setState(() => _isGridView = !_isGridView),
                       ),

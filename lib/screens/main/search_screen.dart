@@ -149,7 +149,7 @@ class _SearchScreenState extends State<SearchScreen> {
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.only(left: hPad, bottom: 62),
               title: Text(
-                'Search',
+                AppLocalizations.of(context)!.search,
                 style: TextStyle(
                   fontSize: _isDesktop ? 28 : 24,
                   fontWeight: FontWeight.bold,
@@ -232,15 +232,15 @@ class _SearchScreenState extends State<SearchScreen> {
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
                   children: [
-                    _buildFilterChip('All', 'All', isDark),
+                    _buildFilterChip('All', AppLocalizations.of(context)!.filterAll, isDark),
                     const SizedBox(width: 8),
-                    _buildFilterChip('Songs', 'Songs', isDark),
+                    _buildFilterChip('Songs', AppLocalizations.of(context)!.songs, isDark),
                     const SizedBox(width: 8),
-                    _buildFilterChip('Artists', 'Artists', isDark),
+                    _buildFilterChip('Artists', AppLocalizations.of(context)!.artists, isDark),
                     const SizedBox(width: 8),
-                    _buildFilterChip('Albums', 'Albums', isDark),
+                    _buildFilterChip('Albums', AppLocalizations.of(context)!.albums, isDark),
                     const SizedBox(width: 8),
-                    _buildFilterChip('Playlists', 'Playlists', isDark),
+                    _buildFilterChip('Playlists', AppLocalizations.of(context)!.playlists, isDark),
                   ],
                 ),
               ),
@@ -350,8 +350,8 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             const SizedBox(height: 24),
           ],
-          const Text(
-            'Browse all',
+          Text(
+            AppLocalizations.of(context)!.browseAll,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -373,7 +373,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Made For You',
+                      title: AppLocalizations.of(context)!.madeForYou,
                       gradientColors: const [
                         Color(0xFF1E3264),
                         Color(0xFF283EA3)
@@ -386,7 +386,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'New Releases',
+                      title: AppLocalizations.of(context)!.categoryNewReleases,
                       gradientColors: const [
                         Color(0xFFE8115B),
                         Color(0xFFFF4081)
@@ -399,7 +399,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Top Rated',
+                      title: AppLocalizations.of(context)!.topRated,
                       gradientColors: const [
                         Color(0xFF8D67AB),
                         Color(0xFFBA68C8)
@@ -413,7 +413,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     SizedBox(
                       width: cardWidth,
                       child: BrowseCategoryCard(
-                        title: 'Radio Stations',
+                        title: AppLocalizations.of(context)!.radioStations,
                         gradientColors: const [
                           Color(0xFF148A08),
                           Color(0xFF43A047)
@@ -426,7 +426,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Genres & Moods',
+                      title: AppLocalizations.of(context)!.genresAndMoods,
                       gradientColors: const [
                         Color(0xFFE91429),
                         Color(0xFFFF5252)
@@ -439,7 +439,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Liked Songs',
+                      title: AppLocalizations.of(context)!.likedSongs,
                       gradientColors: const [
                         Color(0xFF450AF5),
                         Color(0xFF8E8EE5)
@@ -452,7 +452,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Pop & Hits',
+                      title: AppLocalizations.of(context)!.searchCategoryPop,
                       gradientColors: const [
                         Color(0xFF006450),
                         Color(0xFF00897B)
@@ -467,7 +467,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Hip-Hop & Rap',
+                      title: AppLocalizations.of(context)!.searchCategoryHipHop,
                       gradientColors: const [
                         Color(0xFFBC5900),
                         Color(0xFFFB8C00)
@@ -482,7 +482,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Rock & Alt',
+                      title: AppLocalizations.of(context)!.searchCategoryRock,
                       gradientColors: const [
                         Color(0xFF7358FF),
                         Color(0xFF9575CD)
@@ -497,7 +497,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   SizedBox(
                     width: cardWidth,
                     child: BrowseCategoryCard(
-                      title: 'Chill & Relax',
+                      title: AppLocalizations.of(context)!.searchCategoryChill,
                       gradientColors: const [
                         Color(0xFF503750),
                         Color(0xFF8E24AA)
@@ -545,13 +545,13 @@ class _SearchScreenState extends State<SearchScreen> {
               const Icon(CupertinoIcons.search, size: 48, color: Colors.grey),
               const SizedBox(height: 12),
               Text(
-                'No results found for "${_searchController.text}"',
+                AppLocalizations.of(context)!.searchNoResultsFor(_searchController.text),
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Please check your spelling or try another query.',
+              Text(
+                AppLocalizations.of(context)!.searchNoResultsHint,
                 style: TextStyle(color: Colors.grey, fontSize: 13),
               ),
             ],
@@ -569,8 +569,8 @@ class _SearchScreenState extends State<SearchScreen> {
             if (songs.isNotEmpty ||
                 artists.isNotEmpty ||
                 albums.isNotEmpty) ...[
-              const Text(
-                'Top result',
+              Text(
+                AppLocalizations.of(context)!.searchTopResult,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
@@ -586,9 +586,9 @@ class _SearchScreenState extends State<SearchScreen> {
           ],
           if ((_selectedFilter == 'All' || _selectedFilter == 'Songs') &&
               songs.isNotEmpty) ...[
-            const Text(
-              'Songs',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Text(
+              AppLocalizations.of(context)!.songs,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             ...songs.take(_selectedFilter == 'All' ? 5 : 20).map((song) {
@@ -602,7 +602,7 @@ class _SearchScreenState extends State<SearchScreen> {
           if ((_selectedFilter == 'All' || _selectedFilter == 'Artists') &&
               artists.isNotEmpty) ...[
             HorizontalScrollSection(
-              title: 'Artists',
+              title: AppLocalizations.of(context)!.artists,
               padding: EdgeInsets.zero,
               cardSize: _isDesktop ? 160 : 140,
               children: artists.map((artist) {
@@ -611,7 +611,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     (artist.id.isNotEmpty ? 'ar-${artist.id}' : null);
                 return MediaCard(
                   title: artist.name,
-                  subtitle: 'Artist',
+                  subtitle: AppLocalizations.of(context)!.artistSingular,
                   coverArt: coverArt,
                   isRound: true,
                   size: _isDesktop ? 160 : 140,
@@ -627,7 +627,7 @@ class _SearchScreenState extends State<SearchScreen> {
           if ((_selectedFilter == 'All' || _selectedFilter == 'Albums') &&
               albums.isNotEmpty) ...[
             HorizontalScrollSection(
-              title: 'Albums',
+              title: AppLocalizations.of(context)!.albums,
               padding: EdgeInsets.zero,
               cardSize: _isDesktop ? 175 : 150,
               children: albums.map((album) {
@@ -648,14 +648,14 @@ class _SearchScreenState extends State<SearchScreen> {
           if ((_selectedFilter == 'All' || _selectedFilter == 'Playlists') &&
               playlists.isNotEmpty) ...[
             HorizontalScrollSection(
-              title: 'Playlists',
+              title: AppLocalizations.of(context)!.playlists,
               padding: EdgeInsets.zero,
               cardSize: _isDesktop ? 175 : 150,
               children: playlists.map((playlist) {
                 final cardSize = _isDesktop ? 175.0 : 150.0;
                 return MediaCard(
                   title: playlist.name,
-                  subtitle: 'Playlist • Octave',
+                  subtitle: AppLocalizations.of(context)!.playlist,
                   coverArt: playlist.coverArt,
                   artwork: PlaylistArtwork(
                     playlist: playlist,
@@ -682,7 +682,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return TopResultCard(
       title: song.title,
       subtitle: song.artist ?? 'Unknown Artist',
-      typeLabel: 'Song',
+      typeLabel: AppLocalizations.of(context)!.songSingular,
       imageUrl: song.coverArt,
       onTap: () => _playSong(song),
       onPlayPressed: () => _playSong(song),
@@ -695,8 +695,8 @@ class _SearchScreenState extends State<SearchScreen> {
         (artist.id.isNotEmpty ? 'ar-${artist.id}' : null);
     return TopResultCard(
       title: artist.name,
-      subtitle: 'Artist',
-      typeLabel: 'Artist',
+      subtitle: AppLocalizations.of(context)!.artistSingular,
+      typeLabel: AppLocalizations.of(context)!.artistSingular,
       isArtist: true,
       imageUrl: coverArt,
       onTap: () => NavigationHelper.push(
@@ -713,8 +713,8 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildAlbumTopResult(Album album, SubsonicService subsonicService) {
     return TopResultCard(
       title: album.name,
-      subtitle: 'Album • ${album.artist}',
-      typeLabel: 'Album',
+      subtitle: AppLocalizations.of(context)!.libraryAlbumSubtitle(album.artist ?? ''),
+      typeLabel: AppLocalizations.of(context)!.albumSingular,
       imageUrl: album.coverArt,
       onTap: () => NavigationHelper.push(
         context,

@@ -331,7 +331,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Error: $e'),
+            content: Text(AppLocalizations.of(context)!.errorWithDetails('$e')),
             behavior: SnackBarBehavior.floating,
           ),
         );

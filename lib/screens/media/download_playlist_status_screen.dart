@@ -101,7 +101,7 @@ class DownloadPlaylistStatusScreen extends StatelessWidget {
                         ],
                       )
                     : Text(
-                        '$total songs',
+                        AppLocalizations.of(context)!.songsCount(total),
                         style: TextStyle(
                           fontSize: 13,
                           color: Theme.of(context)

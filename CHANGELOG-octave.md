@@ -20,6 +20,11 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Les liens « GitHub », « Nouveautés », « Signaler un problème », traductions et politique de confidentialité mènent à Octave. Le crédit à dddevid, auteur de Musly, reste dans l'écran « À propos ».
 - Politique de confidentialité adaptée à Octave.
 
+### Français
+
+- L'app est entièrement en français : les 1 035 textes, relus et tutoyés partout (la traduction communautaire de Musly mélangeait « vous » et « tu » et n'en couvrait que la moitié).
+- Environ 150 textes écrits en dur dans les écrans (en anglais, et même en italien dans l'import de playlists et la fenêtre de mise à jour) passent par les traductions.
+
 ### Première installation
 
 - Un écran d'accueil sobre avant la connexion, à la place des trois pages de présentation de Musly.

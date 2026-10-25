@@ -142,7 +142,15 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
   }
 
   String _getAutoDjModeLabel(AutoDjMode mode) {
-    return AutoDjService.getModeDisplayName(mode);
+    final l10n = AppLocalizations.of(context)!;
+    return switch (mode) {
+      AutoDjMode.off => l10n.autoDjOff,
+      AutoDjMode.shuffleLibrary => l10n.autoDjShuffleLibrary,
+      AutoDjMode.similarSongs => l10n.autoDjSimilarSongs,
+      AutoDjMode.sameGenre => l10n.autoDjSameGenre,
+      AutoDjMode.sameArtist => l10n.autoDjSameArtist,
+      AutoDjMode.smartMix => l10n.autoDjSmartMix,
+    };
   }
 
   void _setAutoDjMode(AutoDjMode mode) {

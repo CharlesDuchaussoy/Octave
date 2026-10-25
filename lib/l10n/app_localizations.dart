@@ -5841,6 +5841,558 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Covers'**
   String get setupSummaryCovers;
+
+  /// Home filter chip
+  ///
+  /// In en, this message translates to:
+  /// **'Music'**
+  String get filterMusic;
+
+  /// Home section of recent albums
+  ///
+  /// In en, this message translates to:
+  /// **'Jump back in'**
+  String get homeJumpBackIn;
+
+  /// Home section
+  ///
+  /// In en, this message translates to:
+  /// **'Listen again'**
+  String get homeListenAgain;
+
+  /// Home section of most played songs
+  ///
+  /// In en, this message translates to:
+  /// **'Your top hits'**
+  String get homeTopHits;
+
+  /// Home section
+  ///
+  /// In en, this message translates to:
+  /// **'Artists you love'**
+  String get homeArtistsYouLove;
+
+  /// Type label of an artist
+  ///
+  /// In en, this message translates to:
+  /// **'Artist'**
+  String get artistSingular;
+
+  /// Type label of a song
+  ///
+  /// In en, this message translates to:
+  /// **'Song'**
+  String get songSingular;
+
+  /// Type label of an album
+  ///
+  /// In en, this message translates to:
+  /// **'Album'**
+  String get albumSingular;
+
+  /// Library sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Recents'**
+  String get sortRecents;
+
+  /// Library sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Alphabetical'**
+  String get sortAlphabetical;
+
+  /// Library sort option
+  ///
+  /// In en, this message translates to:
+  /// **'Creator'**
+  String get sortCreator;
+
+  /// Subtitle of liked songs in the library
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist • Favorites'**
+  String get libraryLikedSongsSubtitle;
+
+  /// Subtitle of downloaded songs
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No songs saved offline} =1{1 song saved offline} other{{count} songs saved offline}}'**
+  String librarySongsSavedOffline(int count);
+
+  /// Subtitle of a playlist in the library
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Playlist • 1 song} other{Playlist • {count} songs}}'**
+  String libraryPlaylistSubtitle(int count);
+
+  /// Subtitle of an album in lists
+  ///
+  /// In en, this message translates to:
+  /// **'Album • {artist}'**
+  String libraryAlbumSubtitle(String artist);
+
+  /// Library view toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Show as list'**
+  String get switchToList;
+
+  /// Library view toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Show as grid'**
+  String get switchToGrid;
+
+  /// Library search field hint
+  ///
+  /// In en, this message translates to:
+  /// **'Search in library…'**
+  String get librarySearchHint;
+
+  /// Library search empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Search your library'**
+  String get librarySearchEmpty;
+
+  /// Search screen section
+  ///
+  /// In en, this message translates to:
+  /// **'Browse all'**
+  String get browseAll;
+
+  /// Search category
+  ///
+  /// In en, this message translates to:
+  /// **'Genres & moods'**
+  String get genresAndMoods;
+
+  /// Search category
+  ///
+  /// In en, this message translates to:
+  /// **'Pop & hits'**
+  String get searchCategoryPop;
+
+  /// Search category
+  ///
+  /// In en, this message translates to:
+  /// **'Hip-hop & rap'**
+  String get searchCategoryHipHop;
+
+  /// Search category
+  ///
+  /// In en, this message translates to:
+  /// **'Rock & alternative'**
+  String get searchCategoryRock;
+
+  /// Search category
+  ///
+  /// In en, this message translates to:
+  /// **'Chill & relax'**
+  String get searchCategoryChill;
+
+  /// Search without results
+  ///
+  /// In en, this message translates to:
+  /// **'No results for “{query}”'**
+  String searchNoResultsFor(String query);
+
+  /// Search without results
+  ///
+  /// In en, this message translates to:
+  /// **'Check the spelling or try another search.'**
+  String get searchNoResultsHint;
+
+  /// Search section
+  ///
+  /// In en, this message translates to:
+  /// **'Top result'**
+  String get searchTopResult;
+
+  /// Selection toolbar
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get selectAll;
+
+  /// Selection toolbar
+  ///
+  /// In en, this message translates to:
+  /// **'Deselect all'**
+  String get deselectAll;
+
+  /// Radio station website row
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get radioHomepage;
+
+  /// Artist biography title
+  ///
+  /// In en, this message translates to:
+  /// **'About {name}'**
+  String aboutArtist(String name);
+
+  /// Snackbar after swiping a song to the queue
+  ///
+  /// In en, this message translates to:
+  /// **'“{title}” added to queue'**
+  String songAddedToQueue(String title);
+
+  /// Rating error
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t save the rating: {error}'**
+  String ratingFailed(String error);
+
+  /// Connect sheet subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Choose where the music plays'**
+  String get connectChooseOutput;
+
+  /// Connect sheet section
+  ///
+  /// In en, this message translates to:
+  /// **'Speakers & TVs'**
+  String get connectSpeakersTvs;
+
+  /// Current device name
+  ///
+  /// In en, this message translates to:
+  /// **'Windows PC'**
+  String get deviceWindowsPc;
+
+  /// Current device name
+  ///
+  /// In en, this message translates to:
+  /// **'Mac'**
+  String get deviceMac;
+
+  /// Current device name
+  ///
+  /// In en, this message translates to:
+  /// **'Linux PC'**
+  String get deviceLinuxPc;
+
+  /// Current device name
+  ///
+  /// In en, this message translates to:
+  /// **'iPhone'**
+  String get deviceIphone;
+
+  /// Current device name
+  ///
+  /// In en, this message translates to:
+  /// **'This device'**
+  String get deviceThis;
+
+  /// Connect sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Playing on this device'**
+  String get playingOnThisDevice;
+
+  /// Connection error
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t connect to {name}'**
+  String connectFailed(String name);
+
+  /// Generic error with details
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String errorWithDetails(String error);
+
+  /// Settings section
+  ///
+  /// In en, this message translates to:
+  /// **'Artwork'**
+  String get artworkSection;
+
+  /// Settings row
+  ///
+  /// In en, this message translates to:
+  /// **'Artwork resolution'**
+  String get artworkResolution;
+
+  /// Artwork resolution
+  ///
+  /// In en, this message translates to:
+  /// **'Low (300 px)'**
+  String get artworkResLow;
+
+  /// Artwork resolution
+  ///
+  /// In en, this message translates to:
+  /// **'Normal (600 px)'**
+  String get artworkResNormal;
+
+  /// Artwork resolution
+  ///
+  /// In en, this message translates to:
+  /// **'High (original)'**
+  String get artworkResHigh;
+
+  /// Storage setting
+  ///
+  /// In en, this message translates to:
+  /// **'Download liked songs automatically'**
+  String get autoDownloadFavorites;
+
+  /// Storage setting
+  ///
+  /// In en, this message translates to:
+  /// **'Each song you like is saved for offline listening'**
+  String get autoDownloadFavoritesSubtitle;
+
+  /// Cast button tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Cast: connected'**
+  String get castConnectedTooltip;
+
+  /// Cast button tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'DLNA: {name}'**
+  String dlnaTooltip(String name);
+
+  /// DLNA device without a name
+  ///
+  /// In en, this message translates to:
+  /// **'device'**
+  String get dlnaDeviceFallback;
+
+  /// DLNA sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Playback is sent to this DLNA device. Use Octave\'s controls to manage it.'**
+  String get dlnaControlInfo;
+
+  /// Shown while connecting
+  ///
+  /// In en, this message translates to:
+  /// **'The connection is taking a while…'**
+  String get connectionSlow;
+
+  /// Web Stream profile subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Free online streaming'**
+  String get freeOnlineStreaming;
+
+  /// Update dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Download complete'**
+  String get updateDownloadComplete;
+
+  /// Update dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed: {error}'**
+  String updateDownloadFailed(String error);
+
+  /// Update dialog without notes
+  ///
+  /// In en, this message translates to:
+  /// **'Improvements and bug fixes.'**
+  String get updateDefaultChangelog;
+
+  /// Import dialog error
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a playlist link or ID'**
+  String get importEnterLink;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Starting import…'**
+  String get importStarting;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Spotify or YouTube Music, no account needed'**
+  String get importSubtitle;
+
+  /// Import dialog field
+  ///
+  /// In en, this message translates to:
+  /// **'Paste a Spotify or YouTube Music link…'**
+  String get importLinkHint;
+
+  /// Tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Paste from clipboard'**
+  String get pasteFromClipboard;
+
+  /// Import dialog button
+  ///
+  /// In en, this message translates to:
+  /// **'Show preview'**
+  String get importLoadPreview;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist preview'**
+  String get importPreviewTitle;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'By {author}'**
+  String importAuthor(String author);
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Included songs ({count})'**
+  String importIncludedTracks(int count);
+
+  /// Import dialog button
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Import 1 song} other{Import {count} songs}}'**
+  String importButton(int count);
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Importing…'**
+  String get importInProgress;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Songs: {current} / {total}'**
+  String importTracksProgress(int current, int total);
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing songs…'**
+  String get importPreparing;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Playlist imported'**
+  String get importSuccess;
+
+  /// Import dialog
+  ///
+  /// In en, this message translates to:
+  /// **'“{name}” is ready to play'**
+  String importReady(String name);
+
+  /// Button
+  ///
+  /// In en, this message translates to:
+  /// **'Open playlist'**
+  String get openPlaylist;
+
+  /// Desktop sidebar dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnect from this server?'**
+  String get disconnectConfirm;
+
+  /// Tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Options'**
+  String get options;
+
+  /// Desktop player tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Hide queue'**
+  String get hideQueue;
+
+  /// Tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get mute;
+
+  /// Tooltip
+  ///
+  /// In en, this message translates to:
+  /// **'Unmute'**
+  String get unmute;
+
+  /// Desktop queue
+  ///
+  /// In en, this message translates to:
+  /// **'The queue is empty'**
+  String get queueEmpty;
+
+  /// Desktop queue header
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Next up · 1 song} other{Next up · {count} songs}}'**
+  String nextUpCount(int count);
+
+  /// Badge on synced lyrics
+  ///
+  /// In en, this message translates to:
+  /// **'Synced'**
+  String get lyricsSyncedBadge;
+
+  /// Year in review badge
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get pausedBadge;
+
+  /// Year in review badge
+  ///
+  /// In en, this message translates to:
+  /// **'Playback {year}'**
+  String playbackYear(int year);
+
+  /// Auto DJ mode
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get autoDjOff;
+
+  /// Auto DJ mode
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle library'**
+  String get autoDjShuffleLibrary;
+
+  /// Auto DJ mode
+  ///
+  /// In en, this message translates to:
+  /// **'Similar songs'**
+  String get autoDjSimilarSongs;
+
+  /// Auto DJ mode
+  ///
+  /// In en, this message translates to:
+  /// **'Same genre'**
+  String get autoDjSameGenre;
+
+  /// Auto DJ mode
+  ///
+  /// In en, this message translates to:
+  /// **'Same artist'**
+  String get autoDjSameArtist;
+
+  /// Auto DJ mode
+  ///
+  /// In en, this message translates to:
+  /// **'Smart mix'**
+  String get autoDjSmartMix;
 }
 
 class _AppLocalizationsDelegate

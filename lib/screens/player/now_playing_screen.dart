@@ -611,7 +611,9 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
             ),
           ),
           IconButton(
-            tooltip: isStarred ? 'Remove from favorites' : 'Add to favorites',
+            tooltip: isStarred
+                ? AppLocalizations.of(context)!.removeFromFavorites
+                : AppLocalizations.of(context)!.addToFavorites,
             icon: Icon(
               isStarred
                   ? Icons.favorite_rounded
@@ -627,7 +629,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
             },
           ),
           IconButton(
-            tooltip: 'Add to playlist',
+            tooltip: AppLocalizations.of(context)!.addToPlaylist,
             icon: Icon(
               Icons.add_circle_outline_rounded,
               color: Colors.white70,
@@ -697,7 +699,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text('Failed to set rating: $e'),
+                          content: Text(AppLocalizations.of(context)!.ratingFailed('$e')),
                           duration: const Duration(seconds: 2),
                         ),
                       );

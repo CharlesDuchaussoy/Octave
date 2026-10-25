@@ -32,7 +32,7 @@ class NowPlayingMoreMenu extends StatelessWidget {
           final sleepTimerRemaining = provider.sleepTimerRemaining;
           final sleepTimerEndCurrentSong = provider.sleepTimerEndCurrentSong;
 
-          String sleepTimerText = "Off";
+          String sleepTimerText = AppLocalizations.of(context)!.timerOff;
           if (sleepTimerEndCurrentSong) {
             sleepTimerText = AppLocalizations.of(context)!.endOfSong;
           } else if (sleepTimerRemaining != null) {

@@ -184,7 +184,7 @@ class SongOptionsModal extends StatefulWidget {
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
-                                        'Added "${song.title}" to ${playlist.name}',
+                                        l10n.addedToPlaylist(song.title, playlist.name),
                                       ),
                                     ),
                                   ],
@@ -321,8 +321,8 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                           ? CupertinoIcons.heart_fill
                           : CupertinoIcons.heart,
                       title: _isStarred
-                          ? 'Remove from Liked Songs'
-                          : 'Add to Liked Songs',
+                          ? AppLocalizations.of(context)!.removeFromLiked
+                          : AppLocalizations.of(context)!.addToLiked,
                       iconColor: _isStarred
                           ? Theme.of(context).colorScheme.primary
                           : null,
@@ -335,7 +335,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                     ),
                     _OptionTile(
                       icon: Icons.play_arrow_rounded,
-                      title: 'Play Next',
+                      title: AppLocalizations.of(context)!.playNext,
                       onTap: () {
                         playerProvider.addToQueueNext(widget.song);
                         Navigator.pop(context);
@@ -343,7 +343,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                     ),
                     _OptionTile(
                       icon: Icons.queue_music_rounded,
-                      title: 'Add to Queue',
+                      title: AppLocalizations.of(context)!.addToQueue,
                       onTap: () {
                         playerProvider.addToQueue(widget.song);
                         Navigator.pop(context);
@@ -405,7 +405,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                     ),
                     _OptionTile(
                       icon: Icons.album_rounded,
-                      title: 'Go to Album',
+                      title: AppLocalizations.of(context)!.goToAlbum,
                       onTap: () {
                         Navigator.pop(context);
                         if (widget.song.albumId != null) {
@@ -418,7 +418,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                     ),
                     _OptionTile(
                       icon: Icons.person_rounded,
-                      title: 'Go to Artist',
+                      title: AppLocalizations.of(context)!.goToArtist,
                       onTap: () {
                         final nav = Navigator.of(context);
                         nav.pop();
@@ -512,7 +512,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
 
     return _OptionTile(
       icon: Icons.download_rounded,
-      title: 'Download',
+      title: AppLocalizations.of(context)!.download,
       onTap: () => _downloadSong(context),
     );
   }
@@ -586,8 +586,9 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
     return _OptionTile(
       icon: Icons.star_rounded,
       title: rating > 0
-          ? 'Rate Song ($rating ${rating == 1 ? "star" : "stars"})'
-          : 'Rate Song',
+          ? AppLocalizations.of(context)!.rateSongValue(
+              rating, rating == 1 ? AppLocalizations.of(context)!.star : AppLocalizations.of(context)!.stars)
+          : AppLocalizations.of(context)!.rateSong,
       iconColor: rating > 0 ? context.octave.warning : null,
       onTap: () => _showRatingDialog(context),
     );
@@ -669,8 +670,8 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
           SnackBar(
             content: Text(
               rating > 0
-                  ? 'Rated $rating ${rating == 1 ? "star" : "stars"}'
-                  : 'Rating removed',
+                  ? l10n.rated(rating, rating == 1 ? l10n.star : l10n.stars)
+                  : l10n.ratingRemoved,
             ),
             duration: const Duration(seconds: 2),
           ),

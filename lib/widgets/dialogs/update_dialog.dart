@@ -113,7 +113,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       if (!mounted) return;
       setState(() {
         _downloadProgress = 1.0;
-        _downloadStatusText = 'Download completato!';
+        _downloadStatusText = AppLocalizations.of(context)!.updateDownloadComplete;
       });
 
       await UpdateService.launchInstallerOrFile(
@@ -136,7 +136,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       }
       setState(() {
         _isDownloading = false;
-        _errorMessage = 'Download non riuscito: $e';
+        _errorMessage = AppLocalizations.of(context)!.updateDownloadFailed('$e');
       });
     }
   }
@@ -246,7 +246,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () => Navigator.of(context).pop(),
-                      tooltip: 'Chiudi',
+                      tooltip: l10n.close,
                     ),
                 ],
               ),
@@ -291,7 +291,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 const SizedBox(height: 12),
               ],
               Text(
-                'Novità e Changelog:',
+                l10n.whatsNew,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -317,7 +317,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     child: Text(
                       _changelog.isNotEmpty
                           ? _changelog
-                          : 'Nuovi miglioramenti e correzioni di bug.',
+                          : l10n.updateDefaultChangelog,
                       style: TextStyle(
                         fontSize: 13,
                         height: 1.45,
@@ -352,7 +352,8 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     ),
                     TextButton(
                       onPressed: _cancelDownload,
-                      child: const Text('Annulla', style: TextStyle(fontSize: 12)),
+                      child: Text(l10n.cancel,
+                          style: const TextStyle(fontSize: 12)),
                     ),
                   ],
                 ),
@@ -417,7 +418,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(),
                       child: Text(
-                        'Più tardi',
+                        l10n.remindLater,
                         style: TextStyle(
                           fontSize: 12,
                           color: context.octave.text2,

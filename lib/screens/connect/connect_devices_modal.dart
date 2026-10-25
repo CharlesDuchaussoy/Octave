@@ -11,6 +11,7 @@ import '../../providers/player_provider.dart';
 import '../../services/cast_service.dart';
 import '../../services/upnp_service.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class ConnectDevicesModal extends StatefulWidget {
   final bool isDesktopDialog;
@@ -146,7 +147,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Connect to a Device',
+                          AppLocalizations.of(context)!.connectToDevice,
                           style: TextStyle(
                             fontSize: widget.isDesktopDialog ? 17 : 19,
                             fontWeight: FontWeight.w700,
@@ -155,7 +156,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Select where audio should play',
+                          AppLocalizations.of(context)!.connectChooseOutput,
                           style: TextStyle(
                             fontSize: 12,
                             color: context.octave.text3,
@@ -195,7 +196,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildSectionLabel('SPEAKERS & TVS'),
+                                _buildSectionLabel(AppLocalizations.of(context)!.connectSpeakersTvs.toUpperCase()),
                                 const SizedBox(height: 6),
                                 ...castDevices.map((cd) => _buildCastRow(
                                     context, cd, castService, isDark)),
@@ -234,13 +235,14 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
   }
 
   Widget _buildCurrentDeviceTile(PlayerProvider player, bool isDark) {
+    final l10n = AppLocalizations.of(context)!;
     final deviceName = Platform.isWindows
-        ? 'Windows PC'
+        ? l10n.deviceWindowsPc
         : (Platform.isMacOS
-            ? 'Mac'
+            ? l10n.deviceMac
             : (Platform.isLinux
-                ? 'Linux PC'
-                : (Platform.isIOS ? 'iPhone' : 'This Device')));
+                ? l10n.deviceLinuxPc
+                : (Platform.isIOS ? l10n.deviceIphone : l10n.deviceThis)));
     final primaryColor = Theme.of(context).colorScheme.primary;
 
     return Container(
@@ -274,7 +276,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Playing on this device',
+                  AppLocalizations.of(context)!.playingOnThisDevice,
                   style: TextStyle(
                       fontSize: 12,
                       color: primaryColor,
@@ -319,7 +321,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       content: Text(
-                          'Failed to connect to ${castDevice.friendlyName}')),
+                          AppLocalizations.of(context)!.connectFailed(castDevice.friendlyName))),
                 );
               }
             }
@@ -364,7 +366,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                       content: Text(
-                          'Failed to connect to ${upnpDevice.friendlyName}')),
+                          AppLocalizations.of(context)!.connectFailed(upnpDevice.friendlyName))),
                 );
               }
             }

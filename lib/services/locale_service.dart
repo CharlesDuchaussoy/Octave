@@ -192,7 +192,7 @@ class LocaleService extends ChangeNotifier {
   static const Map<String, int> translationPercentages = {
     'en': 100,
     'it': 90,
-    'fr': 49,
+    'fr': 100,
     'es': 48,
     'pt': 48,
     'ru': 48,

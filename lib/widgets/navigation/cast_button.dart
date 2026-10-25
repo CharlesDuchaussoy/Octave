@@ -38,16 +38,17 @@ class CastButton extends StatelessWidget {
     if (castState == CastState.connected) {
       icon = Icons.cast_connected;
       color = Theme.of(context).colorScheme.primary;
-      tooltip = 'Cast: Connected';
+      tooltip = AppLocalizations.of(context)!.castConnectedTooltip;
     } else if (upnpConnected) {
       icon = Icons.speaker_group;
       color = Theme.of(context).colorScheme.primary;
-      tooltip =
-          'DLNA: ${context.read<UpnpService>().connectedDevice?.friendlyName ?? "device"}';
+      tooltip = AppLocalizations.of(context)!.dlnaTooltip(
+          context.read<UpnpService>().connectedDevice?.friendlyName ??
+              AppLocalizations.of(context)!.dlnaDeviceFallback);
     } else {
       icon = Icons.cast;
       color = iconColor ?? Colors.white;
-      tooltip = 'Connect to a Device';
+      tooltip = AppLocalizations.of(context)!.connectToDevice;
     }
 
     return IconButton(
@@ -89,7 +90,7 @@ class CastButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Casting',
+                    AppLocalizations.of(context)!.casting,
                     style: const TextStyle(fontSize: 18),
                   ),
                   Text(
@@ -299,8 +300,7 @@ class CastButton extends StatelessWidget {
               builder: (context, us, _) {
                 if (us.volume < 0) {
                   return Text(
-                    'Playback is being sent to this DLNA device. '
-                    'Use Octave\'s player controls to manage playback.',
+                    AppLocalizations.of(context)!.dlnaControlInfo,
                     style: TextStyle(
                       fontSize: 13,
                       color: context.octave.text2,
@@ -349,7 +349,7 @@ class CastButton extends StatelessWidget {
               color: context.octave.danger,
             ),
             label: Text(
-              'Disconnect',
+              AppLocalizations.of(context)!.disconnect,
               style: TextStyle(color: context.octave.danger),
             ),
           ),

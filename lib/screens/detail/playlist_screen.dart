@@ -539,7 +539,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${_playlist!.songs?.length ?? 0} songs • ${_playlist!.formattedDuration}',
+                    '${AppLocalizations.of(context)!.songsCount(_playlist!.songs?.length ?? 0)} • ${_playlist!.formattedDuration}',
                     style: theme.textTheme.bodySmall,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -688,8 +688,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 IconButton(
                   tooltip:
                       _selectedIndices.length == (_playlist?.songs?.length ?? 0)
-                          ? 'Deselect all'
-                          : 'Select all',
+                          ? AppLocalizations.of(context)!.deselectAll
+                          : AppLocalizations.of(context)!.selectAll,
                   icon: Icon(
                     _selectedIndices.length == (_playlist?.songs?.length ?? 0)
                         ? CupertinoIcons.checkmark_square
@@ -871,7 +871,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 40),
                   child: Text(
-                    'No songs in this playlist',
+                    AppLocalizations.of(context)!.noSongsInPlaylist,
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: context.octave.text2,
                     ),

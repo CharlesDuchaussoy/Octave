@@ -10,9 +10,12 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
   final LibraryProvider libraryProvider;
   final bool isDark;
 
-  LibrarySearchDelegate({required this.libraryProvider, required this.isDark})
-      : super(
-          searchFieldLabel: 'Search in Library...',
+  LibrarySearchDelegate({
+    required this.libraryProvider,
+    required this.isDark,
+    required String hint,
+  }) : super(
+          searchFieldLabel: hint,
           searchFieldStyle: TextStyle(
             color: isDark ? Colors.white : Colors.black,
           ),
@@ -68,7 +71,7 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
             ),
             const SizedBox(height: 16),
             Text(
-              'Search your library',
+              AppLocalizations.of(context)!.librarySearchEmpty,
               style: TextStyle(
                 color: context.octave.text3,
                 fontSize: 16,
@@ -100,7 +103,7 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
             ),
             const SizedBox(height: 16),
             Text(
-              'No playlists found',
+              AppLocalizations.of(context)!.noPlaylistsFound,
               style: TextStyle(
                 color: context.octave.text3,
                 fontSize: 16,
@@ -116,7 +119,7 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
           child: Text(
-            'Playlists',
+            AppLocalizations.of(context)!.playlists,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
