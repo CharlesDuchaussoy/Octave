@@ -28,6 +28,9 @@ import 'providers/providers.dart';
 import 'screens/screens.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'theme/theme.dart';
+import 'octave/setup/setup_flow.dart';
+import 'octave/setup/setup_progress.dart';
+import 'octave/setup/welcome_screen.dart';
 import 'utils/image_cache.dart';
 
 class AppScrollBehavior extends MaterialScrollBehavior {
@@ -295,6 +298,7 @@ class AuthWrapper extends StatefulWidget {
 class _AuthWrapperState extends State<AuthWrapper> {
   bool _checkedOnboarding = false;
   bool _onboardingCompleted = true;
+  bool _setupDone = true;
 
   @override
   void initState() {
@@ -323,6 +327,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     } catch (_) {}
     if (tvService?.isTvMode == true) {
       await StorageService().setOnboardingCompleted(true);
+      await SetupProgress.markDone();
       if (mounted) {
         setState(() {
           _onboardingCompleted = true;
@@ -333,9 +338,11 @@ class _AuthWrapperState extends State<AuthWrapper> {
     }
 
     final completed = await StorageService().isOnboardingCompleted();
+    final setupDone = await SetupProgress.isDone();
     if (mounted) {
       setState(() {
         _onboardingCompleted = completed;
+        _setupDone = setupDone;
         _checkedOnboarding = true;
       });
     }
@@ -354,15 +361,35 @@ class _AuthWrapperState extends State<AuthWrapper> {
     switch (authProvider.state) {
       case AuthState.unknown:
         return const Scaffold(
-          backgroundColor: Colors.black,
           body: Center(child: CircularProgressIndicator()),
         );
       case AuthState.authenticated:
+        if (!_checkedOnboarding) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        if (!_setupDone) {
+          return SetupFlow(
+            onFinished: () => setState(() => _setupDone = true),
+          );
+        }
         WidgetsBinding.instance.addPostFrameCallback((_) async {
           await _showPrivacyPolicyIfNeeded();
         });
         return const MainScreen();
       case AuthState.offlineMode:
+        if (!_checkedOnboarding) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+        // A server account offline waits to be back online for its setup.
+        if (!_setupDone && authProvider.config?.isLocal == true) {
+          return SetupFlow(
+            onFinished: () => setState(() => _setupDone = true),
+          );
+        }
         return const MainScreen(isOfflineMode: true);
       case AuthState.serverUnreachable:
         return _ServerUnreachableScreen(
@@ -378,7 +405,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
             );
           }
           if (!_onboardingCompleted) {
-            return OnboardingScreen(onFinished: _finishOnboarding);
+            return WelcomeScreen(onFinished: _finishOnboarding);
           }
           return const LoginScreen();
         }
@@ -394,7 +421,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
           );
         }
         if (!_onboardingCompleted) {
-          return OnboardingScreen(onFinished: _finishOnboarding);
+          return WelcomeScreen(onFinished: _finishOnboarding);
         }
         return const LoginScreen();
     }

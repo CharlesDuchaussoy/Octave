@@ -8,7 +8,7 @@ import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:musly/screens/onboarding/onboarding_screen.dart';
+import 'package:musly/octave/setup/setup_flow.dart';
 import 'package:musly/screens/wrapped/wrapped_screen.dart';
 import 'package:musly/services/wrapped_service.dart';
 import 'package:musly/services/update_service.dart';
@@ -103,13 +103,15 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
             _buildDivider(context),
             _buildActionTile(
               context,
-              icon: CupertinoIcons.sparkles,
-              title: AppLocalizations.of(context)!.welcomeTourTitle,
-              subtitle: AppLocalizations.of(context)!.welcomeTourSubtitle,
+              icon: CupertinoIcons.slider_horizontal_3,
+              title: AppLocalizations.of(context)!.setupRedoTitle,
+              subtitle: AppLocalizations.of(context)!.setupRedoSubtitle,
               onTap: () {
                 Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (context) => const OnboardingScreen(),
+                  MaterialPageRoute(
+                    builder: (routeContext) => SetupFlow(
+                      onFinished: () => Navigator.of(routeContext).pop(),
+                    ),
                   ),
                 );
               },

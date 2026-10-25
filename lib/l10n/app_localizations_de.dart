@@ -2115,13 +2115,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get addServerOrService => 'Add Server / Service';
 
   @override
-  String get welcomeTourTitle => 'Welcome Tour';
-
-  @override
-  String get welcomeTourSubtitle =>
-      'Replay the introductory onboarding experience';
-
-  @override
   String get muslyPlaybackDev => 'Playback Preview (Test Mode)';
 
   @override
@@ -2569,114 +2562,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'Add radio stations in your server settings to see them here.';
 
   @override
-  String get onboardingNext => 'Next';
-
-  @override
-  String get onboardingGetStarted => 'Get Started';
-
-  @override
-  String get previousSlideTooltip => 'Previous (Left Arrow)';
-
-  @override
-  String get nextSlideTooltip => 'Next (Right Arrow / Space)';
-
-  @override
-  String get onboardingSlide1TitlePrefix => 'Your Music Library,\n';
-
-  @override
-  String get onboardingSlide1TitleHighlight => 'In Your Pocket.';
-
-  @override
-  String get onboardingSlide1Description =>
-      'Connect to Navidrome, Subsonic, Jellyfin, or play local files with bit-perfect lossless quality.';
-
-  @override
-  String get onboardingSlide1Feature1Title => 'Self-Hosted Freedom';
-
-  @override
-  String get onboardingSlide1Feature1Desc =>
-      'Full compatibility with Subsonic, Navidrome, and Jellyfin APIs.';
-
-  @override
-  String get onboardingSlide1Feature2Title => 'Local Music Support';
-
-  @override
-  String get onboardingSlide1Feature2Desc =>
-      'Play your offline collection directly without server setup.';
-
-  @override
-  String get onboardingSlide1Feature3Title => 'Lossless Hi-Res Audio';
-
-  @override
-  String get onboardingSlide1Feature3Desc =>
-      'Bit-perfect FLAC, ALAC, Opus, and gapless audio playback.';
-
-  @override
-  String get onboardingSlide2TitlePrefix => 'Smart Mixes,\n';
-
-  @override
-  String get onboardingSlide2TitleHighlight => 'Built Around You.';
-
-  @override
-  String get onboardingSlide2Description =>
-      'Octave learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.';
-
-  @override
-  String get onboardingSlide2Feature1Title => 'Algorithmic Taste Profiling';
-
-  @override
-  String get onboardingSlide2Feature1Desc =>
-      'Learns play frequencies, skips, and ratings with recency decay.';
-
-  @override
-  String get onboardingSlide2Feature2Title => 'Personalized Daily Mixes';
-
-  @override
-  String get onboardingSlide2Feature2Desc =>
-      'Automatic Made For You, Listen Again, and Top Hits playlists.';
-
-  @override
-  String get onboardingSlide2Feature3Title => '100% On-Device Processing';
-
-  @override
-  String get onboardingSlide2Feature3Desc =>
-      'Your listening profile stays strictly on your hardware.';
-
-  @override
-  String get onboardingSlide3TitlePrefix => 'Completely Private.\n';
-
-  @override
-  String get onboardingSlide3TitleHighlight => 'No Ads, No Tracking.';
-
-  @override
-  String get onboardingSlide3Description =>
-      'Zero analytics, zero telemetry. Enjoy time-synced lyrics, offline downloads, and desktop sync in total privacy.';
-
-  @override
-  String get onboardingSlide3Feature1Title => 'Zero Telemetry & Tracking';
-
-  @override
-  String get onboardingSlide3Feature1Desc =>
-      'No third-party SDKs, no trackers, no ads, completely open source.';
-
-  @override
-  String get onboardingSlide3Feature2Title => 'Time-Synced Lyrics';
-
-  @override
-  String get onboardingSlide3Feature2Desc =>
-      'Real-time synchronized karaoke lyrics with LRCLIB fallback.';
-
-  @override
-  String get onboardingSlide3Feature3Title => 'Offline Download Manager';
-
-  @override
-  String get onboardingSlide3Feature3Desc =>
-      'Cache full playlists and albums with batch downloading.';
-
-  @override
-  String get finishTour => 'Finish Tour';
-
-  @override
   String get skip => 'Skip';
 
   @override
@@ -3020,4 +2905,267 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get accentColorOctave => 'Octave night blue';
+
+  @override
+  String get welcomeTagline => 'Your music, your way.';
+
+  @override
+  String get welcomeStart => 'Get started';
+
+  @override
+  String get setupSkip => 'Skip';
+
+  @override
+  String get setupBack => 'Back';
+
+  @override
+  String get setupContinue => 'Continue';
+
+  @override
+  String get setupRecommended => 'Recommended';
+
+  @override
+  String setupHelloTitle(String name) {
+    return 'Hello $name';
+  }
+
+  @override
+  String get setupHelloBody =>
+      'A few questions to set Octave up the way you like. It takes about two minutes, and everything can be changed later in Settings.';
+
+  @override
+  String get setupHelloStart => 'Start';
+
+  @override
+  String get setupLater => 'Later';
+
+  @override
+  String get setupColorTitle => 'Your color';
+
+  @override
+  String get setupColorBody =>
+      'It tints the whole app. Night blue is the color of the logo.';
+
+  @override
+  String get setupModeTitle => 'Light or dark';
+
+  @override
+  String get setupModeBody => 'Automatic follows your phone\'s setting.';
+
+  @override
+  String get setupModeAuto => 'Automatic';
+
+  @override
+  String get setupModeLight => 'Light';
+
+  @override
+  String get setupModeDark => 'Dark';
+
+  @override
+  String get setupArtistsTitle => 'Your artists';
+
+  @override
+  String get setupArtistsBody =>
+      'Pick the ones you listen to most. They become favorites and shape your mixes.';
+
+  @override
+  String get setupArtistsEmpty => 'No artists in your library yet.';
+
+  @override
+  String setupArtistsContinue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Continue with $count artists',
+      one: 'Continue with 1 artist',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get setupHomeTitle => 'Your home screen';
+
+  @override
+  String get setupHomeBody => 'Choose what appears on the home screen.';
+
+  @override
+  String get setupHomeFavoritePlaylists => 'Favorite playlists';
+
+  @override
+  String get setupHomeFavoritePlaylistsDesc =>
+      'Playlists you marked as favorite, at the top.';
+
+  @override
+  String get setupHomeRecommendations => 'Mixes for you';
+
+  @override
+  String get setupHomeRecommendationsDesc =>
+      'Suggestions based on what you listen to.';
+
+  @override
+  String get setupQualityTitle => 'Sound quality';
+
+  @override
+  String get setupQualityBody =>
+      'Higher quality uses more data. Octave picks the format for you.';
+
+  @override
+  String get setupQualityWifi => 'On Wi-Fi';
+
+  @override
+  String get setupQualityMobile => 'On mobile data';
+
+  @override
+  String get setupQualityBest => 'Best quality';
+
+  @override
+  String get setupQualityBestDesc => 'Original file, lossless when available';
+
+  @override
+  String get setupQualityBalanced => 'Balanced';
+
+  @override
+  String get setupQualityBalancedDesc => 'About 85 MB per hour';
+
+  @override
+  String get setupQualitySaver => 'Data saver';
+
+  @override
+  String get setupQualitySaverDesc => 'About 60 MB per hour';
+
+  @override
+  String get setupOfflineTitle => 'Offline listening';
+
+  @override
+  String get setupOfflineBody =>
+      'Songs you like can download by themselves, to play them without a network.';
+
+  @override
+  String get setupOfflineYes => 'Download my liked songs';
+
+  @override
+  String get setupOfflineYesDesc => 'Each song you like is saved on the phone.';
+
+  @override
+  String get setupOfflineNo => 'I\'ll choose myself';
+
+  @override
+  String get setupOfflineNoDesc =>
+      'Download albums and playlists from their menu.';
+
+  @override
+  String get setupPermissionsTitle => 'Permissions';
+
+  @override
+  String get setupPermissionsBody =>
+      'Two permissions keep the music playing when the screen is off.';
+
+  @override
+  String get setupPermNotifications => 'Notifications';
+
+  @override
+  String get setupPermNotificationsDesc =>
+      'Shows the player on the lock screen.';
+
+  @override
+  String get setupPermBattery => 'Battery';
+
+  @override
+  String get setupPermBatteryDesc =>
+      'Without it, some phones stop the music when the screen is off.';
+
+  @override
+  String get setupPermAllow => 'Allow';
+
+  @override
+  String get setupPermGranted => 'Allowed';
+
+  @override
+  String get setupDoneTitle => 'All set';
+
+  @override
+  String get setupDoneBody =>
+      'Everything can be changed in Settings. You can also run this setup again from About.';
+
+  @override
+  String get setupDoneStart => 'Start listening';
+
+  @override
+  String get setupSummaryColor => 'Color';
+
+  @override
+  String get setupSummaryMode => 'Display';
+
+  @override
+  String get setupSummaryArtists => 'Favorite artists';
+
+  @override
+  String get setupSummaryWifi => 'Quality on Wi-Fi';
+
+  @override
+  String get setupSummaryMobile => 'Quality on mobile data';
+
+  @override
+  String get setupSummaryOffline => 'Automatic downloads';
+
+  @override
+  String get setupYes => 'Yes';
+
+  @override
+  String get setupNo => 'No';
+
+  @override
+  String get setupRedoTitle => 'Run setup again';
+
+  @override
+  String get setupRedoSubtitle =>
+      'Color, display, artists, quality and downloads';
+
+  @override
+  String get colorNameOctave => 'Night blue';
+
+  @override
+  String get colorNameRed => 'Red';
+
+  @override
+  String get colorNameOrange => 'Orange';
+
+  @override
+  String get colorNameYellow => 'Yellow';
+
+  @override
+  String get colorNameGreen => 'Green';
+
+  @override
+  String get colorNameTeal => 'Teal';
+
+  @override
+  String get colorNameBlue => 'Blue';
+
+  @override
+  String get colorNamePink => 'Pink';
+
+  @override
+  String get colorNamePurple => 'Purple';
+
+  @override
+  String get colorNameDynamic => 'Wallpaper colors';
+
+  @override
+  String get setupStyleTitle => 'Your covers';
+
+  @override
+  String get setupStyleBody => 'Their shape across the whole app.';
+
+  @override
+  String get setupStyleRounded => 'Rounded';
+
+  @override
+  String get setupStyleSquare => 'Square';
+
+  @override
+  String get setupStyleCircle => 'Round';
+
+  @override
+  String get setupSummaryCovers => 'Covers';
 }
