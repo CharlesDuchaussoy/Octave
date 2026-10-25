@@ -37,3 +37,5 @@ Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Le nom « Musly 
 ## Composants tiers
 
 Octave utilise, comme Musly, des bibliothèques Flutter et Dart sous leurs propres licences (MIT, BSD, Apache 2.0…). Leur liste exacte est dans `pubspec.yaml` et `pubspec.lock`, et leurs licences sont affichées dans l'app (Paramètres, À propos, licences).
+
+La police **Inter** (The Inter Project Authors) est intégrée à l'app sous licence SIL Open Font License 1.1, dont le texte est dans `assets/fonts/inter/OFL.txt`.

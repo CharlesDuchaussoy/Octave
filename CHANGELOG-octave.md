@@ -20,6 +20,14 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Les liens « GitHub », « Nouveautés », « Signaler un problème », traductions et politique de confidentialité mènent à Octave. Le crédit à dddevid, auteur de Musly, reste dans l'écran « À propos ».
 - Politique de confidentialité adaptée à Octave.
 
+### Design
+
+- Nouveau design aux couleurs du logo : fonds bleu nuit et accent bleu ciel en mode sombre, accent bleu nuit en mode clair.
+- Toutes les couleurs de l'app sont calculées à partir d'une seule couleur, avec des contrastes de lecture vérifiés.
+- Réglages d'apparence : couleur de l'app, intensité des couleurs (de neutre à coloré) et noir pur pour les écrans OLED.
+- Icônes des réglages sobres et uniformes, vignettes des titres aimés et des téléchargements assorties.
+- Police Inter intégrée à l'app.
+
 ### Sans interruptions
 
 - Plus aucune demande de don, de note ni de partage : l'onglet « Soutenir », la fenêtre qui s'ouvrait après 8 minutes d'écoute et la tuile « Noter l'app » sont retirés.
