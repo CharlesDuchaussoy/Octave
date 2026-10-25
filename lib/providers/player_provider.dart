@@ -148,7 +148,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   double _pitch = 1.0;
   bool _pitchCorrection = true;
 
-  VoidCallback? onMilestone50Triggered;
 
   PlayerProvider(
     this._subsonicService,
@@ -1158,9 +1157,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   Future<void> _onSongComplete() async {
     retireCurrentTrack();
 
-    _check50SongsMilestone()
-        .catchError((e) => debugPrint('[Player] Milestone check error: $e'));
-
     if (_sleepTimerEndCurrentSong) {
       _doSleepTimerStop();
       return;
@@ -1234,38 +1230,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       debugPrint('[Player] _checkAndRefillAutoQueue error: $e');
     } finally {
       _isRefillingQueue = false;
-    }
-  }
-
-  Future<void> _check50SongsMilestone() async {
-    final count = await _storageService.incrementListenedSongsCount();
-    final alreadyShown = await _storageService.is50SongsMilestoneShown();
-
-    if (count >= 50 && !alreadyShown) {
-      final isForeground =
-          WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
-      if (isForeground) {
-        await _storageService.set50SongsMilestoneShown(true);
-        await _storageService.set50SongsMilestonePending(false);
-        await pause();
-        onMilestone50Triggered?.call();
-      } else {
-        await _storageService.set50SongsMilestonePending(true);
-      }
-    }
-  }
-
-  Future<void> checkPending50Milestone() async {
-    final isPending = await _storageService.is50SongsMilestonePending();
-    final isShown = await _storageService.is50SongsMilestoneShown();
-    final isForeground =
-        WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed;
-
-    if (isPending && !isShown && isForeground) {
-      await _storageService.set50SongsMilestoneShown(true);
-      await _storageService.set50SongsMilestonePending(false);
-      await pause();
-      onMilestone50Triggered?.call();
     }
   }
 

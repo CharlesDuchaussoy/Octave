@@ -1,17 +1,12 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:musly/l10n/app_localizations.dart';
-import 'package:musly/services/translation_ota_service.dart';
 
 class LocaleService extends ChangeNotifier {
   static const String _localeKey = 'selected_locale';
   Locale? _currentLocale;
 
   Locale? get currentLocale => _currentLocale;
-  final TranslationOtaService _otaService = TranslationOtaService();
-
-  TranslationOtaService get otaService => _otaService;
 
   static const Map<String, String> _languageNames = {
     'en': 'English',
@@ -152,7 +147,6 @@ class LocaleService extends ChangeNotifier {
     final preferredOrder = ['en', 'sq', 'it'];
     final allSupportedCodes =
         AppLocalizations.supportedLocales.map((l) => l.languageCode).toSet();
-    allSupportedCodes.addAll(TranslationOtaService().discoveredLocales);
 
     for (final code in preferredOrder) {
       if (allSupportedCodes.contains(code)) {
@@ -175,27 +169,12 @@ class LocaleService extends ChangeNotifier {
       _currentLocale = Locale(localeCode);
     }
 
-    // Attempt to detect system locale if none is explicitly saved
-    String fallbackCode = 'en';
-    if (_currentLocale == null) {
-      try {
-        final systemLocale = Platform.localeName.split('_')[0];
-        if (supportedLanguages.containsKey(systemLocale)) {
-          fallbackCode = systemLocale;
-        }
-      } catch (_) {}
-    }
-
-    await _otaService.init(_currentLocale?.languageCode ?? fallbackCode);
     notifyListeners();
-
-    syncOtaTranslations(force: false);
   }
 
   Future<void> setLocale(Locale? locale) async {
     debugPrint('LocaleService: Setting locale to ${locale?.languageCode}');
     _currentLocale = locale;
-    await _otaService.loadCachedLocale(locale?.languageCode ?? 'en');
     notifyListeners();
 
     final prefs = await SharedPreferences.getInstance();
@@ -208,20 +187,6 @@ class LocaleService extends ChangeNotifier {
         'LocaleService: Removed locale from prefs (using system default)',
       );
     }
-
-    syncOtaTranslations(force: false);
-  }
-
-  Future<bool> syncOtaTranslations({bool force = false}) async {
-    final activeCode = _currentLocale?.languageCode ?? 'en';
-    final updated = await _otaService.syncTranslations(
-      localeCode: activeCode,
-      force: force,
-    );
-    if (updated) {
-      notifyListeners();
-    }
-    return updated;
   }
 
   static const Map<String, int> translationPercentages = {
@@ -255,9 +220,7 @@ class LocaleService extends ChangeNotifier {
   };
 
   static int getCompletionPercentage(String languageCode) {
-    return TranslationOtaService().getCompletionPercentage(languageCode) ??
-        translationPercentages[languageCode] ??
-        0;
+    return translationPercentages[languageCode] ?? 0;
   }
 
   String getLanguageName(String languageCode) {

@@ -22,7 +22,6 @@ import 'services/tizen_just_audio_backend.dart';
 import 'services/tv_detection_service.dart';
 
 import 'package:musly/widgets/dialogs/privacy_policy_dialog.dart';
-import 'package:musly/widgets/dialogs/milestone_celebration_dialog.dart';
 import 'package:musly/widgets/dialogs/update_dialog.dart';
 import 'widgets/navigation/tv_remote_scope.dart';
 import 'providers/providers.dart';
@@ -197,16 +196,6 @@ void main() async {
   androidAutoService.setAuthProvider(authProvider);
   audioHandler.setAutoService(androidAutoService);
 
-  playerProvider.onMilestone50Triggered = () {
-    final ctx = navigatorKey.currentContext;
-    if (ctx != null) {
-      MilestoneCelebrationDialog.show(
-        ctx,
-        onResume: () => playerProvider.play(),
-      );
-    }
-  };
-
   final tvDetectionService = TvDetectionService();
   await tvDetectionService.initialize();
 
@@ -308,14 +297,13 @@ class AuthWrapper extends StatefulWidget {
   State<AuthWrapper> createState() => _AuthWrapperState();
 }
 
-class _AuthWrapperState extends State<AuthWrapper> with WidgetsBindingObserver {
+class _AuthWrapperState extends State<AuthWrapper> {
   bool _checkedOnboarding = false;
   bool _onboardingCompleted = true;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     _checkOnboarding();
     _checkUpdateOnStartup();
   }
@@ -331,22 +319,6 @@ class _AuthWrapperState extends State<AuthWrapper> with WidgetsBindingObserver {
         }
       });
     });
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      try {
-        Provider.of<PlayerProvider>(context, listen: false)
-            .checkPending50Milestone();
-      } catch (_) {}
-    }
   }
 
   Future<void> _checkOnboarding() async {

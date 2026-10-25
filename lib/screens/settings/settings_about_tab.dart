@@ -4,9 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/theme/app_theme.dart';
-import 'package:musly/services/analytics_service.dart';
-import 'package:musly/widgets/dialogs/support_dialog.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/utils/context_extensions.dart';
@@ -26,26 +23,12 @@ class SettingsAboutTab extends StatefulWidget {
 }
 
 class _SettingsAboutTabState extends State<SettingsAboutTab> {
-  bool _hasRated = false;
   int _versionTapCount = 0;
   bool _devWrappedUnlocked = false;
   bool _isCheckingUpdates = false;
 
   bool get _isDesktop =>
       !kIsWeb && (Platform.isWindows || Platform.isMacOS || Platform.isLinux);
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSettings();
-  }
-
-  Future<void> _loadSettings() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _hasRated = prefs.getBool('has_rated_app') ?? false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,23 +105,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               url: 'https://github.com/CharlesDuchaussoy/Octave/issues/new',
             ),
             _buildDivider(context),
-            _buildLinkTile(
-              context,
-              icon: Icons.chat_bubble_rounded,
-              title: AppLocalizations.of(context)!.aboutLinkDiscord,
-              url: 'https://discord.gg/k9FqpbT65M',
-            ),
-            if (_isDesktop) ...[
-              _buildDivider(context),
-              _buildLinkTile(
-                context,
-                icon: CupertinoIcons.layers_alt_fill,
-                title: AppLocalizations.of(context)!.spotverlayTitle,
-                subtitle: AppLocalizations.of(context)!.spotverlayDescription,
-                url: 'https://github.com/dddevid/Spotverlay',
-              ),
-            ],
-            _buildDivider(context),
             _buildActionTile(
               context,
               icon: CupertinoIcons.sparkles,
@@ -178,33 +144,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
                 },
               ),
             ],
-          ],
-        ),
-        const SizedBox(height: 24),
-        SettingsSectionCard(
-          title: AppLocalizations.of(context)!.sectionAboutSupport,
-          children: [
-            _buildActionTile(
-              context,
-              icon: CupertinoIcons.star_fill,
-              iconColor: const Color(0xFFFFCC00),
-              title: _hasRated
-                  ? AppLocalizations.of(context)!.thanksForRating
-                  : AppLocalizations.of(context)!.rateMusly,
-              subtitle: _hasRated
-                  ? AppLocalizations.of(context)!.alreadyRatedSubtitle
-                  : AppLocalizations.of(context)!.shareFeedbackSubtitle,
-              onTap: _hasRated ? null : () => _showRatingDialog(context),
-            ),
-            _buildDivider(context),
-            _buildActionTile(
-              context,
-              icon: CupertinoIcons.heart_fill,
-              iconColor: const Color(0xFFFF2D55),
-              title: AppLocalizations.of(context)!.supportMuslyTitle,
-              subtitle: AppLocalizations.of(context)!.supportMuslySubtitle,
-              onTap: () => _showSupportDialog(context),
-            ),
           ],
         ),
         const SizedBox(height: 40),
@@ -361,90 +300,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
     } catch (e) {
       debugPrint('Error opening URL: $e');
     }
-  }
-
-  void _showSupportDialog(BuildContext context) {
-    showDialog(context: context, builder: (context) => const SupportDialog());
-  }
-
-  void _showRatingDialog(BuildContext context) async {
-    final ratingController = TextEditingController();
-    int selectedRating = 5;
-    final l10n = AppLocalizations.of(context)!;
-
-    final result = await showDialog<bool>(
-      context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: Text(l10n.rateMuslyDialogTitle),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(l10n.rateMuslyDialogQuestion),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(5, (index) {
-                    final starIndex = index + 1;
-                    return IconButton(
-                      icon: Icon(
-                        starIndex <= selectedRating
-                            ? CupertinoIcons.star_fill
-                            : CupertinoIcons.star,
-                        color: const Color(0xFFFFCC00),
-                      ),
-                      onPressed: () {
-                        setDialogState(() => selectedRating = starIndex);
-                      },
-                    );
-                  }),
-                ),
-                const SizedBox(height: 16),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 100),
-                  child: TextField(
-                    controller: ratingController,
-                    decoration: InputDecoration(
-                      hintText: l10n.optionalFeedbackHint,
-                      border: const OutlineInputBorder(),
-                    ),
-                    maxLines: null,
-                    expands: true,
-                    textAlignVertical: TextAlignVertical.top,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(l10n.cancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(l10n.submit),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    if (result == true) {
-      await AnalyticsService().recordRating(
-        selectedRating,
-        ratingController.text,
-      );
-      await AnalyticsService().markAppAsRated();
-      if (context.mounted) {
-        setState(() => _hasRated = true);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.thankYouFeedback)),
-        );
-      }
-    }
-    ratingController.dispose();
   }
 
   Widget _buildActionTile(

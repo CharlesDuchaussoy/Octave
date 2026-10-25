@@ -8,7 +8,6 @@ import 'settings_storage_tab.dart';
 import 'settings_server_tab.dart';
 import 'settings_display_tab.dart';
 import 'settings_about_tab.dart';
-import 'settings_support_tab.dart';
 import 'settings_android_auto_tab.dart';
 import 'package:musly/theme/app_theme.dart';
 
@@ -34,7 +33,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     _tabController.addListener(() {
       if (!_tabController.indexIsChanging) {
         setState(() {
@@ -60,7 +59,6 @@ class _SettingsScreenState extends State<SettingsScreen>
       (icon: CupertinoIcons.cloud, text: l10n.tabServer),
       (icon: CupertinoIcons.paintbrush, text: l10n.tabDisplay),
       (icon: CupertinoIcons.car_detailed, text: l10n.tabAndroidAuto),
-      (icon: CupertinoIcons.heart_fill, text: l10n.tabSupport),
       (icon: CupertinoIcons.info, text: l10n.tabAbout),
     ];
 
@@ -70,7 +68,6 @@ class _SettingsScreenState extends State<SettingsScreen>
       SettingsServerTab(),
       SettingsDisplayTab(),
       SettingsAndroidAutoTab(),
-      SettingsSupportTab(),
       SettingsAboutTab(),
     ];
 
