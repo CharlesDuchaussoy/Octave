@@ -44,10 +44,10 @@ Octave suit Musly de près et récupère régulièrement ses nouveautés et ses 
 | | Étape |
 |:-:|---|
 | ✅ | Base : Musly 2.0.3, `master` du 18 octobre 2026 (`b199276`), qui apporte notamment la mise à jour depuis l'app et l'import de playlists |
-| ⏳ | Nom, icône et identifiant Android propres, pour s'installer à côté de Musly |
+| ✅ | Nom, icône et identifiant Android propres (`io.github.charlesduchaussoy.octave`) : Octave s'installe à côté de Musly |
 | ⏳ | Traduction française complète (926 textes sur 926) |
 | ⏳ | Compilation automatique des versions Android par GitHub Actions |
-| ⏳ | Mises à jour proposées et installées depuis l'app |
+| ⏳ | Mises à jour proposées et installées depuis l'app (déjà branchées sur les versions d'Octave, à tester avec la première) |
 | ⏳ | Versions Windows et Linux publiées |
 
 Le détail de chaque version est dans [CHANGELOG-octave.md](CHANGELOG-octave.md), dès la première.
