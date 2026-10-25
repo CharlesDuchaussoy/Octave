@@ -12,7 +12,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Nouvelle icône et nouveau logo : une croche dessinée comme un 8, blanche sur bleu nuit.
 - Identifiant Android `io.github.charlesduchaussoy.octave` : Octave s'installe à côté de Musly sans le remplacer.
 - Numérotation propre, qui commence à 1.0.0.
-- Octave se présente sous le nom « Octave » aux serveurs Navidrome, Subsonic et Jellyfin.
+- Octave se présente sous le nom « Octave » aux serveurs Jellyfin. Pour Navidrome, il garde le nom « Musly » : Octo y attache ses réglages (paroles minutées, albums de la bibliothèque seule) jusqu'à ce qu'il reconnaisse Octave.
 
 ### Liens et services
 
