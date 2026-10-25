@@ -898,6 +898,6 @@ class AndroidAutoService {
   }
 
   static Uri _androidResourceUri(String drawableName) {
-    return Uri.parse('android.resource://com.devid.musly/drawable/$drawableName');
+    return Uri.parse('android.resource://io.github.charlesduchaussoy.octave/drawable/$drawableName');
   }
 }
