@@ -769,7 +769,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         ),
       ),
       trailing: const Icon(Icons.open_in_new_rounded, size: 18),
-      onTap: () => _launchUrl('https://crowdin.com/project/musly'),
+      onTap: () => _launchUrl('https://github.com/CharlesDuchaussoy/Octave/tree/master/lib/l10n'),
     );
   }
 
