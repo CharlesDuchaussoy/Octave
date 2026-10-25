@@ -12,6 +12,7 @@ import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/navigation/tv_remote_scope.dart';
 import 'swipeable_song_tile.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -46,7 +47,6 @@ class SongTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     bool isTv = false;
     try {
@@ -80,7 +80,7 @@ class SongTile extends StatelessWidget {
               fontWeight: isCurrentSong ? FontWeight.bold : FontWeight.w500,
               color: isCurrentSong
                   ? theme.colorScheme.primary
-                  : (isDark ? Colors.white : Colors.black87),
+                  : (context.octave.text1),
             ),
           ),
           subtitle: _buildSubtitle(context),

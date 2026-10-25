@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:musly/providers/providers.dart';
 import 'package:musly/services/subsonic_service.dart';
+import 'package:musly/octave/widgets/octave_icon_art.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/utils/navigation_helper.dart';
@@ -106,13 +107,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   void _showAddMenu(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
         decoration: BoxDecoration(
-          color: isDark ? AppTheme.darkSurface : Colors.white,
+          color: context.octave.surface1,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         padding: const EdgeInsets.fromLTRB(16, 12, 16, 32),
@@ -124,7 +124,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               height: 4,
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
-                color: isDark ? Colors.white24 : Colors.black12,
+                color: context.octave.separator,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -158,11 +158,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                  color: context.octave.accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(CupertinoIcons.square_arrow_down,
-                    color: Color(0xFF10B981), size: 22),
+                child: Icon(CupertinoIcons.square_arrow_down,
+                    color: context.octave.accent, size: 22),
               ),
               title: Text(AppLocalizations.of(context)!.importPlaylist,
                   style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -180,11 +180,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF6366F1).withValues(alpha: 0.15),
+                  color: context.octave.accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(Icons.dns_rounded,
-                    color: Color(0xFF6366F1), size: 22),
+                child: Icon(Icons.dns_rounded,
+                    color: context.octave.accent, size: 22),
               ),
               title: Text(AppLocalizations.of(context)!.addMusicSource,
                   style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -238,7 +238,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   void _showSortMenu(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final bottomPadding =
         MediaQuery.of(context).viewPadding.bottom + 80.0 + 16.0;
@@ -247,7 +246,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
         decoration: BoxDecoration(
-          color: isDark ? AppTheme.darkSurface : Colors.white,
+          color: context.octave.surface1,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         padding: EdgeInsets.fromLTRB(16, 12, 16, bottomPadding),
@@ -261,7 +260,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.white24 : Colors.black12,
+                  color: context.octave.separator,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -478,7 +477,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
     return Scaffold(
       backgroundColor:
-          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+          context.octave.background,
       body: Consumer<LibraryProvider>(
         builder: (context, libraryProvider, _) {
           return RefreshIndicator(
@@ -494,7 +493,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 floating: true,
                 expandedHeight: 120,
                 backgroundColor:
-                    isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+                    context.octave.background,
                 elevation: 0,
                 flexibleSpace: FlexibleSpaceBar(
                   titlePadding: EdgeInsets.only(left: hPad, bottom: 44),
@@ -503,7 +502,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     style: TextStyle(
                       fontSize: _isDesktop ? 24 : 20,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.black87,
+                      color: context.octave.text1,
                       letterSpacing: -0.5,
                     ),
                   ),
@@ -511,21 +510,21 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 actions: [
                   IconButton(
                     icon: Icon(CupertinoIcons.search,
-                        color: isDark ? Colors.white : Colors.black87,
+                        color: context.octave.text1,
                         size: 22),
                     tooltip: AppLocalizations.of(context)!.searchInLibrary,
                     onPressed: () => _showLibrarySearch(context),
                   ),
                   IconButton(
                     icon: Icon(CupertinoIcons.plus,
-                        color: isDark ? Colors.white : Colors.black87,
+                        color: context.octave.text1,
                         size: 24),
                     tooltip: AppLocalizations.of(context)!.add,
                     onPressed: () => _showAddMenu(context),
                   ),
                   IconButton(
                     icon: Icon(CupertinoIcons.gear_alt,
-                        color: isDark ? Colors.white : Colors.black87,
+                        color: context.octave.text1,
                         size: 22),
                     tooltip: AppLocalizations.of(context)!.settings,
                     onPressed: () =>
@@ -554,15 +553,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
                                     horizontal: 10, vertical: 6),
                                 margin: const EdgeInsets.only(right: 8),
                                 decoration: BoxDecoration(
-                                  color: isDark
-                                      ? const Color(0xFF282828)
-                                      : Colors.grey[300],
+                                  color: context.octave.surface3,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Icon(CupertinoIcons.clear,
                                     size: 14,
                                     color:
-                                        isDark ? Colors.white : Colors.black),
+                                        context.octave.text1),
                               ),
                             ),
                           ],
@@ -685,7 +682,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? Theme.of(context).colorScheme.primary
-              : (isDark ? const Color(0xFF282828) : const Color(0xFFE5E7EB)),
+              : (context.octave.surface3),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -699,7 +696,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                         Brightness.dark
                     ? Colors.white
                     : Colors.black)
-                : (isDark ? Colors.white : Colors.black87),
+                : (context.octave.text1),
           ),
         ),
       ),
@@ -762,14 +759,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
               Icon(
                 icon,
                 size: 56,
-                color: isDark ? Colors.white30 : Colors.black26,
+                color: context.octave.text3,
               ),
               const SizedBox(height: 16),
               Text(
                 message,
                 style: TextStyle(
                   fontSize: 16,
-                  color: isDark ? Colors.white60 : Colors.black54,
+                  color: context.octave.text2,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -872,7 +869,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
         return _buildPinnedItemTile(
           title: item.title,
           subtitle: item.subtitle,
-          gradientColors: const [Color(0xFF450AF5), Color(0xFF8E8EE5)],
           icon: CupertinoIcons.heart_fill,
           onTap: item.onTap,
         );
@@ -881,7 +877,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
         return _buildPinnedItemTile(
           title: item.title,
           subtitle: item.subtitle,
-          gradientColors: const [Color(0xFF006450), Color(0xFF00897B)],
           icon: CupertinoIcons.arrow_down_circle_fill,
           onTap: item.onTap,
         );
@@ -922,12 +917,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
             width: 54,
             height: 54,
             decoration: BoxDecoration(
-              color: const Color(0xFF34C759).withValues(alpha: 0.15),
+              color: context.octave.accent.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Icon(
+            child: Icon(
               CupertinoIcons.antenna_radiowaves_left_right,
-              color: Color(0xFF34C759),
+              color: context.octave.accent,
               size: 24,
             ),
           ),
@@ -951,12 +946,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
             width: 54,
             height: 54,
             decoration: BoxDecoration(
-              color: const Color(0xFFFF9500).withValues(alpha: 0.15),
+              color: context.octave.accent.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Icon(
+            child: Icon(
               CupertinoIcons.star_fill,
-              color: Color(0xFFFF9500),
+              color: context.octave.accent,
               size: 24,
             ),
           ),
@@ -995,9 +990,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             item.subtitle,
             style: TextStyle(
               fontSize: 13,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           trailing: IconButton(
@@ -1027,9 +1020,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             item.subtitle,
             style: TextStyle(
               fontSize: 13,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           onTap: item.onTap,
@@ -1057,9 +1048,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             item.subtitle,
             style: TextStyle(
               fontSize: 13,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           onTap: item.onTap,
@@ -1084,9 +1073,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             item.subtitle,
             style: TextStyle(
               fontSize: 13,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           onTap: item.onTap,
@@ -1104,19 +1091,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
         return _buildGridItemCard(
           title: item.title,
           subtitle: item.subtitle,
-          customArtwork: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF450AF5), Color(0xFF8E8EE5)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-            ),
-            child: const Center(
-              child: Icon(CupertinoIcons.heart_fill,
-                  color: Colors.white, size: 36),
-            ),
+          customArtwork: OctaveIconArt(
+            icon: CupertinoIcons.heart_fill,
+            iconSize: 36,
+            borderRadius: BorderRadius.circular(8),
           ),
           onTap: item.onTap,
         );
@@ -1125,19 +1103,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
         return _buildGridItemCard(
           title: item.title,
           subtitle: item.subtitle,
-          customArtwork: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF006450), Color(0xFF00897B)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-            ),
-            child: const Center(
-              child: Icon(CupertinoIcons.arrow_down_circle_fill,
-                  color: Colors.white, size: 36),
-            ),
+          customArtwork: OctaveIconArt(
+            icon: CupertinoIcons.arrow_down_circle_fill,
+            iconSize: 36,
+            borderRadius: BorderRadius.circular(8),
           ),
           onTap: item.onTap,
         );
@@ -1165,12 +1134,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
           subtitle: item.subtitle,
           customArtwork: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF34C759).withValues(alpha: 0.2),
+              color: context.octave.accent.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(CupertinoIcons.antenna_radiowaves_left_right,
-                  color: Color(0xFF34C759), size: 36),
+                  color: context.octave.accent, size: 36),
             ),
           ),
           onTap: item.onTap,
@@ -1182,12 +1151,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
           subtitle: item.subtitle,
           customArtwork: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFFF9500).withValues(alpha: 0.2),
+              color: context.octave.accent.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(CupertinoIcons.star_fill,
-                  color: Color(0xFFFF9500), size: 36),
+                  color: context.octave.accent, size: 36),
             ),
           ),
           onTap: item.onTap,
@@ -1243,20 +1212,18 @@ class _LibraryScreenState extends State<LibraryScreen> {
   Widget _buildPinnedItemTile({
     required String title,
     required String subtitle,
-    required List<Color> gradientColors,
     required IconData icon,
     required VoidCallback onTap,
   }) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(vertical: 4),
-      leading: Container(
+      leading: SizedBox(
         width: 54,
         height: 54,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(colors: gradientColors),
+        child: OctaveIconArt(
+          icon: icon,
           borderRadius: BorderRadius.circular(6),
         ),
-        child: Icon(icon, color: Colors.white, size: 24),
       ),
       title: Text(title,
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
@@ -1292,7 +1259,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
     VoidCallback? onLongPress,
     VoidCallback? onSecondaryTap,
   }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       onLongPress: onLongPress,
@@ -1323,9 +1289,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             subtitle,
             style: TextStyle(
               fontSize: 12,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

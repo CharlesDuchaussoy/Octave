@@ -261,7 +261,7 @@ class _AlbumCollectionScreenState extends State<AlbumCollectionScreen> {
             Icon(
               Icons.error_outline_rounded,
               size: 64,
-              color: AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
             const SizedBox(height: 16),
             Text(
@@ -290,7 +290,7 @@ class _AlbumCollectionScreenState extends State<AlbumCollectionScreen> {
             Icon(
               Icons.album_outlined,
               size: 64,
-              color: AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
             const SizedBox(height: 16),
             Text(

@@ -77,8 +77,8 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
           SnackBar(
             content: Row(
               children: [
-                const Icon(CupertinoIcons.checkmark_circle_fill,
-                    color: Color(0xFF34C759), size: 18),
+                Icon(CupertinoIcons.checkmark_circle_fill,
+                    color: context.octave.accent, size: 18),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -104,7 +104,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(l10n.errorConnectingServer(e.toString())),
-            backgroundColor: Colors.red,
+            backgroundColor: context.octave.danger,
           ),
         );
       }
@@ -181,7 +181,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                 setState(() {});
               }
             },
-            child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
+            child: Text(l10n.remove, style: TextStyle(color: context.octave.danger)),
           ),
         ],
       ),
@@ -190,8 +190,6 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final authProvider = Provider.of<AuthProvider>(context);
     final currentConfig = authProvider.config;
 
@@ -217,7 +215,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
             maxHeight: MediaQuery.of(context).size.height * 0.85,
           ),
           decoration: BoxDecoration(
-            color: isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+            color: context.octave.background,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
@@ -229,7 +227,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                   height: 4,
                   margin: const EdgeInsets.only(top: 12, bottom: 8),
                   decoration: BoxDecoration(
-                    color: isDark ? Colors.white24 : Colors.black12,
+                    color: context.octave.separator,
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
@@ -254,9 +252,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                             l10n.switchServerSubtitle,
                             style: TextStyle(
                               fontSize: 13,
-                              color: isDark
-                                  ? AppTheme.darkSecondaryText
-                                  : AppTheme.lightSecondaryText,
+                              color: context.octave.text2,
                             ),
                           ),
                         ],
@@ -290,7 +286,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                           child: Text(
                             l10n.noServersSavedYet,
                             style: TextStyle(
-                              color: isDark ? Colors.white54 : Colors.black54,
+                              color: context.octave.text3,
                             ),
                           ),
                         ),
@@ -319,14 +315,14 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                     const SizedBox(height: 12),
                     Divider(
                         height: 1,
-                        color: isDark ? Colors.white10 : Colors.black12),
+                        color: context.octave.separator),
                     const SizedBox(height: 4),
                     ListTile(
                       dense: true,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
                       leading: Icon(
                         CupertinoIcons.gear_alt,
-                        color: isDark ? Colors.white70 : Colors.black87,
+                        color: context.octave.text2,
                         size: 20,
                       ),
                       title: Text(
@@ -338,9 +334,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                       trailing: Icon(
                         CupertinoIcons.chevron_forward,
                         size: 16,
-                        color: isDark
-                            ? AppTheme.darkDivider
-                            : AppTheme.lightDivider,
+                        color: context.octave.separator,
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -350,17 +344,17 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                     ListTile(
                       dense: true,
                       contentPadding: const EdgeInsets.symmetric(horizontal: 4),
-                      leading: const Icon(
+                      leading: Icon(
                         CupertinoIcons.arrow_right_square,
-                        color: Colors.red,
+                        color: context.octave.danger,
                         size: 20,
                       ),
                       title: Text(
                         AppLocalizations.of(context)?.logout ?? 'Logout',
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
-                            color: Colors.red),
+                            color: context.octave.danger),
                       ),
                       onTap: () async {
                         final playerProvider =
@@ -388,7 +382,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                                 child: Text(
                                   AppLocalizations.of(context)?.logout ??
                                       'Logout',
-                                  style: const TextStyle(color: Colors.red),
+                                  style: TextStyle(color: context.octave.danger),
                                 ),
                               ),
                             ],
@@ -428,24 +422,22 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
         switch (profile.serverFamily) {
       'youtube' => (
           CupertinoIcons.play_rectangle_fill,
-          const [Color(0xFFFF3B30), Color(0xFFFF453A)],
+          [context.octave.danger, context.octave.danger],
         ),
       'jellyfin' => (
           CupertinoIcons.tv_fill,
-          const [Color(0xFF00A4DC), Color(0xFF0077A3)],
+          [Color(0xFF00A4DC), context.octave.accent],
         ),
       _ => (
           CupertinoIcons.music_note_2,
-          const [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+          [context.octave.accent, context.octave.accent],
         ),
     };
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
-        color: isDark
-            ? (isActive ? const Color(0xFF282828) : AppTheme.darkSurface)
-            : (isActive ? Colors.white : const Color(0xFFF9FAFB)),
+        color: isActive ? context.octave.surface2 : context.octave.surface1,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isActive
@@ -500,7 +492,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                               fontWeight:
                                   isActive ? FontWeight.bold : FontWeight.w600,
                               color: isActive
-                                  ? (isDark ? Colors.white : Colors.black)
+                                  ? (context.octave.text1)
                                   : null,
                             ),
                             maxLines: 1,
@@ -513,22 +505,22 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF34C759)
+                              color: context.octave.accent
                                   .withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Icon(CupertinoIcons.circle_fill,
-                                    size: 6, color: Color(0xFF34C759)),
+                                    size: 6, color: context.octave.accent),
                                 SizedBox(width: 4),
                                 Text(
                                   'ACTIVE',
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF34C759),
+                                    color: context.octave.accent,
                                     letterSpacing: 0.4,
                                   ),
                                 ),
@@ -545,9 +537,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                           : '${profile.username} • ${profile.displayUrl}',
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -566,7 +556,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                   icon: Icon(
                     Icons.more_vert,
                     size: 20,
-                    color: isDark ? Colors.white54 : Colors.black45,
+                    color: context.octave.text3,
                   ),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
@@ -603,11 +593,11 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                         value: 'delete',
                         child: Row(
                           children: [
-                            const Icon(CupertinoIcons.trash,
-                                size: 18, color: Colors.red),
+                            Icon(CupertinoIcons.trash,
+                                size: 18, color: context.octave.danger),
                             const SizedBox(width: 10),
                             Text(l10n.remove,
-                                style: const TextStyle(color: Colors.red)),
+                                style: TextStyle(color: context.octave.danger)),
                           ],
                         ),
                       ),
@@ -621,15 +611,14 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
   }
 
   Widget _buildQuickAddYtStreamTile(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return Material(
-      color: isDark ? const Color(0xFF1E1E1E) : Colors.grey[100],
+      color: context.octave.surface2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
         side: BorderSide(
-          color: const Color(0xFFFF3B30).withValues(alpha: 0.3),
+          color: context.octave.danger.withValues(alpha: 0.3),
         ),
       ),
       clipBehavior: Clip.antiAlias,
@@ -639,11 +628,11 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
           width: 36,
           height: 36,
           decoration: BoxDecoration(
-            color: const Color(0xFFFF3B30).withValues(alpha: 0.15),
+            color: context.octave.danger.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Icon(CupertinoIcons.play_rectangle_fill,
-              color: Color(0xFFFF3B30), size: 18),
+          child: Icon(CupertinoIcons.play_rectangle_fill,
+              color: context.octave.danger, size: 18),
         ),
         title: Text(l10n.addWebStream,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
@@ -652,8 +641,8 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
         trailing: FilledButton.tonal(
           onPressed: () => _openAddServerScreen(family: 'youtube'),
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFFFF3B30).withValues(alpha: 0.15),
-            foregroundColor: const Color(0xFFFF3B30),
+            backgroundColor: context.octave.danger.withValues(alpha: 0.15),
+            foregroundColor: context.octave.danger,
             padding: const EdgeInsets.symmetric(horizontal: 12),
           ),
           child: Text(l10n.add,

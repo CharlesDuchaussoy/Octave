@@ -1489,7 +1489,7 @@ class AppLocalizationsSq extends AppLocalizations {
   String get themeLabel => 'Theme';
 
   @override
-  String get accentColorLabel => 'Accent color';
+  String get accentColorLabel => 'App color';
 
   @override
   String get circularDesignLabel => 'Circular Design';
@@ -2995,4 +2995,23 @@ class AppLocalizationsSq extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Use app\'s active server';
+
+  @override
+  String get colorIntensityLabel => 'Color intensity';
+
+  @override
+  String get colorIntensityNeutral => 'Neutral';
+
+  @override
+  String get colorIntensityVivid => 'Colorful';
+
+  @override
+  String get pureBlackLabel => 'Pure black';
+
+  @override
+  String get pureBlackSubtitle =>
+      'Black background in dark mode, saves battery on OLED screens';
+
+  @override
+  String get accentColorOctave => 'Octave night blue';
 }

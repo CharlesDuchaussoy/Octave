@@ -152,7 +152,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
               child: Text(l10n.cancel)),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
+            child: Text(l10n.remove, style: TextStyle(color: context.octave.danger)),
           ),
         ],
       ),
@@ -169,7 +169,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
       return IconButton(
         tooltip: l10n.downloadedTapToRemove,
         onPressed: _removeDownloads,
-        icon: const Icon(Icons.cloud_done, color: Colors.green),
+        icon: Icon(Icons.cloud_done, color: context.octave.success),
       );
     }
     if (_isQueued) {
@@ -255,10 +255,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     const SizedBox(height: 24),
                     Shimmer.fromColors(
                       baseColor:
-                          isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
-                      highlightColor: isDark
-                          ? const Color(0xFF2A2A2A)
-                          : const Color(0xFFF5F5F5),
+                          context.octave.surface2,
+                      highlightColor: context.octave.surface2,
                       child: Container(
                         width: 200,
                         height: 24,
@@ -271,10 +269,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     const SizedBox(height: 8),
                     Shimmer.fromColors(
                       baseColor:
-                          isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
-                      highlightColor: isDark
-                          ? const Color(0xFF2A2A2A)
-                          : const Color(0xFFF5F5F5),
+                          context.octave.surface2,
+                      highlightColor: context.octave.surface2,
                       child: Container(
                         width: 150,
                         height: 18,
@@ -335,7 +331,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                     ),
                     child: Icon(
                       CupertinoIcons.back,
-                      color: isDark ? Colors.white : Colors.black,
+                      color: context.octave.text1,
                     ),
                   ),
                   onPressed: () => Navigator.pop(context),
@@ -550,7 +546,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
                           placeholder:
                               AppLocalizations.of(context)!.filterTracks,
                           style: TextStyle(
-                              color: isDark ? Colors.white : Colors.black),
+                              color: context.octave.text1),
                           onChanged: (val) {
                             setState(() {
                               _searchQuery = val.trim().toLowerCase();

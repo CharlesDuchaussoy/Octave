@@ -14,12 +14,11 @@ class AlbumArtworkShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Shimmer.fromColors(
-      baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+      baseColor: context.octave.surface2,
       highlightColor:
-          isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+          context.octave.surface2,
       child: Container(
         width: size,
         height: size,
@@ -39,7 +38,6 @@ class AlbumCardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return SizedBox(
       width: size,
@@ -47,9 +45,9 @@ class AlbumCardShimmer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: size,
               height: size,
@@ -61,9 +59,9 @@ class AlbumCardShimmer extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: size * 0.8,
               height: 14,
@@ -75,9 +73,9 @@ class AlbumCardShimmer extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: size * 0.6,
               height: 12,
@@ -100,16 +98,15 @@ class ArtistCardShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return SizedBox(
       width: size,
       child: Column(
         children: [
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: size,
               height: size,
@@ -121,9 +118,9 @@ class ArtistCardShimmer extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: size * 0.7,
               height: 14,
@@ -144,16 +141,15 @@ class SongTileShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: 48,
               height: 48,
@@ -170,10 +166,8 @@ class SongTileShimmer extends StatelessWidget {
               children: [
                 Shimmer.fromColors(
                   baseColor:
-                      isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
-                  highlightColor: isDark
-                      ? const Color(0xFF2A2A2A)
-                      : const Color(0xFFF5F5F5),
+                      context.octave.surface2,
+                  highlightColor: context.octave.surface2,
                   child: Container(
                     width: double.infinity,
                     height: 14,
@@ -186,10 +180,8 @@ class SongTileShimmer extends StatelessWidget {
                 const SizedBox(height: 6),
                 Shimmer.fromColors(
                   baseColor:
-                      isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
-                  highlightColor: isDark
-                      ? const Color(0xFF2A2A2A)
-                      : const Color(0xFFF5F5F5),
+                      context.octave.surface2,
+                  highlightColor: context.octave.surface2,
                   child: Container(
                     width: 120,
                     height: 12,
@@ -204,9 +196,9 @@ class SongTileShimmer extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Shimmer.fromColors(
-            baseColor: isDark ? AppTheme.darkCard : const Color(0xFFE0E0E0),
+            baseColor: context.octave.surface2,
             highlightColor:
-                isDark ? const Color(0xFF2A2A2A) : const Color(0xFFF5F5F5),
+                context.octave.surface2,
             child: Container(
               width: 40,
               height: 12,

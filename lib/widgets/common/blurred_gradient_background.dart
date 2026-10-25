@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class BlurredGradientBackground extends StatefulWidget {
   final List<Color> colors;
@@ -46,9 +47,9 @@ class _BlurredGradientBackgroundState extends State<BlurredGradientBackground>
     final safeColors = widget.colors.isNotEmpty
         ? widget.colors
         : [
-            const Color(0xFF1E1E1E),
-            const Color(0xFF2C2C2C),
-            const Color(0xFF1A1A1A)
+            context.octave.surface2,
+            context.octave.surface3,
+            context.octave.surface1,
           ];
 
     while (safeColors.length < 3) {

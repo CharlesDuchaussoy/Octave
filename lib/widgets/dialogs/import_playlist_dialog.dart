@@ -8,6 +8,7 @@ import '../../providers/providers.dart';
 import '../../services/playlist_import_service.dart';
 import '../../screens/detail/playlist_screen.dart';
 import '../../utils/navigation_helper.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class ImportPlaylistDialog extends StatefulWidget {
   const ImportPlaylistDialog({super.key});
@@ -169,7 +170,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
     final primaryColor = theme.colorScheme.primary;
 
     return Dialog(
-      backgroundColor: isDark ? const Color(0xFF1E1E22) : Colors.white,
+      backgroundColor: context.octave.surface1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       child: ConstrainedBox(
@@ -239,7 +240,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                     'Spotify o YouTube Music (senza login)',
                     style: TextStyle(
                       fontSize: 13,
-                      color: isDark ? Colors.white60 : Colors.black54,
+                      color: context.octave.text2,
                     ),
                   ),
                 ],
@@ -257,14 +258,14 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           children: [
             _buildSourceBadge(
               label: 'Spotify',
-              color: const Color(0xFF1DB954),
+              color: context.octave.success,
               icon: Icons.music_note_rounded,
               isActive: detected == PlaylistImportSource.spotify,
             ),
             const SizedBox(width: 10),
             _buildSourceBadge(
               label: 'YouTube Music',
-              color: const Color(0xFFFF0000),
+              color: context.octave.danger,
               icon: Icons.play_circle_fill_rounded,
               isActive: detected == PlaylistImportSource.youtubeMusic,
             ),
@@ -278,7 +279,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
             hintText: 'Incolla link Spotify o YouTube Music...',
             hintStyle: TextStyle(
               fontSize: 14,
-              color: isDark ? Colors.white38 : Colors.black38,
+              color: context.octave.text3,
             ),
             filled: true,
             fillColor: isDark
@@ -316,7 +317,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           const SizedBox(height: 10),
           Text(
             _errorMessage!,
-            style: const TextStyle(color: Colors.redAccent, fontSize: 13),
+            style: TextStyle(color: context.octave.danger, fontSize: 13),
           ),
         ],
         const SizedBox(height: 24),
@@ -449,8 +450,8 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                               horizontal: 8, vertical: 3),
                           decoration: BoxDecoration(
                             color: (isSpotify
-                                    ? const Color(0xFF1DB954)
-                                    : const Color(0xFFFF0000))
+                                    ? context.octave.success
+                                    : context.octave.danger)
                                 .withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(6),
                           ),
@@ -460,8 +461,8 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                               fontSize: 11,
                               fontWeight: FontWeight.bold,
                               color: isSpotify
-                                  ? const Color(0xFF1DB954)
-                                  : const Color(0xFFFF0000),
+                                  ? context.octave.success
+                                  : context.octave.danger,
                             ),
                           ),
                         ),
@@ -470,7 +471,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                           '${p.totalTracks} brani',
                           style: TextStyle(
                             fontSize: 12,
-                            color: isDark ? Colors.white60 : Colors.black54,
+                            color: context.octave.text2,
                           ),
                         ),
                       ],
@@ -494,7 +495,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                         'Autore: ${p.author}',
                         style: TextStyle(
                           fontSize: 11,
-                          color: isDark ? Colors.white38 : Colors.black38,
+                          color: context.octave.text3,
                         ),
                       ),
                     ],
@@ -510,7 +511,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w600,
-            color: isDark ? Colors.white70 : Colors.black87,
+            color: context.octave.text2,
           ),
         ),
         const SizedBox(height: 8),
@@ -527,7 +528,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
               itemCount: p.tracks.length,
               separatorBuilder: (_, __) => Divider(
                 height: 1,
-                color: isDark ? Colors.white10 : Colors.black12,
+                color: context.octave.separator,
               ),
               itemBuilder: (context, index) {
                 final track = p.tracks[index];
@@ -537,7 +538,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                     '${index + 1}',
                     style: TextStyle(
                       fontSize: 12,
-                      color: isDark ? Colors.white38 : Colors.black38,
+                      color: context.octave.text3,
                     ),
                   ),
                   title: Text(
@@ -552,7 +553,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 11,
-                      color: isDark ? Colors.white54 : Colors.black45,
+                      color: context.octave.text3,
                     ),
                   ),
                   trailing: track.duration != null
@@ -560,7 +561,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                           _formatDuration(track.duration!),
                           style: TextStyle(
                             fontSize: 11,
-                            color: isDark ? Colors.white38 : Colors.black38,
+                            color: context.octave.text3,
                           ),
                         )
                       : null,
@@ -573,7 +574,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           const SizedBox(height: 8),
           Text(
             _errorMessage!,
-            style: const TextStyle(color: Colors.redAccent, fontSize: 13),
+            style: TextStyle(color: context.octave.danger, fontSize: 13),
           ),
         ],
         const SizedBox(height: 18),
@@ -636,7 +637,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
               : 'Preparazione brani...',
           style: TextStyle(
             fontSize: 14,
-            color: isDark ? Colors.white70 : Colors.black87,
+            color: context.octave.text2,
           ),
         ),
         const SizedBox(height: 16),
@@ -645,7 +646,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           child: LinearProgressIndicator(
             value: progressFraction,
             minHeight: 8,
-            backgroundColor: isDark ? Colors.white12 : Colors.black12,
+            backgroundColor: context.octave.separator,
             valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
           ),
         ),
@@ -657,7 +658,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 12,
-            color: isDark ? Colors.white38 : Colors.black38,
+            color: context.octave.text3,
           ),
         ),
         const SizedBox(height: 16),
@@ -679,13 +680,13 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           width: 64,
           height: 64,
           decoration: BoxDecoration(
-            color: Colors.green.withValues(alpha: 0.15),
+            color: context.octave.success.withValues(alpha: 0.15),
             shape: BoxShape.circle,
           ),
-          child: const Center(
+          child: Center(
             child: Icon(
               Icons.check_circle_rounded,
-              color: Colors.green,
+              color: context.octave.success,
               size: 40,
             ),
           ),
@@ -702,7 +703,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 13,
-            color: isDark ? Colors.white60 : Colors.black54,
+            color: context.octave.text2,
           ),
         ),
         const SizedBox(height: 24),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class DolbyAtmosBadge extends StatelessWidget {
   final double fontSize;
@@ -18,7 +19,7 @@ class DolbyAtmosBadge extends StatelessWidget {
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF2A2A2A) : const Color(0xFFE8E8E8),
+        color: context.octave.surface3,
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(

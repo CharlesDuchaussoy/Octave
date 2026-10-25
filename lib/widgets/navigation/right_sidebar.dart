@@ -4,6 +4,7 @@ import 'package:musly/models/song.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/utils/navigation_helper.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class RightSidebar extends StatelessWidget {
   final VoidCallback? onClose;
@@ -14,10 +15,10 @@ class RightSidebar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 320,
-      decoration: const BoxDecoration(
-        color: Color(0xFF121212),
+      decoration: BoxDecoration(
+        color: context.octave.surface1,
         border: Border(
-          left: BorderSide(color: Color(0xFF282828), width: 1),
+          left: BorderSide(color: context.octave.separator, width: 1),
         ),
       ),
       child: Column(
@@ -26,9 +27,9 @@ class RightSidebar extends StatelessWidget {
           Container(
             height: 56,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(color: Color(0xFF282828), width: 1),
+                bottom: BorderSide(color: context.octave.separator, width: 1),
               ),
             ),
             child: Row(
@@ -43,10 +44,10 @@ class RightSidebar extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.close_rounded,
                     size: 20,
-                    color: Color(0xFF9CA3AF),
+                    color: context.octave.text2,
                   ),
                   onPressed: () {
                     onClose?.call();
@@ -67,20 +68,20 @@ class RightSidebar extends StatelessWidget {
                 final currentIndex = player.currentIndex;
 
                 if (queue.isEmpty && currentSong == null) {
-                  return const Center(
+                  return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.music_note_rounded,
                           size: 32,
-                          color: Color(0xFF4B5563),
+                          color: context.octave.text3,
                         ),
                         SizedBox(height: 12),
                         Text(
                           'Queue is empty',
                           style: TextStyle(
-                            color: Color(0xFF6B7280),
+                            color: context.octave.text3,
                             fontSize: 14,
                           ),
                         ),
@@ -97,14 +98,14 @@ class RightSidebar extends StatelessWidget {
                       const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                   children: [
                     if (currentSong != null) ...[
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.fromLTRB(8, 4, 8, 8),
                         child: Text(
                           'NOW PLAYING',
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF6B7280),
+                            color: context.octave.text3,
                             letterSpacing: 1.0,
                           ),
                         ),
@@ -113,10 +114,10 @@ class RightSidebar extends StatelessWidget {
                         padding: const EdgeInsets.all(8),
                         margin: const EdgeInsets.only(bottom: 12),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFFA243C).withValues(alpha: 0.1),
+                          color: context.octave.accent.withValues(alpha: 0.1),
                           border: Border.all(
                             color:
-                                const Color(0xFFFA243C).withValues(alpha: 0.2),
+                                context.octave.accent.withValues(alpha: 0.2),
                             width: 1,
                           ),
                           borderRadius: BorderRadius.circular(8),
@@ -135,10 +136,10 @@ class RightSidebar extends StatelessWidget {
                                 children: [
                                   Text(
                                     currentSong.title,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xFFFC5C65),
+                                      color: context.octave.accent,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -146,9 +147,9 @@ class RightSidebar extends StatelessWidget {
                                   const SizedBox(height: 2),
                                   Text(
                                     currentSong.artist ?? 'Unknown Artist',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 11,
-                                      color: Color(0xFFB3B3B3),
+                                      color: context.octave.text2,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -165,10 +166,10 @@ class RightSidebar extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: Text(
                           'NEXT UP · $upcomingCount songs',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
-                            color: Color(0xFF6B7280),
+                            color: context.octave.text3,
                             letterSpacing: 1.0,
                           ),
                         ),
@@ -251,9 +252,9 @@ class _UpcomingSongTileState extends State<_UpcomingSongTile> {
                   const SizedBox(height: 2),
                   Text(
                     widget.song.artist ?? 'Unknown Artist',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 11,
-                      color: Color(0xFFB3B3B3),
+                      color: context.octave.text2,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -263,10 +264,10 @@ class _UpcomingSongTileState extends State<_UpcomingSongTile> {
             ),
             if (_isHovered) ...[
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.play_arrow_rounded,
                   size: 16,
-                  color: Color(0xFF9CA3AF),
+                  color: context.octave.text2,
                 ),
                 onPressed: widget.onPlay,
                 tooltip: 'Play',
@@ -276,16 +277,16 @@ class _UpcomingSongTileState extends State<_UpcomingSongTile> {
               ),
               const SizedBox(width: 4),
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.delete_outline_rounded,
                   size: 16,
-                  color: Color(0xFF9CA3AF),
+                  color: context.octave.text2,
                 ),
                 onPressed: widget.onRemove,
                 tooltip: 'Remove',
                 constraints: const BoxConstraints(),
                 padding: const EdgeInsets.all(4),
-                hoverColor: Colors.red.withValues(alpha: 0.2),
+                hoverColor: context.octave.danger.withValues(alpha: 0.2),
               ),
             ],
           ],

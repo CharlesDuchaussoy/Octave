@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/player_provider.dart';
 import '../../l10n/app_localizations.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class NowPlayingMoreMenu extends StatelessWidget {
   const NowPlayingMoreMenu({super.key});
@@ -22,9 +23,7 @@ class NowPlayingMoreMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? Colors.grey[900]
-            : Colors.white,
+        color: context.octave.surface1,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       padding: const EdgeInsets.only(bottom: 32, top: 16),

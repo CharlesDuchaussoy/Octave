@@ -9,6 +9,7 @@ import '../../widgets/widgets.dart';
 import '../../l10n/app_localizations.dart';
 import '../detail/album_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -187,7 +188,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           key: Key('fav_${song.id}'),
           direction: DismissDirection.endToStart,
           background: Container(
-            color: Colors.red,
+            color: context.octave.danger,
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.only(right: 20),
             child: const Icon(CupertinoIcons.heart_slash, color: Colors.white),
@@ -245,7 +246,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 }
               }
             },
-            child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
+            child: Text(l10n.remove, style: TextStyle(color: context.octave.danger)),
           ),
         ],
       ),

@@ -26,7 +26,7 @@ class GradientHeader extends StatefulWidget {
 }
 
 class _GradientHeaderState extends State<GradientHeader> {
-  Color _dominantColor = AppTheme.brandRed;
+  Color _dominantColor = AppTheme.brandNavy;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _GradientHeaderState extends State<GradientHeader> {
         setState(() {
           _dominantColor = paletteGenerator.dominantColor?.color ??
               paletteGenerator.vibrantColor?.color ??
-              AppTheme.brandRed;
+              AppTheme.brandNavy;
         });
       }
     } catch (e) {
@@ -58,13 +58,12 @@ class _GradientHeaderState extends State<GradientHeader> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return SliverAppBar(
       expandedHeight: widget.maxHeight,
       collapsedHeight: widget.minHeight,
       pinned: true,
-      backgroundColor: isDark ? AppTheme.darkBackground : Colors.white,
+      backgroundColor: context.octave.background,
       flexibleSpace: LayoutBuilder(
         builder: (context, constraints) {
           final expandRatio = (constraints.maxHeight - widget.minHeight) /
@@ -98,7 +97,7 @@ class _GradientHeaderState extends State<GradientHeader> {
                       colors: [
                         _dominantColor.withValues(alpha: 0.8),
                         _dominantColor.withValues(alpha: 0.3),
-                        isDark ? AppTheme.darkBackground : Colors.white,
+                        context.octave.background,
                       ],
                       stops: const [0.0, 0.5, 1.0],
                     ),

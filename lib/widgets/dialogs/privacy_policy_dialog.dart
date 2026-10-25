@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../l10n/app_localizations.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class PrivacyPolicyDialog extends StatefulWidget {
   const PrivacyPolicyDialog({super.key});
@@ -52,11 +53,10 @@ class _PrivacyPolicyDialogState extends State<PrivacyPolicyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return Dialog(
-      backgroundColor: isDark ? const Color(0xFF1C1C1E) : Colors.white,
+      backgroundColor: context.octave.surface1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 420, maxHeight: 600),
@@ -66,8 +66,8 @@ class _PrivacyPolicyDialogState extends State<PrivacyPolicyDialog> {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF3B82F6), Color(0xFF8B5CF6)],
+                gradient: LinearGradient(
+                  colors: [context.octave.accent, context.octave.accent],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -126,7 +126,7 @@ class _PrivacyPolicyDialogState extends State<PrivacyPolicyDialog> {
                     const SizedBox(height: 16),
                     _buildPrivacyPoint(
                       icon: CupertinoIcons.device_phone_portrait,
-                      color: const Color(0xFF3B82F6),
+                      color: context.octave.accent,
                       title: l10n.localFirstStorageTitle,
                       description: l10n.localFirstStorageDescription,
                     ),
@@ -162,7 +162,7 @@ class _PrivacyPolicyDialogState extends State<PrivacyPolicyDialog> {
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: const Color(0xFF3B82F6),
+                                  color: context.octave.accent,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: const Icon(
@@ -194,9 +194,9 @@ class _PrivacyPolicyDialogState extends State<PrivacyPolicyDialog> {
                                   ],
                                 ),
                               ),
-                              const Icon(
+                              Icon(
                                 CupertinoIcons.chevron_forward,
-                                color: Color(0xFF3B82F6),
+                                color: context.octave.accent,
                                 size: 18,
                               ),
                             ],
@@ -217,7 +217,7 @@ class _PrivacyPolicyDialogState extends State<PrivacyPolicyDialog> {
                     child: ElevatedButton(
                       onPressed: _onAccept,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF3B82F6),
+                        backgroundColor: context.octave.accent,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(

@@ -73,12 +73,11 @@ class CastButton extends StatelessWidget {
     BuildContext context,
     CastService castService,
   ) async {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: isDark ? AppTheme.darkSurface : Colors.white,
+        backgroundColor: context.octave.surface1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
@@ -98,9 +97,7 @@ class CastButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                 ],
@@ -115,7 +112,7 @@ class CastButton extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: (isDark ? Colors.white : Colors.black).withValues(
+                  color: (context.octave.text1).withValues(
                     alpha: 0.05,
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -166,9 +163,7 @@ class CastButton extends StatelessWidget {
                             castService.mediaState.artist ?? '',
                             style: TextStyle(
                               fontSize: 14,
-                              color: isDark
-                                  ? AppTheme.darkSecondaryText
-                                  : AppTheme.lightSecondaryText,
+                              color: context.octave.text2,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -203,9 +198,7 @@ class CastButton extends StatelessWidget {
                     '${(cs.mediaState.volume * 100).round()}%',
                     style: TextStyle(
                       fontSize: 14,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                 ],
@@ -219,13 +212,13 @@ class CastButton extends StatelessWidget {
               Navigator.pop(context);
               castService.disconnect();
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.stop_circle_outlined,
-              color: Color(0xFFFF3B30),
+              color: context.octave.danger,
             ),
             label: Text(
               AppLocalizations.of(context)!.close,
-              style: const TextStyle(color: Color(0xFFFF3B30)),
+              style: TextStyle(color: context.octave.danger),
             ),
           ),
           TextButton(
@@ -241,13 +234,12 @@ class CastButton extends StatelessWidget {
     BuildContext context,
     UpnpService upnpService,
   ) async {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final device = upnpService.connectedDevice;
 
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: isDark ? AppTheme.darkSurface : Colors.white,
+        backgroundColor: context.octave.surface1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Row(
           children: [
@@ -270,9 +262,7 @@ class CastButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                 ],
@@ -287,7 +277,7 @@ class CastButton extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: (isDark ? Colors.white : Colors.black).withValues(
+                  color: (context.octave.text1).withValues(
                     alpha: 0.05,
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -295,10 +285,10 @@ class CastButton extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _infoRow(Icons.devices, device.manufacturer, isDark),
+                    _infoRow(context, Icons.devices, device.manufacturer),
                     if (device.modelName.isNotEmpty) ...[
                       const SizedBox(height: 6),
-                      _infoRow(Icons.info_outline, device.modelName, isDark),
+                      _infoRow(context, Icons.info_outline, device.modelName),
                     ],
                   ],
                 ),
@@ -313,9 +303,7 @@ class CastButton extends StatelessWidget {
                     'Use Octave\'s player controls to manage playback.',
                     style: TextStyle(
                       fontSize: 13,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                     textAlign: TextAlign.center,
                   );
@@ -341,9 +329,7 @@ class CastButton extends StatelessWidget {
                       '${us.volume}%',
                       style: TextStyle(
                         fontSize: 14,
-                        color: isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                       ),
                     ),
                   ],
@@ -358,13 +344,13 @@ class CastButton extends StatelessWidget {
               Navigator.pop(context);
               upnpService.disconnect();
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.stop_circle_outlined,
-              color: Color(0xFFFF3B30),
+              color: context.octave.danger,
             ),
-            label: const Text(
+            label: Text(
               'Disconnect',
-              style: TextStyle(color: Color(0xFFFF3B30)),
+              style: TextStyle(color: context.octave.danger),
             ),
           ),
           TextButton(
@@ -376,14 +362,14 @@ class CastButton extends StatelessWidget {
     );
   }
 
-  Widget _infoRow(IconData icon, String text, bool isDark) {
+  Widget _infoRow(BuildContext context, IconData icon, String text) {
     return Row(
       children: [
         Icon(
           icon,
           size: 16,
           color:
-              isDark ? AppTheme.darkSecondaryText : AppTheme.lightSecondaryText,
+              context.octave.text2,
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -391,9 +377,7 @@ class CastButton extends StatelessWidget {
             text,
             style: TextStyle(
               fontSize: 13,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
         ),

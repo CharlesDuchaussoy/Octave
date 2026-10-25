@@ -30,7 +30,6 @@ class _AlbumCardState extends State<AlbumCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return RepaintBoundary(
       child: MouseRegion(
@@ -116,9 +115,7 @@ class _AlbumCardState extends State<AlbumCard> {
                     artistFallback: widget.album.artist,
                     artistIdFallback: widget.album.artistId,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
               ],
@@ -154,7 +151,7 @@ class _PlayButton extends StatelessWidget {
         width: 48,
         height: 48,
         decoration: BoxDecoration(
-          color: AppTheme.brandGreen,
+          color: context.octave.accent,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(

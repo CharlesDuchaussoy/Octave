@@ -15,6 +15,7 @@ import 'package:musly/widgets/modals/playlist_options_modal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
 import 'tv_remote_scope.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class DesktopNavigationSidebar extends StatefulWidget {
   final int selectedIndex;
@@ -87,21 +88,21 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF282828),
+        backgroundColor: context.octave.surface3,
         title: const Text('Disconnect', style: TextStyle(color: Colors.white)),
-        content: const Text(
+        content: Text(
           'Are you sure you want to disconnect from this server?',
-          style: TextStyle(color: Color(0xFFB3B3B3)),
+          style: TextStyle(color: context.octave.text2),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
             child: Text(l10n.cancel,
-                style: const TextStyle(color: Color(0xFFB3B3B3))),
+                style: TextStyle(color: context.octave.text2)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFA243C),
+              backgroundColor: context.octave.accent,
               foregroundColor: Colors.white,
             ),
             onPressed: () => Navigator.pop(ctx, true),
@@ -129,9 +130,9 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
       curve: Curves.easeInOut,
       width: width,
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF000000) : theme.scaffoldBackgroundColor,
+        color: isDark ? context.octave.background : theme.scaffoldBackgroundColor,
         border: Border(
-          right: BorderSide(color: isDark ? const Color(0xFF1A1A1A) : theme.dividerColor, width: 1),
+          right: BorderSide(color: isDark ? context.octave.surface2 : theme.dividerColor, width: 1),
         ),
       ),
       child: SafeArea(
@@ -176,7 +177,7 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
           Container(
             height: 1,
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            color: const Color(0xFF1A1A1A),
+            color: context.octave.surface2,
           ),
           _LibrarySection(
             isCollapsed: _isCollapsed,
@@ -249,7 +250,7 @@ class _LogoRow extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                      color: context.octave.text1,
                       letterSpacing: -0.3,
                     ),
                     maxLines: 1,
@@ -288,11 +289,10 @@ class _NavItemState extends State<_NavItem> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final activeColor = isDark ? Colors.white : Colors.black;
+    final activeColor = context.octave.text1;
     final textColor = widget.isSelected
         ? activeColor
-        : (_isHovered ? activeColor : const Color(0xFF9CA3AF));
+        : (_isHovered ? activeColor : context.octave.text2);
     final bgColor = widget.isSelected
         ? activeColor.withValues(alpha: 0.10)
         : (_isHovered
@@ -385,11 +385,11 @@ class _LibrarySection extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 4, 16, 6),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text(
                       'YOUR LIBRARY',
                       style: TextStyle(
-                        color: Color(0xFF6B7280),
+                        color: context.octave.text3,
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1.0,
@@ -402,12 +402,12 @@ class _LibrarySection extends StatelessWidget {
                       onTap: () => ImportPlaylistDialog.show(context),
                       borderRadius: BorderRadius.circular(50),
                       hoverColor: Colors.white.withValues(alpha: 0.1),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           CupertinoIcons.square_arrow_down,
                           size: 16,
-                          color: Color(0xFF9CA3AF),
+                          color: context.octave.text2,
                         ),
                       ),
                     ),
@@ -419,12 +419,12 @@ class _LibrarySection extends StatelessWidget {
                       onTap: () => _showCreatePlaylist(context),
                       borderRadius: BorderRadius.circular(50),
                       hoverColor: Colors.white.withValues(alpha: 0.1),
-                      child: const Padding(
+                      child: Padding(
                         padding: EdgeInsets.all(4),
                         child: Icon(
                           Icons.add_rounded,
                           size: 18,
-                          color: Color(0xFF9CA3AF),
+                          color: context.octave.text2,
                         ),
                       ),
                     ),
@@ -485,7 +485,7 @@ class _LibrarySection extends StatelessWidget {
     await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF282828),
+        backgroundColor: context.octave.surface3,
         title:
             Text(l10n.newPlaylist, style: const TextStyle(color: Colors.white)),
         content: TextField(
@@ -494,9 +494,9 @@ class _LibrarySection extends StatelessWidget {
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: l10n.playlistName,
-            hintStyle: const TextStyle(color: Color(0xFF6B7280)),
+            hintStyle: TextStyle(color: context.octave.text3),
             filled: true,
-            fillColor: const Color(0xFF383838),
+            fillColor: context.octave.surface3,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide.none,
@@ -509,11 +509,11 @@ class _LibrarySection extends StatelessWidget {
           TextButton(
             onPressed: () => Navigator.pop(ctx),
             child: Text(l10n.cancel,
-                style: const TextStyle(color: Color(0xFFB3B3B3))),
+                style: TextStyle(color: context.octave.text2)),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFA243C),
+              backgroundColor: context.octave.accent,
               foregroundColor: Colors.white,
             ),
             onPressed: () => _doCreate(ctx, controller, libraryProvider, l10n),
@@ -551,7 +551,7 @@ class _LibrarySection extends StatelessWidget {
           SnackBar(
             content: Text(l10n.errorCreatingPlaylist(e)),
             behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.red,
+            backgroundColor: ctx.octave.danger,
           ),
         );
       }
@@ -637,8 +637,8 @@ class _PlaylistTileState extends State<_PlaylistTile> {
                       widget.playlist.name,
                       style: TextStyle(
                         color: _isHovered 
-                            ? (Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black) 
-                            : (Theme.of(context).brightness == Brightness.dark ? const Color(0xFFE5E7EB) : Colors.black87),
+                            ? (context.octave.text1) 
+                            : (context.octave.text1),
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                       ),
@@ -648,8 +648,8 @@ class _PlaylistTileState extends State<_PlaylistTile> {
                     if (widget.playlist.songCount != null)
                       Text(
                         '${widget.playlist.songCount} songs',
-                        style: const TextStyle(
-                          color: Color(0xFF6B7280),
+                        style: TextStyle(
+                          color: context.octave.text3,
                           fontSize: 11,
                         ),
                         maxLines: 1,
@@ -661,7 +661,7 @@ class _PlaylistTileState extends State<_PlaylistTile> {
               if (_isHovered)
                 IconButton(
                   icon: const Icon(Icons.more_vert, size: 16),
-                  color: const Color(0xFF9CA3AF),
+                  color: context.octave.text2,
                   padding: EdgeInsets.zero,
                   constraints:
                       const BoxConstraints(minWidth: 24, minHeight: 24),
@@ -694,8 +694,8 @@ class _DisconnectButtonState extends State<_DisconnectButton> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final hoverColor = isDark ? Colors.white : Colors.black;
-    final defaultColor = const Color(0xFF9CA3AF);
+    final hoverColor = context.octave.text1;
+    final defaultColor = context.octave.text2;
     
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
@@ -778,15 +778,15 @@ class _CollapseButton extends StatelessWidget {
                 isCollapsed
                     ? Icons.keyboard_double_arrow_right_rounded
                     : Icons.keyboard_double_arrow_left_rounded,
-                color: const Color(0xFF6B7280),
+                color: context.octave.text3,
                 size: 18,
               ),
               if (!isCollapsed) ...[
                 const SizedBox(width: 10),
                 Text(
                   label,
-                  style: const TextStyle(
-                    color: Color(0xFF6B7280),
+                  style: TextStyle(
+                    color: context.octave.text3,
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),

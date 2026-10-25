@@ -27,7 +27,6 @@ class _ArtistCardState extends State<ArtistCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return RepaintBoundary(
       child: MouseRegion(
@@ -97,7 +96,7 @@ class _ArtistCardState extends State<ArtistCard> {
                                 width: 48,
                                 height: 48,
                                 decoration: BoxDecoration(
-                                  color: AppTheme.brandGreen,
+                                  color: context.octave.accent,
                                   shape: BoxShape.circle,
                                   boxShadow: [
                                     BoxShadow(
@@ -141,9 +140,7 @@ class _ArtistCardState extends State<ArtistCard> {
                   Text(
                     '${widget.artist.albumCount} albums',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -190,9 +187,9 @@ class ArtistTile extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
-      trailing: const Icon(
+      trailing: Icon(
         Icons.chevron_right,
-        color: AppTheme.lightSecondaryText,
+        color: context.octave.text2,
       ),
       onTap: onTap,
     );

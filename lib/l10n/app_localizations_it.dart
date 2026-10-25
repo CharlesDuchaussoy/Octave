@@ -3009,4 +3009,23 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Usa server attivo dell\'app';
+
+  @override
+  String get colorIntensityLabel => 'Color intensity';
+
+  @override
+  String get colorIntensityNeutral => 'Neutral';
+
+  @override
+  String get colorIntensityVivid => 'Colorful';
+
+  @override
+  String get pureBlackLabel => 'Pure black';
+
+  @override
+  String get pureBlackSubtitle =>
+      'Black background in dark mode, saves battery on OLED screens';
+
+  @override
+  String get accentColorOctave => 'Octave night blue';
 }

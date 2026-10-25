@@ -133,7 +133,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       backgroundColor:
-          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+          context.octave.background,
       resizeToAvoidBottomInset: false,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -144,7 +144,7 @@ class _SearchScreenState extends State<SearchScreen> {
             floating: false,
             expandedHeight: 140,
             backgroundColor:
-                isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+                context.octave.background,
             elevation: 0,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: EdgeInsets.only(left: hPad, bottom: 62),
@@ -153,7 +153,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 style: TextStyle(
                   fontSize: _isDesktop ? 28 : 24,
                   fontWeight: FontWeight.bold,
-                  color: isDark ? Colors.white : Colors.black87,
+                  color: context.octave.text1,
                   letterSpacing: -0.5,
                 ),
               ),
@@ -273,7 +273,7 @@ class _SearchScreenState extends State<SearchScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? primary
-              : (isDark ? const Color(0xFF282828) : const Color(0xFFE5E7EB)),
+              : (context.octave.surface3),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Center(
@@ -284,7 +284,7 @@ class _SearchScreenState extends State<SearchScreen> {
               fontWeight: FontWeight.w600,
               color: isSelected
                   ? onPrimary
-                  : (isDark ? Colors.white : Colors.black87),
+                  : (context.octave.text1),
             ),
           ),
         ),
@@ -344,7 +344,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   onDeleted: () => setState(() => _recentQueries.remove(q)),
                   backgroundColor:
-                      isDark ? const Color(0xFF282828) : Colors.grey[200],
+                      context.octave.surface3,
                 );
               }).toList(),
             ),

@@ -23,12 +23,12 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
     final theme = Theme.of(context);
     return theme.copyWith(
       appBarTheme: AppBarTheme(
-        backgroundColor: isDark ? AppTheme.darkBackground : Colors.white,
+        backgroundColor: context.octave.background,
         elevation: 0.5,
-        iconTheme: IconThemeData(color: isDark ? Colors.white : Colors.black),
+        iconTheme: IconThemeData(color: context.octave.text1),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        hintStyle: TextStyle(color: isDark ? Colors.white54 : Colors.black45),
+        hintStyle: TextStyle(color: context.octave.text3),
       ),
     );
   }
@@ -64,13 +64,13 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
             Icon(
               CupertinoIcons.search,
               size: 64,
-              color: isDark ? Colors.white38 : Colors.black26,
+              color: context.octave.text3,
             ),
             const SizedBox(height: 16),
             Text(
               'Search your library',
               style: TextStyle(
-                color: isDark ? Colors.white54 : Colors.black45,
+                color: context.octave.text3,
                 fontSize: 16,
               ),
             ),
@@ -96,13 +96,13 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
             Icon(
               CupertinoIcons.search,
               size: 64,
-              color: isDark ? Colors.white38 : Colors.black26,
+              color: context.octave.text3,
             ),
             const SizedBox(height: 16),
             Text(
               'No playlists found',
               style: TextStyle(
-                color: isDark ? Colors.white54 : Colors.black45,
+                color: context.octave.text3,
                 fontSize: 16,
               ),
             ),
@@ -120,7 +120,7 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: isDark ? Colors.white : Colors.black,
+              color: context.octave.text1,
             ),
           ),
         ),
@@ -131,11 +131,11 @@ class LibrarySearchDelegate extends SearchDelegate<String> {
               height: 48,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
-                color: AppTheme.brandRed.withValues(alpha: 0.2),
+                color: context.octave.accentSoft,
               ),
-              child: const Icon(
+              child: Icon(
                 CupertinoIcons.music_note_list,
-                color: AppTheme.brandRed,
+                color: context.octave.accent,
               ),
             ),
             title: Text(playlist.name),

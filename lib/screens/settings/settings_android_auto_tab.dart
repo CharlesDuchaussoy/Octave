@@ -82,7 +82,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
               title: l10n.androidAutoDefaultServer,
               subtitle: l10n.androidAutoDefaultServerDesc,
               icon: CupertinoIcons.cloud,
-              gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
               trailing: Container(
                 constraints: const BoxConstraints(maxWidth: 180),
                 child: DropdownButton<String?>(
@@ -125,7 +124,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowRecent,
               icon: CupertinoIcons.clock,
-              gradientColors: const [Color(0xFF007AFF), Color(0xFF5AC8FA)],
               value: _showRecent,
               onChanged: (val) async {
                 await _settings.setShowRecent(val);
@@ -136,7 +134,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowFavorites,
               icon: CupertinoIcons.heart_fill,
-              gradientColors: const [Color(0xFFFF2D55), Color(0xFFFF375F)],
               value: _showFavorites,
               onChanged: (val) async {
                 await _settings.setShowFavorites(val);
@@ -147,7 +144,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowAlbums,
               icon: CupertinoIcons.square_stack_3d_up,
-              gradientColors: const [Color(0xFFAF52DE), Color(0xFFBF5AF2)],
               value: _showAlbums,
               onChanged: (val) async {
                 await _settings.setShowAlbums(val);
@@ -158,7 +154,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowArtists,
               icon: CupertinoIcons.person_2_fill,
-              gradientColors: const [Color(0xFFFF9500), Color(0xFFFF9F0A)],
               value: _showArtists,
               onChanged: (val) async {
                 await _settings.setShowArtists(val);
@@ -169,7 +164,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowPlaylists,
               icon: CupertinoIcons.music_note_list,
-              gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
               value: _showPlaylists,
               onChanged: (val) async {
                 await _settings.setShowPlaylists(val);
@@ -180,7 +174,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowGenres,
               icon: CupertinoIcons.guitars,
-              gradientColors: const [Color(0xFFFFCC00), Color(0xFFFFD60A)],
               value: _showGenres,
               onChanged: (val) async {
                 await _settings.setShowGenres(val);
@@ -191,7 +184,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowRadio,
               icon: CupertinoIcons.radiowaves_right,
-              gradientColors: const [Color(0xFF5856D6), Color(0xFF5E5CE6)],
               value: _showRadio,
               onChanged: (val) async {
                 await _settings.setShowRadio(val);
@@ -202,7 +194,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
             SettingsSwitchTile(
               title: l10n.androidAutoShowDownloads,
               icon: CupertinoIcons.cloud_download,
-              gradientColors: const [Color(0xFF32ADE6), Color(0xFF64D2FF)],
               value: _showDownloads,
               onChanged: (val) async {
                 await _settings.setShowDownloads(val);
@@ -219,7 +210,6 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
               title: l10n.androidAutoMaxItems,
               subtitle: l10n.androidAutoMaxItemsDesc,
               icon: CupertinoIcons.speedometer,
-              gradientColors: const [Color(0xFFFF3B30), Color(0xFFFF453A)],
               trailing: DropdownButton<int>(
                 value: _maxItems,
                 underline: const SizedBox(),

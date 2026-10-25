@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:musly/services/storage_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/theme/app_theme.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final VoidCallback? onFinished;
@@ -60,15 +61,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           titlePrefix: l10n.onboardingSlide1TitlePrefix,
           titleHighlight: l10n.onboardingSlide1TitleHighlight,
           description: l10n.onboardingSlide1Description,
-          highlightColor: const Color(0xFF60A5FA),
+          highlightColor: AppTheme.brandSky,
           auraColors: const [
-            Color(0xFF1E3A8A),
-            Color(0xFF2563EB),
-            Color(0xFF38BDF8),
-            Color(0xFF60A5FA),
+            AppTheme.brandNavy,
+            AppTheme.brandBlue,
+            AppTheme.brandIce,
+            AppTheme.brandDeep,
           ],
-          buttonGradient: const [Color(0xFF2563EB), Color(0xFF38BDF8)],
-          glowColor: const Color(0xFF2563EB),
+          buttonGradient: const [AppTheme.brandBlue, AppTheme.brandDeep],
+          glowColor: AppTheme.brandBlue,
           buttonText: l10n.onboardingNext,
           features: [
             _OnboardingFeature(
@@ -92,15 +93,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           titlePrefix: l10n.onboardingSlide2TitlePrefix,
           titleHighlight: l10n.onboardingSlide2TitleHighlight,
           description: l10n.onboardingSlide2Description,
-          highlightColor: const Color(0xFFFB923C),
+          highlightColor: AppTheme.brandIce,
           auraColors: const [
-            Color(0xFF7C2D12),
-            Color(0xFFEA580C),
-            Color(0xFFF97316),
-            Color(0xFFFBBF24),
+            AppTheme.brandDeep,
+            AppTheme.brandNavy,
+            AppTheme.brandBlue,
+            AppTheme.brandSky,
           ],
-          buttonGradient: const [Color(0xFFEA580C), Color(0xFFF97316)],
-          glowColor: const Color(0xFFEA580C),
+          buttonGradient: const [AppTheme.brandBlue, AppTheme.brandDeep],
+          glowColor: AppTheme.brandIce,
           buttonText: l10n.onboardingNext,
           features: [
             _OnboardingFeature(
@@ -124,15 +125,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           titlePrefix: l10n.onboardingSlide3TitlePrefix,
           titleHighlight: l10n.onboardingSlide3TitleHighlight,
           description: l10n.onboardingSlide3Description,
-          highlightColor: const Color(0xFF34D399),
+          highlightColor: AppTheme.brandSky,
           auraColors: const [
-            Color(0xFF064E3B),
-            Color(0xFF059669),
-            Color(0xFF10B981),
-            Color(0xFF34D399),
+            AppTheme.brandNavy,
+            AppTheme.brandIce,
+            AppTheme.brandBlue,
+            AppTheme.brandSky,
           ],
-          buttonGradient: const [Color(0xFF059669), Color(0xFF10B981)],
-          glowColor: const Color(0xFF10B981),
+          buttonGradient: const [AppTheme.brandBlue, AppTheme.brandDeep],
+          glowColor: AppTheme.brandBlue,
           buttonText: l10n.onboardingGetStarted,
           features: [
             _OnboardingFeature(
@@ -235,7 +236,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       focusNode: _keyboardFocusNode,
       onKeyEvent: _handleKeyEvent,
       child: Scaffold(
-        backgroundColor: const Color(0xFF090A0E),
+        backgroundColor: AppTheme.brandNight,
         body: AnnotatedRegion<SystemUiOverlayStyle>(
           value: SystemUiOverlayStyle.light,
           child: Stack(
@@ -256,8 +257,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         currentItem.auraColors[0]
                             .withValues(alpha: isDesktop ? 0.55 : 0.65),
                         currentItem.auraColors[2].withValues(alpha: 0.25),
-                        const Color(0xFF090A0E).withValues(alpha: 0.95),
-                        const Color(0xFF090A0E),
+                        AppTheme.brandNight.withValues(alpha: 0.95),
+                        AppTheme.brandNight,
                       ],
                       stops: const [0.0, 0.35, 0.65, 0.88, 1.0],
                     ),

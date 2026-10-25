@@ -148,7 +148,7 @@ class _GenreScreenState extends State<GenreScreen>
             Icon(
               Icons.error_outline,
               size: 64,
-              color: AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
             const SizedBox(height: 16),
             Text(
@@ -170,7 +170,7 @@ class _GenreScreenState extends State<GenreScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.music_off, size: 64, color: AppTheme.lightSecondaryText),
+            Icon(Icons.music_off, size: 64, color: context.octave.text3),
             const SizedBox(height: 16),
             Text(
               l10n.noSongsInGenre,
@@ -208,7 +208,7 @@ class _GenreScreenState extends State<GenreScreen>
             Icon(
               Icons.error_outline,
               size: 64,
-              color: AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
             const SizedBox(height: 16),
             Text(
@@ -230,7 +230,7 @@ class _GenreScreenState extends State<GenreScreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.album, size: 64, color: AppTheme.lightSecondaryText),
+            Icon(Icons.album, size: 64, color: context.octave.text3),
             const SizedBox(height: 16),
             Text(
               l10n.noAlbumsInGenre,

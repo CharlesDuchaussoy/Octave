@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/offline_service.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 bool isLocalFilePath(String? s) {
   if (s == null || s.isEmpty) return false;
@@ -180,6 +181,7 @@ class AlbumArtwork extends StatelessWidget {
         : (validSize <= 80 ? baseSize.clamp(64, 200) : cacheSize);
 
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final colors = context.octave;
     final resolvedShadow = _resolvedShadow(
       context,
       resolvedRadius,
@@ -197,7 +199,7 @@ class AlbumArtwork extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(resolvedRadius),
-          child: _buildImageNatural(isDark, cacheSize, memCacheSize),
+          child: _buildImageNatural(colors, cacheSize, memCacheSize),
         ),
       );
     }
@@ -212,13 +214,13 @@ class AlbumArtwork extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(resolvedRadius),
-        child: _buildImage(isDark, cacheSize, memCacheSize),
+        child: _buildImage(colors, cacheSize, memCacheSize),
       ),
     );
   }
 
-  Widget _buildImageNatural(bool isDark, int cacheSize, int? memCacheSize) {
-    if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(isDark);
+  Widget _buildImageNatural(OctaveColors colors, int cacheSize, int? memCacheSize) {
+    if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(colors);
 
     final int? diskCacheSize =
         cacheSize > 0 ? (cacheSize > 600 ? cacheSize : 600) : null;
@@ -237,7 +239,7 @@ class AlbumArtwork extends StatelessWidget {
         fit: BoxFit.contain,
         cacheWidth: memCacheSize,
         cacheHeight: memCacheSize,
-        errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
+        errorBuilder: (ctx, err, stack) => _buildPlaceholder(colors),
       );
     }
 
@@ -251,7 +253,7 @@ class AlbumArtwork extends StatelessWidget {
           fit: BoxFit.contain,
           cacheWidth: memCacheSize,
           cacheHeight: memCacheSize,
-          errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
+          errorBuilder: (ctx, err, stack) => _buildPlaceholder(colors),
         );
       }
     }
@@ -263,7 +265,7 @@ class AlbumArtwork extends StatelessWidget {
           coverArt,
           cacheSize,
         );
-        if (imageUrl.isEmpty) return _buildPlaceholder(isDark);
+        if (imageUrl.isEmpty) return _buildPlaceholder(colors);
         return CachedNetworkImage(
           imageUrl: imageUrl,
           cacheKey: cacheKey,
@@ -276,17 +278,17 @@ class AlbumArtwork extends StatelessWidget {
           fadeInDuration: Duration.zero,
           fadeOutDuration: Duration.zero,
           useOldImageOnUrlChange: true,
-          placeholder: (ctx, url) => _buildPlaceholder(isDark),
+          placeholder: (ctx, url) => _buildPlaceholder(colors),
           errorWidget: (ctx, err, stack) {
-            return _buildPlaceholder(isDark);
+            return _buildPlaceholder(colors);
           },
         );
       },
     );
   }
 
-  Widget _buildImage(bool isDark, int cacheSize, int? memCacheSize) {
-    if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(isDark);
+  Widget _buildImage(OctaveColors colors, int cacheSize, int? memCacheSize) {
+    if (coverArt == null || coverArt!.isEmpty) return _buildPlaceholder(colors);
 
     final int? diskCacheSize =
         cacheSize > 0 ? (cacheSize > 600 ? cacheSize : 600) : null;
@@ -305,7 +307,7 @@ class AlbumArtwork extends StatelessWidget {
         fit: BoxFit.cover,
         cacheWidth: memCacheSize,
         cacheHeight: memCacheSize,
-        errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
+        errorBuilder: (ctx, err, stack) => _buildPlaceholder(colors),
       );
     }
 
@@ -319,7 +321,7 @@ class AlbumArtwork extends StatelessWidget {
           fit: BoxFit.cover,
           cacheWidth: memCacheSize,
           cacheHeight: memCacheSize,
-          errorBuilder: (ctx, err, stack) => _buildPlaceholder(isDark),
+          errorBuilder: (ctx, err, stack) => _buildPlaceholder(colors),
         );
       }
     }
@@ -331,7 +333,7 @@ class AlbumArtwork extends StatelessWidget {
           coverArt,
           cacheSize,
         );
-        if (imageUrl.isEmpty) return _buildPlaceholder(isDark);
+        if (imageUrl.isEmpty) return _buildPlaceholder(colors);
         return CachedNetworkImage(
           imageUrl: imageUrl,
           cacheKey: cacheKey,
@@ -344,31 +346,29 @@ class AlbumArtwork extends StatelessWidget {
           fadeInDuration: Duration.zero,
           fadeOutDuration: Duration.zero,
           useOldImageOnUrlChange: true,
-          placeholder: (ctx, url) => _buildPlaceholder(isDark),
+          placeholder: (ctx, url) => _buildPlaceholder(colors),
           errorWidget: (ctx, err, stack) {
-            return _buildPlaceholder(isDark);
+            return _buildPlaceholder(colors);
           },
         );
       },
     );
   }
 
-  Widget _buildPlaceholder(bool isDark) {
+  Widget _buildPlaceholder(OctaveColors colors) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: isDark
-              ? [const Color(0xFF2A2A2A), const Color(0xFF1A1A1A)]
-              : [Colors.grey.shade300, Colors.grey.shade200],
+          colors: [colors.surface3, colors.surface2],
         ),
       ),
       child: Center(
         child: Icon(
           Icons.music_note_rounded,
           size: (size / 3).clamp(16.0, 60.0),
-          color: isDark ? Colors.white24 : Colors.black12,
+          color: colors.text3,
         ),
       ),
     );

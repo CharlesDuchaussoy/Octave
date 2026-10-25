@@ -23,8 +23,6 @@ class _SettingsScreenState extends State<SettingsScreen>
   late TabController _tabController;
   int _selectedIndex = 0;
 
-  bool get _isDark => Theme.of(context).brightness == Brightness.dark;
-
   bool get _isDesktop {
     if (kIsWeb) return false;
     return Platform.isWindows || Platform.isLinux || Platform.isMacOS;
@@ -74,12 +72,12 @@ class _SettingsScreenState extends State<SettingsScreen>
     if (_isDesktop) {
       return Scaffold(
         backgroundColor:
-            _isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+            context.octave.background,
         appBar: AppBar(
           title: Text(l10n.settingsTitle),
           centerTitle: false,
           backgroundColor:
-              _isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+              context.octave.background,
           surfaceTintColor: Colors.transparent,
           elevation: 0,
         ),
@@ -105,7 +103,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                       tabs[index].icon,
                       color: isSelected
                           ? Theme.of(context).colorScheme.primary
-                          : (_isDark ? Colors.white70 : Colors.black87),
+                          : (context.octave.text2),
                     ),
                     title: Text(
                       tabs[index].text,
@@ -114,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                             isSelected ? FontWeight.bold : FontWeight.normal,
                         color: isSelected
                             ? Theme.of(context).colorScheme.primary
-                            : (_isDark ? Colors.white : Colors.black),
+                            : (context.octave.text1),
                       ),
                     ),
                     selected: isSelected,
@@ -149,12 +147,12 @@ class _SettingsScreenState extends State<SettingsScreen>
 
     return Scaffold(
       backgroundColor:
-          _isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+          context.octave.background,
       appBar: AppBar(
         title: Text(l10n.settingsTitle),
         centerTitle: false,
         backgroundColor:
-            _isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+            context.octave.background,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         bottom: TabBar(
@@ -163,9 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen>
           tabAlignment: TabAlignment.start,
           indicatorColor: Theme.of(context).colorScheme.primary,
           labelColor: Theme.of(context).colorScheme.primary,
-          unselectedLabelColor: _isDark
-              ? AppTheme.darkSecondaryText
-              : AppTheme.lightSecondaryText,
+          unselectedLabelColor: context.octave.text2,
           labelStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,

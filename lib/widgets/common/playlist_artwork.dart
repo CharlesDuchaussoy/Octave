@@ -142,14 +142,14 @@ class PlaylistArtwork extends StatelessWidget {
           width: validSize,
           height: validSize,
           decoration: BoxDecoration(
-            color: AppTheme.brandRed.withValues(alpha: 0.15),
+            color: context.octave.accentSoft,
             borderRadius: BorderRadius.circular(borderRadius),
             boxShadow: shadow != null ? [shadow!] : null,
           ),
           child: Center(
             child: Icon(
               CupertinoIcons.music_note_list,
-              color: AppTheme.brandRed,
+              color: context.octave.accent,
               size: validSize * 0.4,
             ),
           ),

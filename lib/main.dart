@@ -63,6 +63,13 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  LicenseRegistry.addLicense(() async* {
+    yield LicenseEntryWithLineBreaks(
+      ['Inter'],
+      await rootBundle.loadString('assets/fonts/inter/OFL.txt'),
+    );
+  });
+
   if (!kIsWeb && Platform.isAndroid) {
     try {
       await FlutterDisplayMode.setHighRefreshRate();
@@ -238,36 +245,24 @@ class MuslyApp extends StatelessWidget {
 
     return DynamicColorBuilder(
       builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-        final ThemeData light;
-        final ThemeData dark;
-
-        if (themeService.accentColor.isDynamic) {
-          if (lightDynamic != null && darkDynamic != null) {
-            light = AppTheme.lightThemeFromScheme(lightDynamic.harmonized());
-            dark = AppTheme.darkThemeFromScheme(darkDynamic.harmonized());
-          } else {
-            final fallbackAccent = themeService.accentColor.color;
-            light = AppTheme.lightThemeWith(fallbackAccent);
-            dark = AppTheme.darkThemeWith(fallbackAccent);
-          }
-        } else {
-          final accent = themeService.accentColor.color;
-          if (lightDynamic != null && darkDynamic != null) {
-            final harmonisedLight = lightDynamic.harmonized().copyWith(
-                  primary: accent,
-                  secondary: accent.withAlpha(200),
-                );
-            final harmonisedDark = darkDynamic.harmonized().copyWith(
-                  primary: accent,
-                  secondary: accent.withAlpha(200),
-                );
-            light = AppTheme.lightThemeFromScheme(harmonisedLight);
-            dark = AppTheme.darkThemeFromScheme(harmonisedDark);
-          } else {
-            light = AppTheme.lightThemeWith(accent);
-            dark = AppTheme.darkThemeWith(accent);
-          }
-        }
+        final accent = themeService.accentColor;
+        final lightSeed = accent.isDynamic && lightDynamic != null
+            ? lightDynamic.primary
+            : accent.color;
+        final darkSeed = accent.isDynamic && darkDynamic != null
+            ? darkDynamic.primary
+            : accent.color;
+        final light = OctaveTheme.build(OctavePalette.build(
+          seed: lightSeed,
+          brightness: Brightness.light,
+          intensity: themeService.intensity,
+        ));
+        final dark = OctaveTheme.build(OctavePalette.build(
+          seed: darkSeed,
+          brightness: Brightness.dark,
+          intensity: themeService.intensity,
+          pureBlack: themeService.pureBlack,
+        ));
 
         return MaterialApp(
           title: 'Octave',
@@ -379,7 +374,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
         if (authProvider.config == null) {
           if (!_checkedOnboarding) {
             return const Scaffold(
-              backgroundColor: Color(0xFF090A0E),
               body: Center(child: CircularProgressIndicator()),
             );
           }
@@ -396,7 +390,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
       case AuthState.error:
         if (!_checkedOnboarding) {
           return const Scaffold(
-            backgroundColor: Color(0xFF090A0E),
             body: Center(child: CircularProgressIndicator()),
           );
         }
@@ -531,9 +524,7 @@ class _ServerUnreachableScreen extends StatelessWidget {
         color: Colors.transparent,
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(ctx).brightness == Brightness.dark
-                ? AppTheme.darkSurface
-                : Colors.white,
+            color: ctx.octave.surface1,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           ),
           child: SafeArea(
@@ -545,9 +536,7 @@ class _ServerUnreachableScreen extends StatelessWidget {
                   width: 36,
                   height: 5,
                   decoration: BoxDecoration(
-                    color: Theme.of(ctx).brightness == Brightness.dark
-                        ? AppTheme.darkDivider
-                        : AppTheme.lightDivider,
+                    color: ctx.octave.separator,
                     borderRadius: BorderRadius.circular(2.5),
                   ),
                 ),

@@ -73,12 +73,11 @@ class _RadioScreenState extends State<RadioScreen> {
   }
 
   void _showStationOptions(RadioStation station) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
       context: context,
-      backgroundColor: isDark ? AppTheme.darkSurface : Colors.white,
+      backgroundColor: context.octave.surface1,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
@@ -101,7 +100,7 @@ class _RadioScreenState extends State<RadioScreen> {
                 leading: const Icon(CupertinoIcons.play_circle),
                 title: Text(
                   l10n.playAll,
-                  style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                  style: TextStyle(color: context.octave.text1),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -115,7 +114,7 @@ class _RadioScreenState extends State<RadioScreen> {
                   title: Text(
                     'Homepage',
                     style:
-                        TextStyle(color: isDark ? Colors.white : Colors.black),
+                        TextStyle(color: context.octave.text1),
                   ),
                   onTap: () {
                     Navigator.pop(context);
@@ -126,7 +125,7 @@ class _RadioScreenState extends State<RadioScreen> {
                 leading: const Icon(CupertinoIcons.link),
                 title: Text(
                   l10n.copyStreamUrl,
-                  style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                  style: TextStyle(color: context.octave.text1),
                 ),
                 onTap: () {
                   Navigator.pop(context);
@@ -152,7 +151,7 @@ class _RadioScreenState extends State<RadioScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.radioStations),
-        backgroundColor: isDark ? AppTheme.darkBackground : Colors.white,
+        backgroundColor: context.octave.background,
         actions: [
           IconButton(
             icon: const Icon(CupertinoIcons.refresh),
@@ -179,10 +178,10 @@ class _RadioScreenState extends State<RadioScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 CupertinoIcons.exclamationmark_triangle,
                 size: 64,
-                color: Colors.orange,
+                color: context.octave.warning,
               ),
               const SizedBox(height: 16),
               Text(
@@ -270,7 +269,6 @@ class _RadioStationTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Consumer<PlayerProvider>(
       builder: (context, playerProvider, child) {
@@ -297,7 +295,7 @@ class _RadioStationTile extends StatelessWidget {
                             .primary
                             .withValues(alpha: 0.7),
                       ]
-                    : [const Color(0xFF5856D6), const Color(0xFF007AFF)],
+                    : [context.octave.accent, context.octave.accent],
               ),
               borderRadius: BorderRadius.circular(12),
             ),
@@ -316,7 +314,7 @@ class _RadioStationTile extends StatelessWidget {
               fontWeight: FontWeight.w600,
               color: isPlaying
                   ? Theme.of(context).colorScheme.primary
-                  : (isDark ? Colors.white : Colors.black),
+                  : (context.octave.text1),
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -325,7 +323,7 @@ class _RadioStationTile extends StatelessWidget {
             station.streamUrl,
             style: TextStyle(
               fontSize: 13,
-              color: isDark ? Colors.white54 : Colors.black45,
+              color: context.octave.text3,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -365,7 +363,7 @@ class _RadioStationTile extends StatelessWidget {
                 )
               : Icon(
                   CupertinoIcons.play_circle_fill,
-                  color: isDark ? Colors.white38 : Colors.black26,
+                  color: context.octave.text3,
                   size: 32,
                 ),
           onTap: onTap,

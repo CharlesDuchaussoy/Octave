@@ -77,8 +77,6 @@ class MiniPlayer extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
-        final theme = Theme.of(context);
-        final isDark = theme.brightness == Brightness.dark;
 
         final String title;
         final String? subtitle;
@@ -133,14 +131,10 @@ class MiniPlayer extends StatelessWidget {
                   height: 64,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
-                    color: isDark
-                        ? const Color(0xF01C1C1E)
-                        : const Color(0xF5FFFFFF),
+                    color: context.octave.miniPlayer.withValues(alpha: 0.94),
                     borderRadius: BorderRadius.circular(22),
                     border: Border.all(
-                      color: isDark
-                          ? Colors.white.withValues(alpha: 0.14)
-                          : Colors.black.withValues(alpha: 0.08),
+                      color: context.octave.separator.withValues(alpha: 0.6),
                       width: 0.8,
                     ),
                   ),
@@ -171,13 +165,11 @@ class MiniPlayer extends StatelessWidget {
             child: Container(
               height: 64,
               decoration: BoxDecoration(
-                color: isDark
-                    ? Colors.black.withValues(alpha: 0.95)
-                    : Colors.white.withValues(alpha: 0.95),
+                color: context.octave.miniPlayer.withValues(alpha: 0.97),
                 border: Border(
                   top: BorderSide(
                     color:
-                        isDark ? AppTheme.darkDivider : AppTheme.lightDivider,
+                        context.octave.separator,
                     width: 0.5,
                   ),
                 ),
@@ -214,7 +206,6 @@ class _MiniPlayerProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final primary = theme.colorScheme.primary;
 
     return Selector<PlayerProvider, (Duration, int?, bool)>(
@@ -224,13 +215,7 @@ class _MiniPlayerProgressBar extends StatelessWidget {
         final (duration, songDurationSec, isRadio) = data;
         if (isRadio) return const SizedBox.shrink();
 
-        final trackColor = isDark
-            ? (isGlass
-                ? Colors.white.withValues(alpha: 0.08)
-                : Colors.white.withValues(alpha: 0.12))
-            : (isGlass
-                ? Colors.black.withValues(alpha: 0.06)
-                : Colors.black.withValues(alpha: 0.08));
+        final trackColor = context.octave.progressTrack;
 
         final totalMs = duration.inMilliseconds > 0
             ? duration.inMilliseconds
@@ -311,14 +296,18 @@ class _MiniPlayerRow extends StatelessWidget {
               width: 44,
               height: 44,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color(0xFFFF2D55), Color(0xFFFF6B35)],
+                  colors: [
+                    context.octave.accentSoft,
+                    Color.lerp(
+                        context.octave.accentSoft, context.octave.background, 0.45)!,
+                  ],
                 ),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: const Icon(Icons.radio, color: Colors.white, size: 24),
+              child: Icon(Icons.radio, color: context.octave.accent, size: 24),
             )
           else
             AlbumArtwork(coverArt: coverArt, size: 44, borderRadius: 6),
@@ -387,8 +376,7 @@ class _MiniPlayerControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final color = isDark ? Colors.white : Colors.black;
+    final color = context.octave.text1;
 
     return Selector<PlayerProvider, (bool, bool)>(
       selector: (_, p) => (p.isPlaying, p.hasNext),

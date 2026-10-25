@@ -11,6 +11,7 @@ import 'package:musly/services/recommendation_service.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/services/favorite_playlists_service.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
+import 'package:musly/octave/widgets/octave_icon_art.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/widgets/widgets.dart';
@@ -91,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor:
-          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+          context.octave.background,
       body: RefreshIndicator(
         color: Theme.of(context).colorScheme.primary,
         onRefresh: () async {
@@ -109,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
               floating: true,
               expandedHeight: 110,
               backgroundColor:
-                  isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+                  context.octave.background,
               elevation: 0,
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: EdgeInsets.only(left: hPad, bottom: 48),
@@ -121,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: TextStyle(
                         fontSize: isDesktop ? 24 : 20,
                         fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black87,
+                        color: context.octave.text1,
                         letterSpacing: -0.5,
                       ),
                     ),
@@ -132,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.clock,
-                    color: isDark ? Colors.white : Colors.black87,
+                    color: context.octave.text1,
                     size: 22,
                   ),
                   tooltip: AppLocalizations.of(context)!.history,
@@ -142,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(
                     CupertinoIcons.gear_alt,
-                    color: isDark ? Colors.white : Colors.black87,
+                    color: context.octave.text1,
                     size: 22,
                   ),
                   tooltip: AppLocalizations.of(context)!.settings,
@@ -459,7 +460,7 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           color: isSelected
               ? primary
-              : (isDark ? const Color(0xFF2A2A2A) : const Color(0xFFE5E7EB)),
+              : (context.octave.surface3),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -469,7 +470,7 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.w600,
             color: isSelected
                 ? onPrimary
-                : (isDark ? Colors.white : Colors.black87),
+                : (context.octave.text1),
           ),
         ),
       ),
@@ -503,18 +504,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: cardWidth,
                 child: QuickAccessTile(
                   title: 'Liked Songs',
-                  customArtwork: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xFF450AF5), Color(0xFF8E8EE5)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                    ),
-                    child: const Center(
-                      child: Icon(CupertinoIcons.heart_fill,
-                          color: Colors.white, size: 22),
-                    ),
+                  customArtwork: const OctaveIconArt(
+                    icon: CupertinoIcons.heart_fill,
+                    iconSize: 22,
                   ),
                   onTap: () =>
                       NavigationHelper.push(context, const FavoritesScreen()),
@@ -743,15 +735,15 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFFFA243C), Color(0xFF8B5CF6)],
+              gradient: LinearGradient(
+                colors: [context.octave.accent, context.octave.accent],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(18),
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFFFA243C).withValues(alpha: 0.35),
+                  color: context.octave.accent.withValues(alpha: 0.35),
                   blurRadius: 18,
                   offset: const Offset(0, 6),
                 ),

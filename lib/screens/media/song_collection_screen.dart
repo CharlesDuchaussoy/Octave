@@ -256,7 +256,6 @@ class _SongCollectionScreenState extends State<SongCollectionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final title = _getTitle(context);
     final totalDuration = _calculateTotalDuration();
 
@@ -357,9 +356,7 @@ class _SongCollectionScreenState extends State<SongCollectionScreen> {
                         '${AppLocalizations.of(context)!.songsCount(_filteredSongs.length)} • ${FormatUtils.formatDurationSummary(totalDuration)}',
                         style: TextStyle(
                           fontSize: 12,
-                          color: isDark
-                              ? AppTheme.darkSecondaryText
-                              : AppTheme.lightSecondaryText,
+                          color: context.octave.text2,
                         ),
                       ),
                     ],
@@ -409,7 +406,7 @@ class _SongCollectionScreenState extends State<SongCollectionScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.error_outline_rounded,
-                size: 64, color: AppTheme.lightSecondaryText),
+                size: 64, color: context.octave.text3),
             const SizedBox(height: 16),
             Text(l10n.errorLoadingSongs, style: theme.textTheme.headlineSmall),
             const SizedBox(height: 12),
@@ -433,7 +430,7 @@ class _SongCollectionScreenState extends State<SongCollectionScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.music_off_outlined,
-                size: 64, color: AppTheme.lightSecondaryText),
+                size: 64, color: context.octave.text3),
             const SizedBox(height: 16),
             Text(l10n.noSongsAvailable, style: theme.textTheme.headlineSmall),
           ],

@@ -164,33 +164,33 @@ class _LoginScreenState extends State<LoginScreen> {
     switch (type) {
       case _LoginErrorType.ssl:
         icon = CupertinoIcons.lock_slash;
-        color = const Color(0xFFFF9500);
+        color = context.octave.warning;
         if (!_allowSelfSignedCertificates) {
           hint = 'Try enabling "Allow Self-Signed Certificates" below.';
         }
       case _LoginErrorType.credentials:
         icon = CupertinoIcons.person_badge_minus;
-        color = AppTheme.brandRed;
+        color = context.octave.danger;
         hint = 'Check your username and password and try again.';
       case _LoginErrorType.notFound:
         icon = CupertinoIcons.question_circle;
-        color = const Color(0xFFFF9500);
+        color = context.octave.warning;
         hint = 'Verify the server URL path (e.g. /navidrome, /airsonic).';
       case _LoginErrorType.timeout:
         icon = CupertinoIcons.timer;
-        color = const Color(0xFFFF9500);
+        color = context.octave.warning;
         hint = 'The server took too long to respond. Check your network.';
       case _LoginErrorType.connection:
         icon = CupertinoIcons.wifi_slash;
-        color = const Color(0xFFFF9500);
+        color = context.octave.warning;
         hint = null;
       case _LoginErrorType.format:
         icon = CupertinoIcons.link;
-        color = const Color(0xFFFF9500);
+        color = context.octave.warning;
         hint = 'URL must start with http:// or https://';
       case _LoginErrorType.generic:
         icon = CupertinoIcons.exclamationmark_triangle;
-        color = AppTheme.brandRed;
+        color = context.octave.danger;
         hint = null;
     }
 
@@ -350,7 +350,7 @@ class _LoginScreenState extends State<LoginScreen> {
               )!
                   .failedToSelectClientCert(e.toString()),
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: context.octave.danger,
           ),
         );
       }
@@ -381,7 +381,7 @@ class _LoginScreenState extends State<LoginScreen> {
               )!
                   .failedToSelectCertificate(e.toString()),
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: context.octave.danger,
           ),
         );
       }
@@ -443,7 +443,7 @@ class _LoginScreenState extends State<LoginScreen> {
             content: Text(
               AppLocalizations.of(context)!.storagePermissionRequired,
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: context.octave.danger,
           ),
         );
       }
@@ -469,7 +469,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 content: Text(added == 0
                     ? 'No files selected. Tap "Use Local Files" and pick your music files.'
                     : AppLocalizations.of(context)!.noMusicFilesFound),
-                backgroundColor: Colors.orange,
+                backgroundColor: context.octave.warning,
               ),
             );
           }
@@ -511,7 +511,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(AppLocalizations.of(context)!.noMusicFilesFound),
-              backgroundColor: Colors.orange,
+              backgroundColor: context.octave.warning,
             ),
           );
         }
@@ -601,7 +601,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         AppLocalizations.of(context)!.connectToServerSubtitle,
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: AppTheme.lightSecondaryText,
+                          color: context.octave.text2,
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -644,9 +644,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color:
-                                const Color(0xFF34C759).withValues(alpha: 0.08),
+                                context.octave.success.withValues(alpha: 0.08),
                             border: Border.all(
-                              color: const Color(0xFF34C759)
+                              color: context.octave.success
                                   .withValues(alpha: 0.3),
                             ),
                             borderRadius: BorderRadius.circular(12),
@@ -656,9 +656,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             children: [
                               Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     CupertinoIcons.folder_badge_plus,
-                                    color: Color(0xFF34C759),
+                                    color: context.octave.success,
                                     size: 22,
                                   ),
                                   const SizedBox(width: 12),
@@ -668,9 +668,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       style: TextStyle(
                                         fontSize: 13,
                                         color:
-                                            theme.brightness == Brightness.dark
-                                                ? Colors.white70
-                                                : Colors.black87,
+                                            context.octave.text2,
                                       ),
                                     ),
                                   ),
@@ -705,7 +703,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF34C759),
+                                    backgroundColor: context.octave.success,
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
@@ -719,9 +717,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 LinearProgressIndicator(
                                   value:
                                       _scanProgress > 0 ? _scanProgress : null,
-                                  backgroundColor: const Color(0xFF34C759)
+                                  backgroundColor: context.octave.success
                                       .withValues(alpha: 0.2),
-                                  color: const Color(0xFF34C759),
+                                  color: context.octave.success,
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                               ],
@@ -732,17 +730,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFFF0000).withAlpha(20),
+                            color: context.octave.danger.withAlpha(20),
                             border: Border.all(
-                              color: const Color(0xFFFF0000).withAlpha(80),
+                              color: context.octave.danger.withAlpha(80),
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Row(
                             children: [
-                              const Icon(
+                              Icon(
                                 CupertinoIcons.info_circle,
-                                color: Color(0xFFFF0000),
+                                color: context.octave.danger,
                                 size: 18,
                               ),
                               const SizedBox(width: 10),
@@ -751,10 +749,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'Web Stream streams music directly online. No account required — tap Connect to start.',
                                   style: TextStyle(
                                     fontSize: 13,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white70
-                                        : Colors.black87,
+                                    color: context.octave.text2,
                                   ),
                                 ),
                               ),
@@ -800,17 +795,17 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 8),
                             decoration: BoxDecoration(
-                              color: Colors.amber.withValues(alpha: 0.12),
+                              color: context.octave.warning.withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                  color: Colors.amber.withValues(alpha: 0.3)),
+                                  color: context.octave.warning.withValues(alpha: 0.3)),
                             ),
                             child: Row(
                               children: [
-                                const Icon(
+                                Icon(
                                     CupertinoIcons.exclamationmark_shield_fill,
                                     size: 16,
-                                    color: Colors.amber),
+                                    color: context.octave.warning),
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: Text(
@@ -997,9 +992,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: theme.brightness == Brightness.dark
-                                  ? const Color(0xFF2C2C2E)
-                                  : const Color(0xFFF2F2F7),
+                              color: context.octave.surface2,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Column(
@@ -1021,9 +1014,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Container(
                                     padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
-                                      color: theme.brightness == Brightness.dark
-                                          ? const Color(0xFF3C3C3E)
-                                          : Colors.white,
+                                      color: context.octave.surface3,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Row(
@@ -1092,9 +1083,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
-                              color: theme.brightness == Brightness.dark
-                                  ? const Color(0xFF2C2C2E)
-                                  : const Color(0xFFF2F2F7),
+                              color: context.octave.surface2,
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Column(
@@ -1116,9 +1105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Container(
                                     padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
-                                      color: theme.brightness == Brightness.dark
-                                          ? const Color(0xFF3C3C3E)
-                                          : Colors.white,
+                                      color: context.octave.surface3,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Row(
@@ -1310,7 +1297,6 @@ class _SavedProfilesSwitcherState extends State<_SavedProfilesSwitcher> {
         final profiles = snap.data ?? [];
         if (profiles.isEmpty) return const SizedBox.shrink();
 
-        final isDark = Theme.of(context).brightness == Brightness.dark;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -1319,7 +1305,7 @@ class _SavedProfilesSwitcherState extends State<_SavedProfilesSwitcher> {
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white54 : Colors.black54,
+                color: context.octave.text3,
               ),
             ),
             const SizedBox(height: 8),
@@ -1358,7 +1344,7 @@ class _SavedProfilesSwitcherState extends State<_SavedProfilesSwitcher> {
               'Tap a profile to connect • tap × to delete',
               style: TextStyle(
                 fontSize: 11,
-                color: isDark ? Colors.white38 : Colors.black38,
+                color: context.octave.text3,
               ),
             ),
           ],
@@ -1380,7 +1366,7 @@ class _ServerFamilyToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final labelColor = isDark ? Colors.white70 : Colors.black87;
+    final labelColor = context.octave.text2;
 
     final isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
     final chips = [
@@ -1388,7 +1374,7 @@ class _ServerFamilyToggle extends StatelessWidget {
         label: 'Subsonic',
         family: 'subsonic',
         icon: CupertinoIcons.music_note_2,
-        activeColor: const Color(0xFF6366F1),
+        activeColor: context.octave.accent,
       ),
       (
         label: 'Jellyfin',
@@ -1401,14 +1387,14 @@ class _ServerFamilyToggle extends StatelessWidget {
           label: 'Web Stream',
           family: 'youtube',
           icon: CupertinoIcons.play_rectangle_fill,
-          activeColor: const Color(0xFFFF3B30),
+          activeColor: context.octave.danger,
         ),
       if (!isTv)
         (
           label: 'Local Files',
           family: 'local',
           icon: CupertinoIcons.folder_fill,
-          activeColor: const Color(0xFF34C759),
+          activeColor: context.octave.success,
         ),
     ];
 
@@ -1420,7 +1406,7 @@ class _ServerFamilyToggle extends StatelessWidget {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w500,
-            color: isDark ? Colors.white54 : Colors.black54,
+            color: context.octave.text3,
           ),
         ),
         const SizedBox(height: 8),
@@ -1452,7 +1438,7 @@ class _ServerFamilyToggle extends StatelessWidget {
                   border: Border.all(
                     color: selected
                         ? c.activeColor
-                        : (isDark ? Colors.white12 : Colors.black12),
+                        : (context.octave.separator),
                     width: selected ? 1.5 : 1,
                   ),
                   borderRadius: BorderRadius.circular(10),

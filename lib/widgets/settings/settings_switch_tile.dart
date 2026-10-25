@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import '../../theme/app_theme.dart';
-import '../../utils/context_extensions.dart';
 import 'settings_icon_badge.dart';
 
 class SettingsSwitchTile extends StatelessWidget {
@@ -10,7 +9,6 @@ class SettingsSwitchTile extends StatelessWidget {
   final bool value;
   final ValueChanged<bool> onChanged;
   final IconData? icon;
-  final List<Color>? gradientColors;
 
   const SettingsSwitchTile({
     super.key,
@@ -19,12 +17,11 @@ class SettingsSwitchTile extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.icon,
-    this.gradientColors,
   });
 
   @override
   Widget build(BuildContext context) {
-    final hasLeading = icon != null && gradientColors != null;
+    final hasLeading = icon != null;
     
     return InkWell(
       onTap: () => onChanged(!value),
@@ -34,7 +31,7 @@ class SettingsSwitchTile extends StatelessWidget {
         child: Row(
           children: [
             if (hasLeading) ...[
-              SettingsIconBadge(gradientColors: gradientColors!, icon: icon!),
+              SettingsIconBadge(icon: icon!),
               const SizedBox(width: 16),
             ],
             Expanded(
@@ -46,7 +43,7 @@ class SettingsSwitchTile extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontSize: 16,
-                      color: context.isDark ? Colors.white : Colors.black,
+                      color: context.octave.text1,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -56,9 +53,7 @@ class SettingsSwitchTile extends StatelessWidget {
                       subtitle!,
                       style: TextStyle(
                         fontSize: 13,
-                        color: context.isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                       ),
                     ),
                   ],
