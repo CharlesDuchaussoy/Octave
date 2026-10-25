@@ -16,7 +16,7 @@ Ce fichier accompagne la licence d'Octave ([LICENSE](LICENSE)). Il réunit les m
 - **Source** : <https://github.com/CharlesDuchaussoy/Octave>
 - **Licence** : CC BY-NC-SA 4.0, la même que Musly, sans condition supplémentaire
 
-Octave est une version **modifiée** de Musly. Elle part de Musly `master` au commit `44ff278` (27 septembre 2026). Les modifications apportées depuis sont listées dans [CHANGELOG-octave.md](CHANGELOG-octave.md) et visibles dans l'historique Git de ce dépôt. Les modifications faites par les auteurs de Musly avant ce point sont dans [CHANGELOG.md](CHANGELOG.md) et dans l'historique de leur dépôt.
+Octave est une version **modifiée** de Musly. Elle part de Musly 2.0.3, `master` au commit `b199276` (18 octobre 2026). Les modifications apportées depuis sont listées dans [CHANGELOG-octave.md](CHANGELOG-octave.md) et visibles dans l'historique Git de ce dépôt. Les modifications faites par les auteurs de Musly avant ce point sont dans [CHANGELOG.md](CHANGELOG.md) et dans l'historique de leur dépôt.
 
 ## Conditions rappelées
 
