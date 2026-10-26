@@ -29,6 +29,7 @@ import 'octave/setup/setup_progress.dart';
 import 'octave/setup/welcome_screen.dart';
 import 'utils/image_cache.dart';
 import 'package:musly/octave/covers/cover_store.dart';
+import 'package:musly/octave/home/home_layout.dart';
 
 class AppScrollBehavior extends MaterialScrollBehavior {
   @override
@@ -158,6 +159,7 @@ void main() async {
     debugPrint('Failed to initialize playlist cover service: $e');
   });
   PlaylistCoverStore.instance.init();
+  HomeLayout.instance.load();
 
   final analyticsService = AnalyticsService();
   analyticsService.initialize().catchError((e) {

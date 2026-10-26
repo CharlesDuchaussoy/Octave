@@ -24,6 +24,8 @@ import 'package:musly/screens/settings/settings_screen.dart';
 import 'package:musly/screens/wrapped/wrapped_screen.dart';
 import 'package:musly/services/wrapped_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/octave/home/home_layout.dart';
+import 'package:musly/octave/home/home_layout_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -39,6 +41,22 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Song> _cachedTopHits = const [];
   String _lastRandomKey = '';
   String _selectedCategory = 'All';
+
+  @override
+  void initState() {
+    super.initState();
+    HomeLayout.instance.addListener(_onLayoutChanged);
+  }
+
+  @override
+  void dispose() {
+    HomeLayout.instance.removeListener(_onLayoutChanged);
+    super.dispose();
+  }
+
+  void _onLayoutChanged() {
+    if (mounted) setState(() {});
+  }
 
   String _getGreeting() {
     final hour = DateTime.now().hour;
@@ -275,6 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         .toList();
                   }
 
+                  final layout = HomeLayout.instance;
                   return Padding(
                     padding: EdgeInsets.only(
                         bottom: 40 + MediaQuery.paddingOf(context).bottom),
@@ -285,154 +304,187 @@ class _HomeScreenState extends State<HomeScreen> {
                           _buildWrappedBanner(context, hPad, isDesktop),
                           const SizedBox(height: 12),
                         ],
-                        if (_selectedCategory == 'All' ||
-                            _selectedCategory == 'Music') ...[
-                          const SizedBox(height: 8),
-                          _buildSpotifyTopGrid(
-                            context,
-                            recentAlbums: recentAlbums,
-                            playlists: playlists,
-                            mixes: mixes,
-                            subsonicService: subsonicService,
-                            isDesktop: isDesktop,
-                            hPad: hPad,
-                          ),
-                          const SizedBox(height: 24),
-                        ],
-                        if (_selectedCategory == 'All' ||
-                            _selectedCategory == 'Playlists')
-                          _buildFavoritePlaylistRows(
-                            context,
-                            playlists: playlists,
-                            isDesktop: isDesktop,
-                            hPad: hPad,
-                          ),
-                        if ((_selectedCategory == 'All' ||
-                                _selectedCategory == 'Music') &&
-                            recentAlbums.isNotEmpty) ...[
-                          HorizontalScrollSection(
-                            title: AppLocalizations.of(context)!.homeJumpBackIn,
-                            padding: EdgeInsets.symmetric(horizontal: hPad),
-                            cardSize: isDesktop ? 180 : 155,
-                            children: recentAlbums.take(12).map((album) {
-                              return MediaCard(
-                                title: album.name,
-                                subtitle: album.artist,
-                                coverArt: album.coverArt,
-                                size: isDesktop ? 180 : 155,
-                                onTap: () => _openAlbum(context, album.id),
-                                onPlayPressed: () =>
-                                    _playAlbum(context, album.id),
-                              );
-                            }).toList(),
-                          ),
-                          const SizedBox(height: 28),
-                        ],
-                        if ((_selectedCategory == 'All' ||
-                                _selectedCategory == 'MadeForYou') &&
-                            recommendationService.enabled &&
-                            personalizedFeed.isNotEmpty) ...[
-                          _buildMixSection(
-                            context: context,
-                            title: AppLocalizations.of(context)!.madeForYou,
-                            icon: Icons.auto_awesome,
-                            songs: personalizedFeed,
-                            isDesktop: isDesktop,
-                            hPad: hPad,
-                          ),
-                          const SizedBox(height: 28),
-                        ],
-                        if ((_selectedCategory == 'All' ||
-                                _selectedCategory == 'Music') &&
-                            listenAgain.isNotEmpty) ...[
-                          _buildMixSection(
-                            context: context,
-                            title: AppLocalizations.of(context)!.homeListenAgain,
-                            icon: Icons.history_rounded,
-                            songs: listenAgain,
-                            isDesktop: isDesktop,
-                            hPad: hPad,
-                          ),
-                          const SizedBox(height: 28),
-                        ],
-                        if ((_selectedCategory == 'All' ||
-                                _selectedCategory == 'MadeForYou') &&
-                            topHits.isNotEmpty) ...[
-                          _buildMixSection(
-                            context: context,
-                            title: AppLocalizations.of(context)!.homeTopHits,
-                            icon: Icons.favorite_rounded,
-                            songs: topHits,
-                            isDesktop: isDesktop,
-                            hPad: hPad,
-                          ),
-                          const SizedBox(height: 28),
-                        ],
-                        if ((_selectedCategory == 'All' ||
-                                _selectedCategory == 'Playlists') &&
-                            playlists.isNotEmpty) ...[
-                          HorizontalScrollSection(
-                            title: AppLocalizations.of(context)!.yourPlaylists,
-                            padding: EdgeInsets.symmetric(horizontal: hPad),
-                            cardSize: isDesktop ? 180 : 155,
-                            children: playlists.take(12).map((playlist) {
-                              final cardSize = isDesktop ? 180.0 : 155.0;
-                              return MediaCard(
-                                title: playlist.name,
-                                subtitle: AppLocalizations.of(context)!.playlist,
-                                coverArt: playlist.coverArt,
-                                artwork: PlaylistArtwork(
-                                  playlist: playlist,
-                                  size: cardSize - 24,
-                                  borderRadius: 4,
-                                ),
-                                size: cardSize,
-                                onTap: () => _openPlaylist(context, playlist),
-                              );
-                            }).toList(),
-                          ),
-                          const SizedBox(height: 28),
-                        ],
-                        if (_selectedCategory == 'All' ||
-                            _selectedCategory == 'MadeForYou') ...[
-                          for (final entry in mixes.entries.take(4))
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 28),
-                              child: _buildMixSection(
-                                context: context,
-                                title: entry.key,
-                                icon: Icons.graphic_eq_rounded,
-                                songs: entry.value,
-                                isDesktop: isDesktop,
-                                hPad: hPad,
-                              ),
+                        // Rows in the order the user chose ("Customize home").
+                        for (final section in layout.order)
+                          if (layout.isVisible(section))
+                            ...?<HomeSection, List<Widget>>{
+                          HomeSection.quickAccess: [
+                          if (_selectedCategory == 'All' ||
+                              _selectedCategory == 'Music') ...[
+                            const SizedBox(height: 8),
+                            _buildSpotifyTopGrid(
+                              context,
+                              recentAlbums: recentAlbums,
+                              playlists: playlists,
+                              mixes: mixes,
+                              subsonicService: subsonicService,
+                              isDesktop: isDesktop,
+                              hPad: hPad,
                             ),
-                        ],
-                        if ((_selectedCategory == 'All' ||
-                                _selectedCategory == 'Music') &&
-                            artists.isNotEmpty) ...[
-                          HorizontalScrollSection(
-                            title: AppLocalizations.of(context)!.homeArtistsYouLove,
-                            padding: EdgeInsets.symmetric(horizontal: hPad),
-                            cardSize: isDesktop ? 160 : 140,
-                            children: artists.take(10).map((artist) {
-                              final coverArt = artist.coverArt ??
-                                  artist.artistImageUrl ??
-                                  (artist.id.isNotEmpty
-                                      ? 'ar-${artist.id}'
-                                      : null);
-                              return MediaCard(
-                                title: artist.name,
-                                subtitle: AppLocalizations.of(context)!.artistSingular,
-                                coverArt: coverArt,
-                                isRound: true,
-                                size: isDesktop ? 160 : 140,
-                                onTap: () => _openArtist(context, artist.id),
-                              );
-                            }).toList(),
+                            const SizedBox(height: 24),
+                          ],
+                          ],
+                          HomeSection.favoritePlaylists: [
+                          if (_selectedCategory == 'All' ||
+                              _selectedCategory == 'Playlists')
+                            _buildFavoritePlaylistRows(
+                              context,
+                              playlists: playlists,
+                              isDesktop: isDesktop,
+                              hPad: hPad,
+                            ),
+                          ],
+                          HomeSection.jumpBackIn: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'Music') &&
+                              recentAlbums.isNotEmpty) ...[
+                            HorizontalScrollSection(
+                              title: AppLocalizations.of(context)!.homeJumpBackIn,
+                              padding: EdgeInsets.symmetric(horizontal: hPad),
+                              cardSize: isDesktop ? 180 : 155,
+                              children: recentAlbums.take(12).map((album) {
+                                return MediaCard(
+                                  title: album.name,
+                                  subtitle: album.artist,
+                                  coverArt: album.coverArt,
+                                  size: isDesktop ? 180 : 155,
+                                  onTap: () => _openAlbum(context, album.id),
+                                  onPlayPressed: () =>
+                                      _playAlbum(context, album.id),
+                                );
+                              }).toList(),
+                            ),
+                            const SizedBox(height: 28),
+                          ],
+                          ],
+                          HomeSection.madeForYou: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'MadeForYou') &&
+                              recommendationService.enabled &&
+                              personalizedFeed.isNotEmpty) ...[
+                            _buildMixSection(
+                              context: context,
+                              title: AppLocalizations.of(context)!.madeForYou,
+                              icon: Icons.auto_awesome,
+                              songs: personalizedFeed,
+                              isDesktop: isDesktop,
+                              hPad: hPad,
+                            ),
+                            const SizedBox(height: 28),
+                          ],
+                          ],
+                          HomeSection.listenAgain: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'Music') &&
+                              listenAgain.isNotEmpty) ...[
+                            _buildMixSection(
+                              context: context,
+                              title: AppLocalizations.of(context)!.homeListenAgain,
+                              icon: Icons.history_rounded,
+                              songs: listenAgain,
+                              isDesktop: isDesktop,
+                              hPad: hPad,
+                            ),
+                            const SizedBox(height: 28),
+                          ],
+                          ],
+                          HomeSection.topHits: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'MadeForYou') &&
+                              topHits.isNotEmpty) ...[
+                            _buildMixSection(
+                              context: context,
+                              title: AppLocalizations.of(context)!.homeTopHits,
+                              icon: Icons.favorite_rounded,
+                              songs: topHits,
+                              isDesktop: isDesktop,
+                              hPad: hPad,
+                            ),
+                            const SizedBox(height: 28),
+                          ],
+                          ],
+                          HomeSection.playlists: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'Playlists') &&
+                              playlists.isNotEmpty) ...[
+                            HorizontalScrollSection(
+                              title: AppLocalizations.of(context)!.yourPlaylists,
+                              padding: EdgeInsets.symmetric(horizontal: hPad),
+                              cardSize: isDesktop ? 180 : 155,
+                              children: playlists.take(12).map((playlist) {
+                                final cardSize = isDesktop ? 180.0 : 155.0;
+                                return MediaCard(
+                                  title: playlist.name,
+                                  subtitle: AppLocalizations.of(context)!.playlist,
+                                  coverArt: playlist.coverArt,
+                                  artwork: PlaylistArtwork(
+                                    playlist: playlist,
+                                    size: cardSize - 24,
+                                    borderRadius: 4,
+                                  ),
+                                  size: cardSize,
+                                  onTap: () => _openPlaylist(context, playlist),
+                                );
+                              }).toList(),
+                            ),
+                            const SizedBox(height: 28),
+                          ],
+                          ],
+                          HomeSection.mixes: [
+                          if (_selectedCategory == 'All' ||
+                              _selectedCategory == 'MadeForYou') ...[
+                            for (final entry in mixes.entries.take(4))
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 28),
+                                child: _buildMixSection(
+                                  context: context,
+                                  title: entry.key,
+                                  icon: Icons.graphic_eq_rounded,
+                                  songs: entry.value,
+                                  isDesktop: isDesktop,
+                                  hPad: hPad,
+                                ),
+                              ),
+                          ],
+                          ],
+                          HomeSection.artists: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'Music') &&
+                              artists.isNotEmpty) ...[
+                            HorizontalScrollSection(
+                              title: AppLocalizations.of(context)!.homeArtistsYouLove,
+                              padding: EdgeInsets.symmetric(horizontal: hPad),
+                              cardSize: isDesktop ? 160 : 140,
+                              children: artists.take(10).map((artist) {
+                                final coverArt = artist.coverArt ??
+                                    artist.artistImageUrl ??
+                                    (artist.id.isNotEmpty
+                                        ? 'ar-${artist.id}'
+                                        : null);
+                                return MediaCard(
+                                  title: artist.name,
+                                  subtitle: AppLocalizations.of(context)!.artistSingular,
+                                  coverArt: coverArt,
+                                  isRound: true,
+                                  size: isDesktop ? 160 : 140,
+                                  onTap: () => _openArtist(context, artist.id),
+                                );
+                              }).toList(),
+                            ),
+                            const SizedBox(height: 20),
+                          ],
+                          ],
+                            }[section],
+                        Center(
+                          child: TextButton.icon(
+                            onPressed: () => NavigationHelper.push(
+                                context, const HomeLayoutScreen()),
+                            icon: const Icon(CupertinoIcons.slider_horizontal_3,
+                                size: 18),
+                            label: Text(
+                                AppLocalizations.of(context)!.customizeHome),
                           ),
-                          const SizedBox(height: 20),
-                        ],
+                        ),
                       ],
                     ),
                   );

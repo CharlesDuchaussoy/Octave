@@ -2618,4 +2618,23 @@ class AppLocalizationsFi extends AppLocalizations {
   @override
   String get connectNoDevices =>
       'No device found. Your phone and the speaker must be on the same Wi-Fi network, and the speaker must be on.';
+
+  @override
+  String get customizeHome => 'Customize home';
+
+  @override
+  String get customizeHomeHint =>
+      'Drag the rows into the order you like, and hide the ones you do not use.';
+
+  @override
+  String get customizeHomeReset => 'Back to the original order';
+
+  @override
+  String get homeSectionQuickAccess => 'Shortcuts';
+
+  @override
+  String get homeSectionFavoritePlaylists => 'Favorite playlists';
+
+  @override
+  String get homeSectionMixes => 'Mixes';
 }

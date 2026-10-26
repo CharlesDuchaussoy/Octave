@@ -2630,4 +2630,23 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get connectNoDevices =>
       'Aucun appareil trouvé. Le téléphone et l\'enceinte doivent être sur le même réseau Wi-Fi, et l\'enceinte allumée.';
+
+  @override
+  String get customizeHome => 'Personnaliser l\'accueil';
+
+  @override
+  String get customizeHomeHint =>
+      'Glisse les rubriques pour les ranger, et masque celles dont tu ne te sers pas.';
+
+  @override
+  String get customizeHomeReset => 'Revenir à l\'ordre d\'origine';
+
+  @override
+  String get homeSectionQuickAccess => 'Raccourcis';
+
+  @override
+  String get homeSectionFavoritePlaylists => 'Playlists favorites';
+
+  @override
+  String get homeSectionMixes => 'Mix';
 }
