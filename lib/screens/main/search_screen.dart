@@ -217,12 +217,12 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           if (hasResults)
             SliverToBoxAdapter(
-              child: Container(
+              child: SizedBox(
                 height: 44,
-                padding: EdgeInsets.symmetric(horizontal: hPad),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: hPad),
                   children: [
                     _buildFilterChip('All', AppLocalizations.of(context)!.filterAll, isDark),
                     const SizedBox(width: 8),

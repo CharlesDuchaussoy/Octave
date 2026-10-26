@@ -51,6 +51,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Page d'artiste façon Apple Music : la photo en pleine largeur et le nom en grand.
 - Tuiles « Tout parcourir » en couleurs unies, sans dégradé ni violet ; champ de recherche plein, comme sur iPhone.
 - Le lecteur plein écran et tout ce qui s'ouvre depuis lui suivent la couleur de l'app et la police Inter (avant : violet et police par défaut).
+- Les filtres de l'Accueil, de la Bibliothèque et de la Recherche défilent jusqu'au bord de l'écran, au lieu d'être coupés net à la marge.
 - Un titre trop long défile enfin dans le lecteur plein écran, avec des bords qui s'estompent, au lieu d'être coupé au milieu d'une lettre. Si les animations sont coupées dans Android, il finit par des points de suspension.
 
 ### Enceintes Google Home et Chromecast

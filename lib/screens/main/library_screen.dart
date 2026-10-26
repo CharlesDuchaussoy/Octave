@@ -509,12 +509,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   preferredSize: const Size.fromHeight(48),
                   child: Container(
                     height: 48,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: hPad, vertical: 6),
+                    padding: const EdgeInsets.symmetric(vertical: 6),
                     alignment: Alignment.centerLeft,
+                    // The chips scroll to the screen edge instead of being
+                    // cut at the margin.
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: hPad),
                       child: Row(
                         children: [
                           if (_selectedFilter != null) ...[
