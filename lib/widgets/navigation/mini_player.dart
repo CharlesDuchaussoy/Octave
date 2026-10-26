@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart' hide RepeatMode;
+import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide RepeatMode;
 import 'package:provider/provider.dart';
@@ -99,11 +100,14 @@ class MiniPlayer extends StatelessWidget {
 
         final bool isGlass = Provider.of<ThemeService>(context).liquidGlass;
 
-        final Widget row = _MiniPlayerRow(
-          title: title,
-          subtitle: subtitle,
-          coverArt: coverArt,
-          isPlayingRadio: isPlayingRadio,
+        final Widget row = _SwipeToSkip(
+          enabled: !isPlayingRadio,
+          child: _MiniPlayerRow(
+            title: title,
+            subtitle: subtitle,
+            coverArt: coverArt,
+            isPlayingRadio: isPlayingRadio,
+          ),
         );
 
         if (isGlass) {
@@ -172,6 +176,78 @@ class MiniPlayer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Swipe the mini player left for the next song and right for the
+/// previous one, as in Spotify. The content follows the finger, then
+/// slides back into place.
+class _SwipeToSkip extends StatefulWidget {
+  const _SwipeToSkip({required this.child, required this.enabled});
+
+  final Widget child;
+  final bool enabled;
+
+  @override
+  State<_SwipeToSkip> createState() => _SwipeToSkipState();
+}
+
+class _SwipeToSkipState extends State<_SwipeToSkip>
+    with SingleTickerProviderStateMixin {
+  static const _distance = 72.0;
+  static const _speed = 700.0;
+
+  late final AnimationController _back = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 180),
+  )..addListener(() {
+      setState(() {
+        _dx = _releasedAt * (1 - Curves.easeOut.transform(_back.value));
+      });
+    });
+
+  double _dx = 0;
+  double _releasedAt = 0;
+
+  @override
+  void dispose() {
+    _back.dispose();
+    super.dispose();
+  }
+
+  void _onEnd(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+    final player = Provider.of<PlayerProvider>(context, listen: false);
+    if (_dx < -_distance || velocity < -_speed) {
+      HapticFeedback.selectionClick();
+      player.skipNext();
+    } else if (_dx > _distance || velocity > _speed) {
+      HapticFeedback.selectionClick();
+      player.skipPrevious();
+    }
+    _releasedAt = _dx;
+    _back.forward(from: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!widget.enabled) return widget.child;
+    return GestureDetector(
+      onHorizontalDragStart: (_) => _back.stop(),
+      onHorizontalDragUpdate: (details) => setState(() {
+        _dx = (_dx + details.delta.dx).clamp(-120.0, 120.0);
+      }),
+      onHorizontalDragEnd: _onEnd,
+      child: ClipRect(
+        child: Transform.translate(
+          offset: Offset(_dx, 0),
+          child: Opacity(
+            opacity: (1 - _dx.abs() / 200).clamp(0.4, 1.0),
+            child: widget.child,
+          ),
+        ),
+      ),
     );
   }
 }
