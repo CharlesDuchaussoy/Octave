@@ -12,7 +12,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Nouvelle icône et nouveau logo : une croche dessinée comme un 8, blanche sur bleu nuit.
 - Identifiant Android `io.github.charlesduchaussoy.octave` : Octave s'installe à côté de Musly sans le remplacer.
 - Numérotation propre, qui commence à 1.0.0.
-- Octave se présente sous le nom « Octave » aux serveurs Jellyfin. Pour Navidrome, il garde le nom « Musly » : Octo y attache ses réglages (paroles minutées, albums de la bibliothèque seule) jusqu'à ce qu'il reconnaisse Octave.
+- Octave se présente sous le nom « Octave » au serveur. Octo le reconnaît et lui applique ses réglages (paroles minutées, albums de la bibliothèque seule).
 
 ### Liens et services
 
@@ -24,6 +24,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 
 - L'app est entièrement en français : les 1 035 textes, relus et tutoyés partout (la traduction communautaire de Musly mélangeait « vous » et « tu » et n'en couvrait que la moitié).
 - Environ 150 textes écrits en dur dans les écrans (en anglais, et même en italien dans l'import de playlists et la fenêtre de mise à jour) passent par les traductions.
+- Les mix de l'accueil ont des noms français : Sélection rapide, Mix découverte, Ambiance du matin, de l'après-midi, du soir et de la nuit, Mix d'un artiste ou d'un genre.
 
 ### Première installation
 
@@ -67,16 +68,26 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - 8 modèles : Dégradé, Minimal, Typo géante, Bandeau, Photo, Vinyle, Formes et Mosaïque.
 - Titre et sous-titre, 5 polices intégrées (Inter, Bebas Neue, DM Serif Display, Space Mono, Pacifico), majuscules, deux couleurs (dont celles tirées des pochettes de la playlist) et une photo du téléphone.
 - Contrairement à Spotify, la pochette se rouvre et se retouche. « Revenir à la pochette automatique » rend la mosaïque.
-- Pour l'instant, la pochette n'apparaît que dans Octave, sur l'appareil où elle a été faite. La partager avec les autres apps du serveur demande une commande dans Octo.
+- La pochette est envoyée au serveur par Octo : elle s'affiche dans toutes les apps branchées sur le serveur et sur tous les appareils. Son modèle est gardé aussi, pour la retoucher depuis un autre téléphone. Sans Octo, elle reste sur l'appareil où elle a été faite.
 
 ### Uniquement ton serveur
 
 - Octave se connecte à Navidrome (et aux serveurs Subsonic) : Jellyfin, Emby, les flux web YouTube, Android TV, Tizen et la présence Discord sont retirés du code, avec leurs paquets. Environ 37 000 lignes et 2 750 textes inutiles en moins.
 - L'import de playlists, qui associait les titres Spotify à des vidéos YouTube, est retiré.
+- Python et yt-dlp, embarqués dans l'APK pour YouTube, sont retirés : l'APK arm64-v8a pèse 27,5 Mo.
+
+### Lecture
+
+- Un titre ne se rejoue plus en double : la fin d'un titre ne lance le suivant qu'une fois, et le cache de lecture de Musly, qui pouvait relancer un titre déjà fini, est retiré.
+- Les titres s'enchaînent toujours sans blanc ; le réglage disparaît.
+- Appuyer sur Lecture après la fin d'un titre passe au suivant au lieu de rejouer le même.
+- Quand le serveur convertit le son (qualité réduite), Octave lui demande la taille du fichier : la durée et l'avance dans le titre restent justes.
 
 ### Mises à jour
 
-- Sur Android, la mise à jour télécharge l'APK arm64-v8a, celui de presque tous les téléphones.
+- Sur Android, la mise à jour télécharge l'APK fait pour le processeur du téléphone (arm64-v8a pour presque tous).
+- Chaque mise à jour téléchargée est vérifiée avec son empreinte SHA-256 : un fichier abîmé n'est jamais installé.
+- Les versions Android sont signées avec la clé d'Octave : une mise à jour ne s'installe que si elle vient d'Octave.
 
 ### Fichiers du téléphone
 
@@ -88,7 +99,12 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Plus de pause au 50ᵉ titre écouté : la fenêtre de célébration arrêtait la musique.
 - Plus de lien vers le Discord de Musly ni de publicité pour Spotverlay.
 - Plus de téléchargement de traductions au démarrage : les traductions arrivent avec chaque version.
+- Plus de fenêtre de confidentialité au premier lancement : la politique de confidentialité est dans À propos.
 
 ### Développement
 
 - Compilation avec Flutter 3.47.7, la version utilisée par Musly.
+- GitHub Actions compile chaque version marquée `v*` : les APK Android signés (un par processeur), l'installateur Windows, l'archive Linux avec son script d'installation et les empreintes SHA-256. La version est préparée en brouillon, à relire avant de la publier.
+- Chaque pull request est vérifiée (analyse et tests).
+- Les programmes Windows et Linux s'appellent `octave`.
+- Fichiers de Musly retirés : site web, fiches des magasins d'applications, version macOS, synchronisation Crowdin, scripts Docker et anciens workflows.
