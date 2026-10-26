@@ -1,9 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:math' as math;
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:material_color_utilities/material_color_utilities.dart';
+
+/// "Browse all" tile of the search screen: a plain color, the title, and
+/// a tilted picture or icon in the corner. The color is one of Octave's
+/// named colors, darkened so white text stays readable.
 class BrowseCategoryCard extends StatefulWidget {
   final String title;
-  final List<Color> gradientColors;
+  final Color color;
   final IconData? icon;
   final String? imageUrl;
   final VoidCallback onTap;
@@ -11,11 +17,18 @@ class BrowseCategoryCard extends StatefulWidget {
   const BrowseCategoryCard({
     super.key,
     required this.title,
-    required this.gradientColors,
+    required this.color,
     this.icon,
     this.imageUrl,
     required this.onTap,
   });
+
+  /// [seed] at tone 38: deep enough for white text (WCAG AA), whatever
+  /// its hue.
+  static Color tileColor(Color seed) {
+    final hct = Hct.fromInt(seed.toARGB32());
+    return Color(Hct.from(hct.hue, math.max(hct.chroma, 36), 38).toInt());
+  }
 
   @override
   State<BrowseCategoryCard> createState() => _BrowseCategoryCardState();
@@ -24,36 +37,25 @@ class BrowseCategoryCard extends StatefulWidget {
 class _BrowseCategoryCardState extends State<BrowseCategoryCard> {
   bool _isHovered = false;
 
+  static const _onTile = Color(0xFFFFFFFF);
+
   @override
   Widget build(BuildContext context) {
+    final tile = BrowseCategoryCard.tileColor(widget.color);
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedScale(
         scale: _isHovered ? 1.02 : 1.0,
         duration: const Duration(milliseconds: 150),
-        child: InkWell(
-          onTap: widget.onTap,
+        child: Material(
+          color: tile,
           borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: 100,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: widget.gradientColors,
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: widget.gradientColors.first.withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: widget.onTap,
+            child: SizedBox(
+              height: 100,
               child: Stack(
                 children: [
                   Positioned(
@@ -63,17 +65,10 @@ class _BrowseCategoryCardState extends State<BrowseCategoryCard> {
                     child: Text(
                       widget.title,
                       style: const TextStyle(
-                        color: Colors.white,
+                        color: _onTile,
                         fontSize: 16,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w700,
                         letterSpacing: -0.2,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black26,
-                            offset: Offset(0, 1),
-                            blurRadius: 2,
-                          ),
-                        ],
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -84,21 +79,10 @@ class _BrowseCategoryCardState extends State<BrowseCategoryCard> {
                     bottom: -6,
                     child: Transform.rotate(
                       angle: 0.42,
-                      child: Container(
-                        width: 68,
-                        height: 68,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black38,
-                              blurRadius: 10,
-                              offset: Offset(2, 4),
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(6),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6),
+                        child: SizedBox.square(
+                          dimension: 68,
                           child: widget.imageUrl != null
                               ? CachedNetworkImage(
                                   imageUrl: widget.imageUrl!,
@@ -121,12 +105,12 @@ class _BrowseCategoryCardState extends State<BrowseCategoryCard> {
   }
 
   Widget _buildFallbackIcon() {
-    return Container(
-      color: Colors.black26,
+    return ColoredBox(
+      color: _onTile.withValues(alpha: 0.16),
       child: Center(
         child: Icon(
           widget.icon ?? Icons.music_note,
-          color: Colors.white.withValues(alpha: 0.9),
+          color: _onTile.withValues(alpha: 0.92),
           size: 32,
         ),
       ),
