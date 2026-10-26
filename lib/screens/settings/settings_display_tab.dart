@@ -726,6 +726,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) => Container(

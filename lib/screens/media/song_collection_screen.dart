@@ -9,6 +9,7 @@ import '../../services/subsonic_service.dart';
 import '../../theme/app_theme.dart';
 import '../../utils/formatters.dart';
 import '../../widgets/widgets.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 enum SongCollectionType {
   allSongs,
@@ -373,7 +374,7 @@ class _SongCollectionScreenState extends State<SongCollectionScreen> {
               _buildEmptyState(theme)
             else
               SliverPadding(
-                padding: const EdgeInsets.only(bottom: 120),
+                padding: EdgeInsets.only(bottom: scrollEndPadding(context)),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {

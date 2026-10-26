@@ -10,6 +10,7 @@ import '../../l10n/app_localizations.dart';
 import '../detail/album_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -135,7 +136,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: 150),
+      padding: EdgeInsets.only(bottom: scrollEndPadding(context)),
       itemCount: _favoriteSongs.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {

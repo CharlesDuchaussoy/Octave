@@ -43,6 +43,7 @@ class ConnectDevicesModal extends StatefulWidget {
 
     return showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) => const ConnectDevicesModal(isDesktopDialog: false),

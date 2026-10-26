@@ -19,6 +19,7 @@ class ServerSwitcherSheet extends StatefulWidget {
   static Future<void> show(BuildContext context) {
     return showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => const ServerSwitcherSheet(),

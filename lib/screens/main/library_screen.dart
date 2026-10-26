@@ -28,6 +28,7 @@ import 'package:musly/models/playlist.dart';
 import 'package:musly/models/album.dart';
 import 'package:musly/models/artist.dart';
 import 'package:musly/models/song.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
@@ -110,6 +111,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   void _showAddMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
         decoration: BoxDecoration(
@@ -240,10 +242,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   void _showSortMenu(BuildContext context) {
 
-    final bottomPadding =
-        MediaQuery.of(context).viewPadding.bottom + 80.0 + 16.0;
+    final bottomPadding = MediaQuery.of(context).viewPadding.bottom + 16.0;
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => Container(
         decoration: BoxDecoration(
@@ -654,7 +656,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
               else
                 _buildSliverList(
                     context, libraryProvider, isDark, isYoutube, hPad),
-              const SliverToBoxAdapter(child: SizedBox(height: 80)),
+              SliverToBoxAdapter(
+                child: SizedBox(height: scrollEndPadding(context)),
+              ),
             ],
           ),
         );

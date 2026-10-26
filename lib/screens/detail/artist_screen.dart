@@ -8,6 +8,7 @@ import 'package:musly/widgets/widgets.dart';
 import 'album_screen.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/services/offline_service.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class ArtistScreen extends StatefulWidget {
   final String artistId;
@@ -491,7 +492,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 100),
+                  SizedBox(height: scrollEndPadding(context)),
                 ],
               ),
             ),

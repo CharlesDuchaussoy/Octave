@@ -103,6 +103,7 @@ class MultiArtistWidget extends StatelessWidget {
   void _showArtistsSheet(BuildContext context, List<ArtistRef> artistList) {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => ArtistsBottomSheet(
         artists: artistList,

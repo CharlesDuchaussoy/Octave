@@ -32,7 +32,7 @@ class OctaveGlass extends StatelessWidget {
         borderRadius: radius,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: colors.isDark ? 0.35 : 0.12),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.2),
             blurRadius: 24,
             offset: const Offset(0, 8),
           ),
@@ -47,9 +47,7 @@ class OctaveGlass extends StatelessWidget {
               color: colors.bar.withValues(alpha: opacity),
               borderRadius: radius,
               border: Border.all(
-                color: colors.isDark
-                    ? Colors.white.withValues(alpha: 0.08)
-                    : Colors.black.withValues(alpha: 0.06),
+                color: colors.separator.withValues(alpha: 0.6),
                 width: 0.8,
               ),
             ),

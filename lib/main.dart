@@ -546,6 +546,7 @@ class _ServerUnreachableScreen extends StatelessWidget {
 
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => Material(
         color: Colors.transparent,
