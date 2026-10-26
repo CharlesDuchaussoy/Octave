@@ -134,9 +134,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
         });
         return;
       }
+      final l10n = AppLocalizations.of(context)!;
       setState(() {
         _isDownloading = false;
-        _errorMessage = AppLocalizations.of(context)!.updateDownloadFailed('$e');
+        _errorMessage = e is UpdateIntegrityException
+            ? l10n.updateFileDamaged
+            : l10n.updateDownloadFailed('$e');
       });
     }
   }

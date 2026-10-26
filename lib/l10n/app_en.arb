@@ -2961,6 +2961,10 @@
     "description": "Update dialog",
     "placeholders": {"error": {"type": "String"}}
   },
+  "updateFileDamaged": "The downloaded file is damaged, so it was not installed. Try again.",
+  "@updateFileDamaged": {
+    "description": "Update dialog: the downloaded installer does not match the checksum of the release"
+  },
   "updateDefaultChangelog": "Improvements and bug fixes.",
   "@updateDefaultChangelog": {
     "description": "Update dialog without notes"

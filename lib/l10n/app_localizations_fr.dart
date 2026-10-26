@@ -2367,6 +2367,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get updateFileDamaged =>
+      'Le fichier téléchargé est abîmé : il n\'a pas été installé. Réessaie.';
+
+  @override
   String get updateDefaultChangelog => 'Améliorations et corrections.';
 
   @override

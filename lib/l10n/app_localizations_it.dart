@@ -2368,6 +2368,10 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String get updateFileDamaged =>
+      'The downloaded file is damaged, so it was not installed. Try again.';
+
+  @override
   String get updateDefaultChangelog => 'Improvements and bug fixes.';
 
   @override
