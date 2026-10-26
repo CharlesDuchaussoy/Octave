@@ -16,6 +16,7 @@ import 'package:path/path.dart' as p;
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 
 class SettingsStorageTab extends StatefulWidget {
@@ -116,7 +117,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
         Provider.of<SubsonicService>(context, listen: false).isYoutube;
 
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionCacheSettings,

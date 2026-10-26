@@ -93,7 +93,7 @@ class OctaveColorSwatches extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     name,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
                     style: TextStyle(

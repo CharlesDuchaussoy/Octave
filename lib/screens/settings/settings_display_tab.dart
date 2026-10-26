@@ -20,6 +20,7 @@ import 'package:musly/utils/context_extensions.dart';
 import 'package:musly/services/storage_service.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class SettingsDisplayTab extends StatefulWidget {
   const SettingsDisplayTab({super.key});
@@ -103,7 +104,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         Provider.of<SubsonicService>(context, listen: false).isYoutube;
 
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.appearanceSection.toUpperCase(),
@@ -1001,7 +1002,7 @@ class _ThemeModeSelector extends StatelessWidget {
       ),
     ];
 
-    final accent = Theme.of(context).colorScheme.primary;
+    final colors = context.octave;
 
     return Row(
       children: options.map((opt) {
@@ -1014,11 +1015,7 @@ class _ThemeModeSelector extends StatelessWidget {
               margin: const EdgeInsets.only(right: 6),
               padding: const EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(
-                color: selected
-                    ? accent
-                    : (isDark
-                        ? Colors.white.withValues(alpha: 0.08)
-                        : Colors.black.withValues(alpha: 0.06)),
+                color: selected ? colors.accent : colors.surface2,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -1027,9 +1024,7 @@ class _ThemeModeSelector extends StatelessWidget {
                   Icon(
                     opt.icon,
                     size: 18,
-                    color: selected
-                        ? Colors.white
-                        : (context.octave.text2),
+                    color: selected ? colors.onAccent : colors.text2,
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -1037,9 +1032,7 @@ class _ThemeModeSelector extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                      color: selected
-                          ? Colors.white
-                          : (context.octave.text2),
+                      color: selected ? colors.onAccent : colors.text2,
                     ),
                   ),
                 ],

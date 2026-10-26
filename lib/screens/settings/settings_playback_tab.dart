@@ -16,6 +16,7 @@ import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
 
 import 'package:musly/services/crossfade_service.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class SettingsPlaybackTab extends StatefulWidget {
   const SettingsPlaybackTab({super.key});
@@ -72,7 +73,7 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
         Provider.of<SubsonicService>(context, listen: false).isYoutube;
 
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionAutoDj,

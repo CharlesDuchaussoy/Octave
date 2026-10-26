@@ -9,7 +9,10 @@ import 'settings_server_tab.dart';
 import 'settings_display_tab.dart';
 import 'settings_about_tab.dart';
 import 'settings_android_auto_tab.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 import 'package:musly/theme/app_theme.dart';
+import 'package:musly/widgets/settings/settings_list_tile.dart';
+import 'package:musly/widgets/settings/settings_section_card.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -145,40 +148,93 @@ class _SettingsScreenState extends State<SettingsScreen>
       );
     }
 
+    // Phones: one grouped list, as in the iOS Settings app. Each row
+    // opens its page, so the six sections never have to share a tab bar.
+    void open(int index) {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => _SettingsPage(
+            title: tabs[index].text,
+            child: tabViews[index],
+          ),
+        ),
+      );
+    }
+
+    Widget row(int index) => SettingsListTile(
+          icon: tabs[index].icon,
+          title: tabs[index].text,
+          trailing: Align(
+            alignment: Alignment.centerRight,
+            child: Icon(
+              CupertinoIcons.chevron_forward,
+              size: 18,
+              color: context.octave.text3,
+            ),
+          ),
+          onTap: () => open(index),
+        );
+
+    final showAndroidAuto = !kIsWeb && (Platform.isAndroid || Platform.isIOS);
+
     return Scaffold(
-      backgroundColor:
-          context.octave.background,
+      backgroundColor: context.octave.background,
       appBar: AppBar(
         title: Text(l10n.settingsTitle),
         centerTitle: false,
-        backgroundColor:
-            context.octave.background,
+        backgroundColor: context.octave.background,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        bottom: TabBar(
-          controller: _tabController,
-          isScrollable: true,
-          tabAlignment: TabAlignment.start,
-          indicatorColor: Theme.of(context).colorScheme.primary,
-          labelColor: Theme.of(context).colorScheme.primary,
-          unselectedLabelColor: context.octave.text2,
-          labelStyle: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
-          unselectedLabelStyle: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
-          tabs: tabs
-              .map((t) => Tab(icon: Icon(t.icon, size: 20), text: t.text))
-              .toList(),
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: tabViews,
+      body: ListView(
+        padding: EdgeInsets.only(top: 8, bottom: scrollEndPadding(context)),
+        children: [
+          SettingsSectionCard(
+            children: [
+              row(3),
+              const SettingsDivider(),
+              row(0),
+              const SettingsDivider(),
+              row(1),
+            ],
+          ),
+          const SizedBox(height: 24),
+          SettingsSectionCard(
+            children: [
+              row(2),
+              if (showAndroidAuto) ...[
+                const SettingsDivider(),
+                row(4),
+              ],
+            ],
+          ),
+          const SizedBox(height: 24),
+          SettingsSectionCard(children: [row(5)]),
+        ],
       ),
+    );
+  }
+}
+
+/// One settings section opened from the list.
+class _SettingsPage extends StatelessWidget {
+  const _SettingsPage({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: context.octave.background,
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: false,
+        backgroundColor: context.octave.background,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: child,
     );
   }
 }
