@@ -37,6 +37,9 @@ class _MediaCardState extends State<MediaCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    // The focus border (TV) takes 3 px on each side.
+    final artSize = widget.size - 6;
+    final radius = widget.isRound ? artSize / 2 : 8.0;
     bool isTv = false;
     try {
       isTv = Provider.of<TvDetectionService>(context).isTvMode;
@@ -67,88 +70,82 @@ class _MediaCardState extends State<MediaCard> {
           onExit: (_) => setState(() => _isHovered = false),
           child: GestureDetector(
             onTap: widget.onTap,
+            // Apple Music style: the artwork itself is the card, with no
+            // frame around it, and the text sits under it.
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 180),
               width: widget.size,
-              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: context.octave.surface1,
-                borderRadius: BorderRadius.circular(8),
-                border: isTv && _isFocused
-                    ? Border.all(color: Colors.white, width: 3.0)
-                    : Border.all(color: Colors.transparent, width: 3.0),
+                borderRadius: BorderRadius.circular(radius + 3),
+                border: Border.all(
+                  color: isTv && _isFocused
+                      ? context.octave.text1
+                      : Colors.transparent,
+                  width: 3.0,
+                ),
               ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AnimatedScale(
-                  scale: (_isHovered || _isFocused) ? 1.04 : 1.0,
-                  duration: const Duration(milliseconds: 200),
-                  curve: Curves.easeOut,
-                  child: AnimatedContainer(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: widget.isRound
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
+                children: [
+                  AnimatedScale(
+                    scale: (_isHovered || _isFocused) ? 1.04 : 1.0,
                     duration: const Duration(milliseconds: 200),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(widget.isRound ? 999 : 4),
-                        boxShadow: (_isHovered || _isFocused)
-                          ? [
-                              BoxShadow(
-                                color: isTv 
-                                  ? Colors.white.withValues(alpha: 0.25)
-                                  : Colors.black.withValues(alpha: 0.3),
-                                blurRadius: isTv ? 24 : 16,
-                                offset: Offset(0, isTv ? 0 : 8),
-                              ),
-                            ]
-                          : [],
-                    ),
-                    child: Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius:
-                              BorderRadius.circular(widget.isRound ? 999 : 4),
-                          child: widget.artwork ??
-                              AlbumArtwork(
-                                coverArt: widget.coverArt,
-                                size: widget.size - 24,
-                                borderRadius: widget.isRound ? 999 : 4,
-                              ),
-                        ),
-                        if (_isHovered && widget.onPlayPressed != null)
-                          Positioned(
-                            bottom: 8,
-                            right: 8,
-                            child: _PlayButton(
-                              onPressed: widget.onPlayPressed!,
-                            ),
+                    curve: Curves.easeOut,
+                    child: SizedBox.square(
+                      dimension: artSize,
+                      child: Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(radius),
+                            child: widget.artwork ??
+                                AlbumArtwork(
+                                  coverArt: widget.coverArt,
+                                  size: artSize,
+                                  borderRadius: radius,
+                                ),
                           ),
-                      ],
+                          if (_isHovered && widget.onPlayPressed != null)
+                            Positioned(
+                              bottom: 8,
+                              right: 8,
+                              child: _PlayButton(
+                                onPressed: widget.onPlayPressed!,
+                              ),
+                            ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  widget.title,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                if (widget.subtitle != null) ...[
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 8),
                   Text(
-                    widget.subtitle!,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: context.octave.text2,
+                    widget.title,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: context.octave.text1,
                     ),
-                    maxLines: 2,
+                    maxLines: 1,
                     overflow: TextOverflow.ellipsis,
+                    textAlign:
+                        widget.isRound ? TextAlign.center : TextAlign.start,
                   ),
+                  if (widget.subtitle != null) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      widget.subtitle!,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: context.octave.text2,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign:
+                          widget.isRound ? TextAlign.center : TextAlign.start,
+                    ),
+                  ],
                 ],
-              ],
-            ),
+              ),
             ),
           ),
         ),
@@ -222,9 +219,9 @@ class _PlayButtonState extends State<_PlayButton>
             child: InkWell(
               onTap: widget.onPressed,
               customBorder: const CircleBorder(),
-              child: const Icon(
+              child: Icon(
                 Icons.play_arrow_rounded,
-                color: Colors.white,
+                color: context.octave.onAccent,
                 size: 28,
               ),
             ),
