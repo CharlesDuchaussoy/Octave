@@ -27,6 +27,10 @@ class SongTile extends StatelessWidget {
   final VoidCallback? onLongPress;
   final Widget? trailing;
 
+  /// Inner padding of the row; lists already inside the page margin pass
+  /// a horizontal padding of zero so covers line up with the headings.
+  final EdgeInsetsGeometry contentPadding;
+
   const SongTile({
     super.key,
     required this.song,
@@ -41,6 +45,7 @@ class SongTile extends StatelessWidget {
     this.onTap,
     this.onLongPress,
     this.trailing,
+    this.contentPadding = const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
   });
 
   @override
@@ -57,8 +62,7 @@ class SongTile extends StatelessWidget {
 
         final tile = ListTile(
           dense: true,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+          contentPadding: contentPadding,
           leading: _buildLeading(
             context,
             isCurrentSong: isCurrentSong,

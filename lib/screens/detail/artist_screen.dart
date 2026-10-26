@@ -1,3 +1,5 @@
+import 'dart:ui' show lerpDouble;
+
 import 'package:flutter/material.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -260,75 +262,92 @@ class _ArtistScreenState extends State<ArtistScreen> {
             backgroundColor: context.octave.background,
             surfaceTintColor: Colors.transparent,
             foregroundColor: context.octave.text1,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding:
-                  const EdgeInsetsDirectional.only(start: 16, bottom: 14),
-              expandedTitleScale: 1.6,
-              title: Text(
-                _artist!.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.3,
-                  color: context.octave.text1,
-                ),
-              ),
-              background: Builder(
-                builder: (context) {
-                  final colors = context.octave;
-                  final art = _artist!.coverArt ??
-                      _artistInfo?.largeImageUrl ??
-                      _artistInfo?.mediumImageUrl ??
-                      _artist!.artistImageUrl ??
-                      (_artist!.id.isNotEmpty ? 'ar-${_artist!.id}' : null);
-                  return Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      if (art == null)
-                        ColoredBox(
-                          color: colors.accentSoft,
-                          child: Center(
-                            child: Icon(
-                              CupertinoIcons.mic_fill,
-                              size: 72,
-                              color: colors.onAccentSoft,
+            flexibleSpace: Builder(
+              builder: (context) {
+                // Expanded, the name sits at the page margin; collapsed,
+                // it moves past the back button instead of under it.
+                final bar = context.dependOnInheritedWidgetOfExactType<
+                    FlexibleSpaceBarSettings>();
+                final range = bar == null ? 0.0 : bar.maxExtent - bar.minExtent;
+                final open = range <= 0
+                    ? 1.0
+                    : ((bar!.currentExtent - bar.minExtent) / range)
+                        .clamp(0.0, 1.0);
+                return FlexibleSpaceBar(
+                  titlePadding: EdgeInsetsDirectional.only(
+                    start: lerpDouble(72, 16, open)!,
+                    // Clear of the two action buttons once collapsed.
+                    end: lerpDouble(104, 16, open)!,
+                    bottom: 14,
+                  ),
+                  expandedTitleScale: 1.6,
+                  title: Text(
+                    _artist!.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                      color: context.octave.text1,
+                    ),
+                  ),
+                  background: Builder(
+                    builder: (context) {
+                      final colors = context.octave;
+                      final art = _artist!.coverArt ??
+                          _artistInfo?.largeImageUrl ??
+                          _artistInfo?.mediumImageUrl ??
+                          _artist!.artistImageUrl ??
+                          (_artist!.id.isNotEmpty ? 'ar-${_artist!.id}' : null);
+                      return Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          if (art == null)
+                            ColoredBox(
+                              color: colors.accentSoft,
+                              child: Center(
+                                child: Icon(
+                                  CupertinoIcons.mic_fill,
+                                  size: 72,
+                                  color: colors.onAccentSoft,
+                                ),
+                              ),
+                            )
+                          else
+                            FittedBox(
+                              fit: BoxFit.cover,
+                              clipBehavior: Clip.hardEdge,
+                              child: AlbumArtwork(
+                                coverArt: art,
+                                size: 600,
+                                borderRadius: 0,
+                                shadow: const BoxShadow(color: Colors.transparent),
+                              ),
+                            ),
+                          // Keeps the back button and the name readable on any
+                          // picture.
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  colors.background.withValues(alpha: 0.45),
+                                  colors.background.withValues(alpha: 0),
+                                  colors.background.withValues(alpha: 0),
+                                  colors.background,
+                                ],
+                                stops: const [0, 0.25, 0.55, 1],
+                              ),
                             ),
                           ),
-                        )
-                      else
-                        FittedBox(
-                          fit: BoxFit.cover,
-                          clipBehavior: Clip.hardEdge,
-                          child: AlbumArtwork(
-                            coverArt: art,
-                            size: 600,
-                            borderRadius: 0,
-                            shadow: const BoxShadow(color: Colors.transparent),
-                          ),
-                        ),
-                      // Keeps the back button and the name readable on any
-                      // picture.
-                      DecoratedBox(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              colors.background.withValues(alpha: 0.45),
-                              colors.background.withValues(alpha: 0),
-                              colors.background.withValues(alpha: 0),
-                              colors.background,
-                            ],
-                            stops: const [0, 0.25, 0.55, 1],
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                        ],
+                      );
+                    },
+                  ),
+                );
+              },
             ),
             actions: [
               IconButton(
@@ -383,6 +402,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                     ),
                     const SizedBox(height: 8),
                     ListView.builder(
+                      padding: EdgeInsets.zero,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemExtent: 68.0,
@@ -394,6 +414,8 @@ class _ArtistScreenState extends State<ArtistScreen> {
                           playlist: _topSongs,
                           index: index,
                           showAlbum: true,
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 2),
                         );
                       },
                     ),
@@ -422,6 +444,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                             ),
                             const SizedBox(height: 8),
                             GridView.builder(
+                              padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
@@ -453,6 +476,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                             ),
                             const SizedBox(height: 8),
                             GridView.builder(
+                              padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
@@ -484,6 +508,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                             ),
                             const SizedBox(height: 8),
                             GridView.builder(
+                              padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
