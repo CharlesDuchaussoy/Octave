@@ -102,9 +102,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final surfaceColor = context.octave.surface1;
-    final dividerColor = isDark
-        ? Colors.white.withValues(alpha: 0.06)
-        : Colors.black.withValues(alpha: 0.06);
+    final dividerColor = context.octave.separator;
 
     return Consumer2<CastService, UpnpService>(
       builder: (context, castService, upnpService, _) {
@@ -265,10 +263,10 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
       padding: const EdgeInsets.only(left: 4, bottom: 4),
       child: Text(
         label,
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.w700,
-          color: Colors.grey,
+          color: context.octave.text2,
           letterSpacing: 0.8,
         ),
       ),
@@ -348,12 +346,12 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
           dense: true,
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-          leading: const Icon(Icons.cast, size: 20, color: Colors.grey),
+          leading: Icon(Icons.cast, size: 20, color: context.octave.text2),
           title: Text(castDevice.friendlyName,
               style:
                   const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600)),
           subtitle: Text(castDevice.modelName ?? 'Google Cast',
-              style: const TextStyle(fontSize: 11.5, color: Colors.grey)),
+              style: TextStyle(fontSize: 11.5, color: context.octave.text2)),
           onTap: () async {
             final ok = await cast.connectToDevice(castDevice);
             if (context.mounted) {
@@ -389,7 +387,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
           leading:
-              const Icon(Icons.speaker_group, size: 20, color: Colors.grey),
+              Icon(Icons.speaker_group, size: 20, color: context.octave.text2),
           title: Text(upnpDevice.friendlyName,
               style:
                   const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600)),
@@ -397,7 +395,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
             [upnpDevice.manufacturer, upnpDevice.modelName]
                 .where((s) => s.isNotEmpty)
                 .join(' • '),
-            style: const TextStyle(fontSize: 11.5, color: Colors.grey),
+            style: TextStyle(fontSize: 11.5, color: context.octave.text2),
           ),
           onTap: () async {
             final ok = await upnp.connect(upnpDevice);

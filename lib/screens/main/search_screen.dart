@@ -164,15 +164,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Container(
                   height: 48,
                   decoration: BoxDecoration(
-                    color: isDark ? Colors.white : const Color(0xFFE5E7EB),
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    color: context.octave.surface2,
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
                     controller: _searchController,
@@ -186,34 +179,35 @@ class _SearchScreenState extends State<SearchScreen> {
                       _performSearch(v.trim());
                       _focusNode.unfocus();
                     },
-                    style: const TextStyle(
-                      color: Colors.black87,
+                    style: TextStyle(
+                      color: context.octave.text1,
                       fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
                     decoration: InputDecoration(
                       hintText:
                           AppLocalizations.of(context)!.whatDoYouWantToPlay,
                       hintStyle: TextStyle(
-                        color: Colors.black.withValues(alpha: 0.6),
+                        color: context.octave.text3,
                         fontSize: 15,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
-                      prefixIcon: const Icon(
+                      prefixIcon: Icon(
                         CupertinoIcons.search,
-                        color: Colors.black87,
-                        size: 22,
+                        color: context.octave.text2,
+                        size: 20,
                       ),
                       suffixIcon: query.isNotEmpty
                           ? IconButton(
-                              icon: const Icon(
-                                  CupertinoIcons.clear_circled_solid,
-                                  color: Colors.black54,
-                                  size: 20),
+                              icon: Icon(CupertinoIcons.clear_circled_solid,
+                                  color: context.octave.text3, size: 20),
                               onPressed: _clearSearch,
                             )
                           : null,
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      filled: false,
                       contentPadding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                   ),
@@ -261,10 +255,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildFilterChip(String key, String label, bool isDark) {
     final isSelected = _selectedFilter == key;
     final primary = Theme.of(context).colorScheme.primary;
-    final onPrimary =
-        ThemeData.estimateBrightnessForColor(primary) == Brightness.dark
-            ? Colors.white
-            : Colors.black;
+    final onPrimary = context.octave.onAccent;
 
     return GestureDetector(
       onTap: () => setState(() => _selectedFilter = key),
@@ -323,7 +314,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 TextButton(
                   onPressed: () => setState(() => _recentQueries.clear()),
                   child: Text(AppLocalizations.of(context)!.clear,
-                      style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                      style: TextStyle(color: context.octave.text2, fontSize: 13)),
                 ),
               ],
             ),
@@ -507,7 +498,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Center(
           child: Column(
             children: [
-              const Icon(CupertinoIcons.search, size: 48, color: Colors.grey),
+              Icon(CupertinoIcons.search, size: 48, color: context.octave.text3),
               const SizedBox(height: 12),
               Text(
                 AppLocalizations.of(context)!.searchNoResultsFor(_searchController.text),
@@ -517,7 +508,7 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(height: 4),
               Text(
                 AppLocalizations.of(context)!.searchNoResultsHint,
-                style: TextStyle(color: Colors.grey, fontSize: 13),
+                style: TextStyle(color: context.octave.text2, fontSize: 13),
               ),
             ],
           ),

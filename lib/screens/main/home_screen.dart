@@ -500,10 +500,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildCategoryChip(String key, String label, bool isDark) {
     final isSelected = _selectedCategory == key;
     final primary = Theme.of(context).colorScheme.primary;
-    final onPrimary =
-        ThemeData.estimateBrightnessForColor(primary) == Brightness.dark
-            ? Colors.white
-            : Colors.black;
+    final onPrimary = context.octave.onAccent;
 
     return GestureDetector(
       onTap: () => setState(() => _selectedCategory = key),
