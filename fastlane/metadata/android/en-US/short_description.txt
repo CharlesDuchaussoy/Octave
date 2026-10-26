@@ -1,1 +1,0 @@
-Self-hosted Jellyfin, Emby, Subsonic, web radio, and local music player.
