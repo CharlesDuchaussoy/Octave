@@ -28,6 +28,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 ### Première installation
 
 - Un écran d'accueil sobre avant la connexion, à la place des trois pages de présentation de Musly.
+- Une connexion simple, en français : l'adresse du serveur, le nom d'utilisateur et le mot de passe. Le choix du type de serveur (Subsonic, Jellyfin, flux web) disparaît ; les réglages techniques (ancienne authentification, certificats) passent dans les options avancées.
 - Une configuration guidée après la connexion, une question par écran, avec un choix conseillé déjà sélectionné : couleur et mode d'affichage (avec un aperçu en direct), forme des pochettes, artistes favoris, rubriques de l'accueil, qualité du son en Wi-Fi et en données mobiles, téléchargement automatique des titres aimés, autorisations (notifications et batterie), puis un résumé.
 - Chaque étape peut être passée, et l'app reprend à la même étape si elle est fermée en cours de route.
 - La configuration se refait depuis Réglages, À propos.
@@ -44,6 +45,12 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Barre d'onglets et mini-lecteur flottants, sur un fond flou : le contenu défile dessous, et les menus s'ouvrent par-dessus.
 - Réglages en une seule liste, comme sur iPhone, à la place des six onglets qui se chevauchaient sur un téléphone.
 - Pochettes de l'accueil sans cadre, artistes en vrais cercles.
+- Glisser le mini-lecteur vers la gauche passe au titre suivant, vers la droite revient au précédent, comme dans Spotify.
+
+### Réglages plus simples
+
+- Retirés, avec une valeur par défaut : dossiers de musique, mode jukebox, paroles LRCLIB (toujours actives), interrupteurs de cache, analyse des BPM, dossier et nombre de téléchargements simultanés, écran allumé pendant les téléchargements, boutons du mini-lecteur (le cœur est affiché, les étoiles, répéter et aléatoire non), recherche en direct (toujours active), résolution des pochettes, style des paroles.
+- « Vider tout le cache » reste, avec la place utilisée.
 
 ### Pochettes de playlist
 
