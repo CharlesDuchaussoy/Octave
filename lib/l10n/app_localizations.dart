@@ -4797,6 +4797,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connect to a server'**
   String get loginUseServer;
+
+  /// Shown while looking for Cast and UPnP devices
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for speakers and TVs…'**
+  String get connectSearching;
+
+  /// Shown when no Cast or UPnP device was found after a few seconds
+  ///
+  /// In en, this message translates to:
+  /// **'No device found. Your phone and the speaker must be on the same Wi-Fi network, and the speaker must be on.'**
+  String get connectNoDevices;
 }
 
 class _AppLocalizationsDelegate

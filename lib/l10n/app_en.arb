@@ -3264,5 +3264,13 @@
   "loginUseServer": "Connect to a server",
   "@loginUseServer": {
     "description": "Login link back to the server form"
+  },
+  "connectSearching": "Looking for speakers and TVs…",
+  "@connectSearching": {
+    "description": "Shown while looking for Cast and UPnP devices"
+  },
+  "connectNoDevices": "No device found. Your phone and the speaker must be on the same Wi-Fi network, and the speaker must be on.",
+  "@connectNoDevices": {
+    "description": "Shown when no Cast or UPnP device was found after a few seconds"
   }
 }
