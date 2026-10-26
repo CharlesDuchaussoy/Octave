@@ -10,6 +10,7 @@ import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
 import 'package:musly/octave/widgets/play_button.dart';
+import 'package:musly/theme/app_theme.dart';
 
 class ArtistScreen extends StatefulWidget {
   final String artistId;
@@ -250,48 +251,81 @@ class _ArtistScreenState extends State<ArtistScreen> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          // Apple Music style: the picture fills the header, fades into
+          // the background, and the name sits on it, at the left margin.
           SliverAppBar(
             pinned: true,
-            expandedHeight: 200,
+            expandedHeight:
+                (MediaQuery.sizeOf(context).width * 0.85).clamp(260.0, 400.0),
+            backgroundColor: context.octave.background,
+            surfaceTintColor: Colors.transparent,
+            foregroundColor: context.octave.text1,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(_artist!.name),
+              titlePadding:
+                  const EdgeInsetsDirectional.only(start: 16, bottom: 14),
+              expandedTitleScale: 1.6,
+              title: Text(
+                _artist!.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.3,
+                  color: context.octave.text1,
+                ),
+              ),
               background: Builder(
                 builder: (context) {
+                  final colors = context.octave;
                   final art = _artist!.coverArt ??
                       _artistInfo?.largeImageUrl ??
                       _artistInfo?.mediumImageUrl ??
                       _artist!.artistImageUrl ??
                       (_artist!.id.isNotEmpty ? 'ar-${_artist!.id}' : null);
-                  if (art == null) {
-                    return Container(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: 0.15),
-                      child: Center(
-                        child: Icon(
-                          CupertinoIcons.mic_fill,
-                          size: 64,
-                          color: Theme.of(context).colorScheme.primary,
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      if (art == null)
+                        ColoredBox(
+                          color: colors.accentSoft,
+                          child: Center(
+                            child: Icon(
+                              CupertinoIcons.mic_fill,
+                              size: 72,
+                              color: colors.onAccentSoft,
+                            ),
+                          ),
+                        )
+                      else
+                        FittedBox(
+                          fit: BoxFit.cover,
+                          clipBehavior: Clip.hardEdge,
+                          child: AlbumArtwork(
+                            coverArt: art,
+                            size: 600,
+                            borderRadius: 0,
+                            shadow: const BoxShadow(color: Colors.transparent),
+                          ),
+                        ),
+                      // Keeps the back button and the name readable on any
+                      // picture.
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              colors.background.withValues(alpha: 0.45),
+                              colors.background.withValues(alpha: 0),
+                              colors.background.withValues(alpha: 0),
+                              colors.background,
+                            ],
+                            stops: const [0, 0.25, 0.55, 1],
+                          ),
                         ),
                       ),
-                    );
-                  }
-                  return ShaderMask(
-                    shaderCallback: (rect) {
-                      return const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.black, Colors.transparent],
-                      ).createShader(
-                        Rect.fromLTRB(0, 0, rect.width, rect.height),
-                      );
-                    },
-                    blendMode: BlendMode.dstIn,
-                    child: AlbumArtwork(
-                      coverArt: art,
-                      size: 200,
-                    ),
+                    ],
                   );
                 },
               ),
