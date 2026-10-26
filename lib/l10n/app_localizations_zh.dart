@@ -685,9 +685,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get unknown => '未知';
 
   @override
-  String get sectionMusicFolders => '音乐文件夹';
-
-  @override
   String get musicFolders => '音乐文件夹';
 
   @override
@@ -715,9 +712,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get logoutConfirmation => '确定要退出登录吗？这也将清除所有缓存数据。';
-
-  @override
-  String get sectionCacheSettings => '缓存设置';
 
   @override
   String get imageCache => '图片缓存';
@@ -766,32 +760,6 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get keepScreenOnDuringDownload => 'Keep Screen On';
-
-  @override
-  String get keepScreenOnDuringDownloadSubtitle =>
-      'Prevents download from failing when device locks';
-
-  @override
-  String get parallelDownloads => 'Parallel Downloads';
-
-  @override
-  String get parallelDownloadsSubtitle =>
-      'Download multiple songs simultaneously';
-
-  @override
-  String get downloadSingular => 'download';
-
-  @override
-  String get downloadPlural => 'downloads';
-
-  @override
-  String get slowerButStable => 'Slower but more stable';
-
-  @override
-  String get fasterButMoreData => 'Faster but uses more data';
-
-  @override
   String get libraryDownloadStarted => '音乐库下载已开始';
 
   @override
@@ -802,21 +770,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noSongsAvailable => '没有可用歌曲。请先加载您的音乐库。';
-
-  @override
-  String get sectionBpmAnalysis => 'BPM 分析';
-
-  @override
-  String get cachedBpms => '已缓存的 BPM';
-
-  @override
-  String get cacheAllBpms => '缓存所有 BPM';
-
-  @override
-  String get clearBpmCache => '清除 BPM 缓存';
-
-  @override
-  String get bpmCacheCleared => 'BPM 缓存已清除';
 
   @override
   String downloadedStats(int count, String size) {
@@ -1343,16 +1296,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get sectionJukebox => '点唱机模式';
-
-  @override
   String get jukeboxMode => '点唱机模式';
-
-  @override
-  String get jukeboxModeSubtitle => '通过服务器而非本设备播放音频';
-
-  @override
-  String get openJukeboxController => '打开点唱机控制器';
 
   @override
   String get jukeboxClearQueue => '清空队列';
@@ -1602,24 +1546,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get transcodingFormatOriginal => 'Original';
 
   @override
-  String get imageCacheTitle => 'Image Cache';
-
-  @override
-  String get imageCacheSubtitle => 'Save album covers locally';
-
-  @override
-  String get musicCacheTitle => '音乐缓存';
-
-  @override
-  String get musicCacheSubtitle => '本地保存歌曲元数据';
-
-  @override
-  String get bpmCacheTitle => 'BPM 缓存';
-
-  @override
-  String get bpmCacheSubtitle => '本地保存 BPM 分析';
-
-  @override
   String get sectionAboutInformation => 'INFORMATION';
 
   @override
@@ -1764,13 +1690,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get yourPlaylistsLabel => 'Your Playlists';
-
-  @override
-  String get enableLrcLibFallback => 'Fetch lyrics from LRCLIB';
-
-  @override
-  String get lrcLibFallbackSubtitle =>
-      'Automatically search LRCLIB for lyrics when your server does not provide them';
 
   @override
   String get themeSaved => 'Theme saved';
@@ -1973,19 +1892,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get gaplessPlaybackSubtitle => 'Eliminate silence between songs';
 
   @override
-  String get sectionLyrics => 'LYRICS';
-
-  @override
   String get networkWifi => 'WiFi';
 
   @override
   String get networkMobile => 'Mobile';
-
-  @override
-  String get downloadFolder => 'Download Folder';
-
-  @override
-  String get downloadFolderDefault => 'Default (Internal storage)';
 
   @override
   String get activeDownloads => 'Active Downloads';
@@ -2008,32 +1918,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get songsStreamCache => 'Songs & Streaming Cache';
-
-  @override
-  String get imageArtworkCache => 'Artwork & Images Cache';
-
-  @override
-  String cacheDiskUsage(String size) {
-    return '$size used on disk';
-  }
-
-  @override
   String totalCacheDiskUsage(String size) {
     return 'Total cache: $size';
   }
-
-  @override
-  String get clearAudioCacheTooltip => 'Clear song cache';
-
-  @override
-  String get clearImageCacheTooltip => 'Clear image cache';
-
-  @override
-  String get audioCacheCleared => 'Song cache cleared';
-
-  @override
-  String get imageCacheCleared => 'Artwork cache cleared';
 
   @override
   String folderAdded(String path) {

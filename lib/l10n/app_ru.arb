@@ -630,13 +630,11 @@
   "serverType": "Тип сервера",
   "notConnected": "Нет подключения",
   "unknown": "Неизвестно",
-  "sectionMusicFolders": "КАТАЛОГИ МУЗЫКИ",
   "musicFolders": "Папки с музыкой",
   "noMusicFolders": "Папки с музыкой не найдены",
   "sectionAccount": "АККАУНТ",
   "logoutConfirmation": "Вы уверены, что хотите выйти? Это также удалит все кэшированные данные.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "НАСТРОЙКИ КЭША",
   "imageCache": "Кэш изображений",
   "musicCache": "Кэш музыки",
   "bpmCache": "Кэш BPM",
@@ -672,11 +670,6 @@
   "deleteDownloads": "Удалить все загрузки",
   "downloadsDeleted": "Все загрузки удалены",
   "noSongsAvailable": "Нет доступных треков. Пожалуйста, сначала добавьте файлы в библиотеку.",
-  "sectionBpmAnalysis": "ОПРЕДЕЛЕНИЕ BPM",
-  "cachedBpms": "Кэшированные BPM",
-  "cacheAllBpms": "Кэшировать все BPM",
-  "clearBpmCache": "Очистить кэш BPM",
-  "bpmCacheCleared": "Кэш BPM очищен",
   "downloadedStats": "{count} пес. • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1332,21 +1325,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "РЕЖИМ «МУЗ. АВТОМАТ»",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Режим муз. автомат",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Воспроизводите через сервер вместо этого устройства",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Открыть контроллер муз. автомата",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Очистить очередь",
   "@jukeboxClearQueue": {
@@ -1674,41 +1655,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Кэш изображений",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Сохранить обложки альбома локально",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Кэш аудиозаписей",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Сохранить метаданные трека локально",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "Кэш BPM",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Хранить локально данные анализа BPM",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"

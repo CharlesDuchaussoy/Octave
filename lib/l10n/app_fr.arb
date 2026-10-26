@@ -633,13 +633,11 @@
   "serverType": "Type de serveur",
   "notConnected": "Non connecté",
   "unknown": "Inconnu",
-  "sectionMusicFolders": "DOSSIERS DE MUSIQUE",
   "musicFolders": "Dossiers de musique",
   "noMusicFolders": "Aucun dossier de musique",
   "sectionAccount": "COMPTE",
   "logoutConfirmation": "Te déconnecter ? Les données en cache seront aussi effacées.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "CACHE",
   "imageCache": "Cache des images",
   "musicCache": "Cache de la musique",
   "bpmCache": "Cache des BPM",
@@ -675,11 +673,6 @@
   "deleteDownloads": "Supprimer tous les téléchargements",
   "downloadsDeleted": "Téléchargements supprimés",
   "noSongsAvailable": "Aucun titre disponible. Charge d'abord ta bibliothèque.",
-  "sectionBpmAnalysis": "ANALYSE DES BPM",
-  "cachedBpms": "BPM en cache",
-  "cacheAllBpms": "Analyser tous les BPM",
-  "clearBpmCache": "Vider le cache des BPM",
-  "bpmCacheCleared": "Cache des BPM vidé",
   "downloadedStats": "{count} titres • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1335,21 +1328,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "MODE JUKEBOX",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Mode jukebox",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Joue le son sur le serveur plutôt que sur ce téléphone",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Ouvrir la télécommande du jukebox",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Vider la file d'attente",
   "@jukeboxClearQueue": {
@@ -1677,41 +1658,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Cache des images",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Garde les pochettes sur le téléphone",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Cache de la musique",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Garde les infos des titres sur le téléphone",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "Cache des BPM",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Garde l'analyse des BPM sur le téléphone",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"
@@ -1965,14 +1916,6 @@
   "switchServer": "Changer de serveur",
   "addProfile": "Ajouter un compte",
   "switchProfileConfirmation": "Se connecter à « {profile} » ?",
-  "keepScreenOnDuringDownload": "Garder l'écran allumé",
-  "keepScreenOnDuringDownloadSubtitle": "Évite que le téléchargement s'arrête quand le téléphone se verrouille",
-  "parallelDownloads": "Téléchargements simultanés",
-  "parallelDownloadsSubtitle": "Télécharge plusieurs titres à la fois",
-  "downloadSingular": "téléchargement",
-  "downloadPlural": "téléchargements",
-  "slowerButStable": "Plus lent mais plus fiable",
-  "fasterButMoreData": "Plus rapide mais consomme plus",
   "importPlaylist": "Importer une playlist",
   "importPlaylistSubtitle": "Depuis Spotify ou YouTube Music, sans compte",
   "checkForUpdates": "Rechercher une mise à jour",
@@ -2020,8 +1963,6 @@
   "set": "Valider",
   "addToPlaylistTitle": "Ajouter à une playlist",
   "yourPlaylistsLabel": "Tes playlists",
-  "enableLrcLibFallback": "Chercher les paroles sur LRCLIB",
-  "lrcLibFallbackSubtitle": "Cherche les paroles sur LRCLIB quand le serveur n'en a pas",
   "themeSaved": "Thème enregistré",
   "themeUnsavedChanges": "Modifications non enregistrées",
   "themeUnsavedChangesTitle": "Modifications non enregistrées",
@@ -2081,23 +2022,13 @@
   "sectionGaplessPlayback": "LECTURE SANS BLANC",
   "gaplessPlayback": "Lecture sans blanc",
   "gaplessPlaybackSubtitle": "Enchaîne les titres sans silence",
-  "sectionLyrics": "PAROLES",
   "networkWifi": "Wi-Fi",
   "networkMobile": "Mobile",
-  "downloadFolder": "Dossier des téléchargements",
-  "downloadFolderDefault": "Par défaut (stockage interne)",
   "activeDownloads": "Téléchargements en cours",
   "noDownloadsInProgress": "Aucun téléchargement en cours",
   "playlistDownloads": "Playlists téléchargées",
   "playlistSongsDownloadedCount": "{count, plural, =1{1 titre téléchargé} other{{count} titres téléchargés}}",
-  "songsStreamCache": "Cache des titres",
-  "imageArtworkCache": "Cache des pochettes",
-  "cacheDiskUsage": "{size} utilisés",
   "totalCacheDiskUsage": "Cache total : {size}",
-  "clearAudioCacheTooltip": "Vider le cache des titres",
-  "clearImageCacheTooltip": "Vider le cache des pochettes",
-  "audioCacheCleared": "Cache des titres vidé",
-  "imageCacheCleared": "Cache des pochettes vidé",
   "folderAdded": "Dossier ajouté : {path}",
   "removeFolderTitle": "Retirer le dossier",
   "removeFolderConfirm": "Ne plus analyser « {path} » ?",

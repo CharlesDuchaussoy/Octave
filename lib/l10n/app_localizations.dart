@@ -1408,12 +1408,6 @@ abstract class AppLocalizations {
   /// **'Unknown'**
   String get unknown;
 
-  /// No description provided for @sectionMusicFolders.
-  ///
-  /// In en, this message translates to:
-  /// **'MUSIC FOLDERS'**
-  String get sectionMusicFolders;
-
   /// No description provided for @musicFolders.
   ///
   /// In en, this message translates to:
@@ -1467,12 +1461,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to logout? This will also clear all cached data.'**
   String get logoutConfirmation;
-
-  /// Storage settings section header
-  ///
-  /// In en, this message translates to:
-  /// **'CACHE SETTINGS'**
-  String get sectionCacheSettings;
 
   /// No description provided for @imageCache.
   ///
@@ -1558,54 +1546,6 @@ abstract class AppLocalizations {
   /// **'This will download {count} songs to your device. This may take a while and use significant storage space.\n\nContinue?'**
   String downloadLibraryConfirm(int count);
 
-  /// Toggle to keep screen on during library download
-  ///
-  /// In en, this message translates to:
-  /// **'Keep Screen On'**
-  String get keepScreenOnDuringDownload;
-
-  /// Subtitle explaining why to keep screen on during download
-  ///
-  /// In en, this message translates to:
-  /// **'Prevents download from failing when device locks'**
-  String get keepScreenOnDuringDownloadSubtitle;
-
-  /// No description provided for @parallelDownloads.
-  ///
-  /// In en, this message translates to:
-  /// **'Parallel Downloads'**
-  String get parallelDownloads;
-
-  /// No description provided for @parallelDownloadsSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Download multiple songs simultaneously'**
-  String get parallelDownloadsSubtitle;
-
-  /// No description provided for @downloadSingular.
-  ///
-  /// In en, this message translates to:
-  /// **'download'**
-  String get downloadSingular;
-
-  /// No description provided for @downloadPlural.
-  ///
-  /// In en, this message translates to:
-  /// **'downloads'**
-  String get downloadPlural;
-
-  /// No description provided for @slowerButStable.
-  ///
-  /// In en, this message translates to:
-  /// **'Slower but more stable'**
-  String get slowerButStable;
-
-  /// No description provided for @fasterButMoreData.
-  ///
-  /// In en, this message translates to:
-  /// **'Faster but uses more data'**
-  String get fasterButMoreData;
-
   /// No description provided for @libraryDownloadStarted.
   ///
   /// In en, this message translates to:
@@ -1629,36 +1569,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No songs available. Please load your library first.'**
   String get noSongsAvailable;
-
-  /// Storage settings section header for BPM analysis
-  ///
-  /// In en, this message translates to:
-  /// **'BPM ANALYSIS'**
-  String get sectionBpmAnalysis;
-
-  /// No description provided for @cachedBpms.
-  ///
-  /// In en, this message translates to:
-  /// **'Cached BPMs'**
-  String get cachedBpms;
-
-  /// No description provided for @cacheAllBpms.
-  ///
-  /// In en, this message translates to:
-  /// **'Cache All BPMs'**
-  String get cacheAllBpms;
-
-  /// No description provided for @clearBpmCache.
-  ///
-  /// In en, this message translates to:
-  /// **'Clear BPM Cache'**
-  String get clearBpmCache;
-
-  /// No description provided for @bpmCacheCleared.
-  ///
-  /// In en, this message translates to:
-  /// **'BPM cache cleared'**
-  String get bpmCacheCleared;
 
   /// No description provided for @downloadedStats.
   ///
@@ -2614,29 +2524,11 @@ abstract class AppLocalizations {
   /// **'{songCount} songs • {albumCount} albums'**
   String genreTooltip(int songCount, int albumCount);
 
-  /// Section header for the jukebox settings in the Server tab
-  ///
-  /// In en, this message translates to:
-  /// **'JUKEBOX MODE'**
-  String get sectionJukebox;
-
   /// Toggle label for enabling jukebox mode
   ///
   /// In en, this message translates to:
   /// **'Jukebox Mode'**
   String get jukeboxMode;
-
-  /// Subtitle for the jukebox mode toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Play audio through the server instead of this device'**
-  String get jukeboxModeSubtitle;
-
-  /// List tile label to navigate to the jukebox controller screen
-  ///
-  /// In en, this message translates to:
-  /// **'Open Jukebox Controller'**
-  String get openJukeboxController;
 
   /// Action label to clear the jukebox playback queue
   ///
@@ -3094,42 +2986,6 @@ abstract class AppLocalizations {
   /// **'Original'**
   String get transcodingFormatOriginal;
 
-  /// Toggle title for image (album art) cache
-  ///
-  /// In en, this message translates to:
-  /// **'Image Cache'**
-  String get imageCacheTitle;
-
-  /// Subtitle for image cache toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Save album covers locally'**
-  String get imageCacheSubtitle;
-
-  /// Toggle title for music metadata cache
-  ///
-  /// In en, this message translates to:
-  /// **'Music Cache'**
-  String get musicCacheTitle;
-
-  /// Subtitle for music cache toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Save song metadata locally'**
-  String get musicCacheSubtitle;
-
-  /// Toggle title for BPM analysis cache
-  ///
-  /// In en, this message translates to:
-  /// **'BPM Cache'**
-  String get bpmCacheTitle;
-
-  /// Subtitle for BPM cache toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Save BPM analysis locally'**
-  String get bpmCacheSubtitle;
-
   /// About screen section header
   ///
   /// In en, this message translates to:
@@ -3387,18 +3243,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your Playlists'**
   String get yourPlaylistsLabel;
-
-  /// Toggle label for enabling LRCLIB lyrics fallback when the Subsonic server has no lyrics
-  ///
-  /// In en, this message translates to:
-  /// **'Fetch lyrics from LRCLIB'**
-  String get enableLrcLibFallback;
-
-  /// Subtitle explaining the LRCLIB fallback toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Automatically search LRCLIB for lyrics when your server does not provide them'**
-  String get lrcLibFallbackSubtitle;
 
   /// Snackbar message after saving a Now Playing theme
   ///
@@ -3760,12 +3604,6 @@ abstract class AppLocalizations {
   /// **'Eliminate silence between songs'**
   String get gaplessPlaybackSubtitle;
 
-  /// Playback settings section header for lyrics
-  ///
-  /// In en, this message translates to:
-  /// **'LYRICS'**
-  String get sectionLyrics;
-
   /// Network badge for WiFi connection
   ///
   /// In en, this message translates to:
@@ -3777,18 +3615,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile'**
   String get networkMobile;
-
-  /// Title for custom download folder setting
-  ///
-  /// In en, this message translates to:
-  /// **'Download Folder'**
-  String get downloadFolder;
-
-  /// Subtitle when default download folder is selected
-  ///
-  /// In en, this message translates to:
-  /// **'Default (Internal storage)'**
-  String get downloadFolderDefault;
 
   /// Title for active downloads row
   ///
@@ -3814,53 +3640,11 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 song downloaded} other{{count} songs downloaded}}'**
   String playlistSongsDownloadedCount(int count);
 
-  /// No description provided for @songsStreamCache.
-  ///
-  /// In en, this message translates to:
-  /// **'Songs & Streaming Cache'**
-  String get songsStreamCache;
-
-  /// Title for image/artwork cache row
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork & Images Cache'**
-  String get imageArtworkCache;
-
-  /// Subtitle showing cache disk usage
-  ///
-  /// In en, this message translates to:
-  /// **'{size} used on disk'**
-  String cacheDiskUsage(String size);
-
   /// Subtitle showing total cache disk usage
   ///
   /// In en, this message translates to:
   /// **'Total cache: {size}'**
   String totalCacheDiskUsage(String size);
-
-  /// Tooltip for clear audio cache button
-  ///
-  /// In en, this message translates to:
-  /// **'Clear song cache'**
-  String get clearAudioCacheTooltip;
-
-  /// Tooltip for clear image cache button
-  ///
-  /// In en, this message translates to:
-  /// **'Clear image cache'**
-  String get clearImageCacheTooltip;
-
-  /// Snackbar message when song cache is cleared
-  ///
-  /// In en, this message translates to:
-  /// **'Song cache cleared'**
-  String get audioCacheCleared;
-
-  /// Snackbar message when artwork cache is cleared
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork cache cleared'**
-  String get imageCacheCleared;
 
   /// Snackbar message when a local folder is added
   ///

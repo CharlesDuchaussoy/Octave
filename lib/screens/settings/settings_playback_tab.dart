@@ -6,7 +6,6 @@ import 'package:musly/providers/player_provider.dart';
 import 'package:musly/services/replay_gain_service.dart';
 import 'package:musly/services/auto_dj_service.dart';
 import 'package:musly/services/transcoding_service.dart';
-import 'package:musly/services/storage_service.dart';
 import 'package:musly/services/fade_settings_service.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/theme/app_theme.dart';
@@ -34,7 +33,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
   double _replayGainPreamp = 0.0;
   bool _replayGainPreventClipping = true;
   double _replayGainFallback = -6.0;
-  bool _lrcLibFallback = true;
   AutoDjMode _autoDjMode = AutoDjMode.off;
   int _autoDjSongsToAdd = 5;
   bool _fadeEnabled = false;
@@ -52,14 +50,11 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
     await _fadeSettingsService.initialize();
     await _crossfadeService.initialize();
 
-    final storageService = StorageService();
-    final lrcLibFallback = await storageService.getLrcLibFallback();
     setState(() {
       _replayGainMode = _replayGainService.getMode();
       _replayGainPreamp = _replayGainService.getPreampGain();
       _replayGainPreventClipping = _replayGainService.getPreventClipping();
       _replayGainFallback = _replayGainService.getFallbackGain();
-      _lrcLibFallback = lrcLibFallback;
       _autoDjMode = playerProvider.autoDjService.mode;
       _autoDjSongsToAdd = playerProvider.autoDjService.songsToAdd;
       _fadeEnabled = _fadeSettingsService.getFadeEnabled();
@@ -91,8 +86,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
         _buildGaplessSection(),
         const SizedBox(height: 24),
         _buildFadeSection(),
-        const SizedBox(height: 24),
-        _buildLrcLibSection(),
         const SizedBox(height: 24),
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionVolumeNormalization,
@@ -274,26 +267,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
           setState(() => _replayGainFallback = value);
         },
       ),
-    );
-  }
-
-  Widget _buildLrcLibSection() {
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsSectionCard(
-      title: l10n.sectionLyrics,
-      children: [
-        SettingsSwitchTile(
-          icon: CupertinoIcons.text_quote,
-          title: AppLocalizations.of(context)!.enableLrcLibFallback,
-          subtitle: AppLocalizations.of(context)!.lrcLibFallbackSubtitle,
-          value: _lrcLibFallback,
-          onChanged: (v) async {
-            final storage = StorageService();
-            await storage.saveLrcLibFallback(v);
-            setState(() => _lrcLibFallback = v);
-          },
-        ),
-      ],
     );
   }
 

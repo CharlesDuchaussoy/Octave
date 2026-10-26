@@ -696,9 +696,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unknown => 'Inconnu';
 
   @override
-  String get sectionMusicFolders => 'DOSSIERS DE MUSIQUE';
-
-  @override
   String get musicFolders => 'Dossiers de musique';
 
   @override
@@ -727,9 +724,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get logoutConfirmation =>
       'Te déconnecter ? Les données en cache seront aussi effacées.';
-
-  @override
-  String get sectionCacheSettings => 'CACHE';
 
   @override
   String get imageCache => 'Cache des images';
@@ -778,32 +772,6 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get keepScreenOnDuringDownload => 'Garder l\'écran allumé';
-
-  @override
-  String get keepScreenOnDuringDownloadSubtitle =>
-      'Évite que le téléchargement s\'arrête quand le téléphone se verrouille';
-
-  @override
-  String get parallelDownloads => 'Téléchargements simultanés';
-
-  @override
-  String get parallelDownloadsSubtitle =>
-      'Télécharge plusieurs titres à la fois';
-
-  @override
-  String get downloadSingular => 'téléchargement';
-
-  @override
-  String get downloadPlural => 'téléchargements';
-
-  @override
-  String get slowerButStable => 'Plus lent mais plus fiable';
-
-  @override
-  String get fasterButMoreData => 'Plus rapide mais consomme plus';
-
-  @override
   String get libraryDownloadStarted =>
       'Téléchargement de la bibliothèque lancé';
 
@@ -816,21 +784,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get noSongsAvailable =>
       'Aucun titre disponible. Charge d\'abord ta bibliothèque.';
-
-  @override
-  String get sectionBpmAnalysis => 'ANALYSE DES BPM';
-
-  @override
-  String get cachedBpms => 'BPM en cache';
-
-  @override
-  String get cacheAllBpms => 'Analyser tous les BPM';
-
-  @override
-  String get clearBpmCache => 'Vider le cache des BPM';
-
-  @override
-  String get bpmCacheCleared => 'Cache des BPM vidé';
 
   @override
   String downloadedStats(int count, String size) {
@@ -1368,17 +1321,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get sectionJukebox => 'MODE JUKEBOX';
-
-  @override
   String get jukeboxMode => 'Mode jukebox';
-
-  @override
-  String get jukeboxModeSubtitle =>
-      'Joue le son sur le serveur plutôt que sur ce téléphone';
-
-  @override
-  String get openJukeboxController => 'Ouvrir la télécommande du jukebox';
 
   @override
   String get jukeboxClearQueue => 'Vider la file d\'attente';
@@ -1632,25 +1575,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get transcodingFormatOriginal => 'D\'origine';
 
   @override
-  String get imageCacheTitle => 'Cache des images';
-
-  @override
-  String get imageCacheSubtitle => 'Garde les pochettes sur le téléphone';
-
-  @override
-  String get musicCacheTitle => 'Cache de la musique';
-
-  @override
-  String get musicCacheSubtitle =>
-      'Garde les infos des titres sur le téléphone';
-
-  @override
-  String get bpmCacheTitle => 'Cache des BPM';
-
-  @override
-  String get bpmCacheSubtitle => 'Garde l\'analyse des BPM sur le téléphone';
-
-  @override
   String get sectionAboutInformation => 'INFORMATIONS';
 
   @override
@@ -1796,13 +1720,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get yourPlaylistsLabel => 'Tes playlists';
-
-  @override
-  String get enableLrcLibFallback => 'Chercher les paroles sur LRCLIB';
-
-  @override
-  String get lrcLibFallbackSubtitle =>
-      'Cherche les paroles sur LRCLIB quand le serveur n\'en a pas';
 
   @override
   String get themeSaved => 'Thème enregistré';
@@ -2003,19 +1920,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get gaplessPlaybackSubtitle => 'Enchaîne les titres sans silence';
 
   @override
-  String get sectionLyrics => 'PAROLES';
-
-  @override
   String get networkWifi => 'Wi-Fi';
 
   @override
   String get networkMobile => 'Mobile';
-
-  @override
-  String get downloadFolder => 'Dossier des téléchargements';
-
-  @override
-  String get downloadFolderDefault => 'Par défaut (stockage interne)';
 
   @override
   String get activeDownloads => 'Téléchargements en cours';
@@ -2038,32 +1946,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get songsStreamCache => 'Cache des titres';
-
-  @override
-  String get imageArtworkCache => 'Cache des pochettes';
-
-  @override
-  String cacheDiskUsage(String size) {
-    return '$size utilisés';
-  }
-
-  @override
   String totalCacheDiskUsage(String size) {
     return 'Cache total : $size';
   }
-
-  @override
-  String get clearAudioCacheTooltip => 'Vider le cache des titres';
-
-  @override
-  String get clearImageCacheTooltip => 'Vider le cache des pochettes';
-
-  @override
-  String get audioCacheCleared => 'Cache des titres vidé';
-
-  @override
-  String get imageCacheCleared => 'Cache des pochettes vidé';
 
   @override
   String folderAdded(String path) {

@@ -630,13 +630,11 @@
   "serverType": "Lloji i Serverit",
   "notConnected": "Nuk është lidhur",
   "unknown": "I panjohur",
-  "sectionMusicFolders": "DOSJET E MUZIKËS",
   "musicFolders": "Dosjet e Muzikës",
   "noMusicFolders": "Nuk u gjet asnjë dosje muzike",
   "sectionAccount": "LLOGARIA",
   "logoutConfirmation": "A jeni të sigurt që dëshironi të shkëputeni? Kjo do të fshijë gjithashtu të gjitha të dhënat e ruajtura (cache).",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "PARAMETRAT E CACHE",
   "imageCache": "Cache i imazheve",
   "musicCache": "Cache i muzikës",
   "bpmCache": "Cache i BPM-ve",
@@ -707,9 +705,6 @@
   },
   "@replayGainMode": {
     "description": "Label for the ReplayGain mode selector"
-  },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
   },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"

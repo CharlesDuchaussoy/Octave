@@ -699,7 +699,6 @@
   "serverType": "Server Type",
   "notConnected": "Not connected",
   "unknown": "Unknown",
-  "sectionMusicFolders": "MUSIC FOLDERS",
   "musicFolders": "Music Folders",
   "noMusicFolders": "No music folders found",
   "sectionSavedProfiles": "SAVED PROFILES",
@@ -717,7 +716,6 @@
   "sectionAccount": "ACCOUNT",
   "logoutConfirmation": "Are you sure you want to logout? This will also clear all cached data.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "CACHE SETTINGS",
   "imageCache": "Image Cache",
   "musicCache": "Music Cache",
   "bpmCache": "BPM Cache",
@@ -749,29 +747,10 @@
       }
     }
   },
-  "keepScreenOnDuringDownload": "Keep Screen On",
-  "@keepScreenOnDuringDownload": {
-    "description": "Toggle to keep screen on during library download"
-  },
-  "keepScreenOnDuringDownloadSubtitle": "Prevents download from failing when device locks",
-  "@keepScreenOnDuringDownloadSubtitle": {
-    "description": "Subtitle explaining why to keep screen on during download"
-  },
-  "parallelDownloads": "Parallel Downloads",
-  "parallelDownloadsSubtitle": "Download multiple songs simultaneously",
-  "downloadSingular": "download",
-  "downloadPlural": "downloads",
-  "slowerButStable": "Slower but more stable",
-  "fasterButMoreData": "Faster but uses more data",
   "libraryDownloadStarted": "Library download started",
   "deleteDownloads": "Delete All Downloads",
   "downloadsDeleted": "All downloads deleted",
   "noSongsAvailable": "No songs available. Please load your library first.",
-  "sectionBpmAnalysis": "BPM ANALYSIS",
-  "cachedBpms": "Cached BPMs",
-  "cacheAllBpms": "Cache All BPMs",
-  "clearBpmCache": "Clear BPM Cache",
-  "bpmCacheCleared": "BPM cache cleared",
   "downloadedStats": "{count} songs • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1471,21 +1450,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "JUKEBOX MODE",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Jukebox Mode",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Play audio through the server instead of this device",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Open Jukebox Controller",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Clear Queue",
   "@jukeboxClearQueue": {
@@ -1834,41 +1801,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Image Cache",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Save album covers locally",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Music Cache",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Save song metadata locally",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "BPM Cache",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Save BPM analysis locally",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"
@@ -2079,14 +2016,6 @@
   "yourPlaylistsLabel": "Your Playlists",
   "@yourPlaylistsLabel": {
     "description": "Section heading inside the add-to-playlist bottom sheet"
-  },
-  "enableLrcLibFallback": "Fetch lyrics from LRCLIB",
-  "@enableLrcLibFallback": {
-    "description": "Toggle label for enabling LRCLIB lyrics fallback when the Subsonic server has no lyrics"
-  },
-  "lrcLibFallbackSubtitle": "Automatically search LRCLIB for lyrics when your server does not provide them",
-  "@lrcLibFallbackSubtitle": {
-    "description": "Subtitle explaining the LRCLIB fallback toggle"
   },
   "themeSaved": "Theme saved",
   "@themeSaved": {
@@ -2353,10 +2282,6 @@
   "@gaplessPlaybackSubtitle": {
     "description": "Subtitle for gapless playback toggle"
   },
-  "sectionLyrics": "LYRICS",
-  "@sectionLyrics": {
-    "description": "Playback settings section header for lyrics"
-  },
   "networkWifi": "WiFi",
   "@networkWifi": {
     "description": "Network badge for WiFi connection"
@@ -2364,14 +2289,6 @@
   "networkMobile": "Mobile",
   "@networkMobile": {
     "description": "Network badge for mobile data connection"
-  },
-  "downloadFolder": "Download Folder",
-  "@downloadFolder": {
-    "description": "Title for custom download folder setting"
-  },
-  "downloadFolderDefault": "Default (Internal storage)",
-  "@downloadFolderDefault": {
-    "description": "Subtitle when default download folder is selected"
   },
   "activeDownloads": "Active Downloads",
   "@activeDownloads": {
@@ -2394,22 +2311,8 @@
       }
     }
   },
-  "songsStreamCache": "Songs & Streaming Cache",
   "@audioStreamCache": {
     "description": "Title for song/audio cache row"
-  },
-  "imageArtworkCache": "Artwork & Images Cache",
-  "@imageArtworkCache": {
-    "description": "Title for image/artwork cache row"
-  },
-  "cacheDiskUsage": "{size} used on disk",
-  "@cacheDiskUsage": {
-    "description": "Subtitle showing cache disk usage",
-    "placeholders": {
-      "size": {
-        "type": "String"
-      }
-    }
   },
   "totalCacheDiskUsage": "Total cache: {size}",
   "@totalCacheDiskUsage": {
@@ -2419,22 +2322,6 @@
         "type": "String"
       }
     }
-  },
-  "clearAudioCacheTooltip": "Clear song cache",
-  "@clearAudioCacheTooltip": {
-    "description": "Tooltip for clear audio cache button"
-  },
-  "clearImageCacheTooltip": "Clear image cache",
-  "@clearImageCacheTooltip": {
-    "description": "Tooltip for clear image cache button"
-  },
-  "audioCacheCleared": "Song cache cleared",
-  "@audioCacheCleared": {
-    "description": "Snackbar message when song cache is cleared"
-  },
-  "imageCacheCleared": "Artwork cache cleared",
-  "@imageCacheCleared": {
-    "description": "Snackbar message when artwork cache is cleared"
   },
   "folderAdded": "Added folder: {path}",
   "@folderAdded": {

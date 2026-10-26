@@ -7,14 +7,11 @@ import 'package:musly/models/server_config.dart';
 import 'package:musly/providers/auth_provider.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/providers/library_provider.dart';
-import 'package:musly/services/jukebox_service.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
-import 'package:musly/screens/media/jukebox_screen.dart';
 import 'package:musly/screens/auth/add_server_screen.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
-import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/widgets/modals/server_switcher_sheet.dart';
 import 'package:musly/utils/context_extensions.dart';
@@ -43,22 +40,6 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
         _buildActiveServerCard(context, authProvider, currentConfig, isYoutube),
         const SizedBox(height: 24),
         _buildSavedServersSection(context, authProvider, currentConfig),
-        if (!isYoutube) ...[
-          const SizedBox(height: 24),
-          SettingsSectionCard(
-            title: l10n.sectionMusicFolders,
-            children: [_buildMusicFoldersButton()],
-          ),
-        ],
-        if (currentConfig != null &&
-            !isYoutube &&
-            !currentConfig.isJellyfin) ...[
-          const SizedBox(height: 24),
-          SettingsSectionCard(
-            title: l10n.sectionJukebox,
-            children: [_buildJukeboxSection()],
-          ),
-        ],
         const SizedBox(height: 24),
         SettingsSectionCard(
           title: l10n.sectionAccount,
@@ -498,90 +479,6 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
           ],
         );
       },
-    );
-  }
-
-  Widget _buildMusicFoldersButton() {
-    return SettingsListTile(
-      icon: CupertinoIcons.folder,
-      title: AppLocalizations.of(context)!.musicFolders,
-      trailing: Icon(
-        CupertinoIcons.chevron_right,
-        size: 16,
-        color: context.octave.text2,
-      ),
-      onTap: _showMusicFoldersDialog,
-    );
-  }
-
-  void _showMusicFoldersDialog() async {
-    final subsonicService = Provider.of<SubsonicService>(
-      context,
-      listen: false,
-    );
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final folders = await subsonicService.getMusicFolders();
-
-    if (!mounted) return;
-
-    final currentSelection = Set<String>.from(
-      authProvider.config?.selectedMusicFolderIds ?? [],
-    );
-
-    await showDialog(
-      context: context,
-      builder: (context) => _MusicFoldersDialog(
-        folders: folders,
-        initialSelection: currentSelection,
-        onSave: (selected) async {
-          await authProvider.updateSelectedMusicFolderIds(selected.toList());
-        },
-      ),
-    );
-  }
-
-  Widget _buildJukeboxSection() {
-    final l10n = AppLocalizations.of(context)!;
-    return Consumer<JukeboxService>(
-      builder: (context, jukebox, _) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SettingsSwitchTile(
-            icon: CupertinoIcons.speaker_2,
-            title: l10n.jukeboxMode,
-            subtitle: l10n.jukeboxModeSubtitle,
-            value: jukebox.enabled,
-            onChanged: (v) => jukebox.setEnabled(v),
-          ),
-          if (jukebox.enabled) ...[
-            Padding(
-              padding: const EdgeInsets.only(left: 56),
-              child: Container(
-                height: 0.5,
-                color: context.octave.separator,
-              ),
-            ),
-            ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 4,
-              ),
-              leading: const SizedBox(width: 32),
-              title: Text(
-                l10n.openJukeboxController,
-                style: const TextStyle(fontSize: 16),
-              ),
-              trailing: Icon(
-                CupertinoIcons.chevron_right,
-                size: 16,
-                color: context.octave.text2,
-              ),
-              onTap: () =>
-                  NavigationHelper.push(context, const JukeboxScreen()),
-            ),
-          ],
-        ],
-      ),
     );
   }
 

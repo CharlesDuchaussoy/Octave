@@ -630,13 +630,11 @@
   "serverType": "Tipo de Servidor",
   "notConnected": "Não conectado",
   "unknown": "Desconhecido",
-  "sectionMusicFolders": "PASTAS DE MÚSICA",
   "musicFolders": "Pastas de música",
   "noMusicFolders": "Nenhuma pasta de música encontrada",
   "sectionAccount": "CONTA",
   "logoutConfirmation": "Tem certeza que deseja encerrar a sessão? Isso também limpará todos os dados em cache.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "CONFIGURAÇÕES DE CACHE",
   "imageCache": "Cache de Imagem",
   "musicCache": "Cache de Música",
   "bpmCache": "Cache BPM",
@@ -672,11 +670,6 @@
   "deleteDownloads": "Excluir Todos os Downloads",
   "downloadsDeleted": "Todos os downloads excluídos",
   "noSongsAvailable": "Nenhuma música disponível. Carregue sua biblioteca primeiro.",
-  "sectionBpmAnalysis": "ANÁLISE BPM",
-  "cachedBpms": "BPMs em Cache",
-  "cacheAllBpms": "Cachear Todos os BPMs",
-  "clearBpmCache": "Limpar Cache BPM",
-  "bpmCacheCleared": "Cache BPM limpo",
   "downloadedStats": "{count} músicas • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1332,21 +1325,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "MODO JUKEBOX",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Modo Jukebox",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Reproduzir áudio pelo servidor ao invés deste dispositivo",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Abrir Controle do Jukebox",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Limpar Fila",
   "@jukeboxClearQueue": {
@@ -1674,41 +1655,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Cache de Imagem",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Salvar capas de álbuns localmente",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Cache de Música",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Salvar metadados da música localmente",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "Cache BPM",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Salvar análise de BPM localmente",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"

@@ -690,9 +690,6 @@ class AppLocalizationsSv extends AppLocalizations {
   String get unknown => 'Okänd';
 
   @override
-  String get sectionMusicFolders => 'MUSIK MAPPAR';
-
-  @override
   String get musicFolders => 'Musik Mappar';
 
   @override
@@ -721,9 +718,6 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get logoutConfirmation =>
       'Är du säker på att du vill logga ut? Detta kommer även rensa all cachelagrad data.';
-
-  @override
-  String get sectionCacheSettings => 'CACHE INSTÄLLNINGAR';
 
   @override
   String get imageCache => 'Bild Cache';
@@ -772,32 +766,6 @@ class AppLocalizationsSv extends AppLocalizations {
   }
 
   @override
-  String get keepScreenOnDuringDownload => 'Keep Screen On';
-
-  @override
-  String get keepScreenOnDuringDownloadSubtitle =>
-      'Prevents download from failing when device locks';
-
-  @override
-  String get parallelDownloads => 'Parallel Downloads';
-
-  @override
-  String get parallelDownloadsSubtitle =>
-      'Download multiple songs simultaneously';
-
-  @override
-  String get downloadSingular => 'download';
-
-  @override
-  String get downloadPlural => 'downloads';
-
-  @override
-  String get slowerButStable => 'Slower but more stable';
-
-  @override
-  String get fasterButMoreData => 'Faster but uses more data';
-
-  @override
   String get libraryDownloadStarted => 'Nerladdning av bibliotek startad';
 
   @override
@@ -809,21 +777,6 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get noSongsAvailable =>
       'Inga låtar tillgängliga. Ladda ditt bibliotek först.';
-
-  @override
-  String get sectionBpmAnalysis => 'BPM ANALYS';
-
-  @override
-  String get cachedBpms => 'Cachade BPM:ar';
-
-  @override
-  String get cacheAllBpms => 'Cacha alla BPM:ar';
-
-  @override
-  String get clearBpmCache => 'Rensa BPM Cache';
-
-  @override
-  String get bpmCacheCleared => 'BPM cache rensad';
 
   @override
   String downloadedStats(int count, String size) {
@@ -1361,17 +1314,7 @@ class AppLocalizationsSv extends AppLocalizations {
   }
 
   @override
-  String get sectionJukebox => 'JUKEBOXLÄGE';
-
-  @override
   String get jukeboxMode => 'Jukeboxläge';
-
-  @override
-  String get jukeboxModeSubtitle =>
-      'Spela upp ljud genom servern istället för denna enhet';
-
-  @override
-  String get openJukeboxController => 'Öppna Jukeboxkontroll';
 
   @override
   String get jukeboxClearQueue => 'Rensa Kö';
@@ -1626,24 +1569,6 @@ class AppLocalizationsSv extends AppLocalizations {
   String get transcodingFormatOriginal => 'Original';
 
   @override
-  String get imageCacheTitle => 'Bildcache';
-
-  @override
-  String get imageCacheSubtitle => 'Spara albumomslag lokalt';
-
-  @override
-  String get musicCacheTitle => 'Musikcache';
-
-  @override
-  String get musicCacheSubtitle => 'Spara låt metadata lokalt';
-
-  @override
-  String get bpmCacheTitle => 'BPM-cache';
-
-  @override
-  String get bpmCacheSubtitle => 'Spara BPM analys lokalt';
-
-  @override
   String get sectionAboutInformation => 'INFORMATION';
 
   @override
@@ -1788,13 +1713,6 @@ class AppLocalizationsSv extends AppLocalizations {
 
   @override
   String get yourPlaylistsLabel => 'Your Playlists';
-
-  @override
-  String get enableLrcLibFallback => 'Fetch lyrics from LRCLIB';
-
-  @override
-  String get lrcLibFallbackSubtitle =>
-      'Automatically search LRCLIB for lyrics when your server does not provide them';
 
   @override
   String get themeSaved => 'Theme saved';
@@ -1997,19 +1915,10 @@ class AppLocalizationsSv extends AppLocalizations {
   String get gaplessPlaybackSubtitle => 'Eliminate silence between songs';
 
   @override
-  String get sectionLyrics => 'LYRICS';
-
-  @override
   String get networkWifi => 'WiFi';
 
   @override
   String get networkMobile => 'Mobile';
-
-  @override
-  String get downloadFolder => 'Download Folder';
-
-  @override
-  String get downloadFolderDefault => 'Default (Internal storage)';
 
   @override
   String get activeDownloads => 'Active Downloads';
@@ -2032,32 +1941,9 @@ class AppLocalizationsSv extends AppLocalizations {
   }
 
   @override
-  String get songsStreamCache => 'Songs & Streaming Cache';
-
-  @override
-  String get imageArtworkCache => 'Artwork & Images Cache';
-
-  @override
-  String cacheDiskUsage(String size) {
-    return '$size used on disk';
-  }
-
-  @override
   String totalCacheDiskUsage(String size) {
     return 'Total cache: $size';
   }
-
-  @override
-  String get clearAudioCacheTooltip => 'Clear song cache';
-
-  @override
-  String get clearImageCacheTooltip => 'Clear image cache';
-
-  @override
-  String get audioCacheCleared => 'Song cache cleared';
-
-  @override
-  String get imageCacheCleared => 'Artwork cache cleared';
 
   @override
   String folderAdded(String path) {

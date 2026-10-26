@@ -630,7 +630,6 @@
   "serverType": "Tipo di server",
   "notConnected": "Non connesso",
   "unknown": "Sconosciuto",
-  "sectionMusicFolders": "CARTELLE MUSICA",
   "musicFolders": "Cartelle Musica",
   "noMusicFolders": "Nessuna cartella musicale trovata",
   "sectionSavedProfiles": "PROFILI SALVATI",
@@ -641,7 +640,6 @@
   "sectionAccount": "ACCOUNT",
   "logoutConfirmation": "Sei sicuro di voler uscire? Questo cancellerà tutti i dati memorizzati nella cache.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "IMPOSTAZIONI CACHE",
   "imageCache": "Cache delle immagini",
   "musicCache": "Cache Della Musica",
   "bpmCache": "Cache BPM",
@@ -677,11 +675,6 @@
   "deleteDownloads": "Elimina tutti i download",
   "downloadsDeleted": "Tutti i download eliminati",
   "noSongsAvailable": "Nessun brano disponibile. Carica prima la tua libreria.",
-  "sectionBpmAnalysis": "ANALISI BPM",
-  "cachedBpms": "Cached BPMs",
-  "cacheAllBpms": "Cache Tutti I Bpm",
-  "clearBpmCache": "Cancella Cache BPM",
-  "bpmCacheCleared": "Cache BPM cancellata",
   "downloadedStats": "{count} canzoni • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1369,21 +1362,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "MODALITÀ JUKEBOX",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Modalità Jukebox",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Riproduci l'audio tramite il server invece di questo dispositivo",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Apri Controller Jukebox",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Cancella la coda",
   "@jukeboxClearQueue": {
@@ -1711,41 +1692,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Cache immagini",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Salva localmente le copertine degli album",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Cache Della Musica",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Salva i metadati del brano localmente",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "Cache BPM",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Salva analisi BPM localmente",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"
@@ -1835,23 +1786,13 @@
   "sectionGaplessPlayback": "RIPRODUZIONE SENZA PAUSE",
   "gaplessPlayback": "Riproduzione senza pause",
   "gaplessPlaybackSubtitle": "Elimina il silenzio tra i brani",
-  "sectionLyrics": "TESTI",
   "networkWifi": "WiFi",
   "networkMobile": "Dati mobili",
-  "downloadFolder": "Cartella di download",
-  "downloadFolderDefault": "Predefinita (Memoria interna)",
   "activeDownloads": "Download attivi",
   "noDownloadsInProgress": "Nessun download in corso",
   "playlistDownloads": "Download playlist",
   "playlistSongsDownloadedCount": "{count, plural, =1{1 brano scaricato} other{{count} brani scaricati}}",
-  "songsStreamCache": "Cache brani e streaming",
-  "imageArtworkCache": "Cache copertine e immagini",
-  "cacheDiskUsage": "{size} occupati su disco",
   "totalCacheDiskUsage": "Totale cache: {size}",
-  "clearAudioCacheTooltip": "Svuota cache brani",
-  "clearImageCacheTooltip": "Svuota cache immagini",
-  "audioCacheCleared": "Cache brani svuotata",
-  "imageCacheCleared": "Cache copertine svuotata",
   "folderAdded": "Cartella aggiunta: {path}",
   "removeFolderTitle": "Rimuovi cartella",
   "removeFolderConfirm": "Rimuovere \"{path}\" dai percorsi di scansione?",

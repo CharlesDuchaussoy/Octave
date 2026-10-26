@@ -628,13 +628,11 @@
   "serverType": "Servertyp",
   "notConnected": "Nicht verbunden",
   "unknown": "Unbekannt",
-  "sectionMusicFolders": "MUSIK ORDNER",
   "musicFolders": "Musik Ordner",
   "noMusicFolders": "Keine Musik Ordner gefunden",
   "sectionAccount": "KONTO",
   "logoutConfirmation": "Bist du sicher, dass du dich abmelden möchten? Dies wird alle Daten im Cache löschen.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "CACHE-EINSTELLUNGEN",
   "imageCache": "Bilder Cache",
   "musicCache": "Musik Cache",
   "bpmCache": "BPM Cache",
@@ -670,11 +668,6 @@
   "deleteDownloads": "Alle Downloads löschen",
   "downloadsDeleted": "Alle Downloads gelöscht",
   "noSongsAvailable": "Keine Songs verfügbar. Bitte laden zuerst deine Bibliothek.",
-  "sectionBpmAnalysis": "BPM ANALYSE",
-  "cachedBpms": "BPMs im Cache",
-  "cacheAllBpms": "Alle BPMs im Cache speichern",
-  "clearBpmCache": "BPM Cache leeren",
-  "bpmCacheCleared": "BPM Cache gelöscht",
   "downloadedStats": "{count} Songs • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1335,17 +1328,11 @@
   "@replayGainMode": {
     "description": "Label for the ReplayGain mode selector"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"

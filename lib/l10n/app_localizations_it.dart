@@ -693,9 +693,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get unknown => 'Sconosciuto';
 
   @override
-  String get sectionMusicFolders => 'CARTELLE MUSICA';
-
-  @override
   String get musicFolders => 'Cartelle Musica';
 
   @override
@@ -724,9 +721,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get logoutConfirmation =>
       'Sei sicuro di voler uscire? Questo cancellerà tutti i dati memorizzati nella cache.';
-
-  @override
-  String get sectionCacheSettings => 'IMPOSTAZIONI CACHE';
 
   @override
   String get imageCache => 'Cache delle immagini';
@@ -775,32 +769,6 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get keepScreenOnDuringDownload => 'Keep Screen On';
-
-  @override
-  String get keepScreenOnDuringDownloadSubtitle =>
-      'Prevents download from failing when device locks';
-
-  @override
-  String get parallelDownloads => 'Parallel Downloads';
-
-  @override
-  String get parallelDownloadsSubtitle =>
-      'Download multiple songs simultaneously';
-
-  @override
-  String get downloadSingular => 'download';
-
-  @override
-  String get downloadPlural => 'downloads';
-
-  @override
-  String get slowerButStable => 'Slower but more stable';
-
-  @override
-  String get fasterButMoreData => 'Faster but uses more data';
-
-  @override
   String get libraryDownloadStarted => 'Download della libreria avviato';
 
   @override
@@ -812,21 +780,6 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get noSongsAvailable =>
       'Nessun brano disponibile. Carica prima la tua libreria.';
-
-  @override
-  String get sectionBpmAnalysis => 'ANALISI BPM';
-
-  @override
-  String get cachedBpms => 'Cached BPMs';
-
-  @override
-  String get cacheAllBpms => 'Cache Tutti I Bpm';
-
-  @override
-  String get clearBpmCache => 'Cancella Cache BPM';
-
-  @override
-  String get bpmCacheCleared => 'Cache BPM cancellata';
 
   @override
   String downloadedStats(int count, String size) {
@@ -1364,17 +1317,7 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get sectionJukebox => 'MODALITÀ JUKEBOX';
-
-  @override
   String get jukeboxMode => 'Modalità Jukebox';
-
-  @override
-  String get jukeboxModeSubtitle =>
-      'Riproduci l\'audio tramite il server invece di questo dispositivo';
-
-  @override
-  String get openJukeboxController => 'Apri Controller Jukebox';
 
   @override
   String get jukeboxClearQueue => 'Cancella la coda';
@@ -1630,24 +1573,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get transcodingFormatOriginal => 'Originale';
 
   @override
-  String get imageCacheTitle => 'Cache immagini';
-
-  @override
-  String get imageCacheSubtitle => 'Salva localmente le copertine degli album';
-
-  @override
-  String get musicCacheTitle => 'Cache Della Musica';
-
-  @override
-  String get musicCacheSubtitle => 'Salva i metadati del brano localmente';
-
-  @override
-  String get bpmCacheTitle => 'Cache BPM';
-
-  @override
-  String get bpmCacheSubtitle => 'Salva analisi BPM localmente';
-
-  @override
   String get sectionAboutInformation => 'INFORMAZIONI';
 
   @override
@@ -1792,13 +1717,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get yourPlaylistsLabel => 'Your Playlists';
-
-  @override
-  String get enableLrcLibFallback => 'Fetch lyrics from LRCLIB';
-
-  @override
-  String get lrcLibFallbackSubtitle =>
-      'Automatically search LRCLIB for lyrics when your server does not provide them';
 
   @override
   String get themeSaved => 'Theme saved';
@@ -2002,19 +1920,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get gaplessPlaybackSubtitle => 'Elimina il silenzio tra i brani';
 
   @override
-  String get sectionLyrics => 'TESTI';
-
-  @override
   String get networkWifi => 'WiFi';
 
   @override
   String get networkMobile => 'Dati mobili';
-
-  @override
-  String get downloadFolder => 'Cartella di download';
-
-  @override
-  String get downloadFolderDefault => 'Predefinita (Memoria interna)';
 
   @override
   String get activeDownloads => 'Download attivi';
@@ -2037,32 +1946,9 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get songsStreamCache => 'Cache brani e streaming';
-
-  @override
-  String get imageArtworkCache => 'Cache copertine e immagini';
-
-  @override
-  String cacheDiskUsage(String size) {
-    return '$size occupati su disco';
-  }
-
-  @override
   String totalCacheDiskUsage(String size) {
     return 'Totale cache: $size';
   }
-
-  @override
-  String get clearAudioCacheTooltip => 'Svuota cache brani';
-
-  @override
-  String get clearImageCacheTooltip => 'Svuota cache immagini';
-
-  @override
-  String get audioCacheCleared => 'Cache brani svuotata';
-
-  @override
-  String get imageCacheCleared => 'Cache copertine svuotata';
 
   @override
   String folderAdded(String path) {
