@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Sternbewertungen anzeigen",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Bewerte Songs und sehe Bewertungen an",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Empfehlungen aktivieren",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,7 +562,6 @@
   "tryDifferentSearch": "Versuche es mit einer anderen Suchanfrage",
   "noSuggestions": "Keine Empfehlungen",
   "browseCategories": "Kategorien durchstöbern",
-  "liveSearchSection": "Suche",
   "categoryMadeForYou": "Für dich",
   "categoryNewReleases": "Neuerscheinungen",
   "categoryTopRated": "Top bewertet",

@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Notes en étoiles",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Note les titres et affiche leurs notes",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Activer les recommandations",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Essaie une autre recherche",
   "noSuggestions": "Aucune suggestion",
   "browseCategories": "Parcourir",
-  "liveSearchSection": "Recherche",
-  "liveSearch": "Résultats pendant la saisie",
-  "liveSearchSubtitle": "Met à jour les résultats à chaque lettre tapée",
   "homeSection": "Accueil",
   "showFavoritePlaylistsOnHome": "Playlists favorites sur l'accueil",
   "showFavoritePlaylistsOnHomeSubtitle": "Chaque playlist favorite a sa propre rangée en haut de l'accueil",
@@ -1842,11 +1831,6 @@
   "playingOnThisDevice": "Lecture sur cet appareil",
   "connectFailed": "Impossible de se connecter à {name}",
   "errorWithDetails": "Erreur : {error}",
-  "artworkSection": "Pochettes",
-  "artworkResolution": "Résolution des pochettes",
-  "artworkResLow": "Basse (300 px)",
-  "artworkResNormal": "Normale (600 px)",
-  "artworkResHigh": "Haute (d'origine)",
   "autoDownloadFavorites": "Télécharger les titres aimés",
   "autoDownloadFavoritesSubtitle": "Chaque titre aimé est enregistré pour l'écoute hors connexion",
   "castConnectedTooltip": "Cast : connecté",
@@ -1891,12 +1875,6 @@
   "sectionEPs": "EP",
   "sectionSingles": "Singles",
   "years": "Années",
-  "showMiniPlayerHeart": "Bouton cœur",
-  "showMiniPlayerHeartSubtitle": "Ajoute aux favoris depuis le mini-lecteur",
-  "showMiniPlayerRepeat": "Bouton répéter",
-  "showMiniPlayerRepeatSubtitle": "Change la répétition depuis le mini-lecteur",
-  "showMiniPlayerShuffle": "Bouton aléatoire",
-  "showMiniPlayerShuffleSubtitle": "Active l'aléatoire depuis le mini-lecteur",
   "faves": "Favoris",
   "likedAlbums": "Albums aimés",
   "noLikedAlbums": "Aucun album aimé pour l'instant",
@@ -1998,18 +1976,7 @@
   "muslyWrapped": "Bilan Octave",
   "wrappedSeasonal": "Le bilan arrive en fin d'année",
   "playYourTopSongs": "Écouter tes titres préférés",
-  "lyricsUnderArtwork": "Paroles sous la pochette",
-  "lyricsUnderArtworkSubtitle": "Affiche la ligne en cours des paroles sous la pochette, dans le lecteur",
   "lyricsDisplaySection": "AFFICHAGE DES PAROLES",
-  "lyricsBlurUnfocused": "Flouter les autres lignes",
-  "lyricsBlurUnfocusedSubtitle": "Les lignes passées et à venir sont floutées",
-  "lyricsAlignment": "Alignement des paroles",
-  "lyricsAlignmentCentered": "Centrées",
-  "lyricsAlignmentLeft": "À gauche",
-  "alignLeft": "Gauche",
-  "alignCenter": "Centre",
-  "lyricsGlowEffect": "Ligne en cours lumineuse",
-  "lyricsGlowEffectSubtitle": "Un léger halo sur la ligne chantée",
   "lyricsKeepScreenOn": "Garder l'écran allumé",
   "lyricsKeepScreenOnSubtitle": "L'écran reste allumé pendant que tu lis les paroles",
   "hideWindowTitlebar": "Masquer la barre de titre",

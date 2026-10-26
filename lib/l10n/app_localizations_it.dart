@@ -374,31 +374,6 @@ class AppLocalizationsIt extends AppLocalizations {
       'Visualizza il controllo del volume nella schermata Ora in riproduzione';
 
   @override
-  String get showStarRatings => 'Mostra Valutazioni Stella';
-
-  @override
-  String get showStarRatingsSubtitle => 'Vota brani e visualizza valutazioni';
-
-  @override
-  String get showMiniPlayerHeart => 'Show Heart Button';
-
-  @override
-  String get showMiniPlayerHeartSubtitle => 'Add to favorites from mini player';
-
-  @override
-  String get showMiniPlayerRepeat => 'Show Repeat Button';
-
-  @override
-  String get showMiniPlayerRepeatSubtitle =>
-      'Toggle repeat mode from mini player';
-
-  @override
-  String get showMiniPlayerShuffle => 'Show Shuffle Button';
-
-  @override
-  String get showMiniPlayerShuffleSubtitle => 'Toggle shuffle from mini player';
-
-  @override
   String get enableRecommendations => 'Attiva Raccomandazioni';
 
   @override
@@ -565,16 +540,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get browseCategories => 'Esplora le categorie';
-
-  @override
-  String get liveSearchSection => 'Ricerca';
-
-  @override
-  String get liveSearch => 'Ricerca Live';
-
-  @override
-  String get liveSearchSubtitle =>
-      'Aggiorna i risultati mentre digiti invece di mostrare un menu a tendina';
 
   @override
   String get homeSection => 'Home';
@@ -1838,43 +1803,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get playYourTopSongs => 'Riproduci i tuoi brani top';
 
   @override
-  String get lyricsUnderArtwork => 'Testo sotto la copertina';
-
-  @override
-  String get lyricsUnderArtworkSubtitle =>
-      'Mostra la riga sincronizzata corrente del testo sotto la copertina nel player a schermo intero';
-
-  @override
   String get lyricsDisplaySection => 'VISUALIZZAZIONE TESTO';
-
-  @override
-  String get lyricsBlurUnfocused => 'Sfoca testo non attivo';
-
-  @override
-  String get lyricsBlurUnfocusedSubtitle =>
-      'Aggiunge un effetto di sfocatura alle righe del testo precedenti e successive';
-
-  @override
-  String get lyricsAlignment => 'Allineamento testo';
-
-  @override
-  String get lyricsAlignmentCentered => 'Centrato';
-
-  @override
-  String get lyricsAlignmentLeft => 'Allineato a sinistra';
-
-  @override
-  String get alignLeft => 'Sinistra';
-
-  @override
-  String get alignCenter => 'Centro';
-
-  @override
-  String get lyricsGlowEffect => 'Bagliore riga attiva';
-
-  @override
-  String get lyricsGlowEffectSubtitle =>
-      'Effetto di bagliore sottile sulla riga del testo attualmente in riproduzione';
 
   @override
   String get lyricsKeepScreenOn => 'Tieni schermo acceso';
@@ -3235,21 +3164,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String errorWithDetails(String error) {
     return 'Error: $error';
   }
-
-  @override
-  String get artworkSection => 'Artwork';
-
-  @override
-  String get artworkResolution => 'Artwork resolution';
-
-  @override
-  String get artworkResLow => 'Low (300 px)';
-
-  @override
-  String get artworkResNormal => 'Normal (600 px)';
-
-  @override
-  String get artworkResHigh => 'High (original)';
 
   @override
   String get autoDownloadFavorites => 'Download liked songs automatically';

@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Visa Stjärnbetyg",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Betygsätt låtar och visa betyg",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Aktivera Rekommendationer",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Försök söka någonting annat",
   "noSuggestions": "Inga förslag",
   "browseCategories": "Bläddra Kategorier",
-  "liveSearchSection": "Sök",
-  "liveSearch": "Livesökning",
-  "liveSearchSubtitle": "Uppdatera resultat medan du skriver istället för att visa en lista",
   "categoryMadeForYou": "Skapad För Dig",
   "categoryNewReleases": "Nytt Släpp",
   "categoryTopRated": "Högst rankade",

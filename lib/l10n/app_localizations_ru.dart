@@ -378,32 +378,6 @@ class AppLocalizationsRu extends AppLocalizations {
       'Отображать управление громкостью на экране воспроизведения';
 
   @override
-  String get showStarRatings => 'Отображать оценку звёздами';
-
-  @override
-  String get showStarRatingsSubtitle =>
-      'Оценивайте песни и просматривайте рейтинги';
-
-  @override
-  String get showMiniPlayerHeart => 'Show Heart Button';
-
-  @override
-  String get showMiniPlayerHeartSubtitle => 'Add to favorites from mini player';
-
-  @override
-  String get showMiniPlayerRepeat => 'Show Repeat Button';
-
-  @override
-  String get showMiniPlayerRepeatSubtitle =>
-      'Toggle repeat mode from mini player';
-
-  @override
-  String get showMiniPlayerShuffle => 'Show Shuffle Button';
-
-  @override
-  String get showMiniPlayerShuffleSubtitle => 'Toggle shuffle from mini player';
-
-  @override
   String get enableRecommendations => 'Включить рекомендации';
 
   @override
@@ -570,16 +544,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get browseCategories => 'Просмотреть категории';
-
-  @override
-  String get liveSearchSection => 'Поиск';
-
-  @override
-  String get liveSearch => 'Мгновенный поиск';
-
-  @override
-  String get liveSearchSubtitle =>
-      'Сразу показывать результаты при вводе текста';
 
   @override
   String get homeSection => 'Home';
@@ -1841,43 +1805,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get playYourTopSongs => 'Play Your Top Songs';
 
   @override
-  String get lyricsUnderArtwork => 'Live Lyrics Under Artwork';
-
-  @override
-  String get lyricsUnderArtworkSubtitle =>
-      'Show currently synced lyric line under the album cover in the full-screen player';
-
-  @override
   String get lyricsDisplaySection => 'LYRICS DISPLAY';
-
-  @override
-  String get lyricsBlurUnfocused => 'Blur Unfocused Lyrics';
-
-  @override
-  String get lyricsBlurUnfocusedSubtitle =>
-      'Add blur effect to past and upcoming lyric lines';
-
-  @override
-  String get lyricsAlignment => 'Lyrics Alignment';
-
-  @override
-  String get lyricsAlignmentCentered => 'Centered';
-
-  @override
-  String get lyricsAlignmentLeft => 'Left aligned';
-
-  @override
-  String get alignLeft => 'Left';
-
-  @override
-  String get alignCenter => 'Center';
-
-  @override
-  String get lyricsGlowEffect => 'Active Line Glow';
-
-  @override
-  String get lyricsGlowEffectSubtitle =>
-      'Subtle glow effect on currently playing lyric line';
 
   @override
   String get lyricsKeepScreenOn => 'Keep Screen On';
@@ -3231,21 +3159,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String errorWithDetails(String error) {
     return 'Error: $error';
   }
-
-  @override
-  String get artworkSection => 'Artwork';
-
-  @override
-  String get artworkResolution => 'Artwork resolution';
-
-  @override
-  String get artworkResLow => 'Low (300 px)';
-
-  @override
-  String get artworkResNormal => 'Normal (600 px)';
-
-  @override
-  String get artworkResHigh => 'High (original)';
 
   @override
   String get autoDownloadFavorites => 'Download liked songs automatically';

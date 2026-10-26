@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Mostra Valutazioni Stella",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Vota brani e visualizza valutazioni",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Attiva Raccomandazioni",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Prova un’altra ricerca",
   "noSuggestions": "Nessun suggerimento",
   "browseCategories": "Esplora le categorie",
-  "liveSearchSection": "Ricerca",
-  "liveSearch": "Ricerca Live",
-  "liveSearchSubtitle": "Aggiorna i risultati mentre digiti invece di mostrare un menu a tendina",
   "categoryMadeForYou": "Fatte Per Te",
   "categoryNewReleases": "Nuovi Rilasci",
   "categoryTopRated": "I più votati",
@@ -1762,18 +1751,7 @@
   "muslyWrapped": "Octave Wrapped",
   "wrappedSeasonal": "Octave Playback è Stagionale",
   "playYourTopSongs": "Riproduci i tuoi brani top",
-  "lyricsUnderArtwork": "Testo sotto la copertina",
-  "lyricsUnderArtworkSubtitle": "Mostra la riga sincronizzata corrente del testo sotto la copertina nel player a schermo intero",
   "lyricsDisplaySection": "VISUALIZZAZIONE TESTO",
-  "lyricsBlurUnfocused": "Sfoca testo non attivo",
-  "lyricsBlurUnfocusedSubtitle": "Aggiunge un effetto di sfocatura alle righe del testo precedenti e successive",
-  "lyricsAlignment": "Allineamento testo",
-  "lyricsAlignmentCentered": "Centrato",
-  "lyricsAlignmentLeft": "Allineato a sinistra",
-  "alignLeft": "Sinistra",
-  "alignCenter": "Centro",
-  "lyricsGlowEffect": "Bagliore riga attiva",
-  "lyricsGlowEffectSubtitle": "Effetto di bagliore sottile sulla riga del testo attualmente in riproduzione",
   "lyricsKeepScreenOn": "Tieni schermo acceso",
   "lyricsKeepScreenOnSubtitle": "Evita che lo schermo si spenga durante la visualizzazione dei testi",
   "hideWindowTitlebar": "Nascondi barra del titolo / decorazioni della finestra",

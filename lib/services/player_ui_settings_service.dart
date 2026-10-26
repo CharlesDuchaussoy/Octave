@@ -32,7 +32,7 @@ class PlayerUiSettingsService {
 
   final ValueNotifier<bool> showVolumeSliderNotifier = ValueNotifier(true);
   final ValueNotifier<bool> showStarRatingsNotifier = ValueNotifier(false);
-  final ValueNotifier<bool> showMiniPlayerHeartNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> showMiniPlayerHeartNotifier = ValueNotifier(true);
   final ValueNotifier<bool> showMiniPlayerRepeatNotifier = ValueNotifier(false);
   final ValueNotifier<bool> showMiniPlayerShuffleNotifier =
       ValueNotifier(false);
@@ -122,7 +122,7 @@ class PlayerUiSettingsService {
   }
 
   bool getShowMiniPlayerHeart() {
-    return _prefs?.getBool(_keyShowMiniPlayerHeart) ?? false;
+    return _prefs?.getBool(_keyShowMiniPlayerHeart) ?? true;
   }
 
   Future<void> setShowMiniPlayerRepeat(bool show) async {
@@ -232,7 +232,7 @@ class PlayerUiSettingsService {
   }
 
   bool getLyricsGlowEffect() {
-    return _prefs?.getBool(_keyLyricsGlowEffect) ?? true;
+    return _prefs?.getBool(_keyLyricsGlowEffect) ?? false;
   }
 
   Future<void> setLyricsKeepScreenOn(bool enabled) async {

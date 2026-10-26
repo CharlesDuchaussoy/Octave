@@ -473,38 +473,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Show Star Ratings",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Rate songs and view ratings",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
-  "showMiniPlayerHeart": "Show Heart Button",
-  "@showMiniPlayerHeart": {
-    "description": "Show Heart button in mini player toggle label"
-  },
-  "showMiniPlayerHeartSubtitle": "Add to favorites from mini player",
-  "@showMiniPlayerHeartSubtitle": {
-    "description": "Show Heart button in mini player toggle subtitle"
-  },
-  "showMiniPlayerRepeat": "Show Repeat Button",
-  "@showMiniPlayerRepeat": {
-    "description": "Show Repeat button in mini player toggle label"
-  },
-  "showMiniPlayerRepeatSubtitle": "Toggle repeat mode from mini player",
-  "@showMiniPlayerRepeatSubtitle": {
-    "description": "Show Repeat button in mini player toggle subtitle"
-  },
-  "showMiniPlayerShuffle": "Show Shuffle Button",
-  "@showMiniPlayerShuffle": {
-    "description": "Show Shuffle button in mini player toggle label"
-  },
-  "showMiniPlayerShuffleSubtitle": "Toggle shuffle from mini player",
-  "@showMiniPlayerShuffleSubtitle": {
-    "description": "Show Shuffle button in mini player toggle subtitle"
-  },
   "enableRecommendations": "Enable Recommendations",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -636,9 +604,6 @@
   "tryDifferentSearch": "Try a different search",
   "noSuggestions": "No suggestions",
   "browseCategories": "Browse Categories",
-  "liveSearchSection": "Search",
-  "liveSearch": "Live Search",
-  "liveSearchSubtitle": "Update results as you type instead of showing a dropdown",
   "homeSection": "Home",
   "showFavoritePlaylistsOnHome": "Favorite playlists on Home",
   "showFavoritePlaylistsOnHomeSubtitle": "Show each favorite playlist as its own row at the top of the Home screen",
@@ -2176,53 +2141,9 @@
   "@playYourTopSongs": {
     "description": "Button to play top songs playlist"
   },
-  "lyricsUnderArtwork": "Live Lyrics Under Artwork",
-  "@lyricsUnderArtwork": {
-    "description": "Toggle to show live lyrics under album artwork in player"
-  },
-  "lyricsUnderArtworkSubtitle": "Show currently synced lyric line under the album cover in the full-screen player",
-  "@lyricsUnderArtworkSubtitle": {
-    "description": "Subtitle for live lyrics under artwork toggle"
-  },
   "lyricsDisplaySection": "LYRICS DISPLAY",
   "@lyricsDisplaySection": {
     "description": "Section header for lyrics display appearance settings"
-  },
-  "lyricsBlurUnfocused": "Blur Unfocused Lyrics",
-  "@lyricsBlurUnfocused": {
-    "description": "Toggle to blur past and upcoming lyric lines"
-  },
-  "lyricsBlurUnfocusedSubtitle": "Add blur effect to past and upcoming lyric lines",
-  "@lyricsBlurUnfocusedSubtitle": {
-    "description": "Subtitle for blur unfocused lyrics toggle"
-  },
-  "lyricsAlignment": "Lyrics Alignment",
-  "@lyricsAlignment": {
-    "description": "Label for lyrics alignment setting"
-  },
-  "lyricsAlignmentCentered": "Centered",
-  "@lyricsAlignmentCentered": {
-    "description": "Centered lyrics alignment label"
-  },
-  "lyricsAlignmentLeft": "Left aligned",
-  "@lyricsAlignmentLeft": {
-    "description": "Left aligned lyrics alignment label"
-  },
-  "alignLeft": "Left",
-  "@alignLeft": {
-    "description": "Left alignment button"
-  },
-  "alignCenter": "Center",
-  "@alignCenter": {
-    "description": "Center alignment button"
-  },
-  "lyricsGlowEffect": "Active Line Glow",
-  "@lyricsGlowEffect": {
-    "description": "Toggle for active lyric line glow effect"
-  },
-  "lyricsGlowEffectSubtitle": "Subtle glow effect on currently playing lyric line",
-  "@lyricsGlowEffectSubtitle": {
-    "description": "Subtitle for active lyric line glow effect toggle"
   },
   "lyricsKeepScreenOn": "Keep Screen On",
   "@lyricsKeepScreenOn": {
@@ -3970,26 +3891,6 @@
   "@errorWithDetails": {
     "description": "Generic error with details",
     "placeholders": {"error": {"type": "String"}}
-  },
-  "artworkSection": "Artwork",
-  "@artworkSection": {
-    "description": "Settings section"
-  },
-  "artworkResolution": "Artwork resolution",
-  "@artworkResolution": {
-    "description": "Settings row"
-  },
-  "artworkResLow": "Low (300 px)",
-  "@artworkResLow": {
-    "description": "Artwork resolution"
-  },
-  "artworkResNormal": "Normal (600 px)",
-  "@artworkResNormal": {
-    "description": "Artwork resolution"
-  },
-  "artworkResHigh": "High (original)",
-  "@artworkResHigh": {
-    "description": "Artwork resolution"
   },
   "autoDownloadFavorites": "Download liked songs automatically",
   "@autoDownloadFavorites": {

@@ -826,54 +826,6 @@ abstract class AppLocalizations {
   /// **'Display volume control in Now Playing screen'**
   String get showVolumeSliderSubtitle;
 
-  /// Show Star Ratings toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Star Ratings'**
-  String get showStarRatings;
-
-  /// Show Star Ratings toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Rate songs and view ratings'**
-  String get showStarRatingsSubtitle;
-
-  /// Show Heart button in mini player toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Heart Button'**
-  String get showMiniPlayerHeart;
-
-  /// Show Heart button in mini player toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Add to favorites from mini player'**
-  String get showMiniPlayerHeartSubtitle;
-
-  /// Show Repeat button in mini player toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Repeat Button'**
-  String get showMiniPlayerRepeat;
-
-  /// Show Repeat button in mini player toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Toggle repeat mode from mini player'**
-  String get showMiniPlayerRepeatSubtitle;
-
-  /// Show Shuffle button in mini player toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Shuffle Button'**
-  String get showMiniPlayerShuffle;
-
-  /// Show Shuffle button in mini player toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Toggle shuffle from mini player'**
-  String get showMiniPlayerShuffleSubtitle;
-
   /// Enable Recommendations toggle label
   ///
   /// In en, this message translates to:
@@ -1173,24 +1125,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Browse Categories'**
   String get browseCategories;
-
-  /// No description provided for @liveSearchSection.
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get liveSearchSection;
-
-  /// No description provided for @liveSearch.
-  ///
-  /// In en, this message translates to:
-  /// **'Live Search'**
-  String get liveSearch;
-
-  /// No description provided for @liveSearchSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Update results as you type instead of showing a dropdown'**
-  String get liveSearchSubtitle;
 
   /// No description provided for @homeSection.
   ///
@@ -3460,77 +3394,11 @@ abstract class AppLocalizations {
   /// **'Play Your Top Songs'**
   String get playYourTopSongs;
 
-  /// Toggle to show live lyrics under album artwork in player
-  ///
-  /// In en, this message translates to:
-  /// **'Live Lyrics Under Artwork'**
-  String get lyricsUnderArtwork;
-
-  /// Subtitle for live lyrics under artwork toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Show currently synced lyric line under the album cover in the full-screen player'**
-  String get lyricsUnderArtworkSubtitle;
-
   /// Section header for lyrics display appearance settings
   ///
   /// In en, this message translates to:
   /// **'LYRICS DISPLAY'**
   String get lyricsDisplaySection;
-
-  /// Toggle to blur past and upcoming lyric lines
-  ///
-  /// In en, this message translates to:
-  /// **'Blur Unfocused Lyrics'**
-  String get lyricsBlurUnfocused;
-
-  /// Subtitle for blur unfocused lyrics toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Add blur effect to past and upcoming lyric lines'**
-  String get lyricsBlurUnfocusedSubtitle;
-
-  /// Label for lyrics alignment setting
-  ///
-  /// In en, this message translates to:
-  /// **'Lyrics Alignment'**
-  String get lyricsAlignment;
-
-  /// Centered lyrics alignment label
-  ///
-  /// In en, this message translates to:
-  /// **'Centered'**
-  String get lyricsAlignmentCentered;
-
-  /// Left aligned lyrics alignment label
-  ///
-  /// In en, this message translates to:
-  /// **'Left aligned'**
-  String get lyricsAlignmentLeft;
-
-  /// Left alignment button
-  ///
-  /// In en, this message translates to:
-  /// **'Left'**
-  String get alignLeft;
-
-  /// Center alignment button
-  ///
-  /// In en, this message translates to:
-  /// **'Center'**
-  String get alignCenter;
-
-  /// Toggle for active lyric line glow effect
-  ///
-  /// In en, this message translates to:
-  /// **'Active Line Glow'**
-  String get lyricsGlowEffect;
-
-  /// Subtitle for active lyric line glow effect toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Subtle glow effect on currently playing lyric line'**
-  String get lyricsGlowEffectSubtitle;
 
   /// Toggle to keep the screen on while viewing lyrics
   ///
@@ -5913,36 +5781,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error: {error}'**
   String errorWithDetails(String error);
-
-  /// Settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork'**
-  String get artworkSection;
-
-  /// Settings row
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork resolution'**
-  String get artworkResolution;
-
-  /// Artwork resolution
-  ///
-  /// In en, this message translates to:
-  /// **'Low (300 px)'**
-  String get artworkResLow;
-
-  /// Artwork resolution
-  ///
-  /// In en, this message translates to:
-  /// **'Normal (600 px)'**
-  String get artworkResNormal;
-
-  /// Artwork resolution
-  ///
-  /// In en, this message translates to:
-  /// **'High (original)'**
-  String get artworkResHigh;
 
   /// Storage setting
   ///

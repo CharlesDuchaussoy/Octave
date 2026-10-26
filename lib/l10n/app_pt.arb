@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Mostrar Avaliações",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Avaliar músicas e ver avaliações",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Habilitar Recomendações",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Tente uma busca diferente",
   "noSuggestions": "Sem sugestões",
   "browseCategories": "Navegar categorias",
-  "liveSearchSection": "Busca",
-  "liveSearch": "Busca em tempo real",
-  "liveSearchSubtitle": "Atualizar resultados enquanto digita em vez de mostrar um menu suspenso",
   "categoryMadeForYou": "Feito para você",
   "categoryNewReleases": "Novos lançamentos",
   "categoryTopRated": "Melhor Avaliados",

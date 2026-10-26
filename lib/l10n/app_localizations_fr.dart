@@ -373,34 +373,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Affiche le réglage du volume dans le lecteur';
 
   @override
-  String get showStarRatings => 'Notes en étoiles';
-
-  @override
-  String get showStarRatingsSubtitle =>
-      'Note les titres et affiche leurs notes';
-
-  @override
-  String get showMiniPlayerHeart => 'Bouton cœur';
-
-  @override
-  String get showMiniPlayerHeartSubtitle =>
-      'Ajoute aux favoris depuis le mini-lecteur';
-
-  @override
-  String get showMiniPlayerRepeat => 'Bouton répéter';
-
-  @override
-  String get showMiniPlayerRepeatSubtitle =>
-      'Change la répétition depuis le mini-lecteur';
-
-  @override
-  String get showMiniPlayerShuffle => 'Bouton aléatoire';
-
-  @override
-  String get showMiniPlayerShuffleSubtitle =>
-      'Active l\'aléatoire depuis le mini-lecteur';
-
-  @override
   String get enableRecommendations => 'Activer les recommandations';
 
   @override
@@ -567,16 +539,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get browseCategories => 'Parcourir';
-
-  @override
-  String get liveSearchSection => 'Recherche';
-
-  @override
-  String get liveSearch => 'Résultats pendant la saisie';
-
-  @override
-  String get liveSearchSubtitle =>
-      'Met à jour les résultats à chaque lettre tapée';
 
   @override
   String get homeSection => 'Accueil';
@@ -1840,42 +1802,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get playYourTopSongs => 'Écouter tes titres préférés';
 
   @override
-  String get lyricsUnderArtwork => 'Paroles sous la pochette';
-
-  @override
-  String get lyricsUnderArtworkSubtitle =>
-      'Affiche la ligne en cours des paroles sous la pochette, dans le lecteur';
-
-  @override
   String get lyricsDisplaySection => 'AFFICHAGE DES PAROLES';
-
-  @override
-  String get lyricsBlurUnfocused => 'Flouter les autres lignes';
-
-  @override
-  String get lyricsBlurUnfocusedSubtitle =>
-      'Les lignes passées et à venir sont floutées';
-
-  @override
-  String get lyricsAlignment => 'Alignement des paroles';
-
-  @override
-  String get lyricsAlignmentCentered => 'Centrées';
-
-  @override
-  String get lyricsAlignmentLeft => 'À gauche';
-
-  @override
-  String get alignLeft => 'Gauche';
-
-  @override
-  String get alignCenter => 'Centre';
-
-  @override
-  String get lyricsGlowEffect => 'Ligne en cours lumineuse';
-
-  @override
-  String get lyricsGlowEffectSubtitle => 'Un léger halo sur la ligne chantée';
 
   @override
   String get lyricsKeepScreenOn => 'Garder l\'écran allumé';
@@ -3233,21 +3160,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String errorWithDetails(String error) {
     return 'Erreur : $error';
   }
-
-  @override
-  String get artworkSection => 'Pochettes';
-
-  @override
-  String get artworkResolution => 'Résolution des pochettes';
-
-  @override
-  String get artworkResLow => 'Basse (300 px)';
-
-  @override
-  String get artworkResNormal => 'Normale (600 px)';
-
-  @override
-  String get artworkResHigh => 'Haute (d\'origine)';
 
   @override
   String get autoDownloadFavorites => 'Télécharger les titres aimés';

@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Отображать оценку звёздами",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Оценивайте песни и просматривайте рейтинги",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Включить рекомендации",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Попробуйте другой поисковый запрос",
   "noSuggestions": "Нет подходящих вариантов",
   "browseCategories": "Просмотреть категории",
-  "liveSearchSection": "Поиск",
-  "liveSearch": "Мгновенный поиск",
-  "liveSearchSubtitle": "Сразу показывать результаты при вводе текста",
   "categoryMadeForYou": "Подборка для вас",
   "categoryNewReleases": "Новые выпуски",
   "categoryTopRated": "С лучшим рейтингом",

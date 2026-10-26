@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Shfaq vlerësimet me yje",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Vlerësoni këngët dhe shikoni vlerësimet",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Aktivizo sugjerimet",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Provo nji kërkim tjetër",
   "noSuggestions": "S'ka sugjerime",
   "browseCategories": "Shfleto Kategoritë",
-  "liveSearchSection": "Kërko",
-  "liveSearch": "Kërkim Live",
-  "liveSearchSubtitle": "Përditëso rezultatet n'kohë reale kuer t'shkrush n'vend se me qit nji listë t'poshtme",
   "categoryMadeForYou": "Kriju për ty",
   "categoryNewReleases": "Shtimet e reja",
   "categoryTopRated": "Më të vlerësuarat",
