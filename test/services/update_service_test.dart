@@ -84,34 +84,45 @@ void main() {
       expect(release.targetAsset, isNotNull);
     });
 
-    test('targetAsset selects the matching platform installer', () {
-      final assets = [
-        const ReleaseAsset(
-          name: 'musly-macos.dmg',
-          browserDownloadUrl: 'dmg-url',
-        ),
-        const ReleaseAsset(
-          name: 'musly-setup.exe',
-          browserDownloadUrl: 'exe-url',
-        ),
-        const ReleaseAsset(
-          name: 'app-release.apk',
-          browserDownloadUrl: 'apk-url',
-        ),
+    test('assetFor picks the installer of each platform', () {
+      const names = [
+        'octave-macos.dmg',
+        'octave-setup.exe',
+        'octave-linux-x86_64.tar.gz',
+        'app-armeabi-v7a-release.apk',
+        'app-arm64-v8a-release.apk',
+        'app-release.apk',
       ];
-
       final release = ReleaseInfo(
-        version: '2.1.0',
-        tagName: 'v2.1.0',
+        version: '1.1.0',
+        tagName: 'v1.1.0',
         htmlUrl: 'html-url',
         body: 'notes',
-        assets: assets,
+        assets: [
+          for (final name in names)
+            ReleaseAsset(name: name, browserDownloadUrl: '$name-url'),
+        ],
       );
 
-      final target = release.targetAsset;
-      expect(target, isNotNull);
-      // On Windows test environment, target should be musly-setup.exe
-      expect(target!.name, 'musly-setup.exe');
+      expect(release.assetFor('android')!.name, 'app-arm64-v8a-release.apk');
+      expect(release.assetFor('windows')!.name, 'octave-setup.exe');
+      expect(release.assetFor('macos')!.name, 'octave-macos.dmg');
+      expect(release.assetFor('linux')!.name, 'octave-linux-x86_64.tar.gz');
+    });
+
+    test('assetFor falls back to the universal APK', () {
+      final release = ReleaseInfo(
+        version: '1.1.0',
+        tagName: 'v1.1.0',
+        htmlUrl: 'html-url',
+        body: 'notes',
+        assets: const [
+          ReleaseAsset(
+              name: 'app-x86_64-release.apk', browserDownloadUrl: 'x86'),
+          ReleaseAsset(name: 'app-release.apk', browserDownloadUrl: 'fat'),
+        ],
+      );
+      expect(release.assetFor('android')!.browserDownloadUrl, 'fat');
     });
   });
 

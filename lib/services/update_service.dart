@@ -60,42 +60,45 @@ class ReleaseInfo {
   }
 
   ReleaseAsset? get targetAsset {
+    if (kIsWeb) return assets.isNotEmpty ? assets.first : null;
+    return assetFor(Platform.operatingSystem);
+  }
+
+  /// Installer for [platform] (a [Platform.operatingSystem] value).
+  ///
+  /// On Android, the arm64-v8a APK fits nearly every phone; then the
+  /// universal APK (no ABI in its name), then any APK.
+  ReleaseAsset? assetFor(String platform) {
     if (assets.isEmpty) return null;
-
-    if (!kIsWeb && Platform.isAndroid) {
-      final apk = assets.firstWhere(
-        (a) => a.name.endsWith('.apk'),
-        orElse: () => assets.first,
-      );
-      return apk;
+    ReleaseAsset? find(bool Function(String name) test) {
+      for (final asset in assets) {
+        if (test(asset.name.toLowerCase())) return asset;
+      }
+      return null;
     }
 
-    if (!kIsWeb && Platform.isWindows) {
-      final exe = assets.firstWhere(
-        (a) => a.name.toLowerCase().endsWith('-setup.exe') ||
-            a.name.toLowerCase().endsWith('.exe'),
-        orElse: () => assets.first,
-      );
-      return exe;
+    switch (platform) {
+      case 'android':
+        const abis = ['arm64-v8a', 'armeabi-v7a', 'x86_64', 'x86'];
+        return find((n) => n.endsWith('.apk') && n.contains('arm64-v8a')) ??
+            find((n) => n.endsWith('.apk') && !abis.any(n.contains)) ??
+            find((n) => n.endsWith('.apk')) ??
+            assets.first;
+      case 'windows':
+        return find((n) => n.endsWith('-setup.exe')) ??
+            find((n) => n.endsWith('.exe')) ??
+            assets.first;
+      case 'macos':
+        return find((n) => n.endsWith('.dmg')) ?? assets.first;
+      case 'linux':
+        return find((n) =>
+                n.contains('linux') ||
+                n.endsWith('.tar.gz') ||
+                n.endsWith('.appimage')) ??
+            assets.first;
+      default:
+        return assets.first;
     }
-
-    if (!kIsWeb && Platform.isMacOS) {
-      final dmg = assets.firstWhere(
-        (a) => a.name.endsWith('.dmg'),
-        orElse: () => assets.first,
-      );
-      return dmg;
-    }
-
-    if (!kIsWeb && Platform.isLinux) {
-      final linux = assets.firstWhere(
-        (a) => a.name.contains('linux') || a.name.endsWith('.tar.gz') || a.name.endsWith('.AppImage'),
-        orElse: () => assets.first,
-      );
-      return linux;
-    }
-
-    return assets.isNotEmpty ? assets.first : null;
   }
 }
 
