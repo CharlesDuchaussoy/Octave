@@ -2379,5 +2379,19 @@
   "coverThisDeviceOnly": "Pour l'instant, cette pochette n'apparaît que dans Octave, sur cet appareil.",
   "coverDiscardTitle": "Abandonner les modifications ?",
   "coverDiscard": "Abandonner",
-  "coverSwapColors": "Inverser les couleurs"
+  "coverSwapColors": "Inverser les couleurs",
+  "loginHintSelfSigned": "Essaie d'activer « Accepter les certificats autosignés » dans les options avancées.",
+  "loginHintCredentials": "Vérifie ton nom d'utilisateur et ton mot de passe, puis réessaie.",
+  "loginHintServerPath": "Vérifie la fin de l'adresse du serveur (par exemple /navidrome).",
+  "loginHintTimeout": "Le serveur a mis trop de temps à répondre. Vérifie ta connexion.",
+  "loginTapEnableSelfSigned": "Touche pour accepter les certificats autosignés",
+  "loginClickEnableSelfSigned": "Clique pour accepter les certificats autosignés",
+  "loginSelectMusicFiles": "Choisis tes fichiers de musique…",
+  "loginNoFilesSelected": "Aucun fichier choisi. Touche « Utiliser les fichiers du téléphone » et choisis ta musique.",
+  "localFilesDescription": "Écoute les fichiers audio de ce téléphone, sans serveur.",
+  "loginInsecureHttp": "Connexion HTTP non chiffrée : mots de passe et musique circulent en clair sur les réseaux publics. Préfère HTTPS.",
+  "profileNameHint": "Par exemple : Maison, Travail",
+  "clientCertPasswordHint": "Mot de passe du fichier .p12 ou .pfx",
+  "serverUrlHint": "https://musique.exemple.fr",
+  "loginUseServer": "Se connecter à un serveur"
 }

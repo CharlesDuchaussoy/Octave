@@ -3605,4 +3605,55 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get coverSwapColors => 'Swap the colors';
+
+  @override
+  String get loginHintSelfSigned =>
+      'Try turning on \"Allow self-signed certificates\" in the advanced options.';
+
+  @override
+  String get loginHintCredentials =>
+      'Check your username and password, then try again.';
+
+  @override
+  String get loginHintServerPath =>
+      'Check the end of the server address (for example /navidrome).';
+
+  @override
+  String get loginHintTimeout =>
+      'The server took too long to answer. Check your connection.';
+
+  @override
+  String get loginTapEnableSelfSigned =>
+      'Tap to allow self-signed certificates';
+
+  @override
+  String get loginClickEnableSelfSigned =>
+      'Click to allow self-signed certificates';
+
+  @override
+  String get loginSelectMusicFiles => 'Choose your music files…';
+
+  @override
+  String get loginNoFilesSelected =>
+      'No file chosen. Tap \"Use phone files\" and choose your music.';
+
+  @override
+  String get localFilesDescription =>
+      'Play the audio files of this phone, without a server.';
+
+  @override
+  String get loginInsecureHttp =>
+      'Unencrypted HTTP connection: passwords and music travel in clear text on public networks. Prefer HTTPS.';
+
+  @override
+  String get profileNameHint => 'For example: Home, Work';
+
+  @override
+  String get clientCertPasswordHint => 'Password of the .p12 or .pfx file';
+
+  @override
+  String get serverUrlHint => 'https://music.example.com';
+
+  @override
+  String get loginUseServer => 'Connect to a server';
 }

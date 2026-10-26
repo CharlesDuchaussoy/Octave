@@ -3624,4 +3624,55 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get coverSwapColors => 'Inverser les couleurs';
+
+  @override
+  String get loginHintSelfSigned =>
+      'Essaie d\'activer « Accepter les certificats autosignés » dans les options avancées.';
+
+  @override
+  String get loginHintCredentials =>
+      'Vérifie ton nom d\'utilisateur et ton mot de passe, puis réessaie.';
+
+  @override
+  String get loginHintServerPath =>
+      'Vérifie la fin de l\'adresse du serveur (par exemple /navidrome).';
+
+  @override
+  String get loginHintTimeout =>
+      'Le serveur a mis trop de temps à répondre. Vérifie ta connexion.';
+
+  @override
+  String get loginTapEnableSelfSigned =>
+      'Touche pour accepter les certificats autosignés';
+
+  @override
+  String get loginClickEnableSelfSigned =>
+      'Clique pour accepter les certificats autosignés';
+
+  @override
+  String get loginSelectMusicFiles => 'Choisis tes fichiers de musique…';
+
+  @override
+  String get loginNoFilesSelected =>
+      'Aucun fichier choisi. Touche « Utiliser les fichiers du téléphone » et choisis ta musique.';
+
+  @override
+  String get localFilesDescription =>
+      'Écoute les fichiers audio de ce téléphone, sans serveur.';
+
+  @override
+  String get loginInsecureHttp =>
+      'Connexion HTTP non chiffrée : mots de passe et musique circulent en clair sur les réseaux publics. Préfère HTTPS.';
+
+  @override
+  String get profileNameHint => 'Par exemple : Maison, Travail';
+
+  @override
+  String get clientCertPasswordHint => 'Mot de passe du fichier .p12 ou .pfx';
+
+  @override
+  String get serverUrlHint => 'https://musique.exemple.fr';
+
+  @override
+  String get loginUseServer => 'Se connecter à un serveur';
 }

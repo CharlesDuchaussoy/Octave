@@ -352,7 +352,7 @@ class _SetupFlowState extends State<SetupFlow> {
               const SizedBox(height: 24),
               OctaveColorSwatches(
                 selected: theme.accentColor,
-                size: 44,
+                size: 40,
                 onChanged: theme.setAccentColor,
               ),
             ],

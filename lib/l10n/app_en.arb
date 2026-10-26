@@ -4412,5 +4412,61 @@
   "coverSwapColors": "Swap the colors",
   "@coverSwapColors": {
     "description": "Cover editor button swapping main and second colors"
+  },
+  "loginHintSelfSigned": "Try turning on \"Allow self-signed certificates\" in the advanced options.",
+  "@loginHintSelfSigned": {
+    "description": "Login error hint"
+  },
+  "loginHintCredentials": "Check your username and password, then try again.",
+  "@loginHintCredentials": {
+    "description": "Login error hint"
+  },
+  "loginHintServerPath": "Check the end of the server address (for example /navidrome).",
+  "@loginHintServerPath": {
+    "description": "Login error hint"
+  },
+  "loginHintTimeout": "The server took too long to answer. Check your connection.",
+  "@loginHintTimeout": {
+    "description": "Login error hint"
+  },
+  "loginTapEnableSelfSigned": "Tap to allow self-signed certificates",
+  "@loginTapEnableSelfSigned": {
+    "description": "Login error action on phones"
+  },
+  "loginClickEnableSelfSigned": "Click to allow self-signed certificates",
+  "@loginClickEnableSelfSigned": {
+    "description": "Login error action on computers"
+  },
+  "loginSelectMusicFiles": "Choose your music files…",
+  "@loginSelectMusicFiles": {
+    "description": "Status while picking local files"
+  },
+  "loginNoFilesSelected": "No file chosen. Tap \"Use phone files\" and choose your music.",
+  "@loginNoFilesSelected": {
+    "description": "Message when no local file was picked"
+  },
+  "localFilesDescription": "Play the audio files of this phone, without a server.",
+  "@localFilesDescription": {
+    "description": "Local files mode description on the login screen"
+  },
+  "loginInsecureHttp": "Unencrypted HTTP connection: passwords and music travel in clear text on public networks. Prefer HTTPS.",
+  "@loginInsecureHttp": {
+    "description": "Warning for http:// server addresses"
+  },
+  "profileNameHint": "For example: Home, Work",
+  "@profileNameHint": {
+    "description": "Hint of the profile name field"
+  },
+  "clientCertPasswordHint": "Password of the .p12 or .pfx file",
+  "@clientCertPasswordHint": {
+    "description": "Hint of the client certificate password field"
+  },
+  "serverUrlHint": "https://music.example.com",
+  "@serverUrlHint": {
+    "description": "Hint of the server address field"
+  },
+  "loginUseServer": "Connect to a server",
+  "@loginUseServer": {
+    "description": "Login link back to the server form"
   }
 }

@@ -6609,6 +6609,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Swap the colors'**
   String get coverSwapColors;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'Try turning on \"Allow self-signed certificates\" in the advanced options.'**
+  String get loginHintSelfSigned;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'Check your username and password, then try again.'**
+  String get loginHintCredentials;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'Check the end of the server address (for example /navidrome).'**
+  String get loginHintServerPath;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'The server took too long to answer. Check your connection.'**
+  String get loginHintTimeout;
+
+  /// Login error action on phones
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to allow self-signed certificates'**
+  String get loginTapEnableSelfSigned;
+
+  /// Login error action on computers
+  ///
+  /// In en, this message translates to:
+  /// **'Click to allow self-signed certificates'**
+  String get loginClickEnableSelfSigned;
+
+  /// Status while picking local files
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your music files…'**
+  String get loginSelectMusicFiles;
+
+  /// Message when no local file was picked
+  ///
+  /// In en, this message translates to:
+  /// **'No file chosen. Tap \"Use phone files\" and choose your music.'**
+  String get loginNoFilesSelected;
+
+  /// Local files mode description on the login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Play the audio files of this phone, without a server.'**
+  String get localFilesDescription;
+
+  /// Warning for http:// server addresses
+  ///
+  /// In en, this message translates to:
+  /// **'Unencrypted HTTP connection: passwords and music travel in clear text on public networks. Prefer HTTPS.'**
+  String get loginInsecureHttp;
+
+  /// Hint of the profile name field
+  ///
+  /// In en, this message translates to:
+  /// **'For example: Home, Work'**
+  String get profileNameHint;
+
+  /// Hint of the client certificate password field
+  ///
+  /// In en, this message translates to:
+  /// **'Password of the .p12 or .pfx file'**
+  String get clientCertPasswordHint;
+
+  /// Hint of the server address field
+  ///
+  /// In en, this message translates to:
+  /// **'https://music.example.com'**
+  String get serverUrlHint;
+
+  /// Login link back to the server form
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to a server'**
+  String get loginUseServer;
 }
 
 class _AppLocalizationsDelegate
