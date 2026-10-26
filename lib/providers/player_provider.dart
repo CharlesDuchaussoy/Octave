@@ -719,7 +719,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
               );
           DefaultCacheManager()
               .downloadFile(coverUrl, key: '${nextSong.coverArt}_800')
-              .catchError((_) => null as dynamic);
+              .then<void>((_) {}, onError: (_) {});
         } catch (_) {}
       }
     }
