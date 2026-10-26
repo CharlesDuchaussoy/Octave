@@ -1,143 +1,85 @@
-; Musly Installer Script for NSIS
+﻿; Octave installer for Windows (NSIS).
+; The version comes from CI: makensis /DOCTAVE_VERSION=1.0.0 installer.nsi
 
-;--------------------------------
-; Version (passed via /DMUSLY_VERSION=x.x.x from CI, or fallback)
+Unicode true
 
-!ifndef MUSLY_VERSION
-  !define MUSLY_VERSION "2.0.3"
+!ifndef OCTAVE_VERSION
+  !define OCTAVE_VERSION "0.0.0"
 !endif
 
-;--------------------------------
-; Includes
+!define APP_NAME "Octave"
+!define APP_EXE "octave.exe"
+!define UNINSTALL_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\Octave"
 
 !include "MUI2.nsh"
 !include "FileFunc.nsh"
 
-;--------------------------------
-; General
-
-; Name and file
-Name "Musly"
-OutFile "musly-setup.exe"
-
-; Default installation folder
-InstallDir "$PROGRAMFILES64\Musly"
-
-; Get installation folder from registry if available
-InstallDirRegKey HKCU "Software\Musly" ""
-
-; Request application privileges for Windows Vista+
+Name "${APP_NAME}"
+OutFile "octave-setup.exe"
+InstallDir "$PROGRAMFILES64\Octave"
+InstallDirRegKey HKCU "Software\Octave" ""
 RequestExecutionLevel admin
-
-;--------------------------------
-; Variables
 
 Var StartMenuFolder
 
-;--------------------------------
-; Interface Settings
-
 !define MUI_ABORTWARNING
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-
-;--------------------------------
-; Pages
+!define MUI_ICON "windows\runner\resources\app_icon.ico"
+!define MUI_UNICON "windows\runner\resources\app_icon.ico"
 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
 
-; Start Menu Folder Page Configuration
-!define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU" 
-!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Musly" 
+!define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU"
+!define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\Octave"
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
-
 !insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
 
 !insertmacro MUI_PAGE_INSTFILES
+!define MUI_FINISHPAGE_RUN "$INSTDIR\${APP_EXE}"
 !insertmacro MUI_PAGE_FINISH
 
-!insertmacro MUI_UNPAGE_WELCOME
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
-!insertmacro MUI_UNPAGE_FINISH
 
-;--------------------------------
-; Languages
+!insertmacro MUI_LANGUAGE "French"
 
-!insertmacro MUI_LANGUAGE "English"
-
-;--------------------------------
-; Installer Sections
-
-Section "Musly" SecMain
-
+Section "Octave" SecMain
   SetOutPath "$INSTDIR"
-  
-  ; Copy all files from Release folder
   File /r "build\windows\x64\runner\Release\*.*"
-  
-  ; Store installation folder
-  WriteRegStr HKCU "Software\Musly" "" $INSTDIR
-  
-  ; Create uninstaller
+
+  WriteRegStr HKCU "Software\Octave" "" $INSTDIR
   WriteUninstaller "$INSTDIR\Uninstall.exe"
-  
-  ; Create Start Menu shortcuts
+
   !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-    
     CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
-    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Musly.lnk" "$INSTDIR\musly.exe"
-    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-  
+    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Octave.lnk" "$INSTDIR\${APP_EXE}"
+    CreateShortcut "$SMPROGRAMS\$StartMenuFolder\Désinstaller Octave.lnk" "$INSTDIR\Uninstall.exe"
   !insertmacro MUI_STARTMENU_WRITE_END
-  
-  ; Create Desktop shortcut
-  CreateShortcut "$DESKTOP\Musly.lnk" "$INSTDIR\musly.exe"
-  
-  ; Write registry keys for Add/Remove Programs
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                   "DisplayName" "Musly - Navidrome Music Player"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                   "UninstallString" "$\"$INSTDIR\Uninstall.exe$\""
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                   "DisplayIcon" "$INSTDIR\musly.exe"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                   "Publisher" "dddevid"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                   "DisplayVersion" "2.0.3"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                   "URLInfoAbout" "https://github.com/dddevid/Musly"
-  
-  ; Calculate and write size
+
+  CreateShortcut "$DESKTOP\Octave.lnk" "$INSTDIR\${APP_EXE}"
+
+  WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayName" "Octave"
+  WriteRegStr HKLM "${UNINSTALL_KEY}" "UninstallString" "$\"$INSTDIR\Uninstall.exe$\""
+  WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayIcon" "$INSTDIR\${APP_EXE}"
+  WriteRegStr HKLM "${UNINSTALL_KEY}" "Publisher" "Charles Duchaussoy"
+  WriteRegStr HKLM "${UNINSTALL_KEY}" "DisplayVersion" "${OCTAVE_VERSION}"
+  WriteRegStr HKLM "${UNINSTALL_KEY}" "URLInfoAbout" "https://github.com/CharlesDuchaussoy/Octave"
+
   ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
   IntFmt $0 "0x%08X" $0
-  WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly" \
-                     "EstimatedSize" "$0"
-
+  WriteRegDWORD HKLM "${UNINSTALL_KEY}" "EstimatedSize" "$0"
 SectionEnd
 
-;--------------------------------
-; Uninstaller Section
-
 Section "Uninstall"
-
-  ; Remove files
   RMDir /r "$INSTDIR"
-  
-  ; Remove Start Menu shortcuts
-  !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
-  
-  Delete "$SMPROGRAMS\$StartMenuFolder\Musly.lnk"
-  Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
-  RMDir "$SMPROGRAMS\$StartMenuFolder"
-  
-  ; Remove Desktop shortcut
-  Delete "$DESKTOP\Musly.lnk"
-  
-  ; Remove registry keys
-  DeleteRegKey HKCU "Software\Musly"
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Musly"
 
+  !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
+  Delete "$SMPROGRAMS\$StartMenuFolder\Octave.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\Désinstaller Octave.lnk"
+  RMDir "$SMPROGRAMS\$StartMenuFolder"
+  Delete "$DESKTOP\Octave.lnk"
+
+  DeleteRegKey HKCU "Software\Octave"
+  DeleteRegKey HKLM "${UNINSTALL_KEY}"
 SectionEnd

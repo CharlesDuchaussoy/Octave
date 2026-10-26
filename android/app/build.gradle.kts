@@ -37,7 +37,9 @@ android {
         versionName = flutter.versionName
     }
 
-    // Configure signing with custom keystore or debug fallback
+    // Release builds use the Octave key described in android/key.properties
+    // (never committed). Without it they fall back to the debug key, which
+    // cannot update an installed Octave. Debug builds keep the debug key.
     signingConfigs {
         create("release") {
             if (keystorePropertiesFile.exists()) {
@@ -51,13 +53,6 @@ android {
 
     buildTypes {
         release {
-            signingConfig = if (keystorePropertiesFile.exists()) {
-                signingConfigs.getByName("release")
-            } else {
-                signingConfigs.getByName("debug")
-            }
-        }
-        debug {
             signingConfig = if (keystorePropertiesFile.exists()) {
                 signingConfigs.getByName("release")
             } else {

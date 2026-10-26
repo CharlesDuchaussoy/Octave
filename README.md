@@ -46,7 +46,7 @@ Octave suit Musly de près et récupère régulièrement ses nouveautés et ses 
 | ✅ | Base : Musly 2.0.3, `master` du 18 octobre 2026 (`b199276`), qui apporte notamment la mise à jour depuis l'app et l'import de playlists |
 | ✅ | Nom, icône et identifiant Android propres (`io.github.charlesduchaussoy.octave`) : Octave s'installe à côté de Musly |
 | ⏳ | Traduction française complète (926 textes sur 926) |
-| ⏳ | Compilation automatique des versions Android par GitHub Actions |
+| ⏳ | Compilation automatique des versions Android, Windows et Linux par GitHub Actions (prête, à essayer avec la première version) |
 | ⏳ | Mises à jour proposées et installées depuis l'app (déjà branchées sur les versions d'Octave, à tester avec la première) |
 | ⏳ | Versions Windows et Linux publiées |
 
@@ -72,8 +72,8 @@ Héritées de Musly :
 | Plateforme | État |
 |---|---|
 | **Android** | Priorité : c'est la version distribuée en premier |
-| **Windows** | Prévue |
-| **Linux** | Prévue |
+| **Windows** | Installateur compilé à chaque version, pas encore essayé |
+| **Linux** | Archive compilée à chaque version, avec un script d'installation |
 | iOS, macOS | Non distribuées : il faudrait un compte développeur Apple payant |
 
 Sur iPhone, l'app conseillée pour notre serveur reste **Arpeggi**, gratuite sur l'App Store.
@@ -82,11 +82,21 @@ Sur iPhone, l'app conseillée pour notre serveur reste **Arpeggi**, gratuite sur
 
 Les versions seront publiées dans la page [**Releases**](https://github.com/CharlesDuchaussoy/Octave/releases).
 
-1. Télécharge le fichier `app-arm64-v8a-release.apk` de la dernière version (il convient à presque tous les téléphones récents).
+### Android
+
+1. Télécharge le fichier `octave-<version>-android-arm64-v8a.apk` de la dernière version (il convient à presque tous les téléphones).
 2. Ouvre-le et autorise l'installation quand Android le demande.
 3. Lance Octave et connecte-toi avec l'adresse et le compte que tu as reçus.
 
-Octave s'installe à côté de Musly sans le remplacer.
+Octave s'installe à côté de Musly sans le remplacer, puis se met à jour tout seul.
+
+### Windows
+
+Télécharge `octave-<version>-windows-setup.exe` et lance-le.
+
+### Linux
+
+Télécharge `octave-<version>-linux-x64.tar.gz`, décompresse-le, puis lance `./install.sh` dans le dossier. Octave s'installe dans `~/.local/share/octave` et apparaît dans le menu des applications. Il faut `mpv` (paquet `mpv-libs` sur Fedora). `./install.sh --uninstall` le retire.
 
 ## Compiler Octave
 
@@ -108,6 +118,15 @@ flutter build apk --release --split-per-abi      # versions Android signées
 ```
 
 Une version signée a besoin d'un fichier `android/key.properties` qui pointe vers la clé de signature. Ce fichier et la clé ne sont **jamais** dans le dépôt.
+
+### Publier une version
+
+1. Change le numéro dans `pubspec.yaml` (`version: 1.0.1+2` : le nombre après `+` augmente à chaque version) et dans `UpdateService.currentVersion` (`lib/services/update_service.dart`). Les deux doivent être égaux, sinon la compilation s'arrête.
+2. Complète [CHANGELOG-octave.md](CHANGELOG-octave.md), puis fusionne sur `master`.
+3. Crée l'étiquette et envoie-la : `git tag v1.0.1 && git push origin v1.0.1`.
+4. GitHub Actions compile tout et prépare un brouillon dans [Releases](https://github.com/CharlesDuchaussoy/Octave/releases). Relis-le, essaie l'APK, puis publie-le : les apps installées proposent alors la mise à jour.
+
+La clé de signature Android est rangée dans les secrets du dépôt (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`). Sans elle, une étiquette ne produit pas de version.
 
 ## Suivre Musly
 
