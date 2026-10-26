@@ -424,8 +424,6 @@
   },
   "@_SEARCH": {},
   "homeSection": "Home",
-  "showFavoritePlaylistsOnHome": "Favorite playlists on Home",
-  "showFavoritePlaylistsOnHomeSubtitle": "Show each favorite playlist as its own row at the top of the Home screen",
   "categoryNewReleases": "New Releases",
   "categoryRadio": "Radio",
   "@_SETTINGS_GENERAL": {},
@@ -1814,54 +1812,6 @@
   "@nowPlayingHeader": {
     "description": "Now playing upper-case badge/header"
   },
-  "privacyFirstTitle": "Privacy First",
-  "@privacyFirstTitle": {
-    "description": "Privacy policy title"
-  },
-  "privacyFirstSubtitle": "Your data stays with you. Always.",
-  "@privacyFirstSubtitle": {
-    "description": "Privacy policy subtitle"
-  },
-  "noDataSellingTitle": "No Data Selling",
-  "@noDataSellingTitle": {
-    "description": "No data selling title"
-  },
-  "noDataSellingDescription": "We never sell, share, or transfer your personal data to third parties.",
-  "@noDataSellingDescription": {
-    "description": "No data selling description"
-  },
-  "localFirstStorageTitle": "Local-First Storage",
-  "@localFirstStorageTitle": {
-    "description": "Local first storage title"
-  },
-  "localFirstStorageDescription": "Your music library and credentials stay on your device.",
-  "@localFirstStorageDescription": {
-    "description": "Local first storage description"
-  },
-  "privateOpenTitle": "100% Private & Open",
-  "@privateOpenTitle": {
-    "description": "100% private and open title"
-  },
-  "privateOpenDescription": "Octave is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.",
-  "@privateOpenDescription": {
-    "description": "Telemetry free description"
-  },
-  "readFullPrivacyPolicy": "Read Full Privacy Policy",
-  "@readFullPrivacyPolicy": {
-    "description": "Read full privacy policy link"
-  },
-  "viewCompleteDetailsWebsite": "View complete details on our website",
-  "@viewCompleteDetailsWebsite": {
-    "description": "View details on website subtitle"
-  },
-  "understandAndContinue": "I Understand & Continue",
-  "@understandAndContinue": {
-    "description": "Accept privacy button"
-  },
-  "declineAndExit": "Decline & Exit",
-  "@declineAndExit": {
-    "description": "Decline privacy button"
-  },
   "stop": "Stop",
   "@stop": {
     "description": "Stop playback"
@@ -1970,7 +1920,7 @@
   "@addMusicSource": {
     "description": "Add music source title"
   },
-  "addMusicSourceSubtitle": "Connect Navidrome, Jellyfin, or Web Stream",
+  "addMusicSourceSubtitle": "Another Navidrome server",
   "@addMusicSourceSubtitle": {
     "description": "Add music source subtitle"
   },
@@ -3193,8 +3143,8 @@
   "@coverSaveFailed": {
     "description": "Message when a cover cannot be saved"
   },
-  "coverThisDeviceOnly": "For now, this cover only shows in Octave on this device.",
-  "@coverThisDeviceOnly": {
+  "coverSharedNote": "The cover also shows in the other apps of the server (Arpeggi, the web player), for the playlists you created.",
+  "@coverSharedNote": {
     "description": "Note in the cover editor"
   },
   "coverDiscardTitle": "Discard changes?",
@@ -3296,5 +3246,55 @@
   "homeSectionMixes": "Mixes",
   "@homeSectionMixes": {
     "description": "Home rows of generated mixes"
+  },
+  "coverSavedThisDevice": "Cover saved on this device. The server did not accept it.",
+  "@coverSavedThisDevice": {
+    "description": "Message when the cover could not be sent to the server"
+  },
+  "mixQuickPicks": "Quick picks",
+  "@mixQuickPicks": {
+    "description": "Generated mix title"
+  },
+  "mixDiscover": "Discovery mix",
+  "@mixDiscover": {
+    "description": "Generated mix title"
+  },
+  "mixOfArtist": "{name} mix",
+  "@mixOfArtist": {
+    "description": "Generated mix of one artist",
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "mixOfGenre": "{genre} mix",
+  "@mixOfGenre": {
+    "description": "Generated mix of one genre",
+    "placeholders": {
+      "genre": {
+        "type": "String"
+      }
+    }
+  },
+  "mixMorning": "Morning mood",
+  "@mixMorning": {
+    "description": "Mix for the time of day"
+  },
+  "mixAfternoon": "Afternoon mood",
+  "@mixAfternoon": {
+    "description": "Mix for the time of day"
+  },
+  "mixEvening": "Evening mood",
+  "@mixEvening": {
+    "description": "Mix for the time of day"
+  },
+  "mixNight": "Night mood",
+  "@mixNight": {
+    "description": "Mix for the time of day"
+  },
+  "aboutLinkPrivacy": "Privacy",
+  "@aboutLinkPrivacy": {
+    "description": "About screen link to the privacy policy"
   }
 }

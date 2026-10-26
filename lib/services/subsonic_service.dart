@@ -29,7 +29,9 @@ class SubsonicService {
 
   // Octo applies its Musly-specific settings (timed lyrics, library-only
   // albums) to this client name. Keep it until Octo recognizes Octave.
-  static const String _clientName = 'Musly';
+  // Octo attaches its options (synced lyrics, albums limited to the
+  // account's library) to clients named Octave or Musly.
+  static const String _clientName = 'Octave';
   static const String _apiVersion = '1.16.1';
 
   SubsonicService() : _dio = Dio() {
@@ -675,6 +677,53 @@ class SubsonicService {
   Future<Playlist> getPlaylist(String id) async {
     final response = await _request('getPlaylist', {'id': id});
     return Playlist.fromJson(response['playlist'] as Map<String, dynamic>);
+  }
+
+  /// Sets [image] (PNG or JPEG) as the cover of [playlistId] for every app
+  /// of the server, through Octo. [settings] is the editor design, kept by
+  /// Octo so another device can reopen it. Returns the new coverArt id:
+  /// it changes on each upload, so image caches refresh.
+  Future<String?> octoSetPlaylistImage(
+    String playlistId,
+    Uint8List image, {
+    String? settings,
+  }) async {
+    final response = await _dio.post(
+      _buildUrl('octo.setPlaylistImage'),
+      data: FormData.fromMap({
+        'id': playlistId,
+        'image': MultipartFile.fromBytes(image, filename: 'cover.png'),
+        if (settings != null) 'settings': settings,
+      }),
+    );
+    final result = _checkResponse(response.data)['octoPlaylistImage'];
+    return result is Map ? result['coverArt'] as String? : null;
+  }
+
+  /// Back to the automatic cover of [playlistId]; returns the new coverArt.
+  Future<String?> octoDeletePlaylistImage(String playlistId) async {
+    final response =
+        await _request('octo.deletePlaylistImage', {'id': playlistId});
+    final result = response['octoPlaylistImage'];
+    return result is Map ? result['coverArt'] as String? : null;
+  }
+
+  /// Editor design saved with the cover of [playlistId], if any.
+  Future<String?> octoGetPlaylistImageSettings(String playlistId) async {
+    final response =
+        await _request('octo.getPlaylistImageSettings', {'id': playlistId});
+    final result = response['octoPlaylistImage'];
+    return result is Map ? result['settings'] as String? : null;
+  }
+
+  Map<String, dynamic> _checkResponse(dynamic data) {
+    final decoded = data is String ? json.decode(data) : data;
+    final subsonicResponse = decoded['subsonic-response'];
+    if (subsonicResponse == null) throw Exception('Invalid response format');
+    if (subsonicResponse['status'] != 'ok') {
+      throw Exception(subsonicResponse['error']?['message'] ?? 'Unknown error');
+    }
+    return subsonicResponse as Map<String, dynamic>;
   }
 
   Future<void> createPlaylist({

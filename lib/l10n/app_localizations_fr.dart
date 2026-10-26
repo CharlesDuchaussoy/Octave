@@ -377,14 +377,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeSection => 'Accueil';
 
   @override
-  String get showFavoritePlaylistsOnHome =>
-      'Playlists favorites sur l\'accueil';
-
-  @override
-  String get showFavoritePlaylistsOnHomeSubtitle =>
-      'Chaque playlist favorite a sa propre rangée en haut de l\'accueil';
-
-  @override
   String get categoryNewReleases => 'Nouveautés';
 
   @override
@@ -1454,45 +1446,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get nowPlayingHeader => 'À L\'ÉCOUTE';
 
   @override
-  String get privacyFirstTitle => 'Ta vie privée d\'abord';
-
-  @override
-  String get privacyFirstSubtitle => 'Tes données restent chez toi.';
-
-  @override
-  String get noDataSellingTitle => 'Aucune revente';
-
-  @override
-  String get noDataSellingDescription =>
-      'Tes données ne sont jamais vendues, partagées ni transmises à qui que ce soit.';
-
-  @override
-  String get localFirstStorageTitle => 'Tout reste sur ton téléphone';
-
-  @override
-  String get localFirstStorageDescription =>
-      'Ta bibliothèque et tes identifiants restent sur ton appareil.';
-
-  @override
-  String get privateOpenTitle => 'Privé et libre';
-
-  @override
-  String get privateOpenDescription =>
-      'Octave n\'envoie aucune statistique : ni identifiant personnel, ni suivi d\'utilisation.';
-
-  @override
-  String get readFullPrivacyPolicy => 'Lire la politique de confidentialité';
-
-  @override
-  String get viewCompleteDetailsWebsite => 'Le détail complet est sur GitHub';
-
-  @override
-  String get understandAndContinue => 'J\'ai compris';
-
-  @override
-  String get declineAndExit => 'Refuser et quitter';
-
-  @override
   String get stop => 'Arrêter';
 
   @override
@@ -1573,7 +1526,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addMusicSource => 'Ajouter une source';
 
   @override
-  String get addMusicSourceSubtitle => 'Navidrome, Jellyfin ou Web Stream';
+  String get addMusicSourceSubtitle => 'Un autre serveur Navidrome';
 
   @override
   String get removeFromFavoritesTitle => 'Retirer des favoris ?';
@@ -2561,8 +2514,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get coverSaveFailed => 'Impossible d\'enregistrer la pochette';
 
   @override
-  String get coverThisDeviceOnly =>
-      'Pour l\'instant, cette pochette n\'apparaît que dans Octave, sur cet appareil.';
+  String get coverSharedNote =>
+      'La pochette s\'affiche aussi dans les autres apps du serveur (Arpeggi, le lecteur web), pour les playlists que tu as créées.';
 
   @override
   String get coverDiscardTitle => 'Abandonner les modifications ?';
@@ -2649,4 +2602,39 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get homeSectionMixes => 'Mix';
+
+  @override
+  String get coverSavedThisDevice =>
+      'Pochette enregistrée sur cet appareil. Le serveur ne l\'a pas acceptée.';
+
+  @override
+  String get mixQuickPicks => 'Sélection rapide';
+
+  @override
+  String get mixDiscover => 'Mix découverte';
+
+  @override
+  String mixOfArtist(String name) {
+    return 'Mix $name';
+  }
+
+  @override
+  String mixOfGenre(String genre) {
+    return 'Mix $genre';
+  }
+
+  @override
+  String get mixMorning => 'Ambiance du matin';
+
+  @override
+  String get mixAfternoon => 'Ambiance de l\'après-midi';
+
+  @override
+  String get mixEvening => 'Ambiance du soir';
+
+  @override
+  String get mixNight => 'Ambiance de la nuit';
+
+  @override
+  String get aboutLinkPrivacy => 'Confidentialité';
 }

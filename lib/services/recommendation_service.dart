@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../l10n/app_localizations.dart';
 import '../models/models.dart';
 
 abstract class _W {
@@ -456,25 +457,29 @@ class RecommendationService extends ChangeNotifier {
     return _sortByScore(genreSongs, jitter: 0.10, limit: limit);
   }
 
-  Map<String, List<Song>> generateMixes(List<Song> allSongs) {
+  /// Mixes keyed by their title, translated with [l10n].
+  Map<String, List<Song>> generateMixes(
+    List<Song> allSongs, {
+    required AppLocalizations l10n,
+  }) {
     if (!_enabled || allSongs.isEmpty) return {};
 
     final mixes = <String, List<Song>>{};
 
     final quick = getQuickPicks(allSongs, limit: 20);
-    if (quick.isNotEmpty) mixes['Quick Picks'] = quick;
+    if (quick.isNotEmpty) mixes[l10n.mixQuickPicks] = quick;
 
     final discover = getDiscoverMix(allSongs, limit: 20);
-    if (discover.isNotEmpty) mixes['Discover Mix'] = discover;
+    if (discover.isNotEmpty) mixes[l10n.mixDiscover] = discover;
 
     for (final artist in _getTopArtists(3)) {
       final mix = getArtistMix(allSongs, artist, limit: 15);
-      if (mix.length >= 5) mixes['$artist Mix'] = mix;
+      if (mix.length >= 5) mixes[l10n.mixOfArtist(artist)] = mix;
     }
 
     for (final genre in _getTopGenres(2)) {
       final mix = getGenreMix(allSongs, genre, limit: 15);
-      if (mix.length >= 5) mixes['$genre Mix'] = mix;
+      if (mix.length >= 5) mixes[l10n.mixOfGenre(genre)] = mix;
     }
 
     final hour = DateTime.now().hour;
@@ -488,7 +493,7 @@ class RecommendationService extends ChangeNotifier {
         limit: 15,
       );
       if (timeSongs.length >= 5) {
-        mixes['${_timeLabel(hour)} Vibes'] = timeSongs;
+        mixes[_timeLabel(hour, l10n)] = timeSongs;
       }
     }
 
@@ -661,11 +666,11 @@ class RecommendationService extends ChangeNotifier {
         .toList();
   }
 
-  String _timeLabel(int hour) {
-    if (hour >= 5 && hour < 12) return 'Morning';
-    if (hour >= 12 && hour < 17) return 'Afternoon';
-    if (hour >= 17 && hour < 21) return 'Evening';
-    return 'Night';
+  String _timeLabel(int hour, AppLocalizations l10n) {
+    if (hour >= 5 && hour < 12) return l10n.mixMorning;
+    if (hour >= 12 && hour < 17) return l10n.mixAfternoon;
+    if (hour >= 17 && hour < 21) return l10n.mixEvening;
+    return l10n.mixNight;
   }
 
   void _scheduleSave() {

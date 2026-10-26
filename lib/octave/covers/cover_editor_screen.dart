@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -55,7 +57,7 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
   List<Color> _coverColors = const [];
   int _tab = 0;
   bool _saving = false;
-  late final bool _hasCustom;
+  late bool _hasCustom;
 
   bool get _dirty => _design != null && _design != _initial;
 
@@ -75,7 +77,9 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
   }
 
   Future<void> _load() async {
-    final saved = await PlaylistCoverStore.instance.design(widget.playlist.id);
+    final saved =
+        await PlaylistCoverStore.instance.design(widget.playlist.id) ??
+            await _serverDesign();
     if (!mounted) return;
     final design = saved ?? _defaultDesign();
     _title.text = design.title;
@@ -102,6 +106,45 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
     if (!mounted) return;
     setState(() => _covers = covers);
     _loadCoverColors(covers.take(3).toList());
+  }
+
+  /// Design kept by Octo, when the cover was made on another device.
+  Future<CoverDesign?> _serverDesign() async {
+    try {
+      final subsonic = Provider.of<SubsonicService>(context, listen: false);
+      final raw =
+          await subsonic.octoGetPlaylistImageSettings(widget.playlist.id);
+      if (raw == null || raw.isEmpty) return null;
+      final design =
+          CoverDesign.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+      if (mounted) setState(() => _hasCustom = true);
+      return design;
+    } catch (e) {
+      debugPrint('[PlaylistCoverEditor] no design on the server: $e');
+      return null;
+    }
+  }
+
+  /// Sends the cover to the server through Octo, so Arpeggi, the web
+  /// player and Octave on other devices show it. False when the server
+  /// has no Octo or refuses (playlist of another account, or generated).
+  Future<bool> _upload(CoverDesign design, Uint8List png) async {
+    try {
+      final subsonic = Provider.of<SubsonicService>(context, listen: false);
+      final library = Provider.of<LibraryProvider>(context, listen: false);
+      // The photo path only makes sense on this device.
+      final shared = design.copyWith(clearImage: true);
+      await subsonic.octoSetPlaylistImage(
+        widget.playlist.id,
+        png,
+        settings: jsonEncode(shared.toJson()),
+      );
+      library.loadPlaylists().catchError((_) {});
+      return true;
+    } catch (e) {
+      debugPrint('[PlaylistCoverEditor] upload failed: $e');
+      return false;
+    }
   }
 
   /// Colors picked from the first covers of the playlist.
@@ -137,14 +180,11 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
     );
   }
 
-  /// A lighter color next to [color] on the color wheel, for gradients.
+  /// A light tint of [color], same hue, for gradients: shifting the hue
+  /// turned blues into purple.
   static Color _partner(Color color) {
     final hct = Hct.fromInt(color.toARGB32());
-    return Color(Hct.from(
-      (hct.hue + 40) % 360,
-      math.max(hct.chroma, 40),
-      78,
-    ).toInt());
+    return Color(Hct.from(hct.hue, math.max(hct.chroma, 30), 80).toInt());
   }
 
   void _update(CoverDesign design) => setState(() => _design = design);
@@ -162,10 +202,13 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
       final image =
           await boundary.toImage(pixelRatio: 1200 / boundary.size.width);
       final data = await image.toByteData(format: ui.ImageByteFormat.png);
-      await PlaylistCoverStore.instance
-          .save(widget.playlist.id, design, data!.buffer.asUint8List());
+      final png = data!.buffer.asUint8List();
+      await PlaylistCoverStore.instance.save(widget.playlist.id, design, png);
+      final shared = await _upload(design, png);
       _initial = design;
-      messenger.showSnackBar(SnackBar(content: Text(l10n.coverSaved)));
+      messenger.showSnackBar(SnackBar(
+        content: Text(shared ? l10n.coverSaved : l10n.coverSavedThisDevice),
+      ));
       navigator.pop();
     } catch (e) {
       debugPrint('[PlaylistCoverEditor] save failed: $e');
@@ -176,7 +219,15 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
 
   Future<void> _backToAutomatic() async {
     final navigator = Navigator.of(context);
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
+    final library = Provider.of<LibraryProvider>(context, listen: false);
     await PlaylistCoverStore.instance.remove(widget.playlist.id);
+    try {
+      await subsonic.octoDeletePlaylistImage(widget.playlist.id);
+      library.loadPlaylists().catchError((_) {});
+    } catch (e) {
+      debugPrint('[PlaylistCoverEditor] server removal failed: $e');
+    }
     _initial = _design;
     navigator.pop();
   }
@@ -401,7 +452,7 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
       ),
       const SizedBox(height: 24),
       Text(
-        l10n.coverThisDeviceOnly,
+        l10n.coverSharedNote,
         style: TextStyle(fontSize: 13, color: colors.text3),
       ),
       if (_hasCustom) ...[

@@ -808,18 +808,6 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get homeSection;
 
-  /// No description provided for @showFavoritePlaylistsOnHome.
-  ///
-  /// In en, this message translates to:
-  /// **'Favorite playlists on Home'**
-  String get showFavoritePlaylistsOnHome;
-
-  /// No description provided for @showFavoritePlaylistsOnHomeSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Show each favorite playlist as its own row at the top of the Home screen'**
-  String get showFavoritePlaylistsOnHomeSubtitle;
-
   /// No description provided for @categoryNewReleases.
   ///
   /// In en, this message translates to:
@@ -2692,78 +2680,6 @@ abstract class AppLocalizations {
   /// **'NOW PLAYING'**
   String get nowPlayingHeader;
 
-  /// Privacy policy title
-  ///
-  /// In en, this message translates to:
-  /// **'Privacy First'**
-  String get privacyFirstTitle;
-
-  /// Privacy policy subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Your data stays with you. Always.'**
-  String get privacyFirstSubtitle;
-
-  /// No data selling title
-  ///
-  /// In en, this message translates to:
-  /// **'No Data Selling'**
-  String get noDataSellingTitle;
-
-  /// No data selling description
-  ///
-  /// In en, this message translates to:
-  /// **'We never sell, share, or transfer your personal data to third parties.'**
-  String get noDataSellingDescription;
-
-  /// Local first storage title
-  ///
-  /// In en, this message translates to:
-  /// **'Local-First Storage'**
-  String get localFirstStorageTitle;
-
-  /// Local first storage description
-  ///
-  /// In en, this message translates to:
-  /// **'Your music library and credentials stay on your device.'**
-  String get localFirstStorageDescription;
-
-  /// 100% private and open title
-  ///
-  /// In en, this message translates to:
-  /// **'100% Private & Open'**
-  String get privateOpenTitle;
-
-  /// Telemetry free description
-  ///
-  /// In en, this message translates to:
-  /// **'Octave is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.'**
-  String get privateOpenDescription;
-
-  /// Read full privacy policy link
-  ///
-  /// In en, this message translates to:
-  /// **'Read Full Privacy Policy'**
-  String get readFullPrivacyPolicy;
-
-  /// View details on website subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'View complete details on our website'**
-  String get viewCompleteDetailsWebsite;
-
-  /// Accept privacy button
-  ///
-  /// In en, this message translates to:
-  /// **'I Understand & Continue'**
-  String get understandAndContinue;
-
-  /// Decline privacy button
-  ///
-  /// In en, this message translates to:
-  /// **'Decline & Exit'**
-  String get declineAndExit;
-
   /// Stop playback
   ///
   /// In en, this message translates to:
@@ -2917,7 +2833,7 @@ abstract class AppLocalizations {
   /// Add music source subtitle
   ///
   /// In en, this message translates to:
-  /// **'Connect Navidrome, Jellyfin, or Web Stream'**
+  /// **'Another Navidrome server'**
   String get addMusicSourceSubtitle;
 
   /// Remove from favorites dialog title
@@ -4693,8 +4609,8 @@ abstract class AppLocalizations {
   /// Note in the cover editor
   ///
   /// In en, this message translates to:
-  /// **'For now, this cover only shows in Octave on this device.'**
-  String get coverThisDeviceOnly;
+  /// **'The cover also shows in the other apps of the server (Arpeggi, the web player), for the playlists you created.'**
+  String get coverSharedNote;
 
   /// Dialog when leaving the cover editor
   ///
@@ -4845,6 +4761,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mixes'**
   String get homeSectionMixes;
+
+  /// Message when the cover could not be sent to the server
+  ///
+  /// In en, this message translates to:
+  /// **'Cover saved on this device. The server did not accept it.'**
+  String get coverSavedThisDevice;
+
+  /// Generated mix title
+  ///
+  /// In en, this message translates to:
+  /// **'Quick picks'**
+  String get mixQuickPicks;
+
+  /// Generated mix title
+  ///
+  /// In en, this message translates to:
+  /// **'Discovery mix'**
+  String get mixDiscover;
+
+  /// Generated mix of one artist
+  ///
+  /// In en, this message translates to:
+  /// **'{name} mix'**
+  String mixOfArtist(String name);
+
+  /// Generated mix of one genre
+  ///
+  /// In en, this message translates to:
+  /// **'{genre} mix'**
+  String mixOfGenre(String genre);
+
+  /// Mix for the time of day
+  ///
+  /// In en, this message translates to:
+  /// **'Morning mood'**
+  String get mixMorning;
+
+  /// Mix for the time of day
+  ///
+  /// In en, this message translates to:
+  /// **'Afternoon mood'**
+  String get mixAfternoon;
+
+  /// Mix for the time of day
+  ///
+  /// In en, this message translates to:
+  /// **'Evening mood'**
+  String get mixEvening;
+
+  /// Mix for the time of day
+  ///
+  /// In en, this message translates to:
+  /// **'Night mood'**
+  String get mixNight;
+
+  /// About screen link to the privacy policy
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy'**
+  String get aboutLinkPrivacy;
 }
 
 class _AppLocalizationsDelegate

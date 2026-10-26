@@ -102,6 +102,14 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               url: 'https://github.com/CharlesDuchaussoy/Octave/issues/new',
             ),
             _buildDivider(context),
+            _buildLinkTile(
+              context,
+              icon: CupertinoIcons.lock_shield,
+              title: AppLocalizations.of(context)!.aboutLinkPrivacy,
+              url:
+                  'https://github.com/CharlesDuchaussoy/Octave/blob/master/PRIVACY_POLICY.md',
+            ),
+            _buildDivider(context),
             _buildActionTile(
               context,
               icon: CupertinoIcons.slider_horizontal_3,

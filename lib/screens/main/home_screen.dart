@@ -211,8 +211,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   if (recommendationService.enabled && key.isNotEmpty) {
                     if (key != _lastRandomKey) {
-                      _cachedMixes =
-                          recommendationService.generateMixes(allSongs);
+                      _cachedMixes = recommendationService.generateMixes(
+                        allSongs,
+                        l10n: AppLocalizations.of(context)!,
+                      );
                       _cachedPersonalized = recommendationService
                           .getPersonalizedFeed(allSongs, limit: 12);
                       _cachedListenAgain = recommendationService
