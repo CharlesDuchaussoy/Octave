@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:musly/main.dart';
 import 'package:musly/providers/auth_provider.dart';
 import 'package:musly/services/services.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import '../bootstrap.dart';
 
 void main() {
@@ -28,8 +27,6 @@ void main() {
             ChangeNotifierProvider<LocaleService>(
                 create: (_) => LocaleService()),
             ChangeNotifierProvider<ThemeService>(create: (_) => ThemeService()),
-            ChangeNotifierProvider<TvDetectionService>.value(
-                value: TvDetectionService()),
             ChangeNotifierProvider(
               create: (_) => AuthProvider(subsonicService, storageService),
             ),
@@ -56,8 +53,6 @@ void main() {
             ChangeNotifierProvider<LocaleService>(
                 create: (_) => LocaleService()),
             ChangeNotifierProvider<ThemeService>(create: (_) => ThemeService()),
-            ChangeNotifierProvider<TvDetectionService>.value(
-                value: TvDetectionService()),
             ChangeNotifierProvider(
               create: (_) => AuthProvider(subsonicService, storageService),
             ),
@@ -86,8 +81,6 @@ void main() {
             ChangeNotifierProvider<LocaleService>(
                 create: (_) => LocaleService()),
             ChangeNotifierProvider<ThemeService>(create: (_) => ThemeService()),
-            ChangeNotifierProvider<TvDetectionService>.value(
-                value: TvDetectionService()),
             ChangeNotifierProvider(
               create: (_) => AuthProvider(subsonicService, storageService),
             ),

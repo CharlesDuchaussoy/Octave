@@ -12,9 +12,7 @@ import 'package:musly/screens/media/radio_screen.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
 import 'package:musly/widgets/modals/playlist_options_modal.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
-import 'tv_remote_scope.dart';
+import 'package:musly/octave/widgets/focusable_tap.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
 
 class DesktopNavigationSidebar extends StatefulWidget {
@@ -191,7 +189,6 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
           ),
           Consumer<SubsonicService>(
             builder: (context, subsonic, _) {
-              if (subsonic.isYoutube) return const SizedBox.shrink();
               return _NavItem(
                 icon: Icons.radio_rounded,
                 activeIcon: Icons.radio_rounded,
@@ -306,7 +303,7 @@ class _NavItemState extends State<_NavItem> {
       child: MouseRegion(
         onEnter: (_) => setState(() => _isHovered = true),
         onExit: (_) => setState(() => _isHovered = false),
-        child: TvFocusableCard(
+        child: FocusableTap(
           onTap: widget.onTap,
           borderRadius: BorderRadius.circular(8),
           margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
@@ -394,22 +391,6 @@ class _LibrarySection extends StatelessWidget {
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1.0,
-                      ),
-                    ),
-                  ),
-                  Tooltip(
-                    message: AppLocalizations.of(context)!.importPlaylist,
-                    child: InkWell(
-                      onTap: () => ImportPlaylistDialog.show(context),
-                      borderRadius: BorderRadius.circular(50),
-                      hoverColor: Colors.white.withValues(alpha: 0.1),
-                      child: Padding(
-                        padding: EdgeInsets.all(4),
-                        child: Icon(
-                          CupertinoIcons.square_arrow_down,
-                          size: 16,
-                          color: context.octave.text2,
-                        ),
                       ),
                     ),
                   ),

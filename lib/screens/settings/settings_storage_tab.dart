@@ -92,9 +92,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
 
   @override
   Widget build(BuildContext context) {
-    final isYoutube =
-        Provider.of<SubsonicService>(context, listen: false).isYoutube;
-
     return ListView(
       padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
@@ -115,10 +112,8 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             _buildActiveDownloadsRow(),
             const SettingsDivider(),
             _buildPlaylistStatusRow(),
-            if (!isYoutube) ...[
-              const SettingsDivider(),
-              _buildDownloadAllLibraryButton(),
-            ],
+            const SettingsDivider(),
+            _buildDownloadAllLibraryButton(),
             const SettingsDivider(),
             _buildDeleteDownloadsButton(),
           ],

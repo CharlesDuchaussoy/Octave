@@ -17,18 +17,6 @@
   "@goodEvening": {
     "description": "Evening greeting"
   },
-  "forYou": "Për ty",
-  "@forYou": {
-    "description": "For You section title"
-  },
-  "quickPicks": "Zgjedhje të shpejta",
-  "@quickPicks": {
-    "description": "Quick Picks section title"
-  },
-  "discoverMix": "Mix i zbulimit",
-  "@discoverMix": {
-    "description": "Discover Mix section title"
-  },
   "recentlyPlayed": "Dëgjuar së fundmi",
   "@recentlyPlayed": {
     "description": "Recently played section title"
@@ -45,14 +33,6 @@
   "@topRated": {
     "description": "Top rated albums title"
   },
-  "noContentAvailable": "Nuk ka përmbajtje në dispozicion",
-  "@noContentAvailable": {
-    "description": "Message when no content is available"
-  },
-  "tryRefreshing": "Provoni të rifreskoni faqen ose kontrolloni lidhjen me serverin",
-  "@tryRefreshing": {
-    "description": "Message to try refreshing"
-  },
   "refresh": "Rifresko",
   "@refresh": {
     "description": "Refresh button label"
@@ -68,10 +48,6 @@
   "errorLoadingAlbums": "Gabim gjatë ngarkimit të albumeve",
   "@errorLoadingAlbums": {
     "description": "Error message when albums fail to load"
-  },
-  "noTopRatedAlbums": "Asnjë album me vlerësim të lartë.",
-  "@noTopRatedAlbums": {
-    "description": "Message when there are no top rated albums"
   },
   "login": "Hyr në llogari",
   "@login": {
@@ -182,14 +158,6 @@
   "@repeat": {
     "description": "Repeat button label"
   },
-  "repeatOne": "Përsërit njërën",
-  "@repeatOne": {
-    "description": "Repeat one button label"
-  },
-  "repeatOff": "Çaktivizo përsëritjen",
-  "@repeatOff": {
-    "description": "Repeat off button label"
-  },
   "addToPlaylist": "Shto në listën e dëgjimit",
   "@addToPlaylist": {
     "description": "Add to playlist option"
@@ -218,10 +186,6 @@
   "@cancel": {
     "description": "Cancel button label"
   },
-  "ok": "Në rregull",
-  "@ok": {
-    "description": "OK button label"
-  },
   "save": "Ruaj",
   "@save": {
     "description": "Save button label"
@@ -230,29 +194,9 @@
   "@close": {
     "description": "Close button label"
   },
-  "general": "Përgjithshme",
-  "@general": {
-    "description": "General settings section"
-  },
-  "appearance": "Pamja",
-  "@appearance": {
-    "description": "Appearance settings section"
-  },
-  "playback": "Riprodhimi",
-  "@playback": {
-    "description": "Playback settings section"
-  },
   "storage": "Hapësira e ruajtjes",
   "@storage": {
     "description": "Storage settings section"
-  },
-  "about": "Rreth",
-  "@about": {
-    "description": "About settings section"
-  },
-  "darkMode": "Mënyra e errët",
-  "@darkMode": {
-    "description": "Dark mode setting"
   },
   "language": "Gjuha",
   "@language": {
@@ -261,22 +205,6 @@
   "version": "Versioni",
   "@version": {
     "description": "Version info label"
-  },
-  "madeBy": "Krijuar nga dddevid",
-  "@madeBy": {
-    "description": "Developer credit"
-  },
-  "githubRepository": "Depoja në GitHub",
-  "@githubRepository": {
-    "description": "GitHub repository link label"
-  },
-  "reportIssue": "Raporto një problem",
-  "@reportIssue": {
-    "description": "Report issue link label"
-  },
-  "joinDiscord": "Bashkohu në komunitetin Discord",
-  "@joinDiscord": {
-    "description": "Discord community link label"
   },
   "unknownArtist": "Artist i panjohur",
   "@unknownArtist": {
@@ -290,41 +218,9 @@
   "@playAll": {
     "description": "Play all button label"
   },
-  "shuffleAll": "Përziej të gjitha",
-  "@shuffleAll": {
-    "description": "Shuffle all button label"
-  },
   "sortBy": "Rendit sipas",
   "@sortBy": {
     "description": "Sort by label"
-  },
-  "sortByName": "Emri",
-  "@sortByName": {
-    "description": "Sort by name option"
-  },
-  "sortByArtist": "Artist",
-  "@sortByArtist": {
-    "description": "Sort by artist option"
-  },
-  "sortByAlbum": "Album",
-  "@sortByAlbum": {
-    "description": "Sort by album option"
-  },
-  "sortByDate": "Data",
-  "@sortByDate": {
-    "description": "Sort by date option"
-  },
-  "sortByDuration": "Kohëzgjatja",
-  "@sortByDuration": {
-    "description": "Sort by duration option"
-  },
-  "ascending": "Rritëse",
-  "@ascending": {
-    "description": "Ascending sort order"
-  },
-  "descending": "Zbritëse",
-  "@descending": {
-    "description": "Descending sort order"
   },
   "noLyricsAvailable": "Nuk ka tekst këngësh në dispozicion",
   "@noLyricsAvailable": {
@@ -342,25 +238,9 @@
   "@retry": {
     "description": "Button to retry a failed server connection"
   },
-  "noResults": "Nuk u gjet asnjë rezultat",
-  "@noResults": {
-    "description": "No search results message"
-  },
-  "searchHint": "Kërko për këngë, albume, artistë...",
-  "@searchHint": {
-    "description": "Search field hint text"
-  },
   "allSongs": "Të gjitha këngët",
   "@allSongs": {
     "description": "All songs title"
-  },
-  "allAlbums": "Të gjithë albumet",
-  "@allAlbums": {
-    "description": "All albums title"
-  },
-  "allArtists": "Të gjithë artistët",
-  "@allArtists": {
-    "description": "All artists title"
   },
   "trackNumber": "Kënga {number}",
   "@trackNumber": {
@@ -393,18 +273,6 @@
   "@logout": {
     "description": "Logout button label"
   },
-  "confirmLogout": "A jeni të sigurt që dëshironi të çlogoheni?",
-  "@confirmLogout": {
-    "description": "Logout confirmation message"
-  },
-  "yes": "Po",
-  "@yes": {
-    "description": "Yes button label"
-  },
-  "no": "Jo",
-  "@no": {
-    "description": "No button label"
-  },
   "offlineMode": "Mënyra pa internet",
   "@offlineMode": {
     "description": "Offline mode label"
@@ -413,10 +281,6 @@
   "@radio": {
     "description": "Radio section label"
   },
-  "changelog": "Changelog",
-  "@changelog": {
-    "description": "Changelog link label"
-  },
   "platform": "Platforma",
   "@platform": {
     "description": "Platform info label"
@@ -424,10 +288,6 @@
   "server": "Serveri",
   "@server": {
     "description": "Server settings section"
-  },
-  "display": "Ekrani",
-  "@display": {
-    "description": "Display settings section"
   },
   "playerInterface": "Ndërfaqja e luajtësit",
   "@playerInterface": {
@@ -478,14 +338,6 @@
   "@historyCleared": {
     "description": "SnackBar message when history is cleared"
   },
-  "discordStatus": "Statusi në Discord",
-  "@discordStatus": {
-    "description": "Discord RPC toggle label"
-  },
-  "discordStatusSubtitle": "Shfaq këngën që po dëgjohet në profilin e Discord",
-  "@discordStatusSubtitle": {
-    "description": "Discord RPC toggle subtitle"
-  },
   "selectLanguage": "Zgjidhni gjuhën",
   "@selectLanguage": {
     "description": "Language selection dialog title"
@@ -506,8 +358,6 @@
   "yourLibrary": "Libraria juaj",
   "filterAll": "Të gjitha",
   "filterPlaylists": "Lista e këngëve",
-  "filterAlbums": "Albume",
-  "filterArtists": "Artisti",
   "likedSongs": "Këngët e pëlqyera",
   "radioStations": "Stazioni Radio",
   "playlist": "Playlist",
@@ -540,14 +390,6 @@
       }
     }
   },
-  "errorDeletingPlaylist": "Gabim gjatë fshirjes t'listës t'kngve: {error}",
-  "@errorDeletingPlaylist": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "playlistCreated": "Lista e kngve \"{name}\" u kriju",
   "@playlistCreated": {
     "placeholders": {
@@ -557,16 +399,7 @@
     }
   },
   "@_SEARCH": {},
-  "searchTitle": "Kërko",
-  "searchPlaceholder": "Artistët, Kangët, Albumet",
-  "tryDifferentSearch": "Provo nji kërkim tjetër",
-  "noSuggestions": "S'ka sugjerime",
-  "browseCategories": "Shfleto Kategoritë",
-  "categoryMadeForYou": "Kriju për ty",
   "categoryNewReleases": "Shtimet e reja",
-  "categoryTopRated": "Më të vlerësuarat",
-  "categoryGenres": "Zhanret",
-  "categoryFavorites": "Të preferuarat",
   "categoryRadio": "Radio",
   "@_SETTINGS_GENERAL": {},
   "settingsTitle": "Cilësimet",
@@ -586,36 +419,10 @@
       }
     }
   },
-  "sectionReplayGain": "NORMALIZIMI I VOLUMIT (REPLAYGAIN)",
   "replayGainMode": "Mënyra",
-  "preamp": "Parapërforcimi: {value} dB",
-  "@preamp": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
-  "preventClipping": "Parandalo Shformimin (Clipping)",
-  "fallbackGain": "Përforcimi i Rezervës (Fallback Gain): {value} dB",
-  "@fallbackGain": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "sectionStreamingQuality": "CILËSIA E STRIMIMIT",
-  "enableTranscoding": "Aktivizo Transkodimin",
-  "qualityWifi": "Cilësia në WiFi",
-  "qualityMobile": "Cilësia në Rrjetin Celular",
   "format": "Formati",
-  "transcodingSubtitle": "Redukto përdorimin e të dhënave me cilësi më të ulët",
-  "modeOff": "Joaktivizuar",
-  "modeTrack": "Kënga",
-  "modeAlbum": "Album",
   "@_SETTINGS_SERVER": {},
-  "sectionServerConnection": "LIDHJA ME SERVERIN",
   "serverType": "Lloji i Serverit",
   "notConnected": "Nuk është lidhur",
   "unknown": "I panjohur",
@@ -625,11 +432,6 @@
   "logoutConfirmation": "A jeni të sigurt që dëshironi të shkëputeni? Kjo do të fshijë gjithashtu të gjitha të dhënat e ruajtura (cache).",
   "@_SETTINGS_STORAGE": {},
   "imageCache": "Cache i imazheve",
-  "musicCache": "Cache i muzikës",
-  "bpmCache": "Cache i BPM-ve",
-  "saveAlbumCovers": "Ruaj kopertinat e albumeve në pajisje",
-  "saveSongMetadata": "Ruaj të dhënat e këngëve (metadata) në pajisje",
-  "saveBpmAnalysis": "Ruaj analizën e BPM-ve në pajisje",
   "sectionCacheCleanup": "PASTRIMI I CACHE",
   "clearAllCache": "Pastro të gjithë Cache-in",
   "allCacheCleared": "Gjithë cache-i u pastrua",

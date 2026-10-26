@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:musly/providers/providers.dart';
-import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/octave/widgets/octave_icon_art.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
@@ -22,7 +21,6 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
-import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
 import 'package:musly/widgets/modals/playlist_options_modal.dart';
 import 'package:musly/models/playlist.dart';
 import 'package:musly/models/album.dart';
@@ -164,28 +162,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   color: context.octave.accent.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Icon(CupertinoIcons.square_arrow_down,
-                    color: context.octave.accent, size: 22),
-              ),
-              title: Text(AppLocalizations.of(context)!.importPlaylist,
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(
-                  AppLocalizations.of(context)!.importPlaylistSubtitle,
-                  style: const TextStyle(fontSize: 12)),
-              onTap: () {
-                Navigator.pop(ctx);
-                ImportPlaylistDialog.show(context);
-              },
-            ),
-            const SizedBox(height: 8),
-            ListTile(
-              leading: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: context.octave.accent.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
                 child: Icon(Icons.dns_rounded,
                     color: context.octave.accent, size: 22),
               ),
@@ -312,7 +288,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
     required BuildContext context,
     required LibraryProvider libraryProvider,
     required bool isDark,
-    required bool isYoutube,
     required int downloadedCount,
     required AppLocalizations? l10n,
   }) {
@@ -360,7 +335,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       }
     }
 
-    if ((_selectedFilter == null && !isYoutube) ||
+    if (_selectedFilter == null ||
         _selectedFilter == 'Albums') {
       var albums = _selectedFilter == 'Albums'
           ? libraryProvider.cachedAllAlbums
@@ -379,7 +354,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       }
     }
 
-    if ((_selectedFilter == null && !isYoutube) ||
+    if (_selectedFilter == null ||
         _selectedFilter == 'Artists') {
       var artists = libraryProvider.artists;
       artists = _sortList(artists, (a) => a.name);
@@ -396,7 +371,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       }
     }
 
-    if (_selectedFilter == null && !isYoutube) {
+    if (_selectedFilter == null) {
       items.add(
         _LibraryItem(
           type: _LibraryItemType.allSongs,
@@ -445,7 +420,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       }
     }
 
-    if (_selectedFilter == 'Songs' && !isYoutube) {
+    if (_selectedFilter == 'Songs') {
       var allSongs = libraryProvider.cachedAllSongs;
       allSongs = _sortList(allSongs, (s) => s.title);
       for (final song in allSongs) {
@@ -473,11 +448,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final hPad = _isDesktop ? 32.0 : 16.0;
-    final authProvider = Provider.of<AuthProvider>(context);
-    final subsonicService = Provider.of<SubsonicService>(context);
-    final isYoutube =
-        subsonicService.isYoutube || authProvider.config?.isYoutube == true;
-
     return Scaffold(
       backgroundColor:
           context.octave.background,
@@ -588,13 +558,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                               AppLocalizations.of(context)?.downloadedSongs ??
                                   'Downloaded',
                               isDark),
-                          if (!isYoutube) ...[
-                            const SizedBox(width: 8),
-                            _buildFilterChip(
-                                'Songs',
-                                AppLocalizations.of(context)?.songs ?? 'Songs',
-                                isDark),
-                          ],
+                          const SizedBox(width: 8),
+                          _buildFilterChip(
+                              'Songs',
+                              AppLocalizations.of(context)?.songs ?? 'Songs',
+                              isDark),
                         ],
                       ),
                     ),
@@ -652,10 +620,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
               ),
               if (_isGridView)
                 _buildSliverGrid(
-                    context, libraryProvider, isDark, isYoutube, hPad)
+                    context, libraryProvider, isDark, hPad)
               else
                 _buildSliverList(
-                    context, libraryProvider, isDark, isYoutube, hPad),
+                    context, libraryProvider, isDark, hPad),
               SliverToBoxAdapter(
                 child: SizedBox(height: scrollEndPadding(context)),
               ),
@@ -788,7 +756,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
     BuildContext context,
     LibraryProvider libraryProvider,
     bool isDark,
-    bool isYoutube,
     double hPad,
   ) {
     final offlineService = OfflineService();
@@ -799,7 +766,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
       context: context,
       libraryProvider: libraryProvider,
       isDark: isDark,
-      isYoutube: isYoutube,
       downloadedCount: downloadedCount,
       l10n: l10n,
     );
@@ -826,7 +792,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
     BuildContext context,
     LibraryProvider libraryProvider,
     bool isDark,
-    bool isYoutube,
     double hPad,
   ) {
     final offlineService = OfflineService();
@@ -837,7 +802,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
       context: context,
       libraryProvider: libraryProvider,
       isDark: isDark,
-      isYoutube: isYoutube,
       downloadedCount: downloadedCount,
       l10n: l10n,
     );

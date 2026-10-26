@@ -8,11 +8,8 @@ import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/widgets/common/multi_artist_widget.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/screens/connect/connect_devices_modal.dart';
-import 'package:musly/services/subsonic_service.dart';
-import 'package:musly/screens/player/now_playing_screen.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/modals/song_options_modal.dart';
-import 'tv_remote_scope.dart';
+import 'package:musly/octave/widgets/focusable_tap.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
 
 class DesktopPlayerBar extends StatefulWidget {
@@ -56,15 +53,8 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
         children: [
           Expanded(
             flex: 3,
-            child: TvFocusableCard(
+            child: FocusableTap(
               borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                      final isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
-                      if (isTv) {
-                        // Radio doesn't use NowPlayingScreen on Mobile in exactly the same way, but we could adapt it.
-                        // For now we just make it focusable to navigate left/right.
-                      }
-                    },
                     child: Row(
                       children: [
                         Container(
@@ -148,7 +138,7 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                       onTap: provider.togglePlayPause,
                     ),
                     const SizedBox(width: 16),
-                    TvFocusableCard(
+                    FocusableTap(
                       onTap: provider.stop,
                       borderRadius: BorderRadius.circular(20),
                       padding: const EdgeInsets.all(8),
@@ -200,37 +190,8 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
             child: Row(
               children: [
                 Expanded(
-                  child: TvFocusableCard(
+                  child: FocusableTap(
                     borderRadius: BorderRadius.circular(8),
-                    onTap: () {
-                      final isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
-                      if (isTv) {
-                        final subsonic = Provider.of<SubsonicService>(context, listen: false);
-                        final imageProvider =
-                            coverImageProvider(subsonic, currentSong.coverArt);
-                        
-                        showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          useRootNavigator: true,
-                          backgroundColor: Colors.transparent,
-                          constraints: const BoxConstraints(maxWidth: double.infinity),
-                          builder: (ctx) => NowPlayingScreen(
-                            topPadding: MediaQuery.of(context).padding.top,
-                            image: imageProvider,
-                            title: currentSong.title,
-                            artist: (currentSong.artistParticipants?.isNotEmpty == true
-                                    ? currentSong.artistParticipants!
-                                        .map((a) => a.name)
-                                        .join(', ')
-                                    : currentSong.artist) ??
-                                '',
-                            heroTag: 'cover_${currentSong.id}',
-                            song: currentSong,
-                          ),
-                        );
-                      }
-                    },
                     child: Row(
                       children: [
                         AlbumArtwork(
@@ -437,7 +398,7 @@ class _PlayPauseCircleState extends State<_PlayPauseCircle> {
 
   @override
   Widget build(BuildContext context) {
-    return TvFocusableCard(
+    return FocusableTap(
       onTap: widget.onTap,
       borderRadius: BorderRadius.circular(20),
       child: MouseRegion(
@@ -486,7 +447,7 @@ class _PlayerControls extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TvFocusableCard(
+            FocusableTap(
               onTap: provider.toggleShuffle,
               borderRadius: BorderRadius.circular(20),
               padding: const EdgeInsets.all(8),
@@ -499,7 +460,7 @@ class _PlayerControls extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            TvFocusableCard(
+            FocusableTap(
               onTap: hasPrevious ? provider.skipPrevious : null,
               borderRadius: BorderRadius.circular(20),
               padding: const EdgeInsets.all(8),
@@ -517,7 +478,7 @@ class _PlayerControls extends StatelessWidget {
               onTap: provider.togglePlayPause,
             ),
             const SizedBox(width: 12),
-            TvFocusableCard(
+            FocusableTap(
               onTap: hasNext ? provider.skipNext : null,
               borderRadius: BorderRadius.circular(20),
               padding: const EdgeInsets.all(8),
@@ -530,7 +491,7 @@ class _PlayerControls extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            TvFocusableCard(
+            FocusableTap(
               onTap: provider.toggleRepeat,
               borderRadius: BorderRadius.circular(20),
               padding: const EdgeInsets.all(8),

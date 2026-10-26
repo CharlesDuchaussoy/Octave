@@ -5,7 +5,6 @@ import 'package:musly/providers/providers.dart';
 import 'package:musly/services/services.dart';
 import 'package:musly/services/audio_handler.dart';
 import 'package:musly/services/transcoding_service.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
 
 class FakeCastService extends CastService {
@@ -119,8 +118,6 @@ Widget createTestApp({
       ),
       ChangeNotifierProvider<TranscodingService>(
           create: (_) => TranscodingService()),
-      ChangeNotifierProvider<TvDetectionService>.value(
-          value: TvDetectionService()),
     ],
     child: MaterialApp(
       theme: OctaveTheme.build(OctavePalette.build(

@@ -8,7 +8,6 @@ import 'package:musly/services/recommendation_service.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/theme_service.dart';
 import 'package:musly/services/locale_service.dart';
-import 'package:musly/providers/player_provider.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
@@ -99,10 +98,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           children: [
             _buildVolumeSliderToggle(),
             if (_isDesktop) ...[
-              const SettingsDivider(),
-              _buildDiscordRpcToggle(),
-              const SettingsDivider(),
-              _buildDiscordRpcStateStyleSelector(),
               const SettingsDivider(),
               _buildWindowTitlebarToggle(),
             ],
@@ -386,108 +381,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                 ),
               ),
             ],
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildDiscordRpcToggle() {
-    return Consumer<PlayerProvider>(
-      builder: (context, player, _) {
-        return ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 4,
-          ),
-          leading: Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              color: const Color(0xFF5865F2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(
-              CupertinoIcons.game_controller,
-              color: Colors.white,
-              size: 18,
-            ),
-          ),
-          title: Text(
-            AppLocalizations.of(context)!.discordStatus,
-            style: const TextStyle(fontSize: 16),
-          ),
-          subtitle: Text(
-            AppLocalizations.of(context)!.discordStatusSubtitle,
-            style: TextStyle(
-              fontSize: 13,
-              color: context.octave.text2,
-            ),
-          ),
-          trailing: CupertinoSwitch(
-            value: player.discordRpcEnabled,
-            activeTrackColor: Theme.of(context).colorScheme.primary,
-            onChanged: (value) async {
-              await player.setDiscordRpcEnabled(value);
-
-              setState(() {});
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildDiscordRpcStateStyleSelector() {
-    final l10n = AppLocalizations.of(context)!;
-    final styles = [
-      ('artist', l10n.discordRpcStyleArtist),
-      ('song_title', l10n.discordRpcStyleSong),
-      ('app_name', l10n.discordRpcStyleApp),
-    ];
-    return Consumer<PlayerProvider>(
-      builder: (context, player, _) {
-        return ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 4,
-          ),
-          leading: Container(
-            width: 32,
-            height: 32,
-            decoration: BoxDecoration(
-              color: const Color(0xFF5865F2),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(
-              CupertinoIcons.text_bubble,
-              color: Colors.white,
-              size: 18,
-            ),
-          ),
-          title: Text(l10n.discordStatusText,
-              style: const TextStyle(fontSize: 16)),
-          subtitle: Text(
-            l10n.discordStatusTextSubtitle,
-            style: TextStyle(
-              fontSize: 13,
-              color: context.octave.text2,
-            ),
-          ),
-          trailing: DropdownButton<String>(
-            value: player.discordRpcStateStyle,
-            underline: const SizedBox.shrink(),
-            items: styles
-                .map(
-                  (s) => DropdownMenuItem(
-                    value: s.$1,
-                    child: Text(s.$2, style: const TextStyle(fontSize: 14)),
-                  ),
-                )
-                .toList(),
-            onChanged: (value) {
-              if (value != null) player.setDiscordRpcStateStyle(value);
-            },
           ),
         );
       },

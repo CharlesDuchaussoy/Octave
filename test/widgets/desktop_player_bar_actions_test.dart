@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:musly/models/song.dart';
 import 'package:musly/models/server_config.dart';
 import 'package:musly/providers/player_provider.dart';
@@ -11,7 +10,6 @@ import 'package:musly/services/upnp_service.dart';
 import 'package:musly/services/audio_handler.dart';
 import 'package:musly/services/jukebox_service.dart';
 import 'package:musly/services/transcoding_service.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/navigation/desktop_player_bar.dart';
 import 'package:musly/widgets/modals/song_options_modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -78,12 +76,9 @@ void main() {
           playerProvider: playerProvider,
           libraryProvider: libraryProvider,
           subsonicService: subsonicService,
-          child: ChangeNotifierProvider<TvDetectionService>(
-            create: (_) => TvDetectionService(),
-            child: const SizedBox(
-              height: 90,
-              child: DesktopPlayerBar(),
-            ),
+          child: const SizedBox(
+            height: 90,
+            child: DesktopPlayerBar(),
           ),
         ),
       );

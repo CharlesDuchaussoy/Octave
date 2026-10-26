@@ -296,7 +296,7 @@ jobs:
           echo "Homepage: https://musly.devid.lol" >> dist/deb/DEBIAN/control
           echo "Description: Universal Music Streaming Player & Client" >> dist/deb/DEBIAN/control
           echo " Musly is a modern, elegant music streaming client for Navidrome, Subsonic," >> dist/deb/DEBIAN/control
-          echo " Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files." >> dist/deb/DEBIAN/control
+          echo " and other Subsonic servers." >> dist/deb/DEBIAN/control
           dpkg-deb --build --root-owner-group dist/deb "linux_packages/musly_${VERSION}_amd64.deb"
 
           # 3. RedHat / Fedora / openSUSE (.rpm)
@@ -399,7 +399,7 @@ jobs:
           echo "name: musly" > dist/snap/meta/snap.yaml
           echo "version: '${VERSION}'" >> dist/snap/meta/snap.yaml
           echo "summary: Universal Music Streaming Player & Client" >> dist/snap/meta/snap.yaml
-          echo "description: Universal music streaming client for Navidrome, Subsonic, Jellyfin, Emby, Airsonic, Web Streams, and Local Music Files." >> dist/snap/meta/snap.yaml
+          echo "description: Universal music streaming client for Navidrome, Subsonic, and other Subsonic servers." >> dist/snap/meta/snap.yaml
           echo "architectures:" >> dist/snap/meta/snap.yaml
           echo "  - amd64" >> dist/snap/meta/snap.yaml
           echo "base: core24" >> dist/snap/meta/snap.yaml
@@ -513,53 +513,9 @@ jobs:
           if-no-files-found: error
 
   # Create Release with all artifacts
-  build-tizen:
-    runs-on: ubuntu-latest
-    needs: check-secrets
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_VERSION }}
-          channel: 'stable'
-          
-      - name: Install dependencies
-        run: flutter pub get
-        
-      - name: Setup Tizen Studio CLI
-        run: |
-          wget -q http://download.tizen.org/sdk/Installer/tizen-studio_5.1/web-cli_Tizen_Studio_5.1_ubuntu-64.bin -O tizen_installer.bin || true
-          chmod +x tizen_installer.bin || true
-          ./tizen_installer.bin --accept-license ~/tizen-studio || true
-          echo "$HOME/tizen-studio/tools/ide/bin" >> $GITHUB_PATH
-        continue-on-error: true
-          
-      - name: Setup Flutter Tizen
-        run: |
-          git clone https://github.com/flutter-tizen/flutter-tizen.git $HOME/flutter-tizen || true
-          echo "$HOME/flutter-tizen/bin" >> $GITHUB_PATH
-        continue-on-error: true
-          
-      - name: Build Tizen Native (TPK)
-        run: |
-          export TIZEN_SDK=$HOME/tizen-studio
-          if [ -f "$HOME/flutter-tizen/bin/flutter-tizen" ]; then
-            $HOME/flutter-tizen/bin/flutter-tizen build tpk --release || true
-          fi
-        continue-on-error: true
-          
-      - name: Upload Tizen Native Build
-        uses: actions/upload-artifact@v4
-        with:
-          name: tizen-native-build
-          path: build/tizen/tpk/*.tpk
-          if-no-files-found: ignore
-
   release:
     runs-on: ubuntu-latest
-    needs: [build-android, build-ios, build-windows, build-linux, build-macos, build-tizen]
+    needs: [build-android, build-ios, build-windows, build-linux, build-macos]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -606,13 +562,6 @@ jobs:
         with:
           name: macos-dmg
           path: artifacts/macos-dmg/
-
-      - name: Download Tizen Native Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: tizen-native-build
-          path: artifacts/tizen-native/
-        continue-on-error: true
 
       - name: Package Windows
         run: |
@@ -666,9 +615,6 @@ jobs:
             - `*.snap` (Snap package)
             - `*.tar.gz` (portable standalone tarball)
 
-            **Tizen Smart TV:**
-            - `*.tpk` (Native version for Tizen 4.0+ / 2018 or newer TVs)
-
             ### 📝 Changelog
             See [CHANGELOG.md](https://github.com/dddevid/Musly/blob/master/CHANGELOG.md)
 
@@ -681,6 +627,5 @@ jobs:
             musly-windows.zip
             artifacts/linux/*
             musly-macos.dmg
-            artifacts/tizen-native/*.tpk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

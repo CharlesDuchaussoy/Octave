@@ -7,7 +7,6 @@ import 'package:musly/services/replay_gain_service.dart';
 import 'package:musly/services/auto_dj_service.dart';
 import 'package:musly/services/transcoding_service.dart';
 import 'package:musly/services/fade_settings_service.dart';
-import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
@@ -64,9 +63,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
 
   @override
   Widget build(BuildContext context) {
-    final isYoutube =
-        Provider.of<SubsonicService>(context, listen: false).isYoutube;
-
     return ListView(
       padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
@@ -101,10 +97,8 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
             ],
           ],
         ),
-        if (!isYoutube) ...[
-          const SizedBox(height: 24),
-          _buildTranscodingSection(),
-        ],
+        const SizedBox(height: 24),
+        _buildTranscodingSection(),
         const SizedBox(height: 40),
       ],
     );

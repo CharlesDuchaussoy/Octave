@@ -19,9 +19,7 @@ import '../services/windows_system_service.dart';
 import '../services/recommendation_service.dart';
 import '../services/replay_gain_service.dart';
 import '../services/auto_dj_service.dart';
-import '../services/ytdlp_service.dart';
 import '../services/lrclib_service.dart';
-import '../services/discord_rpc_service.dart';
 import '../services/storage_service.dart';
 import '../services/cast_service.dart';
 import 'package:flutter_chrome_cast/flutter_chrome_cast.dart';
@@ -50,7 +48,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   final ReplayGainService _replayGainService = ReplayGainService();
   final AutoDjService _autoDjService = AutoDjService();
   final CrossfadeService _crossfadeService = CrossfadeService();
-  late final DiscordRpcService _discordRpcService;
   final CastService _castService;
   late final UpnpService _upnpService;
 
@@ -62,7 +59,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   bool _isPlaying = false;
   bool _isLoading = false;
   bool _shuffleEnabled = false;
-  bool _gaplessEnabled = Platform.operatingSystem != 'tizen' && Platform.environment['TIZEN_API_VERSION'] == null;
+  bool _gaplessEnabled = true;
   final List<String> _shuffleHistory = [];
   RepeatMode _repeatMode = RepeatMode.off;
   Duration _position = Duration.zero;
@@ -159,7 +156,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     this._transcodingService,
   ) {
     _storageService = storageService;
-    _discordRpcService = DiscordRpcService(storageService);
     _castService.addListener(_onCastStateChanged);
     _upnpService.addListener(_onUpnpStateChanged);
     _upnpService.onRendererLost = _onUpnpRendererLost;
@@ -172,16 +168,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     } catch (_) {}
     _initializeAutoDj();
     _wireAudioHandlerCallbacks();
-
-    if (!kIsWeb &&
-        (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-      try {
-        _discordRpcService.initialize();
-      } catch (_) {}
-      try {
-        loadDiscordRpcStateStyle();
-      } catch (_) {}
-    }
 
     _restoreQueueState();
 
@@ -575,7 +561,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       );
     }
 
-    _updateDiscordRpc();
     _updateAllServices();
     _audioHandler.notifyAutoChildrenChanged([
       MuslyAudioHandler.mediaIdQueue,
@@ -599,7 +584,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       position: _position,
       isPlaying: _isPlaying,
     );
-    _updateDiscordRpc();
   }
 
   @override
@@ -697,26 +681,13 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     );
 
     if (nextSong.isLocal != true) {
-      final cleanId = nextSong.id.replaceFirst('ytmusic://', '');
-      if (_subsonicService.isYoutube ||
-          nextSong.id.startsWith('ytmusic://') ||
-          nextSong.id.length == 11) {
-        unawaited(
-          YtDlpService().resolveStreamInfo(cleanId).catchError((e) {
-            debugPrint(
-                '[Player Preload] YtDlp pre-resolve error (harmless): $e');
-            return YtStreamInfo(url: '', headers: {});
-          }),
-        );
-      } else {
-        unawaited(
-          _subsonicService.resolveStreamUrlAsync(nextSong).catchError((e) {
-            debugPrint(
-                '[Player Preload] Subsonic pre-resolve error (harmless): $e');
-            return '';
-          }),
-        );
-      }
+      unawaited(
+        _subsonicService.resolveStreamUrlAsync(nextSong).catchError((e) {
+          debugPrint(
+              '[Player Preload] Subsonic pre-resolve error (harmless): $e');
+          return '';
+        }),
+      );
     }
 
     if (nextSong.title.isNotEmpty) {
@@ -1542,32 +1513,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       } else {
         _isCrossfadingOut = false;
 
-        final youtubeSource = song.isLocal != true
-            ? await _subsonicService.getYoutubeAudioSource(song)
-            : null;
-
-        if (youtubeSource != null) {
-          _concatenatingSource = null;
-          await _audioPlayer.setAudioSource(youtubeSource);
-          await _applyReplayGain(song);
-          await _ensureAudioFocus(() => _audioPlayer.play());
-        } else if (_subsonicService.isYoutube) {
-          _concatenatingSource = null;
-          final String playUrl;
-          if (song.isLocal == true && song.path != null) {
-            playUrl = Uri.file(song.path!).toString();
-          } else {
-            final offlinePath = _offlineService.getLocalPath(song.id);
-            if (offlinePath != null) {
-              playUrl = 'file://$offlinePath';
-            } else {
-              playUrl = await _subsonicService.resolveStreamUrlAsync(song);
-            }
-          }
-          await _audioPlayer.setUrl(playUrl);
-          await _applyReplayGain(song);
-          await _ensureAudioFocus(() => _audioPlayer.play());
-        } else if (_gaplessEnabled) {
+        if (_gaplessEnabled) {
           try {
             await _buildAndSetConcatenatingSource(initialIndex: _currentIndex);
           } catch (e) {
@@ -2029,18 +1975,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       if (_currentIndex < _queue.length - 1) {
         await skipToIndex(_currentIndex + 1);
       }
-    } else if (_subsonicService.isYoutube && _currentSong != null) {
-      final moreSimilar =
-          await _subsonicService.getSimilarSongs(_currentSong!.id, count: 20);
-      final existingIds = _queue.map((s) => s.id).toSet();
-      final toAdd =
-          moreSimilar.where((s) => !existingIds.contains(s.id)).toList();
-      if (toAdd.isNotEmpty) {
-        _queue.addAll(toAdd);
-        notifyListeners();
-        _saveQueueState();
-        await skipToIndex(_currentIndex + 1);
-      }
     } else if (_repeatMode == RepeatMode.all) {
       if (_queue.length == 1) {
         await seek(Duration.zero);
@@ -2289,9 +2223,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _currentIndex = -1;
     _currentSong = null;
     _concatenatingSource = null;
-    try {
-      _discordRpcService.clearPresence();
-    } catch (_) {}
     _clearPersistedQueue();
     _audioPlayer.stop();
     _isPlaying = false;
@@ -2333,9 +2264,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _position = Duration.zero;
     _duration = Duration.zero;
 
-    try {
-      _discordRpcService.clearPresence();
-    } catch (_) {}
 
     _clearPersistedQueue();
     notifyListeners();
@@ -2437,11 +2365,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     if (offlinePath != null) {
       return AudioSource.uri(Uri.file(offlinePath));
     }
-    if (_subsonicService.isYoutube) {
-      final ytSource = await _subsonicService.getYoutubeAudioSource(song);
-      if (ytSource != null) return ytSource;
-    }
-
     final maxBitRate =
         _transcodingService.enabled ? _transcodingService.currentBitRate : null;
     final format =
@@ -2483,17 +2406,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
 
     if (_jukeboxService.enabled) return;
     try {
-      if (_subsonicService.isYoutube && _currentSong!.isLocal != true) {
-        final ytSource =
-            await _subsonicService.getYoutubeAudioSource(_currentSong!);
-        if (ytSource != null) {
-          await _audioPlayer.setAudioSource(ytSource);
-          if (_position.inMilliseconds > 0) {
-            await _audioPlayer.seek(_position);
-          }
-          return;
-        }
-      }
       if (_gaplessEnabled && _queue.isNotEmpty) {
         await _buildAndSetConcatenatingSource(initialIndex: _currentIndex);
       } else {
@@ -2844,9 +2756,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       _windowsService.dispose();
     } catch (_) {}
 
-    try {
-      _discordRpcService.shutdown();
-    } catch (_) {}
     _playerStateSub?.cancel();
     _positionSub?.cancel();
     _durationSub?.cancel();
@@ -2856,111 +2765,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
-
-  String _discordStateText() {
-    switch (_discordRpcStateStyle) {
-      case 'song_title':
-        return _currentSong?.title ?? 'Unknown Song';
-      case 'app_name':
-        return 'Octave';
-      case 'artist':
-      default:
-        return _currentSong?.artist ?? 'Unknown Artist';
-    }
-  }
-
-  String? _lastDiscordSongId;
-  bool? _lastDiscordIsPlaying;
-  String? _lastDiscordStateText;
-  int _lastDiscordSeekPosMs = -1;
-
-  void _updateDiscordRpc({bool force = false}) {
-    try {
-      if (_currentSong == null) {
-        if (_lastDiscordSongId != null) {
-          _discordRpcService.clearPresence();
-          _lastDiscordSongId = null;
-          _lastDiscordIsPlaying = null;
-          _lastDiscordStateText = null;
-          _lastDiscordSeekPosMs = -1;
-        }
-        return;
-      }
-
-      final stateText = _discordStateText();
-      final posMs = _position.inMilliseconds;
-      final bool seekJumped = (_lastDiscordSeekPosMs - posMs).abs() > 3000;
-
-      if (!force &&
-          _lastDiscordSongId == _currentSong!.id &&
-          _lastDiscordIsPlaying == _isPlaying &&
-          _lastDiscordStateText == stateText &&
-          !seekJumped) {
-        return;
-      }
-
-      _lastDiscordSongId = _currentSong!.id;
-      _lastDiscordIsPlaying = _isPlaying;
-      _lastDiscordStateText = stateText;
-      _lastDiscordSeekPosMs = posMs;
-
-      if (!_isPlaying) {
-        _discordRpcService.updatePresence(
-          state: stateText,
-          details: _currentSong!.title,
-          largeImageKey: 'musly_logo',
-          largeImageText: _currentSong!.album ?? 'Octave',
-          smallImageKey: 'musly_logo',
-          smallImageText: 'Paused',
-          startTime: null,
-          endTime: null,
-        );
-      } else {
-        final int now = DateTime.now().millisecondsSinceEpoch;
-        final int startTimestamp = now - posMs;
-        final int? endTimestamp = _duration.inMilliseconds > 0
-            ? startTimestamp + _duration.inMilliseconds
-            : null;
-
-        _discordRpcService.updatePresence(
-          state: stateText,
-          details: _currentSong!.title,
-          largeImageKey: 'musly_logo',
-          largeImageText: _currentSong!.album ?? 'Octave',
-          smallImageKey: 'musly_logo',
-          smallImageText: 'Playing',
-          startTime: startTimestamp,
-          endTime: endTimestamp,
-        );
-      }
-    } catch (_) {}
-  }
-
-  Future<void> setDiscordRpcEnabled(bool enabled) async {
-    try {
-      await _discordRpcService.setEnabled(enabled);
-      if (enabled) {
-        _updateDiscordRpc();
-      }
-    } catch (_) {}
-  }
-
-  bool get discordRpcEnabled => _discordRpcService.enabled;
-
-  String _discordRpcStateStyle = 'artist';
-
-  Future<void> loadDiscordRpcStateStyle() async {
-    _discordRpcStateStyle = await _storageService.getDiscordRpcStateStyle();
-  }
-
-  Future<void> setDiscordRpcStateStyle(String style) async {
-    _discordRpcStateStyle = style;
-    await _storageService.saveDiscordRpcStateStyle(style);
-    _updateDiscordRpc();
-    notifyListeners();
-  }
-
-  String get discordRpcStateStyle => _discordRpcStateStyle;
 
   bool _castWasConnected = false;
   bool _castWasPlaying = false;

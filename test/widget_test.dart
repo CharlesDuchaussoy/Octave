@@ -6,7 +6,6 @@ import 'package:musly/services/locale_service.dart';
 import 'package:musly/services/theme_service.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/services/storage_service.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'bootstrap.dart';
 
 void main() {
@@ -20,9 +19,6 @@ void main() {
         providers: [
           ChangeNotifierProvider<LocaleService>(create: (_) => LocaleService()),
           ChangeNotifierProvider<ThemeService>(create: (_) => ThemeService()),
-          ChangeNotifierProvider<TvDetectionService>.value(
-            value: TvDetectionService(),
-          ),
           ChangeNotifierProvider<AuthProvider>(
             create: (_) => AuthProvider(subsonic, storage),
           ),

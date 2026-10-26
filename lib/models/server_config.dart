@@ -35,20 +35,20 @@ class ServerConfig {
     this.userId,
   });
 
-  bool get isJellyfin => serverFamily == 'jellyfin';
-  bool get isYoutube => serverFamily == 'youtube';
   bool get isLocal => serverType == 'local' || serverFamily == 'local';
+
+  /// Octave connects to Navidrome (Subsonic API) or reads phone files.
+  /// Configs saved for other kinds of servers (Jellyfin, web streams, from
+  /// older builds) are ignored.
+  bool get isSupported => serverFamily == 'subsonic' || isLocal;
 
   String get displayServerName {
     if (name != null && name!.trim().isNotEmpty) return name!.trim();
-    if (isYoutube) return 'Web Stream';
-    if (isJellyfin) return 'Jellyfin';
     if (serverType != null && serverType!.isNotEmpty) return serverType!;
     return 'Navidrome / Subsonic';
   }
 
   String get displayUrl {
-    if (isYoutube) return 'Web Stream';
     if (serverUrl.isEmpty) return 'Not configured';
     try {
       final uri = Uri.parse(serverUrl);
@@ -169,7 +169,7 @@ class ServerConfig {
   }
 
   bool get isValid {
-    if (isYoutube || isLocal) {
+    if (isLocal) {
       return serverUrl.isNotEmpty;
     }
     return serverUrl.isNotEmpty && username.isNotEmpty && password.isNotEmpty;

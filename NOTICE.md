@@ -32,7 +32,7 @@ Octave est fourni « en l'état », sans garantie d'aucune sorte, comme le prév
 
 ## Marques
 
-Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Le nom « Musly » et son logo appartiennent à leur auteur et ne sont pas utilisés pour désigner Octave. Navidrome, Subsonic, Jellyfin, Emby, Android, Windows et Linux sont des marques de leurs détenteurs respectifs.
+Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Le nom « Musly » et son logo appartiennent à leur auteur et ne sont pas utilisés pour désigner Octave. Navidrome, Subsonic, Android, Windows et Linux sont des marques de leurs détenteurs respectifs.
 
 ## Composants tiers
 

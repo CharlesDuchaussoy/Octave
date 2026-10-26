@@ -7,7 +7,6 @@ import 'dart:io';
 import 'dart:async';
 import 'package:window_manager/window_manager.dart';
 import 'package:just_audio_media_kit/just_audio_media_kit.dart';
-import 'package:just_audio_platform_interface/just_audio_platform_interface.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 
 import 'l10n/app_localizations.dart';
@@ -18,12 +17,9 @@ import 'services/transcoding_service.dart';
 import 'services/local_music_service.dart';
 import 'services/analytics_service.dart';
 import 'services/favorite_playlists_service.dart';
-import 'services/tizen_just_audio_backend.dart';
-import 'services/tv_detection_service.dart';
 
 import 'package:musly/widgets/dialogs/privacy_policy_dialog.dart';
 import 'package:musly/widgets/dialogs/update_dialog.dart';
-import 'widgets/navigation/tv_remote_scope.dart';
 import 'providers/providers.dart';
 import 'screens/screens.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -83,14 +79,7 @@ void main() async {
   }
 
   try {
-    final isTizen = Platform.operatingSystem == 'tizen' || 
-                    Platform.operatingSystem == 'webos' || 
-                    Platform.environment.containsKey('TIZEN_API_VERSION');
-    if (isTizen) {
-      JustAudioPlatform.instance = TizenJustAudioPlatform();
-    } else {
-      JustAudioMediaKit.ensureInitialized(linux: true, windows: false);
-    }
+    JustAudioMediaKit.ensureInitialized(linux: true, windows: false);
   } catch (e) {
     debugPrint('MediaKit init failed: $e');
   }
@@ -208,9 +197,6 @@ void main() async {
   androidAutoService.setAuthProvider(authProvider);
   audioHandler.setAutoService(androidAutoService);
 
-  final tvDetectionService = TvDetectionService();
-  await tvDetectionService.initialize();
-
   final Widget appWithProviders = MultiProvider(
     providers: [
       Provider<StorageService>.value(value: storageService),
@@ -228,8 +214,6 @@ void main() async {
       ChangeNotifierProvider<ThemeService>.value(value: themeService),
       ChangeNotifierProvider<UpnpService>.value(value: upnpService),
       ChangeNotifierProvider<JukeboxService>.value(value: jukeboxService),
-      ChangeNotifierProvider<TvDetectionService>.value(
-          value: tvDetectionService),
       ChangeNotifierProvider<PlayerProvider>.value(value: playerProvider),
       ChangeNotifierProvider<LibraryProvider>.value(value: libraryProvider),
     ],
@@ -246,7 +230,6 @@ class MuslyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeService = Provider.of<LocaleService>(context);
     final themeService = Provider.of<ThemeService>(context);
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
 
     return DynamicColorBuilder(
       builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
@@ -274,14 +257,12 @@ class MuslyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: light,
           darkTheme: dark,
-          themeMode: isTv ? ThemeMode.dark : themeService.themeMode,
+          themeMode: themeService.themeMode,
           scrollBehavior: AppScrollBehavior(),
           navigatorKey: navigatorKey,
           locale: localeService.currentLocale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          builder: (context, child) =>
-              TvRemoteScope(child: child ?? const SizedBox.shrink()),
           home: const AuthWrapper(),
           navigatorObservers: [AnalyticsNavigatorObserver()],
         );
@@ -323,22 +304,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
   }
 
   Future<void> _checkOnboarding() async {
-    TvDetectionService? tvService;
-    try {
-      tvService = Provider.of<TvDetectionService>(context, listen: false);
-    } catch (_) {}
-    if (tvService?.isTvMode == true) {
-      await StorageService().setOnboardingCompleted(true);
-      await SetupProgress.markDone();
-      if (mounted) {
-        setState(() {
-          _onboardingCompleted = true;
-          _checkedOnboarding = true;
-        });
-      }
-      return;
-    }
-
     final completed = await StorageService().isOnboardingCompleted();
     final setupDone = await SetupProgress.isDone();
     if (mounted) {

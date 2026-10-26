@@ -17,18 +17,6 @@
   "@goodEvening": {
     "description": "Evening greeting"
   },
-  "forYou": "Для вас",
-  "@forYou": {
-    "description": "For You section title"
-  },
-  "quickPicks": "Быстрые подборки",
-  "@quickPicks": {
-    "description": "Quick Picks section title"
-  },
-  "discoverMix": "Микс «Открытия»",
-  "@discoverMix": {
-    "description": "Discover Mix section title"
-  },
   "recentlyPlayed": "Недавно играли",
   "@recentlyPlayed": {
     "description": "Recently played section title"
@@ -45,14 +33,6 @@
   "@topRated": {
     "description": "Top rated albums title"
   },
-  "noContentAvailable": "Нет доступного контента",
-  "@noContentAvailable": {
-    "description": "Message when no content is available"
-  },
-  "tryRefreshing": "Попробуйте обновить или проверить подключение к серверу",
-  "@tryRefreshing": {
-    "description": "Message to try refreshing"
-  },
   "refresh": "Обновить",
   "@refresh": {
     "description": "Refresh button label"
@@ -68,10 +48,6 @@
   "errorLoadingAlbums": "Ошибка при загрузке альбомов",
   "@errorLoadingAlbums": {
     "description": "Error message when albums fail to load"
-  },
-  "noTopRatedAlbums": "Нет высоко оценённых альбомов",
-  "@noTopRatedAlbums": {
-    "description": "Message when there are no top rated albums"
   },
   "login": "Войти",
   "@login": {
@@ -182,14 +158,6 @@
   "@repeat": {
     "description": "Repeat button label"
   },
-  "repeatOne": "Повтор одного",
-  "@repeatOne": {
-    "description": "Repeat one button label"
-  },
-  "repeatOff": "Повтор выкл.",
-  "@repeatOff": {
-    "description": "Repeat off button label"
-  },
   "addToPlaylist": "Добавить в плейлист",
   "@addToPlaylist": {
     "description": "Add to playlist option"
@@ -218,10 +186,6 @@
   "@cancel": {
     "description": "Cancel button label"
   },
-  "ok": "ОК",
-  "@ok": {
-    "description": "OK button label"
-  },
   "save": "Сохранить",
   "@save": {
     "description": "Save button label"
@@ -230,29 +194,9 @@
   "@close": {
     "description": "Close button label"
   },
-  "general": "Общее",
-  "@general": {
-    "description": "General settings section"
-  },
-  "appearance": "Внешний вид",
-  "@appearance": {
-    "description": "Appearance settings section"
-  },
-  "playback": "Проигрывание",
-  "@playback": {
-    "description": "Playback settings section"
-  },
   "storage": "Хранилище",
   "@storage": {
     "description": "Storage settings section"
-  },
-  "about": "Информация",
-  "@about": {
-    "description": "About settings section"
-  },
-  "darkMode": "Тёмный режим",
-  "@darkMode": {
-    "description": "Dark mode setting"
   },
   "language": "Язык",
   "@language": {
@@ -261,22 +205,6 @@
   "version": "Версия",
   "@version": {
     "description": "Version info label"
-  },
-  "madeBy": "Сделано dddevid",
-  "@madeBy": {
-    "description": "Developer credit"
-  },
-  "githubRepository": "Репозиторий на GitHub",
-  "@githubRepository": {
-    "description": "GitHub repository link label"
-  },
-  "reportIssue": "Сообщить о проблеме",
-  "@reportIssue": {
-    "description": "Report issue link label"
-  },
-  "joinDiscord": "Присоединяйтесь к Discord сообществу",
-  "@joinDiscord": {
-    "description": "Discord community link label"
   },
   "unknownArtist": "Неизвестный исполнитель",
   "@unknownArtist": {
@@ -290,41 +218,9 @@
   "@playAll": {
     "description": "Play all button label"
   },
-  "shuffleAll": "Перемешать все",
-  "@shuffleAll": {
-    "description": "Shuffle all button label"
-  },
   "sortBy": "Сортировать по",
   "@sortBy": {
     "description": "Sort by label"
-  },
-  "sortByName": "Название",
-  "@sortByName": {
-    "description": "Sort by name option"
-  },
-  "sortByArtist": "Исполнитель",
-  "@sortByArtist": {
-    "description": "Sort by artist option"
-  },
-  "sortByAlbum": "Альбом",
-  "@sortByAlbum": {
-    "description": "Sort by album option"
-  },
-  "sortByDate": "Дата",
-  "@sortByDate": {
-    "description": "Sort by date option"
-  },
-  "sortByDuration": "Длительность",
-  "@sortByDuration": {
-    "description": "Sort by duration option"
-  },
-  "ascending": "По возрастанию",
-  "@ascending": {
-    "description": "Ascending sort order"
-  },
-  "descending": "По убыванию",
-  "@descending": {
-    "description": "Descending sort order"
   },
   "noLyricsAvailable": "Нет доступных текстов",
   "@noLyricsAvailable": {
@@ -342,25 +238,9 @@
   "@retry": {
     "description": "Button to retry a failed server connection"
   },
-  "noResults": "Ничего не найдено",
-  "@noResults": {
-    "description": "No search results message"
-  },
-  "searchHint": "Поиск песен, альбомов, исполнителей...",
-  "@searchHint": {
-    "description": "Search field hint text"
-  },
   "allSongs": "Все песни",
   "@allSongs": {
     "description": "All songs title"
-  },
-  "allAlbums": "Все альбомы",
-  "@allAlbums": {
-    "description": "All albums title"
-  },
-  "allArtists": "Все исполнители",
-  "@allArtists": {
-    "description": "All artists title"
   },
   "trackNumber": "Трек {number}",
   "@trackNumber": {
@@ -393,18 +273,6 @@
   "@logout": {
     "description": "Logout button label"
   },
-  "confirmLogout": "Вы уверены, что хотите выйти?",
-  "@confirmLogout": {
-    "description": "Logout confirmation message"
-  },
-  "yes": "Да",
-  "@yes": {
-    "description": "Yes button label"
-  },
-  "no": "Нет",
-  "@no": {
-    "description": "No button label"
-  },
   "offlineMode": "Автономный режим",
   "@offlineMode": {
     "description": "Offline mode label"
@@ -413,10 +281,6 @@
   "@radio": {
     "description": "Radio section label"
   },
-  "changelog": "Список изменений",
-  "@changelog": {
-    "description": "Changelog link label"
-  },
   "platform": "Платформа",
   "@platform": {
     "description": "Platform info label"
@@ -424,10 +288,6 @@
   "server": "Сервер",
   "@server": {
     "description": "Server settings section"
-  },
-  "display": "Дисплей",
-  "@display": {
-    "description": "Display settings section"
   },
   "playerInterface": "Интерфейс плеера",
   "@playerInterface": {
@@ -478,14 +338,6 @@
   "@historyCleared": {
     "description": "SnackBar message when history is cleared"
   },
-  "discordStatus": "Discord Статус",
-  "@discordStatus": {
-    "description": "Discord RPC toggle label"
-  },
-  "discordStatusSubtitle": "Показывать проигрываемую песню в профиле Discord",
-  "@discordStatusSubtitle": {
-    "description": "Discord RPC toggle subtitle"
-  },
   "selectLanguage": "Выберите язык",
   "@selectLanguage": {
     "description": "Language selection dialog title"
@@ -506,8 +358,6 @@
   "yourLibrary": "Ваша библиотека",
   "filterAll": "Все",
   "filterPlaylists": "Плейлисты",
-  "filterAlbums": "Альбомы",
-  "filterArtists": "Исполнители",
   "likedSongs": "Понравившиеся песни",
   "radioStations": "Радиостанции",
   "playlist": "Плейлист",
@@ -540,14 +390,6 @@
       }
     }
   },
-  "errorDeletingPlaylist": "Ошибка при удалении плейлиста: {error}",
-  "@errorDeletingPlaylist": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "playlistCreated": "Плейлист с названием «{name}» создан",
   "@playlistCreated": {
     "placeholders": {
@@ -557,16 +399,7 @@
     }
   },
   "@_SEARCH": {},
-  "searchTitle": "Поиск",
-  "searchPlaceholder": "Исполнители, Песни, Альбомы",
-  "tryDifferentSearch": "Попробуйте другой поисковый запрос",
-  "noSuggestions": "Нет подходящих вариантов",
-  "browseCategories": "Просмотреть категории",
-  "categoryMadeForYou": "Подборка для вас",
   "categoryNewReleases": "Новые выпуски",
-  "categoryTopRated": "С лучшим рейтингом",
-  "categoryGenres": "Жанры",
-  "categoryFavorites": "Избранное",
   "categoryRadio": "Радио",
   "@_SETTINGS_GENERAL": {},
   "settingsTitle": "Настройки",
@@ -586,36 +419,10 @@
       }
     }
   },
-  "sectionReplayGain": "НОРМАЛИЗАЦИЯ ГРОМКОСТИ (REPLAYGAIN)",
   "replayGainMode": "Режим",
-  "preamp": "Предусиление: {value} дБ",
-  "@preamp": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
-  "preventClipping": "Предотвращение клиппинга",
-  "fallbackGain": "Усиление по умолчанию: {value} дБ",
-  "@fallbackGain": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "sectionStreamingQuality": "КАЧЕСТВО СТРИМИНГА",
-  "enableTranscoding": "Включить транскодирование",
-  "qualityWifi": "Качество WiFi",
-  "qualityMobile": "Мобильное качество",
   "format": "Формат",
-  "transcodingSubtitle": "Экономить трафик при низком качестве",
-  "modeOff": "Выкл.",
-  "modeTrack": "Трек",
-  "modeAlbum": "Альбом",
   "@_SETTINGS_SERVER": {},
-  "sectionServerConnection": "ПОДКЛЮЧЕНИЕ К СЕРВЕРУ",
   "serverType": "Тип сервера",
   "notConnected": "Нет подключения",
   "unknown": "Неизвестно",
@@ -625,11 +432,6 @@
   "logoutConfirmation": "Вы уверены, что хотите выйти? Это также удалит все кэшированные данные.",
   "@_SETTINGS_STORAGE": {},
   "imageCache": "Кэш изображений",
-  "musicCache": "Кэш музыки",
-  "bpmCache": "Кэш BPM",
-  "saveAlbumCovers": "Сохранить обложки альбома локально",
-  "saveSongMetadata": "Сохранить метаданные песни локально",
-  "saveBpmAnalysis": "Сохранить определение BPM локально",
   "sectionCacheCleanup": "ОЧИСТКА КЭША",
   "clearAllCache": "Очистить весь кэш",
   "allCacheCleared": "Весь кэш очищен",
@@ -671,15 +473,7 @@
     }
   },
   "@_SETTINGS_ABOUT": {},
-  "sectionInformation": "ИНФОРМАЦИЯ",
-  "sectionDeveloper": "РАЗРАБОТЧИК",
-  "sectionLinks": "ССЫЛКИ",
-  "githubRepo": "Репозиторий на GitHub",
   "@_PLAYER_AND_MENUS": {},
-  "playingFrom": "ИГРАЕТ ИЗ",
-  "live": "В ЭФИРЕ",
-  "streamingLive": "Прямая трансляция",
-  "stopRadio": "Остановить радио",
   "removeFromLiked": "Удалить из понравившихся песен",
   "addToLiked": "Добавить в понравившиеся песни",
   "playNext": "Воспроизвести следующим",
@@ -760,7 +554,6 @@
     }
   },
   "noPlaylists": "Нет доступных плейлистов",
-  "createNewPlaylist": "Создать новый плейлист",
   "artistNotFound": "Исполнитель «{name}» не найден",
   "@artistNotFound": {
     "placeholders": {
@@ -777,7 +570,6 @@
       }
     }
   },
-  "selectArtist": "Выберите исполнителя",
   "removedFromFavorites": "Удалено из избранного",
   "addedToFavorites": "Добавлено в избранное",
   "star": "зв.",
@@ -786,27 +578,6 @@
   "albumNotFound": "Альбом не найден",
   "@albumNotFound": {
     "description": "Message when album data is not available"
-  },
-  "durationHoursMinutes": "{hours} ЧАС. {minutes} МИН.",
-  "@durationHoursMinutes": {
-    "description": "Album duration in hours and minutes",
-    "placeholders": {
-      "hours": {
-        "type": "int"
-      },
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-  "durationMinutes": "{minutes} МИН.",
-  "@durationMinutes": {
-    "description": "Album duration in minutes only",
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
   },
   "topSongs": "Лучшие песни",
   "@topSongs": {
@@ -821,30 +592,9 @@
   "@noSongPlaying": {
     "description": "Placeholder when no song is loaded in the player"
   },
-  "internetRadioUppercase": "ИНТЕРНЕТ-РАДИО",
-  "@internetRadioUppercase": {
-    "description": "Uppercase badge shown in the now-playing radio player"
-  },
-  "playingNext": "Проигрывание следующей",
-  "@playingNext": {
-    "description": "Title of the queue / playing-next bottom sheet"
-  },
-  "createPlaylistTitle": "Создать плейлист",
-  "@createPlaylistTitle": {
-    "description": "Title of the create-new-playlist dialog"
-  },
   "playlistNameHint": "Название плейлиста",
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
-  },
-  "playlistCreatedWithSong": "Создан плейлист «{name}» с этой песней",
-  "@playlistCreatedWithSong": {
-    "description": "Snackbar shown after creating a playlist with the current song",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
   },
   "errorLoadingPlaylists": "Ошибка при загрузке плейлистов: {error}",
   "@errorLoadingPlaylists": {
@@ -878,14 +628,6 @@
   "@listeningHistory": {
     "description": "Title of the listening history screen"
   },
-  "noListeningHistory": "Нет истории прослушивания",
-  "@noListeningHistory": {
-    "description": "Empty state headline on the history screen"
-  },
-  "songsWillAppearHere": "Здесь будут появляться прослушанные песни",
-  "@songsWillAppearHere": {
-    "description": "Empty state subtitle on the history screen"
-  },
   "@_SORT_OPTIONS": {},
   "sortByTitleAZ": "Название (А-Я)",
   "@sortByTitleAZ": {
@@ -899,17 +641,9 @@
   "@sortByArtistAZ": {
     "description": "Sort option: artist ascending"
   },
-  "sortByArtistZA": "Исполнитель (Я-А)",
-  "@sortByArtistZA": {
-    "description": "Sort option: artist descending"
-  },
   "sortByAlbumAZ": "Альбом (А-Я)",
   "@sortByAlbumAZ": {
     "description": "Sort option: album ascending"
-  },
-  "sortByAlbumZA": "Альбом (Я-А)",
-  "@sortByAlbumZA": {
-    "description": "Sort option: album descending"
   },
   "recentlyAdded": "Недавно добавлено",
   "@recentlyAdded": {
@@ -928,14 +662,6 @@
   "@noHomepageUrl": {
     "description": "Snackbar when a radio station has no homepage URL"
   },
-  "playStation": "Включить станцию",
-  "@playStation": {
-    "description": "Context menu option to play a radio station"
-  },
-  "openHomepage": "Открыть главную страницу",
-  "@openHomepage": {
-    "description": "Context menu option to open a radio station's homepage"
-  },
   "copyStreamUrl": "Копировать URL-адрес трансляции",
   "@copyStreamUrl": {
     "description": "Context menu option to copy a radio station stream URL"
@@ -947,10 +673,6 @@
   "noRadioStations": "Нет радиостанций",
   "@noRadioStations": {
     "description": "Empty state headline on the radio screen"
-  },
-  "noRadioStationsHint": "Добавьте радиостанции в настройках сервера Navidrome, чтобы они появились здесь.",
-  "@noRadioStationsHint": {
-    "description": "Empty state subtitle on the radio screen"
   },
   "@_LOGIN_SCREEN": {},
   "connectToServerSubtitle": "Подключиться к вашему серверу Subsonic",
@@ -1034,10 +756,6 @@
   "@connect": {
     "description": "Login submit button label"
   },
-  "or": "ИЛИ",
-  "@or": {
-    "description": "Divider label between Connect and Use Local Files"
-  },
   "useLocalFiles": "Использовать локальные файлы",
   "@useLocalFiles": {
     "description": "Button label to start local-files mode"
@@ -1073,10 +791,6 @@
   "@home": {
     "description": "Home navigation item label in the desktop sidebar"
   },
-  "playlistsSection": "ПЛЕЙЛИСТЫ",
-  "@playlistsSection": {
-    "description": "Uppercase section header for playlists in the desktop sidebar"
-  },
   "collapse": "Свернуть",
   "@collapse": {
     "description": "Tooltip/label for the sidebar collapse button"
@@ -1089,52 +803,7 @@
   "@createPlaylist": {
     "description": "Tooltip/label for the create-playlist button in the sidebar library header"
   },
-  "likedSongsSidebar": "Понравившиеся песни",
-  "@likedSongsSidebar": {
-    "description": "Liked Songs item label in the desktop sidebar"
-  },
-  "playlistSongsCount": "Плейлист • {count} пес.",
-  "@playlistSongsCount": {
-    "description": "Subtitle for a playlist item in the desktop sidebar",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "@_LYRICS": {},
-  "failedToLoadLyrics": "Не удалось загрузить текст",
-  "@failedToLoadLyrics": {
-    "description": "Error state message when lyrics cannot be loaded"
-  },
-  "lyricsNotFoundSubtitle": "Тексты для этой песни не найдены",
-  "@lyricsNotFoundSubtitle": {
-    "description": "Empty/error subtitle in the lyrics view"
-  },
-  "backToCurrent": "Назад к текущей",
-  "@backToCurrent": {
-    "description": "Button to scroll the lyrics view back to the current line"
-  },
-  "exitFullscreen": "Выйти из полноэкранного режима",
-  "@exitFullscreen": {
-    "description": "Tooltip for the exit-fullscreen button in lyrics view"
-  },
-  "fullscreen": "Полный экран",
-  "@fullscreen": {
-    "description": "Tooltip for the enter-fullscreen button in lyrics view"
-  },
-  "noLyrics": "Нет текста",
-  "@noLyrics": {
-    "description": "Fallback text when no lyrics controller is available"
-  },
-  "internetRadioMiniPlayer": "Интернет-радио",
-  "@internetRadioMiniPlayer": {
-    "description": "Subtitle shown in the mini player when streaming internet radio"
-  },
-  "liveBadge": "В ЭФИРЕ",
-  "@liveBadge": {
-    "description": "Badge text shown in the mini player for live radio streams"
-  },
   "@_BANNERS": {},
   "localFilesModeBanner": "Режим локальных файлов",
   "@localFilesModeBanner": {
@@ -1149,35 +818,9 @@
   "@updateAvailable": {
     "description": "Title of the update available dialog"
   },
-  "updateAvailableSubtitle": "Доступна новая версия Octave!",
-  "@updateAvailableSubtitle": {
-    "description": "Subtitle in the update dialog"
-  },
-  "updateCurrentVersion": "Текущая: в{version}",
-  "@updateCurrentVersion": {
-    "description": "Current version label in the update dialog",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateLatestVersion": "Последняя: в{version}",
-  "@updateLatestVersion": {
-    "description": "Latest version label in the update dialog",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
   "whatsNew": "Что нового",
   "@whatsNew": {
     "description": "Section header for the changelog in the update dialog"
-  },
-  "downloadUpdate": "Скачать",
-  "@downloadUpdate": {
-    "description": "Primary button in the update dialog that opens the release page"
   },
   "remindLater": "Позже",
   "@remindLater": {
@@ -1205,51 +848,9 @@
   "@casting": {
     "description": "Title shown in the Chromecast control dialog when actively casting"
   },
-  "dlna": "DLNA",
-  "@dlna": {
-    "description": "Title shown in the DLNA control dialog when connected"
-  },
-  "castDlnaBeta": "Трансляция / DLNA (Бета-версия)",
-  "@castDlnaBeta": {
-    "description": "Title of the Cast/DLNA device picker dialog"
-  },
-  "chromecast": "Chromecast",
-  "@chromecast": {
-    "description": "Section header for Chromecast devices in the device picker"
-  },
-  "dlnaUpnp": "DLNA / UPnP",
-  "@dlnaUpnp": {
-    "description": "Section header for DLNA/UPnP devices in the device picker"
-  },
   "disconnect": "Отключиться",
   "@disconnect": {
     "description": "Button to clear server credentials and go back to login"
-  },
-  "searchingDevices": "Поиск устройств",
-  "@searchingDevices": {
-    "description": "Loading message in the device picker when no devices have been found yet"
-  },
-  "castWifiHint": "Убедитесь, что устройство Cast / DLNA \nподключено к той же сети Wi-Fi",
-  "@castWifiHint": {
-    "description": "Hint shown while searching for cast/DLNA devices"
-  },
-  "connectedToDevice": "Подключено к {name}",
-  "@connectedToDevice": {
-    "description": "Snackbar shown after successfully connecting to a cast/DLNA device",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "failedToConnectDevice": "Не удалось подключиться к {name}",
-  "@failedToConnectDevice": {
-    "description": "Snackbar shown when connecting to a cast/DLNA device fails",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
   },
   "@_LIKED_SONGS_SNACKBARS": {},
   "removedFromLikedSongs": "Удалено из понравившихся песен",
@@ -1261,22 +862,10 @@
     "description": "Snackbar shown after liking a song in the song tile menu"
   },
   "@_PLAYER_BAR": {},
-  "enableShuffle": "Включить перемешивание",
-  "@enableShuffle": {
-    "description": "Tooltip for the shuffle toggle button in the desktop player bar"
-  },
-  "enableRepeat": "Включить повтор",
-  "@enableRepeat": {
-    "description": "Tooltip for the repeat toggle button in the desktop player bar"
-  },
   "@_CAST_TOOLTIPS": {},
   "connecting": "Подключение",
   "@connecting": {
     "description": "Tooltip for the cast button when connecting to a device"
-  },
-  "closeLyrics": "Закрыть текст",
-  "@closeLyrics": {
-    "description": "Tooltip for the lyrics button when lyrics panel is open"
   },
   "@_ERROR_MESSAGES": {},
   "errorStartingDownload": "Ошибка при запуске загрузки: {error}",
@@ -1322,25 +911,9 @@
   "@jukeboxClearQueue": {
     "description": "Action label to clear the jukebox playback queue"
   },
-  "jukeboxShuffleQueue": "Перемешать очередь",
-  "@jukeboxShuffleQueue": {
-    "description": "Action label to shuffle the jukebox playback queue"
-  },
   "jukeboxQueueEmpty": "В очереди нет песен",
   "@jukeboxQueueEmpty": {
     "description": "Empty state when the jukebox queue has no songs"
-  },
-  "jukeboxNowPlaying": "Сейчас играет",
-  "@jukeboxNowPlaying": {
-    "description": "Section header for the now-playing area in the jukebox controller"
-  },
-  "jukeboxQueue": "Очередь",
-  "@jukeboxQueue": {
-    "description": "Section header for the queue list in the jukebox controller"
-  },
-  "jukeboxVolume": "Громкость",
-  "@jukeboxVolume": {
-    "description": "Label for the volume slider in the jukebox controller"
   },
   "playOnJukebox": "Играть через муз. автомат",
   "@playOnJukebox": {
@@ -1355,98 +928,9 @@
     "description": "Error shown when the server returns 501 for jukebox API calls"
   },
   "@_MUSIC_FOLDERS": {},
-  "musicFoldersDialogTitle": "Выберите папки с музыкой",
-  "@musicFoldersDialogTitle": {
-    "description": "Title of the music folders selection dialog"
-  },
   "musicFoldersHint": "Оставьте всё включенным, чтобы использовать все папки (по умолчанию).",
   "@musicFoldersHint": {
     "description": "Hint text in the music folders selection dialog"
-  },
-  "musicFoldersSaved": "Выбор папки для музыки сохранён",
-  "@musicFoldersSaved": {
-    "description": "Snackbar shown after saving music folder selection"
-  },
-  "artworkStyleSection": "Стиль обложек",
-  "@artworkStyleSection": {
-    "description": "Display settings section header for artwork customisation"
-  },
-  "artworkCornerRadius": "Радиус углов",
-  "@artworkCornerRadius": {
-    "description": "Label for the album art corner radius slider"
-  },
-  "artworkCornerRadiusSubtitle": "Настройте степень скругления углов у обложек альбомов",
-  "@artworkCornerRadiusSubtitle": {
-    "description": "Subtitle for the album art corner radius slider"
-  },
-  "artworkCornerRadiusNone": "Нет",
-  "@artworkCornerRadiusNone": {
-    "description": "Label shown when corner radius is set to 0 (no rounded corners)"
-  },
-  "artworkShape": "Форма",
-  "@artworkShape": {
-    "description": "Label for the artwork shape selector"
-  },
-  "artworkShapeRounded": "Скругление",
-  "@artworkShapeRounded": {
-    "description": "Rounded rectangle artwork shape option"
-  },
-  "artworkShapeCircle": "Круг",
-  "@artworkShapeCircle": {
-    "description": "Circle artwork shape option"
-  },
-  "artworkShapeSquare": "Квадрат",
-  "@artworkShapeSquare": {
-    "description": "Square (no rounding) artwork shape option"
-  },
-  "artworkShadow": "Тень",
-  "@artworkShadow": {
-    "description": "Label for the artwork shadow intensity selector"
-  },
-  "artworkShadowNone": "Нет",
-  "@artworkShadowNone": {
-    "description": "No shadow option for artwork"
-  },
-  "artworkShadowSoft": "Мягко",
-  "@artworkShadowSoft": {
-    "description": "Soft shadow option for artwork"
-  },
-  "artworkShadowMedium": "Сред.",
-  "@artworkShadowMedium": {
-    "description": "Medium shadow option for artwork"
-  },
-  "artworkShadowStrong": "Сильно",
-  "@artworkShadowStrong": {
-    "description": "Strong shadow option for artwork"
-  },
-  "artworkShadowColor": "Цвет тени",
-  "@artworkShadowColor": {
-    "description": "Label for the artwork shadow color selector"
-  },
-  "artworkShadowColorBlack": "Чёрный",
-  "@artworkShadowColorBlack": {
-    "description": "Black shadow color option"
-  },
-  "artworkShadowColorAccent": "Акцент",
-  "@artworkShadowColorAccent": {
-    "description": "Accent color shadow (matches app accent color)"
-  },
-  "artworkPreview": "Предпросмотр",
-  "@artworkPreview": {
-    "description": "Label shown above the live artwork style preview"
-  },
-  "artworkCornerRadiusLabel": "{value}px",
-  "@artworkCornerRadiusLabel": {
-    "description": "Formatted corner radius value label",
-    "placeholders": {
-      "value": {
-        "type": "int"
-      }
-    }
-  },
-  "noArtwork": "Нет обложки",
-  "@noArtwork": {
-    "description": "Placeholder label shown in the player when a song has no cover art"
   },
   "serverUnreachableTitle": "Не удаётся подключиться к серверу",
   "@serverUnreachableTitle": {
@@ -1498,26 +982,6 @@
   "liveLabel": "В ЭФИРЕ",
   "@liveLabel": {
     "description": "Badge shown next to a live radio stream"
-  },
-  "discordStatusText": "Текст статуса Discord",
-  "@discordStatusText": {
-    "description": "Settings label for the Discord Rich Presence second-line style"
-  },
-  "discordStatusTextSubtitle": "Вторая строка, отображаемая в активности Discord",
-  "@discordStatusTextSubtitle": {
-    "description": "Subtitle for the Discord status text setting"
-  },
-  "discordRpcStyleArtist": "Имя исполнителя",
-  "@discordRpcStyleArtist": {
-    "description": "Discord RPC state style option: show artist name"
-  },
-  "discordRpcStyleSong": "Название песни",
-  "@discordRpcStyleSong": {
-    "description": "Discord RPC state style option: show song title"
-  },
-  "discordRpcStyleApp": "Название приложения (Octave)",
-  "@discordRpcStyleApp": {
-    "description": "Discord RPC state style option: show app name"
   },
   "@sectionAutoDj": {
     "description": "Playback settings section header for Auto DJ"

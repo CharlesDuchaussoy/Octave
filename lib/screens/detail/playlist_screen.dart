@@ -5,7 +5,6 @@ import 'package:musly/models/models.dart';
 import 'package:musly/providers/providers.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/services/offline_service.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/services/favorite_playlists_service.dart';
 import 'package:musly/services/playlist_cover_service.dart';
 import 'package:musly/theme/app_theme.dart';
@@ -849,7 +848,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           filled: true,
                           icon: CupertinoIcons.play_fill,
                           label: AppLocalizations.of(context)!.play,
-                          autofocus: Provider.of<TvDetectionService>(context, listen: false).isTvMode,
                           onTap: () => _playAll(),
                         ),
                       ),

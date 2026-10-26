@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
@@ -137,44 +136,6 @@ class AuthProvider extends ChangeNotifier {
     _error = null;
     notifyListeners();
 
-    if (serverFamily == 'youtube') {
-      serverUrl = 'https://music.youtube.com';
-      if (username.isEmpty) username = 'Web Stream';
-      if (password.isEmpty) password = 'youtube';
-    }
-
-    final isJellyfin = serverFamily == 'jellyfin';
-    String? jellyfinToken;
-    String? jellyfinUserId;
-
-    if (isJellyfin) {
-      final tempConfig = ServerConfig(
-        serverUrl: serverUrl,
-        username: username,
-        password: password,
-        allowSelfSignedCertificates: allowSelfSignedCertificates,
-        serverFamily: 'jellyfin',
-      );
-      final jellyfinService = JellyfinService()..configure(tempConfig);
-      final authResponse =
-          await jellyfinService.authenticate(username, password);
-      if (authResponse == null) {
-        _error = 'Jellyfin authentication failed. Check your credentials.';
-        _state = AuthState.error;
-        notifyListeners();
-        return false;
-      }
-      jellyfinToken = authResponse['AccessToken'] as String?;
-      final user = authResponse['User'] as Map<String, dynamic>?;
-      jellyfinUserId = user?['Id'] as String?;
-      if (jellyfinToken == null || jellyfinUserId == null) {
-        _error = 'Jellyfin returned an unexpected response.';
-        _state = AuthState.error;
-        notifyListeners();
-        return false;
-      }
-    }
-
     final config = ServerConfig(
       serverUrl: serverUrl,
       lanUrl: lanUrl,
@@ -187,8 +148,6 @@ class AuthProvider extends ChangeNotifier {
       clientCertificatePassword: clientCertificatePassword,
       name: profileName,
       serverFamily: serverFamily,
-      apiToken: jellyfinToken,
-      userId: jellyfinUserId,
     );
 
     await _subsonicService.configure(config);
@@ -302,11 +261,6 @@ class AuthProvider extends ChangeNotifier {
   Future<List<ServerConfig>> getSavedProfiles() =>
       _storageService.getSavedProfiles();
 
-  Future<bool> hasYoutubeProfile() async {
-    if (_config?.isYoutube == true) return true;
-    return await _storageService.hasYoutubeProfile();
-  }
-
   Future<void> saveProfile(ServerConfig profile) async {
     await _storageService.saveProfile(profile);
     notifyListeners();
@@ -327,19 +281,6 @@ class AuthProvider extends ChangeNotifier {
       await _storageService.saveServerConfig(updated);
     }
     notifyListeners();
-  }
-
-  Future<bool> connectYtStream() async {
-    if (!kIsWeb && Platform.isIOS) {
-      return false;
-    }
-    return await login(
-      serverUrl: 'https://music.youtube.com',
-      username: 'Web Stream',
-      password: 'youtube',
-      serverFamily: 'youtube',
-      profileName: 'Web Stream',
-    );
   }
 
   Future<void> switchProfile(ServerConfig profile) async {

@@ -154,18 +154,6 @@ abstract class AppLocalizations {
   /// **'Octave'**
   String get appName;
 
-  /// Title shown when the app detects it's running on an emulator
-  ///
-  /// In en, this message translates to:
-  /// **'Emulator Detected'**
-  String get emulatorDetected;
-
-  /// Message explaining that the app requires a physical device
-  ///
-  /// In en, this message translates to:
-  /// **'This app cannot run on an emulator.\\nPlease use a physical device.'**
-  String get emulatorNotAllowed;
-
   /// Morning greeting
   ///
   /// In en, this message translates to:
@@ -183,24 +171,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Good evening'**
   String get goodEvening;
-
-  /// For You section title
-  ///
-  /// In en, this message translates to:
-  /// **'For You'**
-  String get forYou;
-
-  /// Quick Picks section title
-  ///
-  /// In en, this message translates to:
-  /// **'Quick Picks'**
-  String get quickPicks;
-
-  /// Discover Mix section title
-  ///
-  /// In en, this message translates to:
-  /// **'Discover Mix'**
-  String get discoverMix;
 
   /// Recently played section title
   ///
@@ -250,18 +220,6 @@ abstract class AppLocalizations {
   /// **'Top Rated'**
   String get topRated;
 
-  /// Message when no content is available
-  ///
-  /// In en, this message translates to:
-  /// **'No content available'**
-  String get noContentAvailable;
-
-  /// Message to try refreshing
-  ///
-  /// In en, this message translates to:
-  /// **'Try refreshing or check your server connection'**
-  String get tryRefreshing;
-
   /// Refresh button label
   ///
   /// In en, this message translates to:
@@ -285,12 +243,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error loading albums'**
   String get errorLoadingAlbums;
-
-  /// Message when there are no top rated albums
-  ///
-  /// In en, this message translates to:
-  /// **'No top rated albums'**
-  String get noTopRatedAlbums;
 
   /// Login button label
   ///
@@ -388,12 +340,6 @@ abstract class AppLocalizations {
   /// **'Genres'**
   String get genres;
 
-  /// Years filter tab label
-  ///
-  /// In en, this message translates to:
-  /// **'Years'**
-  String get years;
-
   /// Favorites section label
   ///
   /// In en, this message translates to:
@@ -454,18 +400,6 @@ abstract class AppLocalizations {
   /// **'Repeat'**
   String get repeat;
 
-  /// Repeat one button label
-  ///
-  /// In en, this message translates to:
-  /// **'Repeat One'**
-  String get repeatOne;
-
-  /// Repeat off button label
-  ///
-  /// In en, this message translates to:
-  /// **'Repeat Off'**
-  String get repeatOff;
-
   /// Add to playlist option
   ///
   /// In en, this message translates to:
@@ -508,12 +442,6 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
-  /// OK button label
-  ///
-  /// In en, this message translates to:
-  /// **'OK'**
-  String get ok;
-
   /// Button to save changes
   ///
   /// In en, this message translates to:
@@ -526,41 +454,11 @@ abstract class AppLocalizations {
   /// **'Close'**
   String get close;
 
-  /// General settings section
-  ///
-  /// In en, this message translates to:
-  /// **'General'**
-  String get general;
-
-  /// Appearance settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Appearance'**
-  String get appearance;
-
-  /// Playback settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Playback'**
-  String get playback;
-
   /// Storage settings section
   ///
   /// In en, this message translates to:
   /// **'Storage'**
   String get storage;
-
-  /// About settings section
-  ///
-  /// In en, this message translates to:
-  /// **'About'**
-  String get about;
-
-  /// Dark mode setting
-  ///
-  /// In en, this message translates to:
-  /// **'Dark Mode'**
-  String get darkMode;
 
   /// Language setting
   ///
@@ -573,30 +471,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version'**
   String get version;
-
-  /// Developer credit
-  ///
-  /// In en, this message translates to:
-  /// **'Made by dddevid'**
-  String get madeBy;
-
-  /// GitHub repository link label
-  ///
-  /// In en, this message translates to:
-  /// **'GitHub Repository'**
-  String get githubRepository;
-
-  /// Report issue link label
-  ///
-  /// In en, this message translates to:
-  /// **'Report Issue'**
-  String get reportIssue;
-
-  /// Discord community link label
-  ///
-  /// In en, this message translates to:
-  /// **'Join Discord Community'**
-  String get joinDiscord;
 
   /// Fallback displayed when a song has no artist
   ///
@@ -616,59 +490,11 @@ abstract class AppLocalizations {
   /// **'Play All'**
   String get playAll;
 
-  /// Shuffle all button label
-  ///
-  /// In en, this message translates to:
-  /// **'Shuffle All'**
-  String get shuffleAll;
-
   /// Sort by label
   ///
   /// In en, this message translates to:
   /// **'Sort by'**
   String get sortBy;
-
-  /// Sort by name option
-  ///
-  /// In en, this message translates to:
-  /// **'Name'**
-  String get sortByName;
-
-  /// Sort by artist option
-  ///
-  /// In en, this message translates to:
-  /// **'Artist'**
-  String get sortByArtist;
-
-  /// Sort by album option
-  ///
-  /// In en, this message translates to:
-  /// **'Album'**
-  String get sortByAlbum;
-
-  /// Sort by date option
-  ///
-  /// In en, this message translates to:
-  /// **'Date'**
-  String get sortByDate;
-
-  /// Sort by duration option
-  ///
-  /// In en, this message translates to:
-  /// **'Duration'**
-  String get sortByDuration;
-
-  /// Ascending sort order
-  ///
-  /// In en, this message translates to:
-  /// **'Ascending'**
-  String get ascending;
-
-  /// Descending sort order
-  ///
-  /// In en, this message translates to:
-  /// **'Descending'**
-  String get descending;
 
   /// Message when lyrics are not available
   ///
@@ -694,35 +520,11 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get retry;
 
-  /// No search results message
-  ///
-  /// In en, this message translates to:
-  /// **'No results'**
-  String get noResults;
-
-  /// Search field hint text
-  ///
-  /// In en, this message translates to:
-  /// **'Search for songs, albums, artists...'**
-  String get searchHint;
-
   /// All songs title
   ///
   /// In en, this message translates to:
   /// **'All Songs'**
   String get allSongs;
-
-  /// All albums title
-  ///
-  /// In en, this message translates to:
-  /// **'All Albums'**
-  String get allAlbums;
-
-  /// All artists title
-  ///
-  /// In en, this message translates to:
-  /// **'All Artists'**
-  String get allArtists;
 
   /// Track number label
   ///
@@ -748,24 +550,6 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logout;
 
-  /// Logout confirmation message
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure you want to logout?'**
-  String get confirmLogout;
-
-  /// Yes button label
-  ///
-  /// In en, this message translates to:
-  /// **'Yes'**
-  String get yes;
-
-  /// No button label
-  ///
-  /// In en, this message translates to:
-  /// **'No'**
-  String get no;
-
   /// Offline mode label
   ///
   /// In en, this message translates to:
@@ -778,12 +562,6 @@ abstract class AppLocalizations {
   /// **'Radio'**
   String get radio;
 
-  /// Changelog link label
-  ///
-  /// In en, this message translates to:
-  /// **'Changelog'**
-  String get changelog;
-
   /// Platform info label
   ///
   /// In en, this message translates to:
@@ -795,12 +573,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Server'**
   String get server;
-
-  /// Display settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Display'**
-  String get display;
 
   /// Player Interface settings section
   ///
@@ -868,18 +640,6 @@ abstract class AppLocalizations {
   /// **'Listening history cleared'**
   String get historyCleared;
 
-  /// Discord RPC toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Discord Status'**
-  String get discordStatus;
-
-  /// Discord RPC toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Show playing song on Discord profile'**
-  String get discordStatusSubtitle;
-
   /// Language selection dialog title
   ///
   /// In en, this message translates to:
@@ -916,29 +676,11 @@ abstract class AppLocalizations {
   /// **'All'**
   String get filterAll;
 
-  /// No description provided for @faves.
-  ///
-  /// In en, this message translates to:
-  /// **'Faves'**
-  String get faves;
-
   /// No description provided for @filterPlaylists.
   ///
   /// In en, this message translates to:
   /// **'Playlists'**
   String get filterPlaylists;
-
-  /// No description provided for @filterAlbums.
-  ///
-  /// In en, this message translates to:
-  /// **'Albums'**
-  String get filterAlbums;
-
-  /// No description provided for @filterArtists.
-  ///
-  /// In en, this message translates to:
-  /// **'Artists'**
-  String get filterArtists;
 
   /// No description provided for @likedSongs.
   ///
@@ -951,12 +693,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Liked Albums'**
   String get likedAlbums;
-
-  /// No description provided for @noLikedAlbums.
-  ///
-  /// In en, this message translates to:
-  /// **'No liked albums yet'**
-  String get noLikedAlbums;
 
   /// No description provided for @localMusicLibrary.
   ///
@@ -993,30 +729,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rescan Local Music'**
   String get rescanLocalMusic;
-
-  /// No description provided for @localLibraryEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'Your library is empty'**
-  String get localLibraryEmpty;
-
-  /// No description provided for @localLibraryEmptySubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'No local music files were found. Tap the button below to scan again.'**
-  String get localLibraryEmptySubtitle;
-
-  /// No description provided for @libraryEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'Your library is empty'**
-  String get libraryEmpty;
-
-  /// No description provided for @libraryEmptySubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Add some songs to get started.'**
-  String get libraryEmptySubtitle;
 
   /// No description provided for @scanForMusic.
   ///
@@ -1084,47 +796,11 @@ abstract class AppLocalizations {
   /// **'Error creating playlist: {error}'**
   String errorCreatingPlaylist(Object error);
 
-  /// No description provided for @errorDeletingPlaylist.
-  ///
-  /// In en, this message translates to:
-  /// **'Error deleting playlist: {error}'**
-  String errorDeletingPlaylist(Object error);
-
   /// No description provided for @playlistCreated.
   ///
   /// In en, this message translates to:
   /// **'Playlist \"{name}\" created'**
   String playlistCreated(String name);
-
-  /// No description provided for @searchTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get searchTitle;
-
-  /// No description provided for @searchPlaceholder.
-  ///
-  /// In en, this message translates to:
-  /// **'Artists, Songs, Albums'**
-  String get searchPlaceholder;
-
-  /// No description provided for @tryDifferentSearch.
-  ///
-  /// In en, this message translates to:
-  /// **'Try a different search'**
-  String get tryDifferentSearch;
-
-  /// No description provided for @noSuggestions.
-  ///
-  /// In en, this message translates to:
-  /// **'No suggestions'**
-  String get noSuggestions;
-
-  /// No description provided for @browseCategories.
-  ///
-  /// In en, this message translates to:
-  /// **'Browse Categories'**
-  String get browseCategories;
 
   /// No description provided for @homeSection.
   ///
@@ -1144,35 +820,11 @@ abstract class AppLocalizations {
   /// **'Show each favorite playlist as its own row at the top of the Home screen'**
   String get showFavoritePlaylistsOnHomeSubtitle;
 
-  /// No description provided for @categoryMadeForYou.
-  ///
-  /// In en, this message translates to:
-  /// **'Made For You'**
-  String get categoryMadeForYou;
-
   /// No description provided for @categoryNewReleases.
   ///
   /// In en, this message translates to:
   /// **'New Releases'**
   String get categoryNewReleases;
-
-  /// No description provided for @categoryTopRated.
-  ///
-  /// In en, this message translates to:
-  /// **'Top Rated'**
-  String get categoryTopRated;
-
-  /// No description provided for @categoryGenres.
-  ///
-  /// In en, this message translates to:
-  /// **'Genres'**
-  String get categoryGenres;
-
-  /// No description provided for @categoryFavorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Favorites'**
-  String get categoryFavorites;
 
   /// No description provided for @categoryRadio.
   ///
@@ -1234,35 +886,11 @@ abstract class AppLocalizations {
   /// **'Songs to Add: {count}'**
   String songsToAdd(int count);
 
-  /// No description provided for @sectionReplayGain.
-  ///
-  /// In en, this message translates to:
-  /// **'VOLUME NORMALIZATION (REPLAYGAIN)'**
-  String get sectionReplayGain;
-
   /// Label for the ReplayGain mode selector
   ///
   /// In en, this message translates to:
   /// **'Mode'**
   String get replayGainMode;
-
-  /// No description provided for @preamp.
-  ///
-  /// In en, this message translates to:
-  /// **'Preamp: {value} dB'**
-  String preamp(String value);
-
-  /// No description provided for @preventClipping.
-  ///
-  /// In en, this message translates to:
-  /// **'Prevent Clipping'**
-  String get preventClipping;
-
-  /// No description provided for @fallbackGain.
-  ///
-  /// In en, this message translates to:
-  /// **'Fallback Gain: {value} dB'**
-  String fallbackGain(String value);
 
   /// Playback settings section header for transcoding / streaming quality
   ///
@@ -1270,59 +898,11 @@ abstract class AppLocalizations {
   /// **'STREAMING QUALITY'**
   String get sectionStreamingQuality;
 
-  /// No description provided for @enableTranscoding.
-  ///
-  /// In en, this message translates to:
-  /// **'Enable Transcoding'**
-  String get enableTranscoding;
-
-  /// No description provided for @qualityWifi.
-  ///
-  /// In en, this message translates to:
-  /// **'WiFi Quality'**
-  String get qualityWifi;
-
-  /// No description provided for @qualityMobile.
-  ///
-  /// In en, this message translates to:
-  /// **'Mobile Quality'**
-  String get qualityMobile;
-
   /// No description provided for @format.
   ///
   /// In en, this message translates to:
   /// **'Format'**
   String get format;
-
-  /// No description provided for @transcodingSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Reduce data usage with lower quality'**
-  String get transcodingSubtitle;
-
-  /// No description provided for @modeOff.
-  ///
-  /// In en, this message translates to:
-  /// **'Off'**
-  String get modeOff;
-
-  /// No description provided for @modeTrack.
-  ///
-  /// In en, this message translates to:
-  /// **'Track'**
-  String get modeTrack;
-
-  /// No description provided for @modeAlbum.
-  ///
-  /// In en, this message translates to:
-  /// **'Album'**
-  String get modeAlbum;
-
-  /// No description provided for @sectionServerConnection.
-  ///
-  /// In en, this message translates to:
-  /// **'SERVER CONNECTION'**
-  String get sectionServerConnection;
 
   /// No description provided for @serverType.
   ///
@@ -1354,12 +934,6 @@ abstract class AppLocalizations {
   /// **'No music folders found'**
   String get noMusicFolders;
 
-  /// No description provided for @sectionSavedProfiles.
-  ///
-  /// In en, this message translates to:
-  /// **'SAVED PROFILES'**
-  String get sectionSavedProfiles;
-
   /// No description provided for @switchProfile.
   ///
   /// In en, this message translates to:
@@ -1371,18 +945,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Switch Server'**
   String get switchServer;
-
-  /// No description provided for @addProfile.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Profile'**
-  String get addProfile;
-
-  /// No description provided for @switchProfileConfirmation.
-  ///
-  /// In en, this message translates to:
-  /// **'Connect to \"{profile}\"?'**
-  String switchProfileConfirmation(String profile);
 
   /// No description provided for @sectionAccount.
   ///
@@ -1401,36 +963,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Image Cache'**
   String get imageCache;
-
-  /// No description provided for @musicCache.
-  ///
-  /// In en, this message translates to:
-  /// **'Music Cache'**
-  String get musicCache;
-
-  /// No description provided for @bpmCache.
-  ///
-  /// In en, this message translates to:
-  /// **'BPM Cache'**
-  String get bpmCache;
-
-  /// No description provided for @saveAlbumCovers.
-  ///
-  /// In en, this message translates to:
-  /// **'Save album covers locally'**
-  String get saveAlbumCovers;
-
-  /// No description provided for @saveSongMetadata.
-  ///
-  /// In en, this message translates to:
-  /// **'Save song metadata locally'**
-  String get saveSongMetadata;
-
-  /// No description provided for @saveBpmAnalysis.
-  ///
-  /// In en, this message translates to:
-  /// **'Save BPM analysis locally'**
-  String get saveBpmAnalysis;
 
   /// Storage settings section header for cache cleanup
   ///
@@ -1509,54 +1041,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} songs • {size}'**
   String downloadedStats(int count, String size);
-
-  /// No description provided for @sectionInformation.
-  ///
-  /// In en, this message translates to:
-  /// **'INFORMATION'**
-  String get sectionInformation;
-
-  /// No description provided for @sectionDeveloper.
-  ///
-  /// In en, this message translates to:
-  /// **'DEVELOPER'**
-  String get sectionDeveloper;
-
-  /// No description provided for @sectionLinks.
-  ///
-  /// In en, this message translates to:
-  /// **'LINKS'**
-  String get sectionLinks;
-
-  /// No description provided for @githubRepo.
-  ///
-  /// In en, this message translates to:
-  /// **'GitHub Repository'**
-  String get githubRepo;
-
-  /// No description provided for @playingFrom.
-  ///
-  /// In en, this message translates to:
-  /// **'PLAYING FROM'**
-  String get playingFrom;
-
-  /// No description provided for @live.
-  ///
-  /// In en, this message translates to:
-  /// **'LIVE'**
-  String get live;
-
-  /// No description provided for @streamingLive.
-  ///
-  /// In en, this message translates to:
-  /// **'Streaming Live'**
-  String get streamingLive;
-
-  /// No description provided for @stopRadio.
-  ///
-  /// In en, this message translates to:
-  /// **'Stop Radio'**
-  String get stopRadio;
 
   /// No description provided for @removeFromLiked.
   ///
@@ -1690,12 +1174,6 @@ abstract class AppLocalizations {
   /// **'No playlists available'**
   String get noPlaylists;
 
-  /// No description provided for @createNewPlaylist.
-  ///
-  /// In en, this message translates to:
-  /// **'Create New Playlist'**
-  String get createNewPlaylist;
-
   /// No description provided for @artistNotFound.
   ///
   /// In en, this message translates to:
@@ -1707,12 +1185,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error searching for artist: {error}'**
   String errorSearchingArtist(Object error);
-
-  /// No description provided for @selectArtist.
-  ///
-  /// In en, this message translates to:
-  /// **'Select Artist'**
-  String get selectArtist;
 
   /// No description provided for @removedFromFavorites.
   ///
@@ -1744,18 +1216,6 @@ abstract class AppLocalizations {
   /// **'Album not found'**
   String get albumNotFound;
 
-  /// Album duration in hours and minutes
-  ///
-  /// In en, this message translates to:
-  /// **'{hours} HR {minutes} MIN'**
-  String durationHoursMinutes(int hours, int minutes);
-
-  /// Album duration in minutes only
-  ///
-  /// In en, this message translates to:
-  /// **'{minutes} MIN'**
-  String durationMinutes(int minutes);
-
   /// Top songs section header on artist screen
   ///
   /// In en, this message translates to:
@@ -1774,35 +1234,11 @@ abstract class AppLocalizations {
   /// **'No song playing'**
   String get noSongPlaying;
 
-  /// Uppercase badge shown in the now-playing radio player
-  ///
-  /// In en, this message translates to:
-  /// **'INTERNET RADIO'**
-  String get internetRadioUppercase;
-
-  /// Title of the queue / playing-next bottom sheet
-  ///
-  /// In en, this message translates to:
-  /// **'Playing Next'**
-  String get playingNext;
-
-  /// Title of the create-new-playlist dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Create Playlist'**
-  String get createPlaylistTitle;
-
   /// Hint text for playlist name input
   ///
   /// In en, this message translates to:
   /// **'Playlist name'**
   String get playlistNameHint;
-
-  /// Snackbar shown after creating a playlist with the current song
-  ///
-  /// In en, this message translates to:
-  /// **'Created playlist \"{name}\" with this song'**
-  String playlistCreatedWithSong(String name);
 
   /// Snackbar shown when playlists fail to load
   ///
@@ -1840,18 +1276,6 @@ abstract class AppLocalizations {
   /// **'Listening History'**
   String get listeningHistory;
 
-  /// Empty state headline on the history screen
-  ///
-  /// In en, this message translates to:
-  /// **'No Listening History'**
-  String get noListeningHistory;
-
-  /// Empty state subtitle on the history screen
-  ///
-  /// In en, this message translates to:
-  /// **'Songs you play will appear here'**
-  String get songsWillAppearHere;
-
   /// Sort option: title ascending
   ///
   /// In en, this message translates to:
@@ -1870,23 +1294,11 @@ abstract class AppLocalizations {
   /// **'Artist (A-Z)'**
   String get sortByArtistAZ;
 
-  /// Sort option: artist descending
-  ///
-  /// In en, this message translates to:
-  /// **'Artist (Z-A)'**
-  String get sortByArtistZA;
-
   /// Sort option: album ascending
   ///
   /// In en, this message translates to:
   /// **'Album (A-Z)'**
   String get sortByAlbumAZ;
-
-  /// Sort option: album descending
-  ///
-  /// In en, this message translates to:
-  /// **'Album (Z-A)'**
-  String get sortByAlbumZA;
 
   /// Sort option: recently added
   ///
@@ -1912,18 +1324,6 @@ abstract class AppLocalizations {
   /// **'No homepage URL available'**
   String get noHomepageUrl;
 
-  /// Context menu option to play a radio station
-  ///
-  /// In en, this message translates to:
-  /// **'Play Station'**
-  String get playStation;
-
-  /// Context menu option to open a radio station's homepage
-  ///
-  /// In en, this message translates to:
-  /// **'Open Homepage'**
-  String get openHomepage;
-
   /// Context menu option to copy a radio station stream URL
   ///
   /// In en, this message translates to:
@@ -1941,12 +1341,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No Radio Stations'**
   String get noRadioStations;
-
-  /// Empty state subtitle on the radio screen
-  ///
-  /// In en, this message translates to:
-  /// **'Add radio stations in your Navidrome server settings to see them here.'**
-  String get noRadioStationsHint;
 
   /// Subtitle below the app name on the login screen
   ///
@@ -2062,12 +1456,6 @@ abstract class AppLocalizations {
   /// **'Connect'**
   String get connect;
 
-  /// Divider label between Connect and Use Local Files
-  ///
-  /// In en, this message translates to:
-  /// **'OR'**
-  String get or;
-
   /// Button label to start local-files mode
   ///
   /// In en, this message translates to:
@@ -2110,12 +1498,6 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get home;
 
-  /// Uppercase section header for playlists in the desktop sidebar
-  ///
-  /// In en, this message translates to:
-  /// **'PLAYLISTS'**
-  String get playlistsSection;
-
   /// Tooltip/label for the sidebar collapse button
   ///
   /// In en, this message translates to:
@@ -2133,18 +1515,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create playlist'**
   String get createPlaylist;
-
-  /// Label for importing a playlist from Spotify or YouTube Music
-  ///
-  /// In en, this message translates to:
-  /// **'Import Playlist'**
-  String get importPlaylist;
-
-  /// Subtitle for the import playlist option
-  ///
-  /// In en, this message translates to:
-  /// **'Import from Spotify or YouTube Music (no login)'**
-  String get importPlaylistSubtitle;
 
   /// Label for checking app updates
   ///
@@ -2176,12 +1546,6 @@ abstract class AppLocalizations {
   /// **'Update now'**
   String get updateNow;
 
-  /// Progress message while downloading update
-  ///
-  /// In en, this message translates to:
-  /// **'Downloading update...'**
-  String get downloadingUpdate;
-
   /// Button to open release on GitHub
   ///
   /// In en, this message translates to:
@@ -2193,72 +1557,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Skip this version'**
   String get skipThisVersion;
-
-  /// Message shown when update download finishes
-  ///
-  /// In en, this message translates to:
-  /// **'Download complete. Starting installation...'**
-  String get updateDownloaded;
-
-  /// Liked Songs item label in the desktop sidebar
-  ///
-  /// In en, this message translates to:
-  /// **'Liked Songs'**
-  String get likedSongsSidebar;
-
-  /// Subtitle for a playlist item in the desktop sidebar
-  ///
-  /// In en, this message translates to:
-  /// **'Playlist • {count} songs'**
-  String playlistSongsCount(int count);
-
-  /// Error state message when lyrics cannot be loaded
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to load lyrics'**
-  String get failedToLoadLyrics;
-
-  /// Empty/error subtitle in the lyrics view
-  ///
-  /// In en, this message translates to:
-  /// **'Lyrics for this song couldn\'t be found'**
-  String get lyricsNotFoundSubtitle;
-
-  /// Button to scroll the lyrics view back to the current line
-  ///
-  /// In en, this message translates to:
-  /// **'Back to current'**
-  String get backToCurrent;
-
-  /// Tooltip for the exit-fullscreen button in lyrics view
-  ///
-  /// In en, this message translates to:
-  /// **'Exit Fullscreen'**
-  String get exitFullscreen;
-
-  /// Tooltip for the enter-fullscreen button in lyrics view
-  ///
-  /// In en, this message translates to:
-  /// **'Fullscreen'**
-  String get fullscreen;
-
-  /// Fallback text when no lyrics controller is available
-  ///
-  /// In en, this message translates to:
-  /// **'No lyrics'**
-  String get noLyrics;
-
-  /// Subtitle shown in the mini player when streaming internet radio
-  ///
-  /// In en, this message translates to:
-  /// **'Internet Radio'**
-  String get internetRadioMiniPlayer;
-
-  /// Badge text shown in the mini player for live radio streams
-  ///
-  /// In en, this message translates to:
-  /// **'LIVE'**
-  String get liveBadge;
 
   /// Banner shown at the top of the screen in local-files mode
   ///
@@ -2272,35 +1570,11 @@ abstract class AppLocalizations {
   /// **'Offline Mode – Playing downloaded music only'**
   String get offlineModeBanner;
 
-  /// Subtitle in the update dialog
-  ///
-  /// In en, this message translates to:
-  /// **'A new version of Octave is available!'**
-  String get updateAvailableSubtitle;
-
-  /// Current version label in the update dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Current: v{version}'**
-  String updateCurrentVersion(String version);
-
-  /// Latest version label in the update dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Latest: v{version}'**
-  String updateLatestVersion(String version);
-
   /// Section header for the changelog in the update dialog
   ///
   /// In en, this message translates to:
   /// **'What\'s New'**
   String get whatsNew;
-
-  /// Primary button in the update dialog that opens the release page
-  ///
-  /// In en, this message translates to:
-  /// **'Download'**
-  String get downloadUpdate;
 
   /// Dismiss button in the update dialog
   ///
@@ -2338,59 +1612,11 @@ abstract class AppLocalizations {
   /// **'Casting'**
   String get casting;
 
-  /// Title shown in the DLNA control dialog when connected
-  ///
-  /// In en, this message translates to:
-  /// **'DLNA'**
-  String get dlna;
-
-  /// Title of the Cast/DLNA device picker dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Cast / DLNA (Beta)'**
-  String get castDlnaBeta;
-
-  /// Section header for Chromecast devices in the device picker
-  ///
-  /// In en, this message translates to:
-  /// **'Chromecast'**
-  String get chromecast;
-
-  /// Section header for DLNA/UPnP devices in the device picker
-  ///
-  /// In en, this message translates to:
-  /// **'DLNA / UPnP'**
-  String get dlnaUpnp;
-
   /// Button to clear server credentials and go back to login
   ///
   /// In en, this message translates to:
   /// **'Disconnect'**
   String get disconnect;
-
-  /// Loading message in the device picker when no devices have been found yet
-  ///
-  /// In en, this message translates to:
-  /// **'Searching for devices'**
-  String get searchingDevices;
-
-  /// Hint shown while searching for cast/DLNA devices
-  ///
-  /// In en, this message translates to:
-  /// **'Make sure your Cast / DLNA device\nis on the same Wi-Fi network'**
-  String get castWifiHint;
-
-  /// Snackbar shown after successfully connecting to a cast/DLNA device
-  ///
-  /// In en, this message translates to:
-  /// **'Connected to {name}'**
-  String connectedToDevice(String name);
-
-  /// Snackbar shown when connecting to a cast/DLNA device fails
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to connect to {name}'**
-  String failedToConnectDevice(String name);
 
   /// Snackbar shown after un-liking a song in the song tile menu
   ///
@@ -2404,29 +1630,11 @@ abstract class AppLocalizations {
   /// **'Added to Liked Songs'**
   String get addedToLikedSongs;
 
-  /// Tooltip for the shuffle toggle button in the desktop player bar
-  ///
-  /// In en, this message translates to:
-  /// **'Enable shuffle'**
-  String get enableShuffle;
-
-  /// Tooltip for the repeat toggle button in the desktop player bar
-  ///
-  /// In en, this message translates to:
-  /// **'Enable repeat'**
-  String get enableRepeat;
-
   /// Tooltip for the cast button when connecting to a device
   ///
   /// In en, this message translates to:
   /// **'Connecting'**
   String get connecting;
-
-  /// Tooltip for the lyrics button when lyrics panel is open
-  ///
-  /// In en, this message translates to:
-  /// **'Close Lyrics'**
-  String get closeLyrics;
 
   /// Snackbar shown when the library background download fails to start
   ///
@@ -2470,35 +1678,11 @@ abstract class AppLocalizations {
   /// **'Clear Queue'**
   String get jukeboxClearQueue;
 
-  /// Action label to shuffle the jukebox playback queue
-  ///
-  /// In en, this message translates to:
-  /// **'Shuffle Queue'**
-  String get jukeboxShuffleQueue;
-
   /// Empty state when the jukebox queue has no songs
   ///
   /// In en, this message translates to:
   /// **'No songs in queue'**
   String get jukeboxQueueEmpty;
-
-  /// Section header for the now-playing area in the jukebox controller
-  ///
-  /// In en, this message translates to:
-  /// **'Now Playing'**
-  String get jukeboxNowPlaying;
-
-  /// Section header for the queue list in the jukebox controller
-  ///
-  /// In en, this message translates to:
-  /// **'Queue'**
-  String get jukeboxQueue;
-
-  /// Label for the volume slider in the jukebox controller
-  ///
-  /// In en, this message translates to:
-  /// **'Volume'**
-  String get jukeboxVolume;
 
   /// Option to replace the jukebox queue with this song and start playback
   ///
@@ -2518,137 +1702,11 @@ abstract class AppLocalizations {
   /// **'Jukebox mode is not supported by this server. Enable it in your server configuration (e.g. EnableJukebox = true in Navidrome).'**
   String get jukeboxNotSupported;
 
-  /// Title of the music folders selection dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Select Music Folders'**
-  String get musicFoldersDialogTitle;
-
   /// Hint text in the music folders selection dialog
   ///
   /// In en, this message translates to:
   /// **'Leave all enabled to use all folders (default).'**
   String get musicFoldersHint;
-
-  /// Snackbar shown after saving music folder selection
-  ///
-  /// In en, this message translates to:
-  /// **'Music folder selection saved'**
-  String get musicFoldersSaved;
-
-  /// Display settings section header for artwork customisation
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork Style'**
-  String get artworkStyleSection;
-
-  /// Label for the album art corner radius slider
-  ///
-  /// In en, this message translates to:
-  /// **'Corner Radius'**
-  String get artworkCornerRadius;
-
-  /// Subtitle for the album art corner radius slider
-  ///
-  /// In en, this message translates to:
-  /// **'Adjust how round the corners of album covers appear'**
-  String get artworkCornerRadiusSubtitle;
-
-  /// Label shown when corner radius is set to 0 (no rounded corners)
-  ///
-  /// In en, this message translates to:
-  /// **'None'**
-  String get artworkCornerRadiusNone;
-
-  /// Label for the artwork shape selector
-  ///
-  /// In en, this message translates to:
-  /// **'Shape'**
-  String get artworkShape;
-
-  /// Rounded rectangle artwork shape option
-  ///
-  /// In en, this message translates to:
-  /// **'Rounded'**
-  String get artworkShapeRounded;
-
-  /// Circle artwork shape option
-  ///
-  /// In en, this message translates to:
-  /// **'Circle'**
-  String get artworkShapeCircle;
-
-  /// Square (no rounding) artwork shape option
-  ///
-  /// In en, this message translates to:
-  /// **'Square'**
-  String get artworkShapeSquare;
-
-  /// Label for the artwork shadow intensity selector
-  ///
-  /// In en, this message translates to:
-  /// **'Shadow'**
-  String get artworkShadow;
-
-  /// No shadow option for artwork
-  ///
-  /// In en, this message translates to:
-  /// **'None'**
-  String get artworkShadowNone;
-
-  /// Soft shadow option for artwork
-  ///
-  /// In en, this message translates to:
-  /// **'Soft'**
-  String get artworkShadowSoft;
-
-  /// Medium shadow option for artwork
-  ///
-  /// In en, this message translates to:
-  /// **'Medium'**
-  String get artworkShadowMedium;
-
-  /// Strong shadow option for artwork
-  ///
-  /// In en, this message translates to:
-  /// **'Strong'**
-  String get artworkShadowStrong;
-
-  /// Label for the artwork shadow color selector
-  ///
-  /// In en, this message translates to:
-  /// **'Shadow Color'**
-  String get artworkShadowColor;
-
-  /// Black shadow color option
-  ///
-  /// In en, this message translates to:
-  /// **'Black'**
-  String get artworkShadowColorBlack;
-
-  /// Accent color shadow (matches app accent color)
-  ///
-  /// In en, this message translates to:
-  /// **'Accent'**
-  String get artworkShadowColorAccent;
-
-  /// Label shown above the live artwork style preview
-  ///
-  /// In en, this message translates to:
-  /// **'Preview'**
-  String get artworkPreview;
-
-  /// Formatted corner radius value label
-  ///
-  /// In en, this message translates to:
-  /// **'{value}px'**
-  String artworkCornerRadiusLabel(int value);
-
-  /// Placeholder label shown in the player when a song has no cover art
-  ///
-  /// In en, this message translates to:
-  /// **'No artwork'**
-  String get noArtwork;
 
   /// Title on the server-unreachable screen
   ///
@@ -2721,36 +1779,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'LIVE'**
   String get liveLabel;
-
-  /// Settings label for the Discord Rich Presence second-line style
-  ///
-  /// In en, this message translates to:
-  /// **'Discord status text'**
-  String get discordStatusText;
-
-  /// Subtitle for the Discord status text setting
-  ///
-  /// In en, this message translates to:
-  /// **'Second line shown in Discord activity'**
-  String get discordStatusTextSubtitle;
-
-  /// Discord RPC state style option: show artist name
-  ///
-  /// In en, this message translates to:
-  /// **'Artist name'**
-  String get discordRpcStyleArtist;
-
-  /// Discord RPC state style option: show song title
-  ///
-  /// In en, this message translates to:
-  /// **'Song title'**
-  String get discordRpcStyleSong;
-
-  /// Discord RPC state style option: show app name
-  ///
-  /// In en, this message translates to:
-  /// **'App name (Octave)'**
-  String get discordRpcStyleApp;
 
   /// Playback settings section header for ReplayGain
   ///
@@ -2980,77 +2008,11 @@ abstract class AppLocalizations {
   /// **'Report Issue'**
   String get aboutLinkReportIssue;
 
-  /// Analytics and Privacy section header
-  ///
-  /// In en, this message translates to:
-  /// **'Analytics & Privacy'**
-  String get sectionAnalyticsPrivacy;
-
-  /// Title for anonymous analytics toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Anonymous Analytics'**
-  String get anonymousAnalytics;
-
-  /// Subtitle explaining anonymous analytics
-  ///
-  /// In en, this message translates to:
-  /// **'Help improve Octave with anonymous crash reports and usage stats'**
-  String get anonymousAnalyticsSubtitle;
-
-  /// Title for device ID row
-  ///
-  /// In en, this message translates to:
-  /// **'Device ID'**
-  String get deviceId;
-
-  /// Shows the anonymous device ID
-  ///
-  /// In en, this message translates to:
-  /// **'Anonymous ID: {id}'**
-  String deviceIdAnonymous(String id);
-
-  /// Shown when analytics is disabled
-  ///
-  /// In en, this message translates to:
-  /// **'Enable analytics to see your anonymous device ID'**
-  String get deviceIdDisabled;
-
-  /// Title for device ID explanation
-  ///
-  /// In en, this message translates to:
-  /// **'About Device ID'**
-  String get aboutDeviceId;
-
-  /// Explanation of what device ID is
-  ///
-  /// In en, this message translates to:
-  /// **'This is an anonymous identifier generated by the app. It cannot be linked to your personal identity and is used only for analytics.'**
-  String get aboutDeviceIdSubtitle;
-
-  /// No description provided for @supportWayRate.
-  ///
-  /// In en, this message translates to:
-  /// **'Leave a rating on the app store'**
-  String get supportWayRate;
-
-  /// No description provided for @supportMadeWithLove.
-  ///
-  /// In en, this message translates to:
-  /// **'Crafted with passion in Italy'**
-  String get supportMadeWithLove;
-
   /// Title of the playback speed bottom sheet
   ///
   /// In en, this message translates to:
   /// **'Playback Speed'**
   String get playbackSpeed;
-
-  /// Label for 1× (normal) playback speed option
-  ///
-  /// In en, this message translates to:
-  /// **'Normal (1×)'**
-  String get normalSpeed;
 
   /// Toggle label to keep original pitch when changing speed
   ///
@@ -3064,65 +2026,11 @@ abstract class AppLocalizations {
   /// **'Keep original pitch when changing speed'**
   String get preservePitchSubtitle;
 
-  /// Label for the pitch slider in the speed dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Pitch'**
-  String get pitch;
-
-  /// Tooltip fragment shown when pitch correction is on
-  ///
-  /// In en, this message translates to:
-  /// **'pitch preserved'**
-  String get pitchPreserved;
-
-  /// Tooltip for the speed button showing speed and pitch values
-  ///
-  /// In en, this message translates to:
-  /// **'Speed {speed} · pitch {pitch}×'**
-  String speedTooltipWithPitch(String speed, String pitch);
-
-  /// Tooltip for the speed button when pitch is preserved
-  ///
-  /// In en, this message translates to:
-  /// **'Speed {speed} · pitch preserved'**
-  String speedTooltipPitchPreserved(String speed);
-
   /// Title of the sleep timer bottom sheet
   ///
   /// In en, this message translates to:
   /// **'Sleep Timer'**
   String get sleepTimer;
-
-  /// Tooltip for the sleep timer button when a timer is running
-  ///
-  /// In en, this message translates to:
-  /// **'Sleep timer active'**
-  String get sleepTimerActive;
-
-  /// Toggle label for the fade-out option in the sleep timer dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Fade out'**
-  String get fadeOut;
-
-  /// Subtitle for the fade-out toggle, showing fade duration in seconds
-  ///
-  /// In en, this message translates to:
-  /// **'Gradually lower volume in the last {seconds} s'**
-  String fadeOutSubtitle(int seconds);
-
-  /// Toggle label to stop after the current track finishes
-  ///
-  /// In en, this message translates to:
-  /// **'Finish current song'**
-  String get finishCurrentSong;
-
-  /// Subtitle for the finish-current-song toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Stop after the current track ends'**
-  String get finishCurrentSongSubtitle;
 
   /// Sleep timer option label for a duration in minutes
   ///
@@ -3130,137 +2038,11 @@ abstract class AppLocalizations {
   /// **'{count} min'**
   String sleepTimerMinutes(int count);
 
-  /// Sleep timer option label for a duration in hours
-  ///
-  /// In en, this message translates to:
-  /// **'{count} hour'**
-  String sleepTimerHours(int count);
-
-  /// Snackbar shown after setting the sleep timer
-  ///
-  /// In en, this message translates to:
-  /// **'Sleep timer set for {duration}'**
-  String sleepTimerSetFor(String duration);
-
-  /// List tile label to open the custom sleep timer dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Custom duration…'**
-  String get customDuration;
-
-  /// List tile label to cancel the active sleep timer
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel timer'**
-  String get cancelTimer;
-
-  /// Title of the custom sleep timer dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Custom Sleep Timer'**
-  String get customSleepTimer;
-
-  /// Confirm button label in the custom sleep timer dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Set'**
-  String get set;
-
-  /// Title of the add-to-playlist bottom sheet (distinct from the menu action)
-  ///
-  /// In en, this message translates to:
-  /// **'Add to Playlist'**
-  String get addToPlaylistTitle;
-
-  /// Section heading inside the add-to-playlist bottom sheet
-  ///
-  /// In en, this message translates to:
-  /// **'Your Playlists'**
-  String get yourPlaylistsLabel;
-
-  /// Snackbar message after saving a Now Playing theme
-  ///
-  /// In en, this message translates to:
-  /// **'Theme saved'**
-  String get themeSaved;
-
-  /// Subtitle in AppBar when theme has unsaved changes
-  ///
-  /// In en, this message translates to:
-  /// **'Unsaved changes'**
-  String get themeUnsavedChanges;
-
-  /// Title of the unsaved changes dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Unsaved Changes'**
-  String get themeUnsavedChangesTitle;
-
-  /// Body of the unsaved changes dialog
-  ///
-  /// In en, this message translates to:
-  /// **'You have unsaved changes. Do you want to save before leaving?'**
-  String get themeUnsavedChangesBody;
-
-  /// Button to discard unsaved changes
-  ///
-  /// In en, this message translates to:
-  /// **'Discard'**
-  String get discard;
-
   /// Button to confirm a color picker dialog
   ///
   /// In en, this message translates to:
   /// **'Done'**
   String get done;
-
-  /// Title of the color picker dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Pick {label}'**
-  String pickColor(String label);
-
-  /// Section heading for title text style in theme editor
-  ///
-  /// In en, this message translates to:
-  /// **'Title Style'**
-  String get titleStyle;
-
-  /// Section heading for artist text style in theme editor
-  ///
-  /// In en, this message translates to:
-  /// **'Artist Style'**
-  String get artistStyle;
-
-  /// Badge shown on the active Now Playing theme card
-  ///
-  /// In en, this message translates to:
-  /// **'ACTIVE'**
-  String get themeActive;
-
-  /// Badge shown when a theme is in safe mode
-  ///
-  /// In en, this message translates to:
-  /// **'SAFE'**
-  String get themeSafeMode;
-
-  /// Badge shown when a theme has custom Flutter code enabled
-  ///
-  /// In en, this message translates to:
-  /// **'CODE'**
-  String get themeCodeMode;
-
-  /// Badge shown on theme cards that have animations enabled
-  ///
-  /// In en, this message translates to:
-  /// **'ANIM'**
-  String get themeAnimBadge;
-
-  /// Author attribution shown on theme preview card
-  ///
-  /// In en, this message translates to:
-  /// **'by {author}'**
-  String themeAuthor(String author);
 
   /// Shown when the OS denies Musly audio focus (e.g. another app refuses to yield)
   ///
@@ -3292,95 +2074,11 @@ abstract class AppLocalizations {
   /// **'End of Song'**
   String get endOfSong;
 
-  /// Title for Musly Connect feature
-  ///
-  /// In en, this message translates to:
-  /// **'Octave Connect'**
-  String get muslyConnect;
-
   /// Title for Connect to a Device sheet
   ///
   /// In en, this message translates to:
   /// **'Connect to a Device'**
   String get connectToDevice;
-
-  /// Label for currently active playback device
-  ///
-  /// In en, this message translates to:
-  /// **'Currently Playing On'**
-  String get currentlyPlayingOn;
-
-  /// Empty state when no peer devices are discovered
-  ///
-  /// In en, this message translates to:
-  /// **'No other Octave devices found on your Wi-Fi network.'**
-  String get noDevicesFound;
-
-  /// Tooltip for transferring playback to a device
-  ///
-  /// In en, this message translates to:
-  /// **'Transfer playback here'**
-  String get transferPlaybackHere;
-
-  /// Snackbar message when playback is transferred
-  ///
-  /// In en, this message translates to:
-  /// **'Playback transferred to {device}'**
-  String playbackTransferredTo(String device);
-
-  /// Title for BeatSync feature
-  ///
-  /// In en, this message translates to:
-  /// **'Octave BeatSync'**
-  String get muslyBeatSync;
-
-  /// Description of BeatSync party audio sync
-  ///
-  /// In en, this message translates to:
-  /// **'Synchronize multiple phones & computers over Wi-Fi as surround party speakers with millisecond precision.'**
-  String get beatSyncSubtitle;
-
-  /// Button to host a party room
-  ///
-  /// In en, this message translates to:
-  /// **'Host Party'**
-  String get hostParty;
-
-  /// Button to join a party room
-  ///
-  /// In en, this message translates to:
-  /// **'Join Party'**
-  String get joinParty;
-
-  /// Button to leave a party room
-  ///
-  /// In en, this message translates to:
-  /// **'Leave Party'**
-  String get leaveParty;
-
-  /// Title for phase sync calibration slider
-  ///
-  /// In en, this message translates to:
-  /// **'Audio Phase Calibration'**
-  String get audioPhaseCalibration;
-
-  /// Subtitle for phase calibration
-  ///
-  /// In en, this message translates to:
-  /// **'Adjust if using Bluetooth headphones or external speaker latency.'**
-  String get phaseCalibrationSubtitle;
-
-  /// List title for connected party devices
-  ///
-  /// In en, this message translates to:
-  /// **'Party Speakers'**
-  String get partySpeakers;
-
-  /// Title for Musly Wrapped retrospective
-  ///
-  /// In en, this message translates to:
-  /// **'Octave Wrapped'**
-  String get muslyWrapped;
 
   /// Musly Playback seasonal dialog header
   ///
@@ -3627,12 +2325,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your annual Year-in-Review unlocks automatically every year between late November and mid-January.\n\nKeep listening to music to expand your sonic universe!'**
   String get muslyPlaybackAnnualSubtitle;
-
-  /// Submit button label
-  ///
-  /// In en, this message translates to:
-  /// **'Submit'**
-  String get submit;
 
   /// Snackbar message counting down taps to unlock developer wrapped preview
   ///
@@ -3988,36 +2680,6 @@ abstract class AppLocalizations {
   /// **'OCTAVE PLAYBACK'**
   String get muslyPlaybackHeader;
 
-  /// Enable Musly connect setting title
-  ///
-  /// In en, this message translates to:
-  /// **'Enable Octave Connect'**
-  String get enableMuslyConnect;
-
-  /// Subtitle for enable Musly Connect setting
-  ///
-  /// In en, this message translates to:
-  /// **'Discover nearby devices over Wi-Fi for remote control and listening sessions'**
-  String get enableMuslyConnectSubtitle;
-
-  /// Available devices section title
-  ///
-  /// In en, this message translates to:
-  /// **'Available Devices'**
-  String get availableDevices;
-
-  /// Subtitle when connect discovery is active but no devices found
-  ///
-  /// In en, this message translates to:
-  /// **'LAN Discovery active • No nearby devices'**
-  String get lanDiscoveryActive;
-
-  /// Count of nearby connect devices found
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{1 nearby device found} other{{count} nearby devices found}}'**
-  String nearbyDevicesFound(int count);
-
   /// Minutes metric label
   ///
   /// In en, this message translates to:
@@ -4102,12 +2764,6 @@ abstract class AppLocalizations {
   /// **'Decline & Exit'**
   String get declineAndExit;
 
-  /// Exit application button
-  ///
-  /// In en, this message translates to:
-  /// **'Exit App'**
-  String get exitApp;
-
   /// Stop playback
   ///
   /// In en, this message translates to:
@@ -4156,18 +2812,6 @@ abstract class AppLocalizations {
   /// **'Back'**
   String get back;
 
-  /// Previous slide tooltip
-  ///
-  /// In en, this message translates to:
-  /// **'Previous'**
-  String get previousSlide;
-
-  /// Next slide tooltip
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get nextSlide;
-
   /// Radios subtitle
   ///
   /// In en, this message translates to:
@@ -4191,12 +2835,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No downloaded albums yet'**
   String get noDownloadedAlbumsYet;
-
-  /// Connected to web stream status
-  ///
-  /// In en, this message translates to:
-  /// **'Connected to Web Stream'**
-  String get connectedToWebStream;
 
   /// Self signed certs subtitle
   ///
@@ -4330,18 +2968,6 @@ abstract class AppLocalizations {
   /// **'Rename Profile'**
   String get renameProfile;
 
-  /// Add web stream option
-  ///
-  /// In en, this message translates to:
-  /// **'Add Web Stream'**
-  String get addWebStream;
-
-  /// Add web stream subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Instant streaming with no login required'**
-  String get addWebStreamSubtitle;
-
   /// Recent searches header
   ///
   /// In en, this message translates to:
@@ -4395,24 +3021,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password *'**
   String get passwordRequired;
-
-  /// Playing in sync status label
-  ///
-  /// In en, this message translates to:
-  /// **'Playing in sync'**
-  String get playingInSync;
-
-  /// Switched back to this device snackbar
-  ///
-  /// In en, this message translates to:
-  /// **'Switched back to this device'**
-  String get switchedBackToThisDevice;
-
-  /// Connected to device snackbar
-  ///
-  /// In en, this message translates to:
-  /// **'Connected to {device}'**
-  String connectedToDeviceName(String device);
 
   /// Search input hint text
   ///
@@ -4942,24 +3550,6 @@ abstract class AppLocalizations {
   /// **'No downloaded songs'**
   String get androidAutoEmptyDownloads;
 
-  /// No description provided for @androidAutoLoading.
-  ///
-  /// In en, this message translates to:
-  /// **'Loading…'**
-  String get androidAutoLoading;
-
-  /// No description provided for @androidAutoOnlineStream.
-  ///
-  /// In en, this message translates to:
-  /// **'Online Stream'**
-  String get androidAutoOnlineStream;
-
-  /// No description provided for @androidAutoServerSection.
-  ///
-  /// In en, this message translates to:
-  /// **'Server'**
-  String get androidAutoServerSection;
-
   /// No description provided for @androidAutoDefaultServer.
   ///
   /// In en, this message translates to:
@@ -5007,12 +3597,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Black background in dark mode, saves battery on OLED screens'**
   String get pureBlackSubtitle;
-
-  /// Name of the default app color, from the logo
-  ///
-  /// In en, this message translates to:
-  /// **'Octave night blue'**
-  String get accentColorOctave;
 
   /// Tagline on the first screen
   ///
@@ -5824,12 +4408,6 @@ abstract class AppLocalizations {
   /// **'The connection is taking a while…'**
   String get connectionSlow;
 
-  /// Web Stream profile subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Free online streaming'**
-  String get freeOnlineStreaming;
-
   /// Update dialog
   ///
   /// In en, this message translates to:
@@ -5847,102 +4425,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Improvements and bug fixes.'**
   String get updateDefaultChangelog;
-
-  /// Import dialog error
-  ///
-  /// In en, this message translates to:
-  /// **'Enter a playlist link or ID'**
-  String get importEnterLink;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Starting import…'**
-  String get importStarting;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Spotify or YouTube Music, no account needed'**
-  String get importSubtitle;
-
-  /// Import dialog field
-  ///
-  /// In en, this message translates to:
-  /// **'Paste a Spotify or YouTube Music link…'**
-  String get importLinkHint;
-
-  /// Tooltip
-  ///
-  /// In en, this message translates to:
-  /// **'Paste from clipboard'**
-  String get pasteFromClipboard;
-
-  /// Import dialog button
-  ///
-  /// In en, this message translates to:
-  /// **'Show preview'**
-  String get importLoadPreview;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Playlist preview'**
-  String get importPreviewTitle;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'By {author}'**
-  String importAuthor(String author);
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Included songs ({count})'**
-  String importIncludedTracks(int count);
-
-  /// Import dialog button
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{Import 1 song} other{Import {count} songs}}'**
-  String importButton(int count);
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Importing…'**
-  String get importInProgress;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Songs: {current} / {total}'**
-  String importTracksProgress(int current, int total);
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Preparing songs…'**
-  String get importPreparing;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'Playlist imported'**
-  String get importSuccess;
-
-  /// Import dialog
-  ///
-  /// In en, this message translates to:
-  /// **'“{name}” is ready to play'**
-  String importReady(String name);
-
-  /// Button
-  ///
-  /// In en, this message translates to:
-  /// **'Open playlist'**
-  String get openPlaylist;
 
   /// Desktop sidebar dialog
   ///

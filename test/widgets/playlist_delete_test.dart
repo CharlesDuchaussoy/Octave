@@ -13,12 +13,6 @@ import '../bootstrap.dart';
 
 class FakePlaylistSubsonicService extends SubsonicService {
   String? deletedPlaylistId;
-  final bool _isYoutube;
-
-  FakePlaylistSubsonicService({bool isYoutube = false}) : _isYoutube = isYoutube;
-
-  @override
-  bool get isYoutube => _isYoutube;
 
   @override
   Future<Playlist> getPlaylist(String id) async {
@@ -134,7 +128,7 @@ void main() {
       expect(find.byIcon(CupertinoIcons.trash), findsOneWidget);
     });
 
-    testWidgets('Deleting playlist removes it from LibraryProvider and calls subsonicService on Web Stream', (
+    testWidgets('Deleting playlist removes it from LibraryProvider and calls subsonicService', (
       WidgetTester tester,
     ) async {
       final fakeSubsonic = FakePlaylistSubsonicService();
@@ -185,10 +179,10 @@ void main() {
       expect(fakeSubsonic.deletedPlaylistId, equals('yt-playlist-123'));
     });
 
-    testWidgets('Tapping delete inside PlaylistOptionsModal bottom sheet deletes the playlist on Web Stream', (
+    testWidgets('Tapping delete inside PlaylistOptionsModal bottom sheet deletes the playlist', (
       WidgetTester tester,
     ) async {
-      final fakeSubsonic = FakePlaylistSubsonicService(isYoutube: true);
+      final fakeSubsonic = FakePlaylistSubsonicService();
       final testPlaylist = Playlist(
         id: 'yt-playlist-456',
         name: 'My Web Stream Playlist 2',
@@ -244,7 +238,7 @@ void main() {
     testWidgets('Deleting playlist from PlaylistScreen 3-dots menu removes it and calls subsonicService', (
       WidgetTester tester,
     ) async {
-      final fakeSubsonic = FakePlaylistSubsonicService(isYoutube: true);
+      final fakeSubsonic = FakePlaylistSubsonicService();
       final testPlaylist = Playlist(
         id: 'pl-detail-1',
         name: 'Detail Screen Playlist',

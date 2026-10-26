@@ -41,14 +41,14 @@ void main() {
 
       expect(invalidConfig2.isValid, false);
 
+      // Servers Octave no longer supports are ignored when loaded.
       final ytConfig = ServerConfig(
         serverUrl: 'https://music.youtube.com',
         username: '',
         password: '',
         serverFamily: 'youtube',
       );
-      expect(ytConfig.isValid, true);
-      expect(ytConfig.isYoutube, true);
+      expect(ytConfig.isSupported, false);
 
       final localConfig = ServerConfig(
         serverUrl: 'local',
@@ -58,6 +58,7 @@ void main() {
       );
       expect(localConfig.isValid, true);
       expect(localConfig.isLocal, true);
+      expect(localConfig.isSupported, true);
     });
 
     test('should normalize URL correctly', () {

@@ -5,8 +5,6 @@ import 'song.dart';
 
 enum ConnectMode {
   subsonic,
-  jellyfin,
-  webStream,
   local,
   unknown,
 }

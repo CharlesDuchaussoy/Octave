@@ -6,9 +6,7 @@ import 'dart:async';
 import 'package:musly/models/models.dart';
 import 'package:musly/providers/library_provider.dart';
 import 'package:musly/providers/player_provider.dart';
-import 'package:musly/providers/auth_provider.dart';
 import 'package:musly/services/subsonic_service.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/widgets/widgets.dart';
@@ -127,7 +125,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
     final hPad = _isDesktop ? 32.0 : 16.0;
     final query = _searchController.text.trim();
     final hasResults = _searchResult != null && query.isNotEmpty;
@@ -179,7 +176,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: TextField(
                     controller: _searchController,
                     focusNode: _focusNode,
-                    autofocus: isTv,
                     textInputAction: TextInputAction.search,
                     onEditingComplete: () {
                       _focusNode.unfocus();
@@ -309,11 +305,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildBrowseAllSection(double hPad, bool isDark) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    final subsonicService = Provider.of<SubsonicService>(context);
-    final isYoutube =
-        subsonicService.isYoutube || authProvider.config?.isYoutube == true;
-
     return Padding(
       padding: EdgeInsets.fromLTRB(hPad, 16, hPad, 48),
       child: Column(
@@ -413,8 +404,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           context, const TopRatedScreen()),
                     ),
                   ),
-                  if (!isYoutube)
-                    SizedBox(
+                  SizedBox(
                       width: cardWidth,
                       child: BrowseCategoryCard(
                         title: AppLocalizations.of(context)!.radioStations,

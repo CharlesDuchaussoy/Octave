@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:musly/theme/app_theme.dart';
-import 'package:provider/provider.dart';
-import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 
 class MediaCard extends StatefulWidget {
@@ -37,20 +35,16 @@ class _MediaCardState extends State<MediaCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // The focus border (TV) takes 3 px on each side.
+    // The keyboard focus border takes 3 px on each side.
     final artSize = widget.size - 6;
     final radius = widget.isRound ? artSize / 2 : 8.0;
-    bool isTv = false;
-    try {
-      isTv = Provider.of<TvDetectionService>(context).isTvMode;
-    } catch (_) {}
-
     return RepaintBoundary(
       child: FocusableActionDetector(
         onShowFocusHighlight: (focused) {
           setState(() => _isFocused = focused);
-          if (focused && isTv) {
-            Scrollable.ensureVisible(context, alignment: 0.5, duration: const Duration(milliseconds: 300));
+          if (focused) {
+            Scrollable.ensureVisible(context,
+                alignment: 0.5, duration: const Duration(milliseconds: 300));
           }
         },
         actions: {
@@ -78,9 +72,7 @@ class _MediaCardState extends State<MediaCard> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(radius + 3),
                 border: Border.all(
-                  color: isTv && _isFocused
-                      ? context.octave.text1
-                      : Colors.transparent,
+                  color: _isFocused ? context.octave.accent : Colors.transparent,
                   width: 3.0,
                 ),
               ),

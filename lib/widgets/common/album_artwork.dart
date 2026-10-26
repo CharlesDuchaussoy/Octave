@@ -51,19 +51,6 @@ class ImageUrlCache {
   static String getUrl(SubsonicService service, String? coverArt, int size) {
     if (coverArt == null || coverArt.isEmpty) return '';
     if (coverArt.startsWith('http://') || coverArt.startsWith('https://')) {
-      if (coverArt.contains('googleusercontent.com') ||
-          coverArt.contains('ggpht.com')) {
-        final effectiveSize = size > 0 ? size : 800;
-        final base = coverArt.split('=')[0];
-        return '$base=w$effectiveSize-h$effectiveSize-l90-rj';
-      }
-      if (coverArt.contains('i.ytimg.com') || coverArt.contains('img.youtube.com')) {
-        final match = RegExp(r'/vi/([a-zA-Z0-9_-]{11})').firstMatch(coverArt);
-        if (match != null) {
-          final vid = match.group(1);
-          return 'https://i.ytimg.com/vi/$vid/hq720.jpg';
-        }
-      }
       return coverArt;
     }
     final serverKey = service.config?.serverUrl ?? '';

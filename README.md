@@ -56,7 +56,7 @@ Le détail de chaque version est dans [CHANGELOG-octave.md](CHANGELOG-octave.md)
 
 Héritées de Musly :
 
-- 🎵 **Serveurs Navidrome, Subsonic, Jellyfin, Emby et Airsonic**
+- 🎵 **Ton serveur Navidrome**, ou tout serveur compatible Subsonic
 - 💾 **Écoute hors ligne** de titres, albums et playlists
 - 🎧 **Paroles synchronisées**, avec un appui pour aller au bon moment
 - 🔀 **File d'attente qui se remplit seule** à partir de tes titres et artistes préférés
@@ -133,7 +133,7 @@ Octave est distribué sous la même licence que Musly : **[Creative Commons Attr
 
 Les mentions d'attribution et la liste des modifications sont dans [NOTICE.md](NOTICE.md).
 
-Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Les noms Navidrome, Subsonic, Jellyfin, Emby, Android, Windows et Linux appartiennent à leurs détenteurs respectifs.
+Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Les noms Navidrome, Subsonic, Android, Windows et Linux appartiennent à leurs détenteurs respectifs.
 
 <div align="center">
 <br>

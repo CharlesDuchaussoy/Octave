@@ -28,7 +28,6 @@ void main() {
     mockPlayer = MockPlayerDelegate();
     mockLibrary = MockLibraryDelegate();
 
-    when(() => mockSubsonic.isYoutube).thenReturn(false);
     when(() => mockOffline.isOfflineMode).thenReturn(false);
     when(() => mockSubsonic.getCoverArtUrl(any(), size: any(named: 'size'))).thenReturn('http://cover.url');
     when(() => mockLibrary.getCoverArtUrl(any())).thenReturn('http://cover.url');
