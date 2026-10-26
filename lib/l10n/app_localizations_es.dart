@@ -3521,4 +3521,102 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get autoDjSmartMix => 'Smart mix';
+
+  @override
+  String get coverEdit => 'Edit cover';
+
+  @override
+  String get coverEditorTitle => 'Cover';
+
+  @override
+  String get coverTabTemplate => 'Layout';
+
+  @override
+  String get coverTabText => 'Text';
+
+  @override
+  String get coverTabColors => 'Colors';
+
+  @override
+  String get coverTabImage => 'Picture';
+
+  @override
+  String get coverTemplateGradient => 'Gradient';
+
+  @override
+  String get coverTemplateMinimal => 'Minimal';
+
+  @override
+  String get coverTemplateBigType => 'Big type';
+
+  @override
+  String get coverTemplateBand => 'Band';
+
+  @override
+  String get coverTemplatePhoto => 'Photo';
+
+  @override
+  String get coverTemplateVinyl => 'Record';
+
+  @override
+  String get coverTemplateShapes => 'Shapes';
+
+  @override
+  String get coverTemplateGrid => 'Mosaic';
+
+  @override
+  String get coverTitleLabel => 'Title';
+
+  @override
+  String get coverSubtitleLabel => 'Subtitle';
+
+  @override
+  String get coverSubtitleHint => 'For example: for the road';
+
+  @override
+  String get coverFontLabel => 'Font';
+
+  @override
+  String get coverUppercase => 'Capital letters';
+
+  @override
+  String get coverMainColor => 'Main color';
+
+  @override
+  String get coverSecondColor => 'Second color';
+
+  @override
+  String get coverColorsFromCovers =>
+      'The first colors come from the playlist covers.';
+
+  @override
+  String get coverPickPhoto => 'Choose a photo';
+
+  @override
+  String get coverUsePlaylistCovers => 'Use the playlist covers';
+
+  @override
+  String get coverImageHint => 'The Band and Photo layouts show this picture.';
+
+  @override
+  String get coverAutomatic => 'Back to the automatic cover';
+
+  @override
+  String get coverSaved => 'Cover saved';
+
+  @override
+  String get coverSaveFailed => 'Could not save the cover';
+
+  @override
+  String get coverThisDeviceOnly =>
+      'For now, this cover only shows in Octave on this device.';
+
+  @override
+  String get coverDiscardTitle => 'Discard changes?';
+
+  @override
+  String get coverDiscard => 'Discard';
+
+  @override
+  String get coverSwapColors => 'Swap the colors';
 }

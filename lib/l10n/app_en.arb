@@ -4284,5 +4284,133 @@
   "autoDjSmartMix": "Smart mix",
   "@autoDjSmartMix": {
     "description": "Auto DJ mode"
+  },
+  "coverEdit": "Edit cover",
+  "@coverEdit": {
+    "description": "Playlist menu entry opening the cover editor"
+  },
+  "coverEditorTitle": "Cover",
+  "@coverEditorTitle": {
+    "description": "Title of the playlist cover editor"
+  },
+  "coverTabTemplate": "Layout",
+  "@coverTabTemplate": {
+    "description": "Cover editor tab"
+  },
+  "coverTabText": "Text",
+  "@coverTabText": {
+    "description": "Cover editor tab"
+  },
+  "coverTabColors": "Colors",
+  "@coverTabColors": {
+    "description": "Cover editor tab"
+  },
+  "coverTabImage": "Picture",
+  "@coverTabImage": {
+    "description": "Cover editor tab"
+  },
+  "coverTemplateGradient": "Gradient",
+  "@coverTemplateGradient": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateMinimal": "Minimal",
+  "@coverTemplateMinimal": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateBigType": "Big type",
+  "@coverTemplateBigType": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateBand": "Band",
+  "@coverTemplateBand": {
+    "description": "Cover layout name"
+  },
+  "coverTemplatePhoto": "Photo",
+  "@coverTemplatePhoto": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateVinyl": "Record",
+  "@coverTemplateVinyl": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateShapes": "Shapes",
+  "@coverTemplateShapes": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateGrid": "Mosaic",
+  "@coverTemplateGrid": {
+    "description": "Cover layout name"
+  },
+  "coverTitleLabel": "Title",
+  "@coverTitleLabel": {
+    "description": "Cover title field"
+  },
+  "coverSubtitleLabel": "Subtitle",
+  "@coverSubtitleLabel": {
+    "description": "Cover subtitle field"
+  },
+  "coverSubtitleHint": "For example: for the road",
+  "@coverSubtitleHint": {
+    "description": "Hint of the cover subtitle field"
+  },
+  "coverFontLabel": "Font",
+  "@coverFontLabel": {
+    "description": "Cover font picker"
+  },
+  "coverUppercase": "Capital letters",
+  "@coverUppercase": {
+    "description": "Cover option"
+  },
+  "coverMainColor": "Main color",
+  "@coverMainColor": {
+    "description": "Cover color picker"
+  },
+  "coverSecondColor": "Second color",
+  "@coverSecondColor": {
+    "description": "Cover color picker"
+  },
+  "coverColorsFromCovers": "The first colors come from the playlist covers.",
+  "@coverColorsFromCovers": {
+    "description": "Cover color picker section"
+  },
+  "coverPickPhoto": "Choose a photo",
+  "@coverPickPhoto": {
+    "description": "Cover picture button"
+  },
+  "coverUsePlaylistCovers": "Use the playlist covers",
+  "@coverUsePlaylistCovers": {
+    "description": "Cover picture button"
+  },
+  "coverImageHint": "The Band and Photo layouts show this picture.",
+  "@coverImageHint": {
+    "description": "Cover picture tab hint"
+  },
+  "coverAutomatic": "Back to the automatic cover",
+  "@coverAutomatic": {
+    "description": "Cover editor action"
+  },
+  "coverSaved": "Cover saved",
+  "@coverSaved": {
+    "description": "Message after saving a cover"
+  },
+  "coverSaveFailed": "Could not save the cover",
+  "@coverSaveFailed": {
+    "description": "Message when a cover cannot be saved"
+  },
+  "coverThisDeviceOnly": "For now, this cover only shows in Octave on this device.",
+  "@coverThisDeviceOnly": {
+    "description": "Note in the cover editor"
+  },
+  "coverDiscardTitle": "Discard changes?",
+  "@coverDiscardTitle": {
+    "description": "Dialog when leaving the cover editor"
+  },
+  "coverDiscard": "Discard",
+  "@coverDiscard": {
+    "description": "Button discarding cover changes"
+  },
+  "coverSwapColors": "Swap the colors",
+  "@coverSwapColors": {
+    "description": "Cover editor button swapping main and second colors"
   }
 }

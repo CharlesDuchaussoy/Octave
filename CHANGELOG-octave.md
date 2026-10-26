@@ -39,6 +39,23 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Réglages d'apparence : couleur de l'app, intensité des couleurs (de neutre à coloré) et noir pur pour les écrans OLED.
 - Icônes des réglages sobres et uniformes, vignettes des titres aimés et des téléchargements assorties.
 - Police Inter intégrée à l'app.
+- 13 couleurs nommées au choix : Nuit, Rose, Grenadine, Mandarine, Citron, Menthe, Forêt, Piscine, Bleu, Iris, Lilas, Sable et Ardoise, en plus des couleurs du fond d'écran.
+- La couleur choisie se voit partout : en mode clair, les fonds la prennent (rose pâle, bleu pâle…) ; en mode sombre, les fonds restent presque noirs, comme dans Apple Music, et la couleur passe sur les boutons, les icônes et les textes actifs. Le bouton « Lecture » des albums, playlists et artistes est rempli de cette couleur.
+- Barre d'onglets et mini-lecteur flottants, sur un fond flou : le contenu défile dessous, et les menus s'ouvrent par-dessus.
+- Réglages en une seule liste, comme sur iPhone, à la place des six onglets qui se chevauchaient sur un téléphone.
+- Pochettes de l'accueil sans cadre, artistes en vrais cercles.
+
+### Pochettes de playlist
+
+- Un éditeur de pochettes, comme « Créer une pochette » de Spotify : menu d'une playlist, puis « Modifier la pochette ».
+- 8 modèles : Dégradé, Minimal, Typo géante, Bandeau, Photo, Vinyle, Formes et Mosaïque.
+- Titre et sous-titre, 5 polices intégrées (Inter, Bebas Neue, DM Serif Display, Space Mono, Pacifico), majuscules, deux couleurs (dont celles tirées des pochettes de la playlist) et une photo du téléphone.
+- Contrairement à Spotify, la pochette se rouvre et se retouche. « Revenir à la pochette automatique » rend la mosaïque.
+- Pour l'instant, la pochette n'apparaît que dans Octave, sur l'appareil où elle a été faite. La partager avec les autres apps du serveur demande une commande dans Octo.
+
+### Fichiers du téléphone
+
+- Les albums et les artistes ont leur pochette, et le lecteur plein écran affiche celle du titre au lieu du logo.
 
 ### Sans interruptions
 

@@ -109,6 +109,21 @@ flutter:
           weight: 600
         - asset: assets/fonts/inter/Inter-Bold.ttf
           weight: 700
+    # Title fonts of the playlist cover editor.
+    - family: BebasNeue
+      fonts:
+        - asset: assets/fonts/bebasneue/BebasNeue-Regular.ttf
+    - family: DMSerifDisplay
+      fonts:
+        - asset: assets/fonts/dmserifdisplay/DMSerifDisplay-Regular.ttf
+    - family: SpaceMono
+      fonts:
+        - asset: assets/fonts/spacemono/SpaceMono-Regular.ttf
+        - asset: assets/fonts/spacemono/SpaceMono-Bold.ttf
+          weight: 700
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/pacifico/Pacifico-Regular.ttf
   #   - images/a_dot_burr.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # For details regarding adding assets from package dependencies, see

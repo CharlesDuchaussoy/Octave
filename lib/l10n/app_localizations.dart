@@ -6417,6 +6417,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Smart mix'**
   String get autoDjSmartMix;
+
+  /// Playlist menu entry opening the cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cover'**
+  String get coverEdit;
+
+  /// Title of the playlist cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'Cover'**
+  String get coverEditorTitle;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Layout'**
+  String get coverTabTemplate;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get coverTabText;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Colors'**
+  String get coverTabColors;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Picture'**
+  String get coverTabImage;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Gradient'**
+  String get coverTemplateGradient;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Minimal'**
+  String get coverTemplateMinimal;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Big type'**
+  String get coverTemplateBigType;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Band'**
+  String get coverTemplateBand;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get coverTemplatePhoto;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get coverTemplateVinyl;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Shapes'**
+  String get coverTemplateShapes;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Mosaic'**
+  String get coverTemplateGrid;
+
+  /// Cover title field
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get coverTitleLabel;
+
+  /// Cover subtitle field
+  ///
+  /// In en, this message translates to:
+  /// **'Subtitle'**
+  String get coverSubtitleLabel;
+
+  /// Hint of the cover subtitle field
+  ///
+  /// In en, this message translates to:
+  /// **'For example: for the road'**
+  String get coverSubtitleHint;
+
+  /// Cover font picker
+  ///
+  /// In en, this message translates to:
+  /// **'Font'**
+  String get coverFontLabel;
+
+  /// Cover option
+  ///
+  /// In en, this message translates to:
+  /// **'Capital letters'**
+  String get coverUppercase;
+
+  /// Cover color picker
+  ///
+  /// In en, this message translates to:
+  /// **'Main color'**
+  String get coverMainColor;
+
+  /// Cover color picker
+  ///
+  /// In en, this message translates to:
+  /// **'Second color'**
+  String get coverSecondColor;
+
+  /// Cover color picker section
+  ///
+  /// In en, this message translates to:
+  /// **'The first colors come from the playlist covers.'**
+  String get coverColorsFromCovers;
+
+  /// Cover picture button
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a photo'**
+  String get coverPickPhoto;
+
+  /// Cover picture button
+  ///
+  /// In en, this message translates to:
+  /// **'Use the playlist covers'**
+  String get coverUsePlaylistCovers;
+
+  /// Cover picture tab hint
+  ///
+  /// In en, this message translates to:
+  /// **'The Band and Photo layouts show this picture.'**
+  String get coverImageHint;
+
+  /// Cover editor action
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the automatic cover'**
+  String get coverAutomatic;
+
+  /// Message after saving a cover
+  ///
+  /// In en, this message translates to:
+  /// **'Cover saved'**
+  String get coverSaved;
+
+  /// Message when a cover cannot be saved
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the cover'**
+  String get coverSaveFailed;
+
+  /// Note in the cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'For now, this cover only shows in Octave on this device.'**
+  String get coverThisDeviceOnly;
+
+  /// Dialog when leaving the cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get coverDiscardTitle;
+
+  /// Button discarding cover changes
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get coverDiscard;
+
+  /// Cover editor button swapping main and second colors
+  ///
+  /// In en, this message translates to:
+  /// **'Swap the colors'**
+  String get coverSwapColors;
 }
 
 class _AppLocalizationsDelegate

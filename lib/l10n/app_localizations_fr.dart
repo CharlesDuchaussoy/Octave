@@ -3525,4 +3525,103 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get autoDjSmartMix => 'Mix intelligent';
+
+  @override
+  String get coverEdit => 'Modifier la pochette';
+
+  @override
+  String get coverEditorTitle => 'Pochette';
+
+  @override
+  String get coverTabTemplate => 'Modèle';
+
+  @override
+  String get coverTabText => 'Texte';
+
+  @override
+  String get coverTabColors => 'Couleurs';
+
+  @override
+  String get coverTabImage => 'Image';
+
+  @override
+  String get coverTemplateGradient => 'Dégradé';
+
+  @override
+  String get coverTemplateMinimal => 'Minimal';
+
+  @override
+  String get coverTemplateBigType => 'Typo géante';
+
+  @override
+  String get coverTemplateBand => 'Bandeau';
+
+  @override
+  String get coverTemplatePhoto => 'Photo';
+
+  @override
+  String get coverTemplateVinyl => 'Vinyle';
+
+  @override
+  String get coverTemplateShapes => 'Formes';
+
+  @override
+  String get coverTemplateGrid => 'Mosaïque';
+
+  @override
+  String get coverTitleLabel => 'Titre';
+
+  @override
+  String get coverSubtitleLabel => 'Sous-titre';
+
+  @override
+  String get coverSubtitleHint => 'Par exemple : pour la route';
+
+  @override
+  String get coverFontLabel => 'Police';
+
+  @override
+  String get coverUppercase => 'Majuscules';
+
+  @override
+  String get coverMainColor => 'Couleur principale';
+
+  @override
+  String get coverSecondColor => 'Seconde couleur';
+
+  @override
+  String get coverColorsFromCovers =>
+      'Les premières couleurs viennent des pochettes de la playlist.';
+
+  @override
+  String get coverPickPhoto => 'Choisir une photo';
+
+  @override
+  String get coverUsePlaylistCovers => 'Utiliser les pochettes de la playlist';
+
+  @override
+  String get coverImageHint =>
+      'Les modèles Bandeau et Photo affichent cette image.';
+
+  @override
+  String get coverAutomatic => 'Revenir à la pochette automatique';
+
+  @override
+  String get coverSaved => 'Pochette enregistrée';
+
+  @override
+  String get coverSaveFailed => 'Impossible d\'enregistrer la pochette';
+
+  @override
+  String get coverThisDeviceOnly =>
+      'Pour l\'instant, cette pochette n\'apparaît que dans Octave, sur cet appareil.';
+
+  @override
+  String get coverDiscardTitle => 'Abandonner les modifications ?';
+
+  @override
+  String get coverDiscard => 'Abandonner';
+
+  @override
+  String get coverSwapColors => 'Inverser les couleurs';
 }

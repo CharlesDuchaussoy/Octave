@@ -14,6 +14,7 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/utils/screen_helper.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
 import 'package:musly/octave/widgets/play_button.dart';
+import 'package:musly/octave/covers/cover_editor_screen.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final String playlistId;
@@ -736,9 +737,23 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       );
                     } else if (value == 'delete_playlist') {
                       _deletePlaylist();
+                    } else if (value == 'edit_cover' && _playlist != null) {
+                      PlaylistCoverEditor.open(context, _playlist!);
                     }
                   },
                   itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 'edit_cover',
+                      child: Row(
+                        children: [
+                          const Icon(CupertinoIcons.paintbrush, size: 18),
+                          const SizedBox(width: 12),
+                          Flexible(
+                            child: Text(AppLocalizations.of(context)!.coverEdit),
+                          ),
+                        ],
+                      ),
+                    ),
                     PopupMenuItem(
                       value: 'queue_all',
                       child: Row(
