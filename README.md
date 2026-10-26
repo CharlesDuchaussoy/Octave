@@ -20,7 +20,7 @@ Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour
 ---
 
 > [!NOTE]
-> **Octave est en préparation.** Aucune version n'est encore publiée. La première, la 1.0.0, reprendra Musly tel quel, avec son propre nom et sa propre icône.
+> **Octave est en préparation.** Aucune version n'est encore publiée : la première sera la 1.0.0.
 
 ## Sommaire
 
@@ -28,6 +28,7 @@ Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour
 - [Avancement](#avancement)
 - [Fonctionnalités](#fonctionnalités)
 - [Plateformes](#plateformes)
+- [Le serveur](#le-serveur)
 - [Installation](#installation)
 - [Compiler Octave](#compiler-octave)
 - [Suivre Musly](#suivre-musly)
@@ -37,7 +38,7 @@ Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour
 
 Musly est un excellent client Subsonic, libre et gratuit. Octave part de Musly pour l'ajuster à un usage précis : un serveur personnel (Navidrome + Octo) partagé entre quelques proches, avec une app en français, simple à installer et qui se met à jour seule.
 
-Octave suit Musly de près et récupère régulièrement ses nouveautés et ses corrections.
+Depuis la reprise de Musly 2.0.3, Octave avance de son côté : il reprend à la main les corrections de Musly qui le concernent, et le reste de son code peut changer librement.
 
 ## Avancement
 
@@ -63,9 +64,17 @@ Héritées de Musly :
 - 📊 **Statistiques d'écoute** et bilan de l'année
 - 📡 **Diffusion** vers Google Cast, UPnP et DLNA
 - 🚗 **Android Auto**
-- 📻 **Radios en ligne** et fichiers audio du téléphone
+- 📁 **Fichiers audio du téléphone**, sans serveur
 - 🌙 **Bleu nuit d'Octave**, en clair, en sombre ou en noir pur, avec d'autres couleurs au choix et Material You
 - 📱 **Interface adaptée** aux téléphones, tablettes et ordinateurs
+
+Propres à Octave :
+
+- 🇫🇷 **Entièrement en français**, avec une configuration guidée au premier lancement
+- 🎨 **13 couleurs**, en clair ou en sombre, calculées avec des contrastes vérifiés
+- 🖼️ **Pochettes de playlist** à créer soi-même, partagées par le serveur avec Octo
+- 🔊 **Enceintes Google Home** : un format qu'elles savent lire, toujours
+- 🔄 **Mises à jour** depuis l'app, signées et vérifiées
 
 ## Plateformes
 
@@ -77,6 +86,66 @@ Héritées de Musly :
 | iOS, macOS | Non distribuées : il faudrait un compte développeur Apple payant |
 
 Sur iPhone, l'app conseillée pour notre serveur reste **Arpeggi**, gratuite sur l'App Store.
+
+## Le serveur
+
+Octave est fait pour **notre** serveur, mais il marche avec n'importe quel Navidrome. Voici ce qu'il faut, et ce que chaque pièce apporte.
+
+### Ce qu'il faut
+
+| Pièce | Rôle | Obligatoire ? |
+|---|---|---|
+| Une machine 64 bits avec Docker | Un Raspberry Pi 4 ou 5 suffit. Navidrome et Octo sont légers ; ce sont la conversion du son et les téléchargements qui demandent du processeur | Oui |
+| [Navidrome](https://www.navidrome.org) **0.64** ou plus récent | Range la musique et la sert aux apps (API Subsonic et ses extensions OpenSubsonic) | Oui |
+| [Octo](https://github.com/winters27/octo) | Se place devant Navidrome et ajoute mix, statistiques, paroles minutées et catalogue (voir plus bas) | Non, mais conseillé |
+| Un reverse proxy en HTTPS (nginx, Caddy…) | Donne une adresse sûre aux téléphones, chez soi comme dehors | Oui, dès que l'app sort de la maison |
+
+### Comment les pièces s'enchaînent
+
+```
+Octave, Arpeggi…  ──HTTPS /rest/──▶  reverse proxy  ──▶  Octo  ──▶  Navidrome
+                                                         │
+                       ce qu'Octo ne connaît pas ────────┘ est transmis tel quel
+```
+
+- Les apps parlent Subsonic à l'adresse publique, sur le chemin `/rest/` **seulement**.
+- Octo répond aux commandes qu'il connaît et transmet tout le reste à Navidrome, qui n'est pas exposé lui-même.
+- Les pages d'administration (Navidrome, tableau de bord d'Octo) restent sur le réseau de la maison ou un réseau privé type Tailscale. **Ne publie jamais le tableau de bord d'Octo** : il n'a pas de mot de passe.
+
+### Ce qu'Octo apporte
+
+| Fonction | Sans Octo (Navidrome seul) | Avec Octo |
+|---|---|---|
+| Bibliothèque, playlists, favoris, hors ligne | Oui | Oui |
+| Une bibliothèque par compte | Dossiers partagés | Chacun ne voit que sa musique, et ses goûts ne changent pas les mix des autres |
+| Mix et playlists automatiques | Calculés sur le téléphone | Calculés par le serveur pour chaque compte (cœurs, playlists, écoutes, titres passés), visibles aussi dans Arpeggi |
+| Paroles | Celles des fichiers | Paroles minutées (LRCLIB) |
+| Statistiques d'écoute | Sur le téléphone | Par compte, sur 7, 30 et 365 jours |
+| Catalogue | La bibliothèque | La recherche montre aussi des titres absents de la bibliothèque (Deezer, Last.fm) ; leur ajout passe par des sources d'acquisition optionnelles, choisies par le propriétaire du serveur |
+| Pochettes de playlist faites dans Octave | Gardées sur le téléphone | Envoyées au serveur et visibles partout (commandes `octo.setPlaylistImage`, ajoutées dans notre version d'Octo, non publiée) |
+
+Octave se présente au serveur sous le nom « Octave », qu'Octo reconnaît. Sans Octo, les écrans qui en dépendent se replient sur ce que fait Navidrome.
+
+### Réglages de Navidrome conseillés
+
+- **Conversion du son** (Réglages, Lecteurs) : Navidrome crée un « lecteur » par compte et par app à la première connexion. Laisse le lecteur « Octave » **sans conversion** : Octave choisit lui-même la qualité (Wi-Fi ou données mobiles) et demande une version allégée quand il le faut. Pour plafonner les données mobiles de tout le monde, mets plutôt un débit maximal sur ce lecteur.
+- **Albums** : `ND_PID_ALBUM="albumartistid,album,albumversion"`, pour qu'un album aux étiquettes incomplètes ne soit pas coupé en deux.
+- **Fichiers supprimés** : `ND_SCANNER_PURGEMISSING="always"`, pour qu'ils disparaissent des apps au lieu d'échouer à la lecture.
+- **Last.fm** : une clé d'API (`ND_LASTFM_APIKEY`, `ND_LASTFM_SECRET`) pour les radios d'artistes et les biographies.
+
+### Comptes
+
+Chaque personne a son propre compte, créé sur invitation du propriétaire du serveur. Un compte ordinaire suffit : jamais de compte administrateur dans une app.
+
+### Enceintes Google Home et Chromecast
+
+- Le téléphone et l'enceinte doivent être sur le **même Wi-Fi** : c'est ainsi que l'enceinte est trouvée.
+- C'est **l'enceinte qui télécharge la musique** auprès du serveur, pas le téléphone : l'adresse du serveur doit donc être joignable depuis l'enceinte. Une adresse publique en HTTPS marche partout ; une adresse de réseau privé (Tailscale) ne marche pas, l'enceinte n'y a pas accès.
+- Octave envoie le fichier d'origine quand l'enceinte sait le lire (MP3, FLAC, Opus, AAC, WAV), sinon il demande au serveur du MP3 à 320 kb/s.
+
+### Sur iPhone
+
+Octave n'est pas distribué sur iPhone (il faudrait un compte développeur Apple payant). L'app conseillée est **Arpeggi**, gratuite sur l'App Store : elle parle Subsonic et profite aussi d'Octo.
 
 ## Installation
 
