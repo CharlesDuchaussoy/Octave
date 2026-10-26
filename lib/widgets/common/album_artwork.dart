@@ -27,6 +27,20 @@ bool isLocalFilePath(String? s) {
   }
 }
 
+/// Full-size artwork for the player: a file on the phone, the server's
+/// cover, or the Octave logo when the song has none.
+ImageProvider coverImageProvider(
+  SubsonicService subsonic,
+  String? coverArt, {
+  int size = 800,
+}) {
+  if (isLocalFilePath(coverArt)) return FileImage(File(coverArt!));
+  final url =
+      coverArt != null ? subsonic.getCoverArtUrl(coverArt, size: size) : '';
+  if (url.isNotEmpty) return CachedNetworkImageProvider(url);
+  return const AssetImage('assets/logo.png');
+}
+
 class ImageUrlCache {
   static final Map<String, String> _cache = {};
 

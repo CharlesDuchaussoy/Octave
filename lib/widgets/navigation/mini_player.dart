@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart' hide RepeatMode;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide RepeatMode;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:musly/models/song.dart';
 import 'package:musly/models/artist_ref.dart';
@@ -44,12 +43,8 @@ class MiniPlayer extends StatelessWidget {
           if (currentSong != null) {
             final subsonic =
                 Provider.of<SubsonicService>(context, listen: false);
-            final coverUrl = currentSong.coverArt != null
-                ? subsonic.getCoverArtUrl(currentSong.coverArt, size: 800)
-                : null;
-            final imageProvider = (coverUrl != null && coverUrl.isNotEmpty)
-                ? CachedNetworkImageProvider(coverUrl) as ImageProvider
-                : const AssetImage('assets/logo.png') as ImageProvider;
+            final imageProvider =
+                coverImageProvider(subsonic, currentSong.coverArt);
             final topPadding = MediaQuery.of(context).padding.top;
 
             showModalBottomSheet(
