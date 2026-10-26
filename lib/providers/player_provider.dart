@@ -9,7 +9,6 @@ import 'package:audio_session/audio_session.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/models.dart';
@@ -60,7 +59,12 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   bool _isPlaying = false;
   bool _isLoading = false;
   bool _shuffleEnabled = false;
-  bool _gaplessEnabled = true;
+  /// Songs always follow each other without a gap: the non-gapless path
+  /// went through the caching proxy that replayed songs.
+  final bool _gaplessEnabled = true;
+
+  /// Set once the end of the current song has been handled.
+  bool _completionHandled = false;
   final List<String> _shuffleHistory = [];
   RepeatMode _repeatMode = RepeatMode.off;
   Duration _position = Duration.zero;
@@ -900,11 +904,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       notifyListeners();
     });
 
-    _storageService.getGaplessPlayback().then((saved) {
-      _gaplessEnabled = saved;
-      notifyListeners();
-    });
-
     _playerStateSub = _audioPlayer.playerStateStream.listen(
       (state) {
         if (_isRenderingRemotely) return;
@@ -941,11 +940,18 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
           }
         }
 
+        // The completed state can be emitted again (pause, audio focus):
+        // handle the end of a song only once, so no song is skipped.
         if (state.processingState == ProcessingState.completed) {
-          debugPrint(
-              '[Player] âœ“ Song completed: "${_currentSong?.title ?? 'unknown'}"');
-          _onSongComplete().catchError(
-              (e) => debugPrint('[Player] _onSongComplete error: $e'));
+          if (!_completionHandled) {
+            _completionHandled = true;
+            debugPrint(
+                '[Player] Song completed: "${_currentSong?.title ?? 'unknown'}"');
+            _onSongComplete().catchError(
+                (e) => debugPrint('[Player] _onSongComplete error: $e'));
+          }
+        } else {
+          _completionHandled = false;
         }
 
         if (state.processingState == ProcessingState.buffering && !wasPlaying) {
@@ -1558,21 +1564,14 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
             }
           }
 
+          // Streams play directly: the caching proxy of just_audio
+          // replayed transcoded songs from the start (section 3.3).
           if (song.isLocal == true ||
               _offlineService.getLocalPath(song.id) != null) {
             await _audioPlayer.setUrl(playUrl);
           } else {
-            final cacheDir = await getTemporaryDirectory();
-            final cacheFile = File(
-              '${cacheDir.path}/musly_stream_${song.id.hashCode}.tmp',
-            );
-
             await _audioPlayer.setAudioSource(
-              LockCachingAudioSource(
-                Uri.parse(playUrl),
-                cacheFile: cacheFile,
-                tag: song.id,
-              ),
+              AudioSource.uri(Uri.parse(playUrl), tag: song.id),
             );
           }
           await _applyReplayGain(song);
@@ -1723,6 +1722,14 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       notifyListeners();
       _updateAndroidAuto();
 
+      // Play on a finished song (headset, notification) goes on with
+      // the next one instead of playing it again.
+      if (_audioPlayer.processingState == ProcessingState.completed &&
+          _repeatMode != RepeatMode.one &&
+          _currentIndex < _queue.length - 1) {
+        await skipNext();
+        return;
+      }
       if (_currentSong != null &&
           (_audioPlayer.audioSource == null ||
               _audioPlayer.processingState == ProcessingState.idle ||
@@ -2146,12 +2153,6 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     setRepeatMode(nextMode);
   }
 
-  void toggleGaplessPlayback() {
-    _gaplessEnabled = !_gaplessEnabled;
-    _storageService.saveGaplessPlayback(_gaplessEnabled);
-    notifyListeners();
-  }
-
   void addToQueue(Song song) {
     _queue.add(song);
     notifyListeners();
@@ -2378,23 +2379,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         _transcodingService.enabled ? _transcodingService.format : null;
     final url = _subsonicService.getStreamUrl(song.id,
         maxBitRate: maxBitRate, format: format);
-    if (_transcodingService.enabled && !_gaplessEnabled) {
-      final cacheDir = await getTemporaryDirectory();
-      final cacheFile = File(
-        '${cacheDir.path}/musly_stream_${song.id.hashCode}.tmp',
-      );
-
-      return LockCachingAudioSource(
-        Uri.parse(url),
-        cacheFile: cacheFile,
-        tag: song.id,
-      );
-    } else {
-      return AudioSource.uri(
-        Uri.parse(url),
-        tag: song.id,
-      );
-    }
+    return AudioSource.uri(Uri.parse(url), tag: song.id);
   }
 
   Future<void> _buildAndSetConcatenatingSource(
@@ -2432,27 +2417,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
             _offlineService.getLocalPath(_currentSong!.id) != null) {
           await _audioPlayer.setUrl(playUrl);
         } else {
-          if (_transcodingService.enabled) {
-            final cacheDir = await getTemporaryDirectory();
-            final cacheFile = File(
-              '${cacheDir.path}/musly_stream_${_currentSong!.id.hashCode}.tmp',
-            );
-
-            await _audioPlayer.setAudioSource(
-              LockCachingAudioSource(
-                Uri.parse(playUrl),
-                cacheFile: cacheFile,
-                tag: _currentSong!.id,
-              ),
-            );
-          } else {
-            await _audioPlayer.setAudioSource(
-              AudioSource.uri(
-                Uri.parse(playUrl),
-                tag: _currentSong!.id,
-              ),
-            );
-          }
+          await _audioPlayer.setAudioSource(
+            AudioSource.uri(Uri.parse(playUrl), tag: _currentSong!.id),
+          );
         }
       }
 
