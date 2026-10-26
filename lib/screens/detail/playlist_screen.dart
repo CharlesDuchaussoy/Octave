@@ -13,6 +13,7 @@ import 'package:musly/widgets/widgets.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/utils/screen_helper.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
+import 'package:musly/octave/widgets/play_button.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final String playlistId;
@@ -549,7 +550,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: _PlayButton(
+                        child: OctavePlayButton(
+                          filled: true,
                           icon: CupertinoIcons.play_fill,
                           label: AppLocalizations.of(context)!.play,
                           onTap: () => _playAll(),
@@ -557,7 +559,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _PlayButton(
+                        child: OctavePlayButton(
                           icon: CupertinoIcons.shuffle,
                           label: AppLocalizations.of(context)!.shuffle,
                           onTap: () => _playAll(shuffle: true),
@@ -615,9 +617,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               icon: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: isDark
-                      ? Colors.black.withValues(alpha: 0.5)
-                      : Colors.white.withValues(alpha: 0.5),
+                  color: context.octave.surface1.withValues(alpha: 0.7),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -830,7 +830,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   Row(
                     children: [
                       Expanded(
-                        child: _PlayButton(
+                        child: OctavePlayButton(
+                          filled: true,
                           icon: CupertinoIcons.play_fill,
                           label: AppLocalizations.of(context)!.play,
                           autofocus: Provider.of<TvDetectionService>(context, listen: false).isTvMode,
@@ -839,7 +840,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: _PlayButton(
+                        child: OctavePlayButton(
                           icon: CupertinoIcons.shuffle,
                           label: AppLocalizations.of(context)!.shuffle,
                           onTap: () => _playAll(shuffle: true),
@@ -973,61 +974,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           SliverToBoxAdapter(
               child: SizedBox(height: scrollEndPadding(context))),
         ],
-      ),
-    );
-  }
-}
-
-class _PlayButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-  final bool autofocus;
-
-  const _PlayButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-    this.autofocus = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final accent = Theme.of(context).colorScheme.primary;
-
-    return Material(
-      color: accent.withValues(alpha: isDark ? 0.15 : 0.1),
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        autofocus: autofocus,
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, color: accent, size: 20),
-              const SizedBox(width: 6),
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      color: accent,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 1,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

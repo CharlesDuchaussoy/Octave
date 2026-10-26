@@ -3126,22 +3126,22 @@ class AppLocalizationsFr extends AppLocalizations {
       'Couleur, affichage, artistes, qualité et téléchargements';
 
   @override
-  String get colorNameOctave => 'Bleu nuit';
+  String get colorNameOctave => 'Nuit';
 
   @override
-  String get colorNameRed => 'Rouge';
+  String get colorNameRed => 'Grenadine';
 
   @override
-  String get colorNameOrange => 'Orange';
+  String get colorNameOrange => 'Mandarine';
 
   @override
-  String get colorNameYellow => 'Jaune';
+  String get colorNameYellow => 'Citron';
 
   @override
-  String get colorNameGreen => 'Vert';
+  String get colorNameGreen => 'Forêt';
 
   @override
-  String get colorNameTeal => 'Bleu canard';
+  String get colorNameTeal => 'Piscine';
 
   @override
   String get colorNameBlue => 'Bleu';
@@ -3150,10 +3150,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get colorNamePink => 'Rose';
 
   @override
-  String get colorNamePurple => 'Violet';
+  String get colorNamePurple => 'Lilas';
 
   @override
-  String get colorNameDynamic => 'Couleurs du fond d\'écran';
+  String get colorNameDynamic => 'Fond d\'écran';
+
+  @override
+  String get colorNameMint => 'Menthe';
+
+  @override
+  String get colorNameIris => 'Iris';
+
+  @override
+  String get colorNameSand => 'Sable';
+
+  @override
+  String get colorNameSlate => 'Ardoise';
 
   @override
   String get setupStyleTitle => 'Tes pochettes';

@@ -3093,22 +3093,22 @@ class AppLocalizationsZh extends AppLocalizations {
       'Color, display, artists, quality and downloads';
 
   @override
-  String get colorNameOctave => 'Night blue';
+  String get colorNameOctave => 'Night';
 
   @override
-  String get colorNameRed => 'Red';
+  String get colorNameRed => 'Grenadine';
 
   @override
-  String get colorNameOrange => 'Orange';
+  String get colorNameOrange => 'Tangerine';
 
   @override
-  String get colorNameYellow => 'Yellow';
+  String get colorNameYellow => 'Lemon';
 
   @override
-  String get colorNameGreen => 'Green';
+  String get colorNameGreen => 'Forest';
 
   @override
-  String get colorNameTeal => 'Teal';
+  String get colorNameTeal => 'Pool';
 
   @override
   String get colorNameBlue => 'Blue';
@@ -3117,10 +3117,22 @@ class AppLocalizationsZh extends AppLocalizations {
   String get colorNamePink => 'Pink';
 
   @override
-  String get colorNamePurple => 'Purple';
+  String get colorNamePurple => 'Lilac';
 
   @override
-  String get colorNameDynamic => 'Wallpaper colors';
+  String get colorNameDynamic => 'Wallpaper';
+
+  @override
+  String get colorNameMint => 'Mint';
+
+  @override
+  String get colorNameIris => 'Iris';
+
+  @override
+  String get colorNameSand => 'Sand';
+
+  @override
+  String get colorNameSlate => 'Slate';
 
   @override
   String get setupStyleTitle => 'Your covers';

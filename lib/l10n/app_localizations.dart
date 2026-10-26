@@ -5749,37 +5749,37 @@ abstract class AppLocalizations {
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Night blue'**
+  /// **'Night'**
   String get colorNameOctave;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Red'**
+  /// **'Grenadine'**
   String get colorNameRed;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Orange'**
+  /// **'Tangerine'**
   String get colorNameOrange;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Yellow'**
+  /// **'Lemon'**
   String get colorNameYellow;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Green'**
+  /// **'Forest'**
   String get colorNameGreen;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Teal'**
+  /// **'Pool'**
   String get colorNameTeal;
 
   /// App color name
@@ -5797,14 +5797,38 @@ abstract class AppLocalizations {
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Purple'**
+  /// **'Lilac'**
   String get colorNamePurple;
 
   /// App color name for Material You
   ///
   /// In en, this message translates to:
-  /// **'Wallpaper colors'**
+  /// **'Wallpaper'**
   String get colorNameDynamic;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Mint'**
+  String get colorNameMint;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Iris'**
+  String get colorNameIris;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Sand'**
+  String get colorNameSand;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Slate'**
+  String get colorNameSlate;
 
   /// Title of the artwork shape step
   ///

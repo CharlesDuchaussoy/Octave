@@ -3819,27 +3819,27 @@
   "@setupRedoSubtitle": {
     "description": "About tile description"
   },
-  "colorNameOctave": "Night blue",
+  "colorNameOctave": "Night",
   "@colorNameOctave": {
     "description": "App color name"
   },
-  "colorNameRed": "Red",
+  "colorNameRed": "Grenadine",
   "@colorNameRed": {
     "description": "App color name"
   },
-  "colorNameOrange": "Orange",
+  "colorNameOrange": "Tangerine",
   "@colorNameOrange": {
     "description": "App color name"
   },
-  "colorNameYellow": "Yellow",
+  "colorNameYellow": "Lemon",
   "@colorNameYellow": {
     "description": "App color name"
   },
-  "colorNameGreen": "Green",
+  "colorNameGreen": "Forest",
   "@colorNameGreen": {
     "description": "App color name"
   },
-  "colorNameTeal": "Teal",
+  "colorNameTeal": "Pool",
   "@colorNameTeal": {
     "description": "App color name"
   },
@@ -3851,13 +3851,29 @@
   "@colorNamePink": {
     "description": "App color name"
   },
-  "colorNamePurple": "Purple",
+  "colorNamePurple": "Lilac",
   "@colorNamePurple": {
     "description": "App color name"
   },
-  "colorNameDynamic": "Wallpaper colors",
+  "colorNameDynamic": "Wallpaper",
   "@colorNameDynamic": {
     "description": "App color name for Material You"
+  },
+  "colorNameMint": "Mint",
+  "@colorNameMint": {
+    "description": "App color name"
+  },
+  "colorNameIris": "Iris",
+  "@colorNameIris": {
+    "description": "App color name"
+  },
+  "colorNameSand": "Sand",
+  "@colorNameSand": {
+    "description": "App color name"
+  },
+  "colorNameSlate": "Slate",
+  "@colorNameSlate": {
+    "description": "App color name"
   },
   "setupStyleTitle": "Your covers",
   "@setupStyleTitle": {
