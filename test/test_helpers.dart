@@ -52,6 +52,41 @@ class FakeCastService extends CastService {
     return true;
   }
 
+  /// Queues loaded with [loadQueue], then songs added with [appendToQueue].
+  final List<List<CastQueueEntry>> loadedQueues = [];
+  final List<CastQueueEntry> appended = [];
+
+  @override
+  Future<bool> loadQueue(
+    List<CastQueueEntry> entries, {
+    Duration playPosition = Duration.zero,
+    bool repeatOne = false,
+    bool autoPlay = true,
+  }) async {
+    loadedQueues.add(entries);
+    appended.clear();
+    final first = entries.first;
+    _mockMediaState = _mockMediaState.copyWith(
+      title: first.title,
+      isPlaying: autoPlay,
+      position: playPosition,
+      songId: first.songId,
+    );
+    notifyListeners();
+    return true;
+  }
+
+  @override
+  Future<bool> appendToQueue(List<CastQueueEntry> entries) async {
+    appended.addAll(entries);
+    return true;
+  }
+
+  @override
+  Future<String?> currentSongId(
+          {Duration timeout = const Duration(milliseconds: 1500)}) async =>
+      _mockMediaState.isPlaying ? _mockMediaState.songId : null;
+
   @override
   Future<void> play() async {
     _mockMediaState = _mockMediaState.copyWith(isPlaying: true);
@@ -108,7 +143,8 @@ Widget createTestApp({
                 MuslyAudioHandler(), JukeboxService(), TranscodingService()),
       ),
       ChangeNotifierProvider<LibraryProvider>(
-        create: (_) => libraryProvider ?? LibraryProvider(service, MuslyAudioHandler()),
+        create: (_) =>
+            libraryProvider ?? LibraryProvider(service, MuslyAudioHandler()),
       ),
       ChangeNotifierProvider<ThemeService>(
         create: (_) => themeService ?? ThemeService(),

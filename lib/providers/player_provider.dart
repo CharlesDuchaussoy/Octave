@@ -33,6 +33,7 @@ import '../services/transcoding_service.dart';
 import '../providers/library_provider.dart';
 
 import '../services/android_auto_service.dart';
+import '../octave/cast/cast_queue.dart';
 import '../octave/cast/cast_stream.dart';
 
 enum RepeatMode { off, all, one }
@@ -1400,35 +1401,28 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         _castWasPlaying = false;
         if (_audioPlayer.playing) await _audioPlayer.stop();
 
-        // Cast speakers need a format they play and its exact type.
-        final castStream = song.isLocal == true
-            ? null
-            : CastStream.forSong(song, _subsonicService);
-        final playUrl = castStream?.url ??
-            (song.path != null
+        final bool success;
+        if (song.isLocal == true) {
+          success = await _castService.loadMedia(
+            url: song.path != null
                 ? Uri.file(song.path!).toString()
-                : await _subsonicService.resolveStreamUrlAsync(song));
-        final coverUrl = song.isLocal == true && song.coverArt != null
-            ? song.coverArt!
-            : _subsonicService.getCoverArtUrl(song.coverArt ?? song.id,
-                size: 800);
-        final mimeType = castStream?.contentType ??
-            song.contentType ??
-            UpnpService.mimeTypeFromSuffix(song.suffix);
-
-        final success = await _castService.loadMedia(
-          url: playUrl,
-          title: song.title,
-          artist: song.artist ?? 'Unknown Artist',
-          imageUrl: coverUrl,
-          albumName: song.album,
-          trackNumber: song.track,
-          duration:
-              song.duration != null ? Duration(seconds: song.duration!) : null,
-          playPosition: initialPosition ?? Duration.zero,
-          contentType: mimeType,
-          autoPlay: true,
-        );
+                : await _subsonicService.resolveStreamUrlAsync(song),
+            title: song.title,
+            artist: song.artist ?? '',
+            imageUrl: song.coverArt ?? '',
+            albumName: song.album,
+            trackNumber: song.track,
+            duration: song.duration != null
+                ? Duration(seconds: song.duration!)
+                : null,
+            playPosition: initialPosition ?? Duration.zero,
+            contentType:
+                song.contentType ?? UpnpService.mimeTypeFromSuffix(song.suffix),
+          );
+        } else {
+          success =
+              await _loadCastQueue(song, initialPosition ?? Duration.zero);
+        }
 
         if (song.isLocal != true) {
           if (_offlineService.isOfflineMode) {
@@ -2713,6 +2707,8 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _jukeboxService.removeListener(_onJukeboxEnabledChanged);
 
     _windowsPositionTimer?.cancel();
+    _castSyncTimer?.cancel();
+    _castEndCheck?.cancel();
     _castService.removeListener(_onCastStateChanged);
     _upnpService.removeListener(_onUpnpStateChanged);
     if (_upnpService.onRendererLost == _onUpnpRendererLost) {
@@ -2743,6 +2739,175 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   bool _castWasConnected = false;
   bool _castWasPlaying = false;
 
+  /// Songs on the speaker's queue after the current one, in order.
+  List<String> _castUpcomingIds = const [];
+
+  /// Whether the speaker's queue was loaded to repeat its first song.
+  bool _castRepeatOne = false;
+
+  Timer? _castSyncTimer;
+  Timer? _castEndCheck;
+  bool _castSyncing = false;
+  String? _castErrorSongId;
+  int _castErrors = 0;
+
+  @override
+  void notifyListeners() {
+    super.notifyListeners();
+    if (_castService.isConnected) _scheduleCastSync();
+  }
+
+  /// Checks the speaker's queue against Octave's a moment after a change,
+  /// at most once in a while, since this runs on every notification.
+  void _scheduleCastSync() {
+    if (_castSyncTimer?.isActive ?? false) return;
+    _castSyncTimer = Timer(const Duration(milliseconds: 800), () {
+      _syncCastQueue().catchError((e) => debugPrint('Cast: sync error: $e'));
+    });
+  }
+
+  CastQueueEntry _castEntryFor(Song song) {
+    // Cast speakers need a format they play and its exact type.
+    final stream = CastStream.forSong(song, _subsonicService);
+    return CastQueueEntry(
+      songId: song.id,
+      url: stream.url,
+      contentType: stream.contentType,
+      title: song.title,
+      artist: song.artist ?? '',
+      album: song.album,
+      trackNumber: song.track,
+      imageUrl:
+          _subsonicService.getCoverArtUrl(song.coverArt ?? song.id, size: 800),
+      duration:
+          song.duration != null ? Duration(seconds: song.duration!) : null,
+    );
+  }
+
+  List<Song> _castUpcomingSongs() => [
+        for (final i in castUpcoming(
+          queueLength: _queue.length,
+          currentIndex: _currentIndex,
+          repeatAll: _repeatMode == RepeatMode.all,
+          repeatOne: _repeatMode == RepeatMode.one,
+          canCast: (i) => _queue[i].isLocal != true,
+        ))
+          _queue[i],
+      ];
+
+  /// Hands [song] and the songs after it to the speaker, which then plays
+  /// them by itself, even if the phone sleeps or Octave is closed.
+  Future<bool> _loadCastQueue(Song song, Duration position,
+      {bool autoPlay = true}) {
+    final upcoming = _castUpcomingSongs();
+    _castUpcomingIds = [for (final s in upcoming) s.id];
+    _castRepeatOne = _repeatMode == RepeatMode.one;
+    _castEndCheck?.cancel();
+    return _castService.loadQueue(
+      [_castEntryFor(song), for (final s in upcoming) _castEntryFor(s)],
+      playPosition: position,
+      repeatOne: _castRepeatOne,
+      autoPlay: autoPlay,
+    );
+  }
+
+  /// Brings the speaker's queue in line with Octave's: tops it up as the
+  /// speaker moves on, and reloads it when songs were moved or removed, or
+  /// the repeat mode changed.
+  Future<void> _syncCastQueue() async {
+    final song = _currentSong;
+    if (_castSyncing ||
+        !_castService.isConnected ||
+        song == null ||
+        song.isLocal == true ||
+        // Only when the speaker is on Octave's song: not during a switch.
+        _castService.mediaState.songId != song.id) {
+      return;
+    }
+    final repeatOne = _repeatMode == RepeatMode.one;
+    final wanted = _castUpcomingSongs();
+    final wantedIds = [for (final s in wanted) s.id];
+    if (repeatOne == _castRepeatOne &&
+        listEquals(wantedIds, _castUpcomingIds)) {
+      return;
+    }
+
+    _castSyncing = true;
+    try {
+      final sent = _castUpcomingIds;
+      final keepsOrder = repeatOne == _castRepeatOne &&
+          wantedIds.length > sent.length &&
+          listEquals(wantedIds.sublist(0, sent.length), sent);
+      if (keepsOrder) {
+        final added = await _castService.appendToQueue([
+          for (final s in wanted.skip(sent.length)) _castEntryFor(s),
+        ]);
+        if (added) _castUpcomingIds = wantedIds;
+      } else {
+        final state = _castService.mediaState;
+        await _loadCastQueue(song, state.position, autoPlay: state.isPlaying);
+      }
+    } finally {
+      _castSyncing = false;
+    }
+  }
+
+  /// The speaker moved on to [songId] by itself: Octave follows it.
+  void _followCastSpeaker(String songId) {
+    var index = _queue.indexWhere((s) => s.id == songId, _currentIndex + 1);
+    if (index == -1) index = _queue.indexWhere((s) => s.id == songId);
+    if (index == -1) return;
+    debugPrint('Cast: the speaker went on to "${_queue[index].title}"');
+    _castEndCheck?.cancel();
+    _castWasPlaying = true;
+    _castErrors = 0;
+    retireCurrentTrack();
+    _checkAndRefillAutoQueue().catchError((_) {});
+    adoptTrackAt(index).catchError(
+        (e) => debugPrint('Cast: could not follow the speaker: $e'));
+  }
+
+  /// A speaker was connected. If it is still playing Octave's queue
+  /// (Octave was closed, or the phone slept), Octave picks up where the
+  /// speaker is; otherwise the music moves from the phone to the speaker.
+  Future<void> _onCastConnected() async {
+    final speakerSongId = await _castService.currentSongId();
+    if (!_castService.isConnected) return;
+
+    final index = speakerSongId == null
+        ? -1
+        : _queue.indexWhere((s) => s.id == speakerSongId);
+    if (index != -1) {
+      final state = _castService.mediaState;
+      debugPrint('Cast: the speaker is playing "${_queue[index].title}", '
+          'following it');
+      // No queue check until the speaker has its queue again.
+      _castSyncing = true;
+      try {
+        // adoptTrackAt switches to the song at once, then fetches artwork:
+        // the speaker does not wait for that.
+        final adopting = adoptTrackAt(index);
+        // What the speaker has queued after it is unknown: send it again.
+        await _loadCastQueue(_queue[index], state.position,
+            autoPlay: state.isPlaying);
+        await adopting;
+      } finally {
+        _castSyncing = false;
+      }
+      _castWasPlaying = state.isPlaying;
+      _isPlaying = state.isPlaying;
+      notifyListeners();
+      return;
+    }
+
+    if (_currentSong != null) {
+      final song = _currentSong!;
+      final currentPos = _position;
+      _currentSong = null;
+      await playSong(song, initialPosition: currentPos);
+    }
+  }
+
   void _onCastStateChanged() {
     final connected = _castService.isConnected;
 
@@ -2758,18 +2923,17 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         isRemote: true,
         volume: (_volume * 100).round().clamp(0, 100),
       );
-      if (_currentSong != null) {
-        final song = _currentSong!;
-        final currentPos = _position;
-        _currentSong = null;
-        playSong(song, initialPosition: currentPos);
-      }
+      _onCastConnected()
+          .catchError((e) => debugPrint('Cast: connection error: $e'));
       return;
     }
 
     if (!connected && _castWasConnected) {
       _castWasConnected = false;
       _castWasPlaying = false;
+      _castUpcomingIds = const [];
+      _castSyncTimer?.cancel();
+      _castEndCheck?.cancel();
       _isPlaying = false;
       _audioHandler.setRemotePlayback(isRemote: false);
       notifyListeners();
@@ -2782,20 +2946,65 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     final pos = _castService.mediaState.position;
     final dur = _castService.mediaState.duration;
     final playing = _castService.mediaState.isPlaying;
-    final isIdleFinished =
-        _castService.mediaState.playerState == CastMediaPlayerState.idle &&
-            _castService.mediaState.idleReason ==
-                GoogleCastMediaIdleReason.finished;
+    final isIdle =
+        _castService.mediaState.playerState == CastMediaPlayerState.idle;
+    final idleReason = _castService.mediaState.idleReason;
 
-    if (_castWasPlaying && isIdleFinished) {
-      debugPrint(
-        'Cast: Track ended naturally (pos=${pos.inSeconds}s, dur=${dur.inSeconds}s) â€” advancing',
-      );
+    // The speaker went on to the next song of its queue by itself.
+    final speakerSongId = _castService.mediaState.songId;
+    if (speakerSongId != null && speakerSongId != _currentSong?.id) {
+      final sent = _castUpcomingIds.indexOf(speakerSongId);
+      if (sent != -1) {
+        _castUpcomingIds = _castUpcomingIds.sublist(sent + 1);
+        _followCastSpeaker(speakerSongId);
+        return;
+      }
+    }
+
+    if (_castWasPlaying &&
+        isIdle &&
+        idleReason == GoogleCastMediaIdleReason.finished) {
       _castWasPlaying = false;
-      _onSongComplete()
-          .catchError((e) => debugPrint('[Player] _onSongComplete error: $e'));
+      if (_castUpcomingIds.isEmpty) {
+        debugPrint('Cast: the speaker played its last song, continuing');
+        _onSongComplete().catchError(
+            (e) => debugPrint('[Player] _onSongComplete error: $e'));
+      } else {
+        // Between two songs of its queue, a speaker may report the end of
+        // the first one. If it is still idle a moment later, its queue is
+        // over: Octave takes over.
+        final songId = speakerSongId;
+        _castEndCheck?.cancel();
+        _castEndCheck = Timer(const Duration(seconds: 3), () {
+          final state = _castService.mediaState;
+          if (!_castService.isConnected ||
+              state.playerState != CastMediaPlayerState.idle ||
+              state.songId != songId) {
+            return;
+          }
+          debugPrint('Cast: the speaker stopped early, continuing');
+          _castUpcomingIds = const [];
+          _onSongComplete().catchError(
+              (e) => debugPrint('[Player] _onSongComplete error: $e'));
+        });
+      }
       return;
     }
+
+    // A song the speaker cannot play (format, network) stops it: skip to
+    // the next one, but not endlessly if none plays.
+    if (isIdle &&
+        idleReason == GoogleCastMediaIdleReason.error &&
+        _castErrorSongId != _currentSong?.id) {
+      _castErrorSongId = _currentSong?.id;
+      _castWasPlaying = false;
+      if (++_castErrors <= 3) {
+        debugPrint('Cast: the speaker could not play "${_currentSong?.title}"');
+        skipNext().catchError((e) => debugPrint('Cast: skip error: $e'));
+      }
+      return;
+    }
+    if (playing && pos > const Duration(seconds: 5)) _castErrors = 0;
 
     _castWasPlaying = playing;
 

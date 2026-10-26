@@ -5,6 +5,31 @@ import 'package:flutter_chrome_cast/flutter_chrome_cast.dart';
 
 enum CastState { notConnected, connecting, connected, disconnecting }
 
+/// One song for the speaker's queue.
+class CastQueueEntry {
+  const CastQueueEntry({
+    required this.songId,
+    required this.url,
+    required this.contentType,
+    required this.title,
+    required this.artist,
+    required this.imageUrl,
+    this.album,
+    this.trackNumber,
+    this.duration,
+  });
+
+  final String songId;
+  final String url;
+  final String contentType;
+  final String title;
+  final String artist;
+  final String imageUrl;
+  final String? album;
+  final int? trackNumber;
+  final Duration? duration;
+}
+
 class CastMediaState {
   final bool isPlaying;
   final Duration position;
@@ -16,6 +41,9 @@ class CastMediaState {
   final CastMediaPlayerState? playerState;
   final GoogleCastMediaIdleReason? idleReason;
 
+  /// Octave song the speaker is on, from the queue item's custom data.
+  final String? songId;
+
   CastMediaState({
     this.isPlaying = false,
     this.position = Duration.zero,
@@ -26,6 +54,7 @@ class CastMediaState {
     this.volume = 1.0,
     this.playerState,
     this.idleReason,
+    this.songId,
   });
 
   CastMediaState copyWith({
@@ -38,6 +67,7 @@ class CastMediaState {
     double? volume,
     CastMediaPlayerState? playerState,
     GoogleCastMediaIdleReason? idleReason,
+    String? songId,
   }) {
     return CastMediaState(
       isPlaying: isPlaying ?? this.isPlaying,
@@ -49,6 +79,7 @@ class CastMediaState {
       volume: volume ?? this.volume,
       playerState: playerState ?? this.playerState,
       idleReason: idleReason ?? this.idleReason,
+      songId: songId ?? this.songId,
     );
   }
 }
@@ -175,6 +206,7 @@ class CastService extends ChangeNotifier {
       volume: status.volume.toDouble(),
       playerState: status.playerState,
       idleReason: status.idleReason,
+      songId: mediaInfo?.customData?['songId'] as String? ?? _mediaState.songId,
     );
 
     debugPrint(
@@ -321,6 +353,119 @@ class CastService extends ChangeNotifier {
       debugPrint('CastService: Error loading media: $e');
       return false;
     }
+  }
+
+  /// Loads [entries] as the speaker's queue and plays the first one from
+  /// [playPosition]. The speaker then goes through the others by itself.
+  /// With [repeatOne], it repeats the first song.
+  Future<bool> loadQueue(
+    List<CastQueueEntry> entries, {
+    Duration playPosition = Duration.zero,
+    bool repeatOne = false,
+    bool autoPlay = true,
+  }) async {
+    if (!isConnected || entries.isEmpty) return false;
+    try {
+      final first = entries.first;
+      debugPrint('CastService: loading a queue of ${entries.length} songs '
+          'from "${first.title}" (${playPosition.inSeconds}s)');
+      await _remoteMediaClient.queueLoadItems(
+        [for (final entry in entries) _queueItem(entry)],
+        options: GoogleCastQueueLoadOptions(
+          playPosition: playPosition,
+          repeatMode: repeatOne
+              ? GoogleCastMediaRepeatMode.single
+              : GoogleCastMediaRepeatMode.off,
+        ),
+      );
+      // The plugin always starts the first item; pause it when asked.
+      if (!autoPlay) await _remoteMediaClient.pause();
+      _mediaState = _mediaState.copyWith(
+        title: first.title,
+        artist: first.artist,
+        imageUrl: first.imageUrl,
+        duration: first.duration ?? Duration.zero,
+        isPlaying: autoPlay,
+        position: playPosition,
+        playerState: autoPlay
+            ? CastMediaPlayerState.playing
+            : CastMediaPlayerState.paused,
+        songId: first.songId,
+      );
+      notifyListeners();
+      return true;
+    } catch (e) {
+      debugPrint('CastService: Error loading queue: $e');
+      return false;
+    }
+  }
+
+  /// Adds [entries] at the end of the speaker's queue.
+  Future<bool> appendToQueue(List<CastQueueEntry> entries) async {
+    if (!isConnected || entries.isEmpty) return false;
+    try {
+      // 0 is MediaQueueItem.INVALID_ITEM_ID, which appends; the plugin's
+      // default (-1) is not a valid position.
+      await _remoteMediaClient.queueInsertItems(
+        [for (final e in entries) _queueItem(e)],
+        beforeItemWithId: 0,
+      );
+      return true;
+    } catch (e) {
+      debugPrint('CastService: Error adding to the queue: $e');
+      return false;
+    }
+  }
+
+  /// Song the speaker is playing, waiting up to [timeout] for its first
+  /// status after a connection. Null when it plays nothing from Octave.
+  Future<String?> currentSongId(
+      {Duration timeout = const Duration(milliseconds: 1500)}) async {
+    final known = _remoteMediaClient.mediaStatus;
+    if (known != null) return _songIdOf(known);
+    try {
+      final status = await _remoteMediaClient.mediaStatusStream
+          .firstWhere((s) => s != null)
+          .timeout(timeout);
+      return status == null ? null : _songIdOf(status);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static String? _songIdOf(GoggleCastMediaStatus status) {
+    final playing = status.playerState == CastMediaPlayerState.playing ||
+        status.playerState == CastMediaPlayerState.paused ||
+        status.playerState == CastMediaPlayerState.buffering;
+    if (!playing) return null;
+    return status.mediaInformation?.customData?['songId'] as String?;
+  }
+
+  GoogleCastQueueItem _queueItem(CastQueueEntry entry) {
+    final cover = Uri.tryParse(entry.imageUrl);
+    return GoogleCastQueueItem(
+      // Fetch the next song 20 s before the end, so it starts without a gap.
+      preLoadTime: const Duration(seconds: 20),
+      mediaInformation: GoogleCastMediaInformation(
+        contentId: entry.url,
+        contentUrl: Uri.tryParse(entry.url),
+        streamType: CastMediaStreamType.buffered,
+        contentType: entry.contentType,
+        duration: entry.duration,
+        customData: {'songId': entry.songId},
+        metadata: GoogleCastMusicMediaMetadata(
+          title: entry.title,
+          artist: entry.artist,
+          albumArtist: entry.artist,
+          albumName: entry.album,
+          trackNumber: entry.trackNumber,
+          images: [
+            if (cover != null && cover.hasScheme)
+              GoogleCastImage(url: cover, width: 800, height: 800),
+          ],
+        ),
+      ),
+    );
   }
 
   static String mimeTypeFromUrl(String url) {

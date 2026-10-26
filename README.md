@@ -73,7 +73,7 @@ Propres à Octave :
 - 🇫🇷 **Entièrement en français**, avec une configuration guidée au premier lancement
 - 🎨 **13 couleurs**, en clair ou en sombre, calculées avec des contrastes vérifiés
 - 🖼️ **Pochettes de playlist** à créer soi-même, partagées par le serveur avec Octo
-- 🔊 **Enceintes Google Home** : un format qu'elles savent lire, toujours
+- 🔊 **Enceintes Google Home** : un format qu'elles savent lire, et la musique continue téléphone en veille
 - 🔄 **Mises à jour** depuis l'app, signées et vérifiées
 
 ## Plateformes
@@ -142,6 +142,7 @@ Chaque personne a son propre compte, créé sur invitation du propriétaire du s
 - Le téléphone et l'enceinte doivent être sur le **même Wi-Fi** : c'est ainsi que l'enceinte est trouvée.
 - C'est **l'enceinte qui télécharge la musique** auprès du serveur, pas le téléphone : l'adresse du serveur doit donc être joignable depuis l'enceinte. Une adresse publique en HTTPS marche partout ; une adresse de réseau privé (Tailscale) ne marche pas, l'enceinte n'y a pas accès.
 - Octave envoie le fichier d'origine quand l'enceinte sait le lire (MP3, FLAC, Opus, AAC, WAV), sinon il demande au serveur du MP3 à 320 kb/s.
+- L'enceinte reçoit les 20 titres suivants d'un coup : la musique continue même si le téléphone se met en veille ou s'il quitte la maison.
 
 ### Sur iPhone
 
