@@ -35,6 +35,7 @@ abstract class AndroidAutoLibraryDelegate {
   List<Genre> get richGenres;
   bool get isInitialized;
   bool get isServerOfflineMode;
+  bool get hasRadioStations;
 
   Future<void> initialize();
   Future<List<Song>> getAlbumSongs(String albumId);
@@ -373,7 +374,8 @@ class AndroidAutoService {
       ));
     }
 
-    if (settings.getShowRadio()) {
+    if (settings.getShowRadio() &&
+        (_libraryDelegate?.hasRadioStations ?? false)) {
       items.add(_browsableItem(
         id: _idRadio,
         title: _l10n.androidAutoRadio,

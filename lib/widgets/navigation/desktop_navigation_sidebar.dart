@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/providers/auth_provider.dart';
 import 'package:musly/providers/library_provider.dart';
-import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/models/playlist.dart';
 import 'package:musly/screens/detail/playlist_screen.dart';
 import 'package:musly/screens/media/favorites_screen.dart';
@@ -187,8 +186,9 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
             onFavoritesTap: _navigateToFavorites,
             onPlaylistTap: _navigateToPlaylist,
           ),
-          Consumer<SubsonicService>(
-            builder: (context, subsonic, _) {
+          Consumer<LibraryProvider>(
+            builder: (context, library, _) {
+              if (!library.hasRadioStations) return const SizedBox.shrink();
               return _NavItem(
                 icon: Icons.radio_rounded,
                 activeIcon: Icons.radio_rounded,

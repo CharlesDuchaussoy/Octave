@@ -387,7 +387,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           context, const TopRatedScreen()),
                     ),
                   ),
-                  SizedBox(
+                  if (Provider.of<LibraryProvider>(context).hasRadioStations)
+                    SizedBox(
                       width: cardWidth,
                       child: BrowseCategoryCard(
                         title: AppLocalizations.of(context)!.radioStations,

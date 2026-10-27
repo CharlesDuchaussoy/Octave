@@ -60,6 +60,12 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   List<String> get genres => _genres;
   List<Genre> get richGenres => _richGenres;
   SearchResult? get starred => _starred;
+
+  /// Whether the server offers radio stations: the radio entries of the
+  /// app only show then.
+  bool _hasRadioStations = false;
+  @override
+  bool get hasRadioStations => _hasRadioStations;
   bool get isLoading => _isLoading;
   bool get isBackgroundSyncing => _isBackgroundSyncing;
   bool get isInitialized => _isInitialized;
@@ -244,6 +250,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
             onTimeout: () => throw TimeoutException('Server not responding'),
           );
         } catch (_) {}
+        if (!_localOnlyMode) loadRadioAvailability();
       }
 
       _isInitialized = true;
@@ -530,6 +537,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     _richGenres = [];
     _genres = [];
     _starred = null;
+    _hasRadioStations = false;
     ImageUrlCache.clear();
     try {
       await _db.clearServerData();
@@ -647,6 +655,17 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         notifyListeners();
       }
     }
+  }
+
+  /// Asks the server once whether it has radio stations.
+  Future<void> loadRadioAvailability() async {
+    if (_serverOfflineMode || _localOnlyMode) return;
+    final has =
+        (await _subsonicService.getInternetRadioStations()).isNotEmpty;
+    if (has == _hasRadioStations) return;
+    _hasRadioStations = has;
+    notifyListeners();
+    _audioHandler.notifyAutoChildrenChanged();
   }
 
   Future<void> loadRandomSongs() async {

@@ -31,6 +31,7 @@ void main() {
     when(() => mockOffline.isOfflineMode).thenReturn(false);
     when(() => mockSubsonic.getCoverArtUrl(any(), size: any(named: 'size'))).thenReturn('http://cover.url');
     when(() => mockLibrary.getCoverArtUrl(any())).thenReturn('http://cover.url');
+    when(() => mockLibrary.hasRadioStations).thenReturn(true);
 
     service = AndroidAutoService(
       subsonicService: mockSubsonic,
@@ -52,6 +53,17 @@ void main() {
         'AUTO_RECENT', 'AUTO_FAVORITES', 'AUTO_ALBUMS', 'AUTO_ARTISTS',
         'AUTO_PLAYLISTS', 'AUTO_GENRES', 'AUTO_RADIO', 'AUTO_DOWNLOADS', 'AUTO_SHUFFLE'
       ]));
+    });
+
+    test('leaves Radio out when the server has no stations', () async {
+      when(() => mockPlayer.currentSong).thenReturn(null);
+      when(() => mockPlayer.queue).thenReturn([]);
+      when(() => mockLibrary.hasRadioStations).thenReturn(false);
+
+      final items = await service.getChildren(AudioService.browsableRootId);
+
+      expect(items.length, 8);
+      expect(items.map((e) => e.id), isNot(contains('AUTO_RADIO')));
     });
 
     test('includes Now Playing and Queue when active', () async {
