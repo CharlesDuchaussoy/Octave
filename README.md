@@ -2,10 +2,8 @@
 
 # Octave
 
-**Ton serveur de musique, dans ta poche.**
-
 Le lecteur de musique de notre serveur privé, pour la famille et les amis.<br>
-Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour Navidrome et Octo.
+Développé par [Charles Duchaussoy](https://github.com/CharlesDuchaussoy), à partir de [Musly](https://github.com/dddevid/Musly). Pensé pour Navidrome et Octo.
 
 [![Licence CC BY-NC-SA 4.0](https://img.shields.io/badge/licence-CC%20BY--NC--SA%204.0-lightgrey?style=for-the-badge)](LICENSE)
 [![Basé sur Musly](https://img.shields.io/badge/bas%C3%A9%20sur-Musly-fa243c?style=for-the-badge)](https://github.com/dddevid/Musly)
@@ -30,6 +28,7 @@ Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour
 - [Plateformes](#plateformes)
 - [Le serveur](#le-serveur)
 - [Installation](#installation)
+- [Signaler un problème](#signaler-un-problème)
 - [Compiler Octave](#compiler-octave)
 - [Suivre Musly](#suivre-musly)
 - [Licence et crédits](#licence-et-crédits)
@@ -42,39 +41,49 @@ Depuis la reprise de Musly 2.0.3, Octave avance de son côté : il reprend à la
 
 ## Avancement
 
-| | Étape |
-|:-:|---|
-| ✅ | Base : Musly 2.0.3, `master` du 18 octobre 2026 (`b199276`), qui apporte notamment la mise à jour depuis l'app et l'import de playlists |
-| ✅ | Nom, icône et identifiant Android propres (`io.github.charlesduchaussoy.octave`) : Octave s'installe à côté de Musly |
-| ⏳ | Traduction française complète (926 textes sur 926) |
-| ⏳ | Compilation automatique des versions Android, Windows et Linux par GitHub Actions (prête, à essayer avec la première version) |
-| ⏳ | Mises à jour proposées et installées depuis l'app (déjà branchées sur les versions d'Octave, à tester avec la première) |
-| ⏳ | Versions Windows et Linux publiées |
+Fait :
 
-Le détail de chaque version est dans [CHANGELOG-octave.md](CHANGELOG-octave.md), dès la première.
+- Base : Musly 2.0.3, `master` du 18 octobre 2026 (`b199276`).
+- Nom, icône et identifiant Android propres (`io.github.charlesduchaussoy.octave`) : Octave s'installe à côté de Musly.
+- Traduction française complète (1 035 textes, tutoiement) et configuration guidée au premier lancement.
+- Nouveau design : bleu nuit du logo, 13 couleurs, clair ou sombre, barres flottantes, réglages simplifiés.
+- Pochettes de playlist à créer dans l'app, partagées par le serveur.
+- Enceintes Google Home et Chromecast fiables, avec la file d'attente sur l'enceinte.
+- Intégration d'Octo : mix du serveur, rapports de lecture, reprise sur un autre appareil, synchronisation légère de la bibliothèque.
+- Lecture plus sûre : les causes connues de la double lecture sont retirées.
+- Vérification de toutes les fonctions de base sur l'APK signé (27 octobre 2026).
+
+En cours :
+
+- Première version, 1.0.0 : la compilation automatique (GitHub Actions) et les mises à jour depuis l'app sont prêtes, à essayer avec elle.
+- Nouveau moteur de lecture, avec les titres suivants préchargés.
+- Signaler un problème depuis l'app : le formulaire est prêt, la réception par notre serveur arrive.
+- Versions Windows et Linux, compilées à chaque version mais pas encore essayées.
+
+Le détail est dans [CHANGELOG-octave.md](CHANGELOG-octave.md).
 
 ## Fonctionnalités
 
 Héritées de Musly :
 
-- 🎵 **Ton serveur Navidrome**, ou tout serveur compatible Subsonic
-- 💾 **Écoute hors ligne** de titres, albums et playlists
-- 🎧 **Paroles synchronisées**, avec un appui pour aller au bon moment
-- 🔀 **File d'attente qui se remplit seule** à partir de tes titres et artistes préférés
-- 📊 **Statistiques d'écoute** et bilan de l'année
-- 📡 **Diffusion** vers Google Cast, UPnP et DLNA
-- 🚗 **Android Auto**
-- 📁 **Fichiers audio du téléphone**, sans serveur
-- 🌙 **Bleu nuit d'Octave**, en clair, en sombre ou en noir pur, avec d'autres couleurs au choix et Material You
-- 📱 **Interface adaptée** aux téléphones, tablettes et ordinateurs
+- **Ton serveur Navidrome**, ou tout serveur compatible Subsonic.
+- **Écoute hors ligne** de titres, albums et playlists.
+- **Paroles synchronisées**, avec un appui pour aller au bon moment.
+- **File d'attente qui se remplit seule** à partir de tes titres et artistes préférés.
+- **Statistiques d'écoute** et bilan de l'année.
+- **Diffusion** vers Google Cast, UPnP et DLNA.
+- **Android Auto.**
+- **Interface adaptée** aux téléphones, tablettes et ordinateurs.
 
 Propres à Octave :
 
-- 🇫🇷 **Entièrement en français**, avec une configuration guidée au premier lancement
-- 🎨 **13 couleurs**, en clair ou en sombre, calculées avec des contrastes vérifiés
-- 🖼️ **Pochettes de playlist** à créer soi-même, partagées par le serveur avec Octo
-- 🔊 **Enceintes Google Home** : un format qu'elles savent lire, et la musique continue téléphone en veille
-- 🔄 **Mises à jour** depuis l'app, signées et vérifiées
+- **Entièrement en français**, avec une configuration guidée au premier lancement.
+- **13 couleurs**, en clair, en sombre ou en noir pur, avec des contrastes vérifiés.
+- **Pochettes de playlist** à créer soi-même, partagées par le serveur avec Octo.
+- **Enceintes Google Home** : un format qu'elles savent lire, et la musique continue téléphone en veille.
+- **Avec Octo** : les mix du serveur, les titres hors de ta bibliothèque marqués d'un globe, la reprise sur un autre appareil.
+- **Signaler un problème** depuis l'app, sans compte GitHub sur notre serveur.
+- **Mises à jour** depuis l'app, signées et vérifiées.
 
 ## Plateformes
 
@@ -123,6 +132,7 @@ Octave, Arpeggi…  ──HTTPS /rest/──▶  reverse proxy  ──▶  Octo 
 | Statistiques d'écoute | Sur le téléphone | Par compte, sur 7, 30 et 365 jours |
 | Catalogue | La bibliothèque | La recherche montre aussi des titres absents de la bibliothèque (Deezer, Last.fm) ; leur ajout passe par des sources d'acquisition optionnelles, choisies par le propriétaire du serveur |
 | Pochettes de playlist faites dans Octave | Gardées sur le téléphone | Envoyées au serveur et visibles partout (commandes `octo.setPlaylistImage`, ajoutées dans notre version d'Octo, non publiée) |
+| Signaler un problème | Ouvre une page GitHub pré-remplie (il faut un compte) | Arrive sur la page de gestion du serveur (commande `octo.reportProblem`, ajoutée dans notre version d'Octo) |
 
 Octave se présente au serveur sous le nom « Octave », qu'Octo reconnaît. Sans Octo, les écrans qui en dépendent se replient sur ce que fait Navidrome.
 
@@ -168,6 +178,12 @@ Télécharge `octave-<version>-windows-setup.exe` et lance-le.
 
 Télécharge `octave-<version>-linux-x64.tar.gz`, décompresse-le, puis lance `./install.sh` dans le dossier. Octave s'installe dans `~/.local/share/octave` et apparaît dans le menu des applications. Il faut `mpv` (paquet `mpv-libs` sur Fedora). `./install.sh --uninstall` le retire.
 
+## Signaler un problème
+
+Dans l'app : **Réglages, Signaler un problème** (aussi dans À propos). Écris ce qui s'est passé, ou ton idée. Tu peux joindre les infos techniques : version de l'app, appareil, titre en cours et journal récent de l'app, nettoyé de l'adresse du serveur, du nom du compte et des mots de passe.
+
+Sur notre serveur, le message arrive directement chez Charles. Sur un autre serveur, l'app ouvre une page [GitHub](https://github.com/CharlesDuchaussoy/Octave/issues) déjà remplie.
+
 ## Compiler Octave
 
 ### Prérequis
@@ -200,31 +216,25 @@ La clé de signature Android est rangée dans les secrets du dépôt (`ANDROID_K
 
 ## Suivre Musly
 
-Le dépôt d'origine est déclaré comme `upstream` :
+Depuis la reprise de Musly 2.0.3, Octave ne fusionne plus Musly en entier : son code a trop changé. On lit les nouvelles corrections de Musly et on reprend une à une celles qui concernent Octave :
 
 ```sh
-git remote add upstream https://github.com/dddevid/Musly.git
-git fetch upstream
-git merge upstream/master
+git fetch --no-tags https://github.com/dddevid/Musly.git +refs/heads/master:refs/remotes/upstream/master
+git log --oneline <dernier-commit-lu>..upstream/master
+git cherry-pick <commit>
 ```
-
-Les corrections de Musly arrivent ainsi dans Octave en gardant nos changements.
 
 ## Licence et crédits
 
-Octave est une **œuvre dérivée de [Musly](https://github.com/dddevid/Musly)**, créé par [dddevid](https://github.com/dddevid) avec ses contributeurs. Tout le mérite de l'application d'origine leur revient.
+Octave est développé par [Charles Duchaussoy](https://github.com/CharlesDuchaussoy). C'est une **œuvre dérivée de [Musly](https://github.com/dddevid/Musly)**, créé par [dddevid](https://github.com/dddevid) avec ses contributeurs : tout le mérite de l'application d'origine leur revient.
 
 Octave est distribué sous la même licence que Musly : **[Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions 4.0 International (CC BY-NC-SA 4.0)](LICENSE)**.
 
-- ✅ Tu peux utiliser, modifier et partager Octave, en citant Musly et Octave.
-- ✅ Toute version modifiée doit rester sous cette même licence.
-- ❌ **Aucun usage commercial** : pas de vente, pas de publicité, pas de publication sur le Google Play Store ni sur un autre magasin d'applications.
+- Tu peux utiliser, modifier et partager Octave, en citant Musly et Octave.
+- Toute version modifiée doit rester sous cette même licence.
+- **Aucun usage commercial** : pas de vente, pas de publicité, pas de publication sur le Google Play Store ni sur un autre magasin d'applications.
 
 Les mentions d'attribution et la liste des modifications sont dans [NOTICE.md](NOTICE.md).
 
 Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Les noms Navidrome, Subsonic, Android, Windows et Linux appartiennent à leurs détenteurs respectifs.
 
-<div align="center">
-<br>
-<sub>Fait avec soin pour écouter ensemble, en famille et entre amis.</sub>
-</div>
