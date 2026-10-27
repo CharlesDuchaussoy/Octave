@@ -26,6 +26,15 @@
     "description": "Your playlists section title"
   },
   "homeServerMixes": "Tes mix",
+  "queueHandoffTitle": "Reprendre là où tu en étais",
+  "queueHandoffOnDevice": "« {song} » · sur un autre appareil, {ago}",
+  "queueHandoffInApp": "« {song} » · dans {app}, {ago}",
+  "queueHandoffResume": "Reprendre",
+  "queueHandoffDismiss": "Pas maintenant",
+  "agoNow": "à l'instant",
+  "agoMinutes": "il y a {count} min",
+  "agoHours": "il y a {count} h",
+  "agoDays": "{count, plural, =1{hier} other{il y a {count} jours}}",
   "homeSectionPhoneMixes": "Mix faits sur le téléphone",
   "madeForYou": "Pour toi",
   "@madeForYou": {

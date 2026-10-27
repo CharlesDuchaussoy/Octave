@@ -35,6 +35,7 @@ import '../providers/library_provider.dart';
 import '../services/android_auto_service.dart';
 import '../octave/cast/cast_queue.dart';
 import '../octave/server/playback_reporter.dart';
+import '../octave/server/queue_handoff.dart';
 import '../octave/cast/cast_stream.dart';
 
 enum RepeatMode { off, all, one }
@@ -188,6 +189,15 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       debugPrint(
           '[Player] App lifecycle state: $state - saving queue state immediately');
       _saveQueueStateImmediate();
+      // Also on the server, where another device can pick it up.
+      if (_currentSong != null &&
+          !_isPlayingRadio &&
+          !_jukeboxService.enabled &&
+          !_offlineService.isOfflineMode) {
+        QueueHandoff.instance
+            .save(_subsonicService, List.of(_queue), _currentIndex, _position)
+            .catchError((e) => debugPrint('[Player] queue save failed: $e'));
+      }
     }
   }
 
@@ -2790,6 +2800,28 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       position: _position,
       currentPosition: () => _position,
     );
+    if (reportable) _saveQueueForHandoff();
+  }
+
+  String? _handoffSignature;
+  bool _handoffWasPlaying = false;
+
+  /// Keeps the queue on the server, to pick it up on another device:
+  /// a few seconds after the queue or the song changes while playing, and
+  /// at once on pause.
+  void _saveQueueForHandoff() {
+    final handoff = QueueHandoff.instance;
+    final signature = '${_queue.length}|${_currentSong?.id}|$_currentIndex';
+    if (_isPlaying && signature != _handoffSignature) {
+      _handoffSignature = signature;
+      handoff.scheduleSave(
+          _subsonicService, List.of(_queue), _currentIndex, _position);
+    } else if (_handoffWasPlaying && !_isPlaying) {
+      handoff
+          .save(_subsonicService, List.of(_queue), _currentIndex, _position)
+          .catchError((e) => debugPrint('[Player] queue save failed: $e'));
+    }
+    _handoffWasPlaying = _isPlaying;
   }
 
   /// Checks the speaker's queue against Octave's a moment after a change,

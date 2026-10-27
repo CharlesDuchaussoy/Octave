@@ -9,6 +9,7 @@ import '../models/models.dart';
 import 'storage_service.dart';
 import 'lrclib_service.dart';
 import '../octave/server/library_actions.dart';
+import '../octave/server/queue_handoff.dart';
 
 class PingResult {
   final bool success;
@@ -1008,6 +1009,31 @@ class SubsonicService {
       debugPrint('SubsonicService: no OpenSubsonic extensions: $e');
       return const {};
     }
+  }
+
+  /// Saves the play queue of the account (OpenSubsonic "indexBasedQueue").
+  Future<void> savePlayQueueByIndex(
+    List<String> songIds,
+    int currentIndex,
+    Duration position,
+  ) async {
+    // Repeated id parameters do not fit the map of _request: the query is
+    // built here.
+    final params = <String, String>{
+      'currentIndex': currentIndex.toString(),
+      'position': position.inMilliseconds.toString(),
+    };
+    final base = _buildUrl('savePlayQueueByIndex', params);
+    final ids = songIds.map((id) => 'id=${Uri.encodeQueryComponent(id)}');
+    final response = await _dio.get('$base&${ids.join('&')}');
+    _checkResponse(response.data);
+  }
+
+  /// The play queue the server keeps for the account, or null.
+  Future<ServerQueue?> getPlayQueueByIndex() async {
+    final response = await _request('getPlayQueueByIndex');
+    final queue = response['playQueueByIndex'];
+    return queue is Map<String, dynamic> ? ServerQueue.fromJson(queue) : null;
   }
 
   /// Tells the server what plays (OpenSubsonic "playbackReport"). Never

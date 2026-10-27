@@ -29,6 +29,47 @@
   "@homeServerMixes": {
     "description": "Home row of the mixes and radios the server (Octo) makes for the account"
   },
+  "queueHandoffTitle": "Pick up where you left off",
+  "@queueHandoffTitle": {
+    "description": "Home banner: a queue saved by another device or app can be resumed"
+  },
+  "queueHandoffOnDevice": "{song} · on another device, {ago}",
+  "@queueHandoffOnDevice": {
+    "description": "Home banner: song, when the queue comes from another device running Octave",
+    "placeholders": {"song": {"type": "String"}, "ago": {"type": "String"}}
+  },
+  "queueHandoffInApp": "{song} · in {app}, {ago}",
+  "@queueHandoffInApp": {
+    "description": "Home banner: song, app that saved the queue (Arpeggi...), and when",
+    "placeholders": {"song": {"type": "String"}, "app": {"type": "String"}, "ago": {"type": "String"}}
+  },
+  "queueHandoffResume": "Resume",
+  "@queueHandoffResume": {
+    "description": "Home banner: resume the queue here"
+  },
+  "queueHandoffDismiss": "Not now",
+  "@queueHandoffDismiss": {
+    "description": "Home banner: hide the offer"
+  },
+  "agoNow": "just now",
+  "@agoNow": {
+    "description": "Relative time"
+  },
+  "agoMinutes": "{count} min ago",
+  "@agoMinutes": {
+    "description": "Relative time in minutes",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "agoHours": "{count} h ago",
+  "@agoHours": {
+    "description": "Relative time in hours",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "agoDays": "{count, plural, =1{yesterday} other{{count} days ago}}",
+  "@agoDays": {
+    "description": "Relative time in days",
+    "placeholders": {"count": {"type": "int"}}
+  },
   "homeSectionPhoneMixes": "Mixes made on this device",
   "@homeSectionPhoneMixes": {
     "description": "Customize home: row of mixes computed on the phone, shown only when the server makes none"

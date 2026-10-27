@@ -30,6 +30,49 @@ class AppLocalizationsSv extends AppLocalizations {
   String get homeServerMixes => 'Your mixes';
 
   @override
+  String get queueHandoffTitle => 'Pick up where you left off';
+
+  @override
+  String queueHandoffOnDevice(String song, String ago) {
+    return '$song · on another device, $ago';
+  }
+
+  @override
+  String queueHandoffInApp(String song, String app, String ago) {
+    return '$song · in $app, $ago';
+  }
+
+  @override
+  String get queueHandoffResume => 'Resume';
+
+  @override
+  String get queueHandoffDismiss => 'Not now';
+
+  @override
+  String get agoNow => 'just now';
+
+  @override
+  String agoMinutes(int count) {
+    return '$count min ago';
+  }
+
+  @override
+  String agoHours(int count) {
+    return '$count h ago';
+  }
+
+  @override
+  String agoDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days ago',
+      one: 'yesterday',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get homeSectionPhoneMixes => 'Mixes made on this device';
 
   @override

@@ -93,6 +93,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 
 - L'Accueil a une ligne « Tes mix » : les mix et radios qu'Octo fait pour le compte. « Tes playlists » ne garde que les playlists du compte, et les mix calculés sur le téléphone ne s'affichent plus que sans Octo.
 - La bibliothèque se synchronise en quelques requêtes (tous les titres par pages de 500) au lieu d'une requête par album, qui chargeait le Raspberry Pi : 1 requête au lieu de 32 pour le compte d'essai.
+- Reprendre sur un autre appareil : Octave garde sa file sur le serveur (au changement de titre, à la pause, en quittant l'app). À l'ouverture, une bannière de l'Accueil propose de reprendre la file laissée ailleurs plus récemment, sur un autre appareil ou dans une autre app comme Arpeggi, au même titre et au même moment. Le serveur n'a qu'une file par compte : la dernière enregistrée l'emporte. Les fichiers du téléphone et les titres hors bibliothèque n'y vont pas.
 - Octave dit au serveur ce qu'il joue (rapports de lecture OpenSubsonic) : Navidrome affiche le titre en cours, et Octo compte l'écoute dès le tiers du titre. Les rapports ne comptent jamais une écoute de plus : Octo n'en garde qu'une.
 - Pour les comptes qu'Octo autorise, le menu d'un titre propose « Chercher une meilleure qualité » et « Retirer de ma bibliothèque » (après confirmation ; le fichier est mis de côté 30 jours).
 
@@ -101,6 +102,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Un titre ne se rejoue plus en double : la fin d'un titre ne lance le suivant qu'une fois, et le cache de lecture de Musly, qui pouvait relancer un titre déjà fini, est retiré.
 - Les titres s'enchaînent toujours sans blanc ; le réglage disparaît.
 - Appuyer sur Lecture après la fin d'un titre passe au suivant au lieu de rejouer le même.
+- Une lecture reprise à une position (file restaurée, retour d'une enceinte) démarre bien à cette position, et le serveur sait tout de suite ce qui est en cours : le lecteur attendait la pause suivante pour le faire.
 - Quand le serveur convertit le son (qualité réduite), Octave lui demande la taille du fichier : la durée et l'avance dans le titre restent justes.
 
 ### Mises à jour
