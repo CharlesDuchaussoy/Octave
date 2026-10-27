@@ -105,6 +105,18 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Le bouton « File d'attente » du lecteur plein écran ouvrait les paroles : leur défilement automatique faisait aussi défiler les pages du lecteur et y ramenait à chaque nouvelle ligne. Seule la liste des paroles défile désormais.
 - Une lecture reprise à une position (file restaurée, retour d'une enceinte) démarre bien à cette position, et le serveur sait tout de suite ce qui est en cours : le lecteur attendait la pause suivante pour le faire.
 - Quand le serveur convertit le son (qualité réduite), Octave lui demande la taille du fichier : la durée et l'avance dans le titre restent justes.
+- Le cœur d'un titre aimé reste plein partout : après un redémarrage, depuis la page d'un album, et quand le titre a été aimé sur un autre appareil. Aimer un titre met à jour en même temps le lecteur, la file, la bibliothèque et les titres aimés.
+- Avec le minuteur « Fin du titre », la lecture s'arrête au début du titre suivant et le lecteur montre ce titre : il gardait l'ancien titre affiché pendant que le son était déjà sur le suivant.
+- Après la fermeture de l'app, la file reprend là où elle s'était arrêtée au lieu de repartir de 0:00. Une pause depuis la notification ou le casque est aussi enregistrée.
+- Une radio qui ne se lance pas ne vide plus la file : le titre en cours revient, en pause, et un message le dit. La liste des radios n'affiche plus l'adresse technique des flux.
+
+### Playlists
+
+- Le bouton « + » du lecteur ouvre directement le choix de la playlist. Son ancien menu proposait « Ajouter à la bibliothèque », qui n'ajoutait rien.
+- Le choix de la playlist ne montre que les playlists du compte, avec leur pochette : plus les mix d'Octo ni les listes automatiques, où l'on ne peut rien ajouter.
+- Ajouter un titre déjà présent pose de nouveau la question « L'ajouter quand même ? » : la fenêtre se fermait avant, et rien ne se passait.
+- Une playlist vide affiche « aucun titre » (et non « 1 titre ») avec l'icône des playlists, au lieu du logo du serveur.
+- Après un « j'aime », les playlists se rechargent : la liste des titres aimés d'Octo affiche le bon nombre de titres.
 
 ### Mises à jour
 
