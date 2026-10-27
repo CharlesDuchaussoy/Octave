@@ -1067,7 +1067,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         await session.setActive(true);
       }
       await _applyReplayGain(_currentSong);
-      await _audioPlayer.play();
+      await _startPlayback();
       _isPlaying = true;
       notifyListeners();
       _updateAndroidAuto();
@@ -1075,7 +1075,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       debugPrint('[Player] Resume error: $e');
       try {
         await _applyReplayGain(_currentSong);
-        await _audioPlayer.play();
+        await _startPlayback();
         _isPlaying = true;
         notifyListeners();
       } catch (_) {}
@@ -1121,6 +1121,16 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   bool get audioFocusDenied => _audioFocusDenied;
 
   VoidCallback? onAudioFocusDenied;
+
+  /// Starts playback and returns at once. just_audio's play() completes
+  /// only when playback pauses or stops: awaiting it held everything
+  /// after it until the next pause (the resume position, the "now
+  /// playing" scrobble, the fade in, the playing state).
+  Future<void> _startPlayback() async {
+    _audioPlayer.play().catchError(
+          (Object e) => debugPrint('[Player] playback error: $e'),
+        );
+  }
 
   Future<void> _ensureAudioFocus(Future<void> Function() onGranted) async {
     if (!kIsWeb) {
@@ -1537,8 +1547,11 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
               rethrow;
             }
           }
+          if (initialPosition != null && initialPosition > Duration.zero) {
+            await _audioPlayer.seek(initialPosition);
+          }
           await _applyReplayGain(song);
-          await _ensureAudioFocus(() => _audioPlayer.play());
+          await _ensureAudioFocus(_startPlayback);
         } else {
           final String playUrl;
           if (song.isLocal == true && song.path != null) {
@@ -1569,12 +1582,11 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
               AudioSource.uri(Uri.parse(playUrl), tag: song.id),
             );
           }
+          if (initialPosition != null && initialPosition > Duration.zero) {
+            await _audioPlayer.seek(initialPosition);
+          }
           await _applyReplayGain(song);
-          await _ensureAudioFocus(() => _audioPlayer.play());
-        }
-
-        if (initialPosition != null && initialPosition > Duration.zero) {
-          await _audioPlayer.seek(initialPosition);
+          await _ensureAudioFocus(_startPlayback);
         }
       }
 
@@ -1649,7 +1661,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
 
       await _audioPlayer.setVolume(_volume);
 
-      await _ensureAudioFocus(() => _audioPlayer.play());
+      await _ensureAudioFocus(_startPlayback);
 
       _updateSystemServicesForRadio(station);
     } catch (e) {
@@ -1734,14 +1746,14 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       await _ensureAudioFocus(() async {
         try {
           await _applyReplayGain(_currentSong);
-          await _audioPlayer.play();
+          await _startPlayback();
           await _fadeIn();
         } catch (e) {
           debugPrint('Error playing audio: $e, attempting recovery...');
           if (_currentSong != null) {
             await _prepareCurrentSong();
             await _applyReplayGain(_currentSong);
-            await _audioPlayer.play();
+            await _startPlayback();
             await _fadeIn();
           }
         }
@@ -2684,7 +2696,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         if (_currentSong != null && !_audioPlayer.playing) {
           debugPrint(
               '[Player] iOS: Resuming playback after audio session reactivation (song: ${_currentSong!.title})');
-          await _audioPlayer.play();
+          await _startPlayback();
           _isPlaying = true;
           notifyListeners();
           _updateAllServices();
