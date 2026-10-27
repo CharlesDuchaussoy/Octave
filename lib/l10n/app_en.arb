@@ -2539,6 +2539,15 @@
   "@setupSkip": {
     "description": "Skip the current setup step"
   },
+  "setupSkipAll": "Skip setup",
+  "@setupSkipAll": {
+    "description": "Button of the first setup screen that ends the guided setup for good"
+  },
+  "setupStepOf": "Step {current} of {total}",
+  "@setupStepOf": {
+    "description": "What screen readers say for the setup progress bar",
+    "placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}
+  },
   "setupBack": "Back",
   "@setupBack": {
     "description": "Go back to the previous setup step"
@@ -2563,10 +2572,6 @@
   "setupHelloStart": "Start",
   "@setupHelloStart": {
     "description": "Start the guided setup"
-  },
-  "setupLater": "Later",
-  "@setupLater": {
-    "description": "Skip the whole guided setup"
   },
   "setupColorTitle": "Your color",
   "@setupColorTitle": {

@@ -52,6 +52,13 @@ class _SetupFlowState extends State<SetupFlow> {
   int _index = 0;
   bool _ready = false;
 
+  /// Run again from About: starts at the first step, from the current
+  /// settings, and leaves no step to resume.
+  bool _rerun = false;
+
+  /// Index of the furthest step shown (see [SetupProgress.furthestStep]).
+  int _furthest = 0;
+
   String _shape = 'rounded';
   bool _favoritePlaylistsOnHome = true;
   bool _recommendations = true;
@@ -92,10 +99,13 @@ class _SetupFlowState extends State<SetupFlow> {
     _restore();
   }
 
-  /// The first time, recommended choices are preselected; when the setup
-  /// is run again from About, it starts from the current settings.
+  /// The first time, recommended choices are preselected. A setup closed
+  /// before its end resumes at the same step, and the steps already passed
+  /// show what was saved; run again from About, every step starts from
+  /// the current settings.
   Future<void> _restore() async {
     final saved = await SetupProgress.savedStep();
+    final furthest = await SetupProgress.furthestStep();
     final rerun = await SetupProgress.isDone();
     final uiSettings = PlayerUiSettingsService();
     await uiSettings.initialize();
@@ -106,14 +116,30 @@ class _SetupFlowState extends State<SetupFlow> {
     final transcoding =
         Provider.of<TranscodingService>(context, listen: false);
     setState(() {
-      final savedIndex = _steps.indexWhere((s) => s.name == saved);
+      _rerun = rerun;
+      final savedIndex =
+          rerun ? -1 : _steps.indexWhere((s) => s.name == saved);
       if (savedIndex >= 0) _index = savedIndex;
-      if (rerun) {
-        _shape = uiSettings.getArtworkShape();
+      _furthest = rerun
+          ? 0
+          : [_index, _steps.indexWhere((s) => s.name == furthest)]
+              .reduce((a, b) => a > b ? a : b);
+      // Continue or Skip on a step left its setting saved: show that one.
+      bool passed(SetupStep step) {
+        final i = _steps.indexOf(step);
+        return rerun || (i >= 0 && i < _furthest);
+      }
+
+      if (passed(SetupStep.covers)) _shape = uiSettings.getArtworkShape();
+      if (passed(SetupStep.home)) {
         _favoritePlaylistsOnHome =
             uiSettings.getShowFavoritePlaylistsOnHome();
         _recommendations = recommendations.enabled;
+      }
+      if (passed(SetupStep.offline)) {
         _autoDownload = OfflineService().getAutoDownloadFavorites();
+      }
+      if (passed(SetupStep.quality)) {
         if (!transcoding.enabled) {
           _wifiBitrate = TranscodeBitrate.original;
           _mobileBitrate = TranscodeBitrate.original;
@@ -139,9 +165,12 @@ class _SetupFlowState extends State<SetupFlow> {
         : TranscodeBitrate.kbps192;
   }
 
-  /// Loads what a step needs when it is shown.
+  /// Loads what a step needs when it is shown. The summary counts the
+  /// liked artists, also when the artists step was done before a restart.
   void _prepare(SetupStep step) {
-    if (step == SetupStep.artists && _artists == null) _loadArtists();
+    final needsArtists = step == SetupStep.artists ||
+        (step == SetupStep.done && _steps.contains(SetupStep.artists));
+    if (needsArtists && _artists == null) _loadArtists();
     if (step == SetupStep.permissions) _checkPermissions();
   }
 
@@ -152,7 +181,9 @@ class _SetupFlowState extends State<SetupFlow> {
         subsonic.getArtists(),
         subsonic.getStarred(),
       ]);
-      final artists = List<Artist>.from(results[0] as List<Artist>)
+      final artists = (results[0] as List<Artist>)
+          .where((a) => !isCompilationArtist(a.name))
+          .toList()
         ..sort((a, b) => (b.albumCount ?? 0).compareTo(a.albumCount ?? 0));
       final starred = (results[1] as SearchResult).artists;
       if (!mounted) return;
@@ -184,7 +215,13 @@ class _SetupFlowState extends State<SetupFlow> {
 
   void _goTo(int index) {
     setState(() => _index = index);
-    SetupProgress.saveStep(_step.name);
+    if (!_rerun) {
+      SetupProgress.saveStep(_step.name);
+      if (index > _furthest) {
+        _furthest = index;
+        SetupProgress.saveFurthest(_step.name);
+      }
+    }
     _prepare(_step);
   }
 
@@ -318,6 +355,7 @@ class _SetupFlowState extends State<SetupFlow> {
           title: title,
           body: body,
           progress: isFirst ? null : _progress,
+          progressLabel: l10n.setupStepOf(_index + 1, _steps.length),
           onBack: isFirst ? null : _back,
           onSkip: skippable && !isFirst && !isLast ? _skip : null,
           primaryLabel: primaryLabel ?? l10n.setupContinue,
@@ -336,7 +374,7 @@ class _SetupFlowState extends State<SetupFlow> {
           body: l10n.setupHelloBody,
           primaryLabel: l10n.setupHelloStart,
           onPrimary: _continue,
-          secondaryLabel: l10n.setupLater,
+          secondaryLabel: l10n.setupSkipAll,
           onSecondary: _finish,
         );
 
@@ -693,6 +731,17 @@ class _SetupFlowState extends State<SetupFlow> {
         _ => l10n.setupStyleRounded,
       };
 }
+
+/// The artist that compilations are filed under ("Various Artists"):
+/// nobody picks it as a favorite, and it has more albums than anyone, so
+/// it would come first.
+bool isCompilationArtist(String name) => const {
+      'various artists',
+      'various',
+      'va',
+      'artistes divers',
+      'divers',
+    }.contains(name.trim().toLowerCase());
 
 class _ShapeSample extends StatelessWidget {
   const _ShapeSample({required this.shape});

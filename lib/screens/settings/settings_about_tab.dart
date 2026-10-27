@@ -143,7 +143,8 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               title: AppLocalizations.of(context)!.setupRedoTitle,
               subtitle: AppLocalizations.of(context)!.setupRedoSubtitle,
               onTap: () {
-                Navigator.of(context).push(
+                // Full screen, above the tab bar and the mini player.
+                Navigator.of(context, rootNavigator: true).push(
                   MaterialPageRoute(
                     builder: (routeContext) => SetupFlow(
                       onFinished: () => Navigator.of(routeContext).pop(),

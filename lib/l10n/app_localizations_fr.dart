@@ -2018,6 +2018,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get setupSkip => 'Passer';
 
   @override
+  String get setupSkipAll => 'Passer la configuration';
+
+  @override
+  String setupStepOf(int current, int total) {
+    return 'Étape $current sur $total';
+  }
+
+  @override
   String get setupBack => 'Retour';
 
   @override
@@ -2037,9 +2045,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get setupHelloStart => 'Commencer';
-
-  @override
-  String get setupLater => 'Plus tard';
 
   @override
   String get setupColorTitle => 'Ta couleur';

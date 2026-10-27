@@ -3718,6 +3718,18 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get setupSkip;
 
+  /// Button of the first setup screen that ends the guided setup for good
+  ///
+  /// In en, this message translates to:
+  /// **'Skip setup'**
+  String get setupSkipAll;
+
+  /// What screen readers say for the setup progress bar
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String setupStepOf(int current, int total);
+
   /// Go back to the previous setup step
   ///
   /// In en, this message translates to:
@@ -3753,12 +3765,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start'**
   String get setupHelloStart;
-
-  /// Skip the whole guided setup
-  ///
-  /// In en, this message translates to:
-  /// **'Later'**
-  String get setupLater;
 
   /// Title of the color step
   ///
