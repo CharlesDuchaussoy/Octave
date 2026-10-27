@@ -107,4 +107,22 @@ void main() {
       expect(song.replayGainTrackPeak, 0.95);
     });
   });
+
+  test('keeps the liked state and the rating through toJson', () {
+    // A queue saved on the phone and restored after a restart showed
+    // liked songs with an empty heart.
+    final liked = Song.fromJson({
+      'id': 'a',
+      'title': 'A',
+      'starred': '2026-10-27T15:00:00Z',
+      'userRating': 4,
+    });
+    final again = Song.fromJson(liked.toJson());
+    expect(again.starred, isTrue);
+    expect(again.userRating, 4);
+
+    final plain = Song.fromJson(Song(id: 'b', title: 'B').toJson());
+    expect(plain.starred, isFalse);
+    expect(plain.userRating, isNull);
+  });
 }

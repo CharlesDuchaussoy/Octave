@@ -237,6 +237,8 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
             loadRandomSongs(),
             loadPlaylists(),
             loadArtists(),
+            // Liked songs, so hearts are right from the start.
+            loadStarred(),
           ]).timeout(
             const Duration(seconds: 5),
             onTimeout: () => throw TimeoutException('Server not responding'),
@@ -671,8 +673,52 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     if (_serverOfflineMode) return;
     try {
       _starred = await _subsonicService.getStarred();
+      // Songs liked or unliked elsewhere (another device, Arpeggi) show
+      // right in the cached library, not after the next full sync.
+      final likedIds = {
+        for (final s in _starred?.songs ?? const <Song>[]) s.id,
+      };
+      await _setStarred({
+        for (final song in _cachedAllSongs)
+          if ((song.starred == true) != likedIds.contains(song.id))
+            song.id: likedIds.contains(song.id),
+      });
       notifyListeners();
     } catch (_) {}
+  }
+
+  /// Sets the liked state of a song in the liked list and the cached
+  /// library (memory and database), so the library lists and the songs
+  /// played from them show the right heart before the server answers.
+  Future<void> markSongStarred(Song song, bool starred) async {
+    final liked = _starred;
+    if (liked != null) {
+      _starred = SearchResult(
+        artists: liked.artists,
+        albums: liked.albums,
+        songs: [
+          if (starred) song.copyWith(starred: true),
+          ...liked.songs.where((s) => s.id != song.id),
+        ],
+      );
+    }
+    await _setStarred({song.id: starred});
+    notifyListeners();
+  }
+
+  Future<void> _setStarred(Map<String, bool> changes) async {
+    if (changes.isEmpty) return;
+    _cachedAllSongs = [
+      for (final song in _cachedAllSongs)
+        changes.containsKey(song.id)
+            ? song.copyWith(starred: changes[song.id])
+            : song,
+    ];
+    for (final entry in changes.entries) {
+      try {
+        await _db.setSongStarred(entry.key, entry.value);
+      } catch (_) {}
+    }
   }
 
   Future<List<Album>> getArtistAlbums(String artistId) async {
