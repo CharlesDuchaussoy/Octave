@@ -896,6 +896,29 @@ class SubsonicService {
     return SearchResult(artists: artists, albums: albums, songs: songs);
   }
 
+  /// One page of all the songs of the library: Navidrome answers search3
+  /// with an empty query by listing every song, so the whole library comes
+  /// in a few requests instead of one per album. Octo adds no outside
+  /// songs to queries under three characters.
+  Future<List<Song>> getLibrarySongsPage({
+    required int offset,
+    int size = 500,
+  }) async {
+    final response = await _request('search3', {
+      'query': '',
+      'artistCount': '0',
+      'albumCount': '0',
+      'songCount': size.toString(),
+      'songOffset': offset.toString(),
+    });
+    var songs = response['searchResult3']?['song'];
+    if (songs == null) return const [];
+    if (songs is! List) songs = [songs];
+    return [
+      for (final s in songs) Song.fromJson(s as Map<String, dynamic>),
+    ];
+  }
+
   Future<List<Song>> getRandomSongs({int size = 20, String? genre}) async {
     final params = <String, String>{'size': size.toString()};
     if (genre != null) params['genre'] = genre;
