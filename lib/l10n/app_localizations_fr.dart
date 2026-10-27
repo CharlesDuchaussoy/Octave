@@ -2474,6 +2474,67 @@ class AppLocalizationsFr extends AppLocalizations {
   String get coverTemplateGrid => 'Mosaïque';
 
   @override
+  String get coverTemplateFrame => 'Cadre';
+
+  @override
+  String get coverTemplateDuo => 'Duo';
+
+  @override
+  String get coverTextSize => 'Taille';
+
+  @override
+  String get coverTextSizeSmall => 'Petit';
+
+  @override
+  String get coverTextSizeMedium => 'Moyen';
+
+  @override
+  String get coverTextSizeLarge => 'Grand';
+
+  @override
+  String get coverTextAlign => 'Alignement';
+
+  @override
+  String get coverAlignLeft => 'À gauche';
+
+  @override
+  String get coverAlignCenter => 'Centré';
+
+  @override
+  String get coverMoreColors => 'Autre couleur';
+
+  @override
+  String get coverHue => 'Teinte';
+
+  @override
+  String get coverIntensity => 'Intensité';
+
+  @override
+  String get coverLightness => 'Clarté';
+
+  @override
+  String get coverUseColor => 'Choisir cette couleur';
+
+  @override
+  String get coverPhotoGesture =>
+      'Fais glisser l\'image sur l\'aperçu pour la déplacer, pince pour zoomer.';
+
+  @override
+  String get coverRecenter => 'Recentrer';
+
+  @override
+  String get coverImageEffect => 'Effet';
+
+  @override
+  String get coverEffectNone => 'Normale';
+
+  @override
+  String get coverEffectMono => 'Noir et blanc';
+
+  @override
+  String get coverEffectTint => 'Teintée';
+
+  @override
   String get coverTitleLabel => 'Titre';
 
   @override
@@ -2506,7 +2567,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get coverImageHint =>
-      'Les modèles Bandeau et Photo affichent cette image.';
+      'Les modèles Bandeau, Photo et Cadre affichent cette image.';
 
   @override
   String get coverAutomatic => 'Revenir à la pochette automatique';

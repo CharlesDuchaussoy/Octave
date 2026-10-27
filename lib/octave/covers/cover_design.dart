@@ -8,8 +8,17 @@ enum CoverTemplate {
   /// Plain color with a small title in a corner.
   minimal,
 
-  /// One huge word cropped by the edges.
+  /// Two plain colors split on the diagonal.
+  duo,
+
+  /// Huge words, one per line, cropped by the right edge.
   bigType,
+
+  /// Geometric shapes in the two colors.
+  shapes,
+
+  /// Black record with a color label.
+  vinyl,
 
   /// Picture on top and a color band with the title.
   band,
@@ -17,17 +26,14 @@ enum CoverTemplate {
   /// Full picture with the title over a shade.
   photo,
 
-  /// Black record with a color label.
-  vinyl,
+  /// Picture inside a color frame, with the title under it.
+  frame,
 
-  /// Geometric shapes in the two colors.
-  shapes,
-
-  /// Nine covers of the playlist.
+  /// Covers of the playlist: nine, four, or the first one.
   grid;
 
   /// Whether the layout shows a picture (photo or playlist cover).
-  bool get usesImage => this == band || this == photo;
+  bool get usesImage => this == band || this == photo || this == frame;
 
   static CoverTemplate fromName(String? name) => CoverTemplate.values
       .firstWhere((t) => t.name == name, orElse: () => CoverTemplate.gradient);
@@ -50,6 +56,35 @@ enum CoverFont {
       .firstWhere((f) => f.name == name, orElse: () => CoverFont.inter);
 }
 
+/// Size of the title, as a share of the size each layout gives it.
+enum CoverTextSize {
+  small(0.8),
+  medium(1.0),
+  large(1.25);
+
+  const CoverTextSize(this.factor);
+
+  final double factor;
+
+  static CoverTextSize fromName(String? name) => CoverTextSize.values
+      .firstWhere((s) => s.name == name, orElse: () => CoverTextSize.medium);
+}
+
+/// Effect applied to the picture of picture layouts.
+enum CoverImageEffect {
+  none,
+
+  /// Black and white.
+  mono,
+
+  /// The picture takes the hue of the main color, keeping its light and
+  /// shade.
+  tint;
+
+  static CoverImageEffect fromName(String? name) => CoverImageEffect.values
+      .firstWhere((e) => e.name == name, orElse: () => CoverImageEffect.none);
+}
+
 /// Everything needed to draw a custom playlist cover again, so it can be
 /// reopened and changed later, which Spotify does not allow.
 @immutable
@@ -63,6 +98,12 @@ class CoverDesign {
     required this.color1,
     required this.color2,
     this.imagePath,
+    this.textSize = CoverTextSize.medium,
+    this.centered = false,
+    this.imageScale = 1,
+    this.imageX = 0,
+    this.imageY = 0,
+    this.imageEffect = CoverImageEffect.none,
   });
 
   final CoverTemplate template;
@@ -80,6 +121,24 @@ class CoverDesign {
   /// picture layouts use the first cover of the playlist.
   final String? imagePath;
 
+  final CoverTextSize textSize;
+
+  /// Title and subtitle centered instead of at the left margin.
+  final bool centered;
+
+  /// Framing of the picture: zoom (1 to [maxImageScale]) and the point
+  /// kept in view, from -1 (left, top) to 1 (right, bottom).
+  final double imageScale;
+  final double imageX;
+  final double imageY;
+
+  final CoverImageEffect imageEffect;
+
+  static const double maxImageScale = 4;
+
+  /// Whether the picture was moved or zoomed.
+  bool get isFramed => imageScale != 1 || imageX != 0 || imageY != 0;
+
   String get displayTitle => uppercase ? title.toUpperCase() : title;
   String get displaySubtitle => uppercase ? subtitle.toUpperCase() : subtitle;
 
@@ -93,6 +152,12 @@ class CoverDesign {
     Color? color2,
     String? imagePath,
     bool clearImage = false,
+    CoverTextSize? textSize,
+    bool? centered,
+    double? imageScale,
+    double? imageX,
+    double? imageY,
+    CoverImageEffect? imageEffect,
   }) {
     return CoverDesign(
       template: template ?? this.template,
@@ -103,11 +168,21 @@ class CoverDesign {
       color1: color1 ?? this.color1,
       color2: color2 ?? this.color2,
       imagePath: clearImage ? null : (imagePath ?? this.imagePath),
+      textSize: textSize ?? this.textSize,
+      centered: centered ?? this.centered,
+      imageScale:
+          (imageScale ?? this.imageScale).clamp(1.0, maxImageScale).toDouble(),
+      imageX: (imageX ?? this.imageX).clamp(-1.0, 1.0).toDouble(),
+      imageY: (imageY ?? this.imageY).clamp(-1.0, 1.0).toDouble(),
+      imageEffect: imageEffect ?? this.imageEffect,
     );
   }
 
+  /// The same design with the picture back to its default framing.
+  CoverDesign recentered() => copyWith(imageScale: 1, imageX: 0, imageY: 0);
+
   Map<String, dynamic> toJson() => {
-        'version': 1,
+        'version': 2,
         'template': template.name,
         'title': title,
         'subtitle': subtitle,
@@ -116,6 +191,12 @@ class CoverDesign {
         'color1': color1.toARGB32(),
         'color2': color2.toARGB32(),
         if (imagePath != null) 'imagePath': imagePath,
+        'textSize': textSize.name,
+        'centered': centered,
+        'imageScale': imageScale,
+        'imageX': imageX,
+        'imageY': imageY,
+        'imageEffect': imageEffect.name,
       };
 
   factory CoverDesign.fromJson(Map<String, dynamic> json) {
@@ -128,8 +209,17 @@ class CoverDesign {
       color1: Color(json['color1'] as int? ?? 0xFF0E2A47),
       color2: Color(json['color2'] as int? ?? 0xFFA8C9F6),
       imagePath: json['imagePath'] as String?,
+      textSize: CoverTextSize.fromName(json['textSize'] as String?),
+      centered: json['centered'] as bool? ?? false,
+      imageScale: _double(json['imageScale'], 1).clamp(1.0, maxImageScale),
+      imageX: _double(json['imageX'], 0).clamp(-1.0, 1.0),
+      imageY: _double(json['imageY'], 0).clamp(-1.0, 1.0),
+      imageEffect: CoverImageEffect.fromName(json['imageEffect'] as String?),
     );
   }
+
+  static double _double(Object? value, double fallback) =>
+      value is num && value.isFinite ? value.toDouble() : fallback;
 
   @override
   bool operator ==(Object other) =>
@@ -141,9 +231,29 @@ class CoverDesign {
       other.uppercase == uppercase &&
       other.color1 == color1 &&
       other.color2 == color2 &&
-      other.imagePath == imagePath;
+      other.imagePath == imagePath &&
+      other.textSize == textSize &&
+      other.centered == centered &&
+      other.imageScale == imageScale &&
+      other.imageX == imageX &&
+      other.imageY == imageY &&
+      other.imageEffect == imageEffect;
 
   @override
   int get hashCode => Object.hash(
-      template, title, subtitle, font, uppercase, color1, color2, imagePath);
+        template,
+        title,
+        subtitle,
+        font,
+        uppercase,
+        color1,
+        color2,
+        imagePath,
+        textSize,
+        centered,
+        imageScale,
+        imageX,
+        imageY,
+        imageEffect,
+      );
 }

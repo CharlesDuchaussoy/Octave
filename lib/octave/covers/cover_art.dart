@@ -5,23 +5,65 @@ import 'package:flutter/material.dart';
 import '../../widgets/common/album_artwork.dart';
 import 'cover_design.dart';
 
+/// Gives the image of a playlist cover id at a size in pixels.
+typedef CoverImageResolver = ImageProvider Function(String cover, int pixels);
+
 /// Draws a custom playlist cover at any [size]: every measure is a share
 /// of the size, so the editor thumbnails, the preview and the exported
 /// 1200 px image look the same.
 ///
 /// [covers] are the artwork ids of the playlist songs, used by the
-/// mosaic and, without a photo, by the picture layouts.
+/// mosaic and, without a photo, by the picture layouts. With
+/// [coverImage], they are drawn from that resolver at [imagePixelRatio]
+/// pixels per point, which lets the editor load them before exporting
+/// (see [imageRequests]); without it, they go through [AlbumArtwork].
 class CoverArt extends StatelessWidget {
   const CoverArt({
     super.key,
     required this.design,
     required this.size,
     this.covers = const [],
+    this.coverImage,
+    this.imagePixelRatio = 2,
   });
 
   final CoverDesign design;
   final double size;
   final List<String> covers;
+  final CoverImageResolver? coverImage;
+  final double imagePixelRatio;
+
+  /// Covers drawn by [design], with their size in pixels: what the editor
+  /// loads before exporting, so the image never shows a placeholder.
+  static List<(String, int)> imageRequests(
+    CoverDesign design,
+    List<String> covers,
+    double size, {
+    double pixelRatio = 2,
+  }) {
+    int px(double points) => (points * pixelRatio).round().clamp(1, 1200);
+    if (design.template == CoverTemplate.grid) {
+      final n = gridSide(covers.length);
+      if (n == 0) return const [];
+      return [for (final c in covers.take(n * n)) (c, px(size / n))];
+    }
+    final hasPhoto =
+        design.imagePath != null && File(design.imagePath!).existsSync();
+    if (design.template.usesImage && !hasPhoto && covers.isNotEmpty) {
+      return [(covers.first, px(size))];
+    }
+    return const [];
+  }
+
+  /// Cells per side of the mosaic: nine covers when there are enough,
+  /// else four, else the first one alone. Repeating covers looked odd.
+  static int gridSide(int coverCount) => coverCount >= 9
+      ? 3
+      : coverCount >= 4
+          ? 2
+          : coverCount >= 1
+              ? 1
+              : 0;
 
   @override
   Widget build(BuildContext context) {
@@ -65,43 +107,17 @@ class CoverArt extends StatelessWidget {
         );
 
       case CoverTemplate.bigType:
-        final on = _onColor(c1);
-        return ColoredBox(
-          color: c1,
-          child: Stack(
-            clipBehavior: Clip.hardEdge,
-            children: [
-              Positioned(
-                left: -s * 0.03,
-                top: -s * 0.05,
-                width: s * 1.4,
-                child: Text(
-                  design.title.toUpperCase(),
-                  maxLines: 3,
-                  overflow: TextOverflow.clip,
-                  style: _style(s * 0.4, c2, height: 0.86),
-                ),
-              ),
-              if (design.subtitle.isNotEmpty)
-                Positioned(
-                  left: s * 0.07,
-                  right: s * 0.07,
-                  bottom: s * 0.06,
-                  child: Text(
-                    design.displaySubtitle,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: _style(s * 0.05, on, weight: FontWeight.w600),
-                  ),
-                ),
-            ],
-          ),
-        );
+        return _bigType();
 
       case CoverTemplate.band:
         return Column(
           children: [
-            Expanded(child: _picture()),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, box) =>
+                    _picture(box.maxWidth, box.maxHeight),
+              ),
+            ),
             Container(
               height: s * 0.3,
               width: double.infinity,
@@ -122,7 +138,7 @@ class CoverArt extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-            _picture(),
+            _picture(s, s),
             const DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -142,6 +158,54 @@ class CoverArt extends StatelessWidget {
               ),
             ),
           ],
+        );
+
+      case CoverTemplate.frame:
+        final margin = s * 0.09;
+        final pictureHeight = s * 0.6;
+        return ColoredBox(
+          color: c1,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(margin, margin, margin, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: pictureHeight,
+                  child: _picture(s - margin * 2, pictureHeight),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: margin * 0.6),
+                    child: _textBlock(
+                      on: _onColor(c1),
+                      titleSize: s * 0.075,
+                      maxTitleLines: 2,
+                      center: true,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+
+      case CoverTemplate.duo:
+        return ColoredBox(
+          color: c1,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              ClipPath(
+                clipper: _DiagonalClipper(),
+                child: ColoredBox(color: c2),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(s * 0.08, s * 0.08, s * 0.3, 0),
+                child: _textBlock(on: _onColor(c1), titleSize: s * 0.11),
+              ),
+            ],
+          ),
         );
 
       case CoverTemplate.vinyl:
@@ -181,7 +245,9 @@ class CoverArt extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.center,
                             style: _style(
-                                _fit(s * 0.05, design.title, 12), labelOn,
+                                _fit(s * 0.05, design.title, 12) *
+                                    design.textSize.factor,
+                                labelOn,
                                 height: 1.05),
                           ),
                         ),
@@ -259,25 +325,86 @@ class CoverArt extends StatelessWidget {
         );
 
       case CoverTemplate.grid:
-        final tiles = covers.isEmpty
-            ? const <String>[]
-            : List.generate(9, (i) => covers[i % covers.length]);
-        final cell = s / 3;
+        final n = gridSide(covers.length);
+        if (n == 0) {
+          // No covers yet: a plain cover with the title.
+          return ColoredBox(
+            color: c1,
+            child: Padding(
+              padding: EdgeInsets.all(s * 0.08),
+              child: _textBlock(on: _onColor(c1), titleSize: s * 0.1),
+            ),
+          );
+        }
+        final cell = s / n;
         return ColoredBox(
           color: c1,
           child: Wrap(
             children: [
-              for (final cover in tiles)
-                AlbumArtwork(
-                  coverArt: cover,
-                  size: cell,
-                  borderRadius: 0,
-                  shadow: const BoxShadow(color: Color(0x00000000)),
+              for (final cover in covers.take(n * n))
+                SizedBox.square(
+                  dimension: cell,
+                  child: _cover(cover, cell),
                 ),
             ],
           ),
         );
     }
+  }
+
+  /// One huge word per line, cropped by the right edge rather than broken
+  /// in the middle ("POCH / ETTE").
+  Widget _bigType() {
+    final s = size;
+    final words = design.title
+        .toUpperCase()
+        .split(RegExp(r'\s+'))
+        .where((w) => w.isNotEmpty)
+        .toList();
+    final lines = words.length <= 3
+        ? words
+        : [words[0], words[1], words.sublist(2).join(' ')];
+    final fontSize = s * 0.4 * design.textSize.factor;
+    return ColoredBox(
+      color: design.color1,
+      child: Stack(
+        clipBehavior: Clip.hardEdge,
+        children: [
+          Positioned(
+            left: -s * 0.03,
+            top: -s * 0.05,
+            width: s * 3,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (final line in lines)
+                  Text(
+                    line,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    style: _style(fontSize, design.color2, height: 0.86),
+                  ),
+              ],
+            ),
+          ),
+          if (design.subtitle.isNotEmpty)
+            Positioned(
+              left: s * 0.07,
+              right: s * 0.07,
+              bottom: s * 0.06,
+              child: Text(
+                design.displaySubtitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: design.centered ? TextAlign.center : TextAlign.start,
+                style:
+                    _style(s * 0.05, _onColor(design.color1), weight: FontWeight.w600),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 
   /// Title with its subtitle above it, at the top or at the bottom.
@@ -289,36 +416,42 @@ class CoverArt extends StatelessWidget {
     int maxTitleLines = 3,
   }) {
     final hasSubtitle = design.subtitle.isNotEmpty;
+    final textAlign = design.centered ? TextAlign.center : TextAlign.start;
+    final size = titleSize * design.textSize.factor;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: design.centered
+          ? CrossAxisAlignment.center
+          : CrossAxisAlignment.start,
       mainAxisAlignment: center
           ? MainAxisAlignment.center
           : (alignEnd ? MainAxisAlignment.end : MainAxisAlignment.start),
       mainAxisSize: center ? MainAxisSize.min : MainAxisSize.max,
       children: [
         if (hasSubtitle && alignEnd) ...[
-          _subtitle(on, titleSize),
-          SizedBox(height: size * 0.012),
+          _subtitle(on, size, textAlign),
+          SizedBox(height: this.size * 0.012),
         ],
         Text(
           design.displayTitle,
           maxLines: maxTitleLines,
           overflow: TextOverflow.ellipsis,
-          style: _style(_fit(titleSize, design.title, 14), on, height: 1.02),
+          textAlign: textAlign,
+          style: _style(_fit(size, design.title, 14), on, height: 1.02),
         ),
         if (hasSubtitle && !alignEnd) ...[
-          SizedBox(height: size * 0.015),
-          _subtitle(on, titleSize),
+          SizedBox(height: this.size * 0.015),
+          _subtitle(on, size, textAlign),
         ],
       ],
     );
   }
 
-  Widget _subtitle(Color on, double titleSize) {
+  Widget _subtitle(Color on, double titleSize, TextAlign textAlign) {
     return Text(
       design.displaySubtitle,
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
+      textAlign: textAlign,
       style: TextStyle(
         fontFamily: 'Inter',
         fontSize: (titleSize * 0.42).clamp(size * 0.03, size * 0.055),
@@ -348,28 +481,100 @@ class CoverArt extends StatelessWidget {
   }
 
   /// Picture layouts: the user's photo, else the first playlist cover,
-  /// else the main color.
-  Widget _picture() {
+  /// else the second color. The photo follows the framing and effect of
+  /// the design.
+  Widget _picture(double width, double height) {
     final path = design.imagePath;
+    Widget? image;
     if (path != null && File(path).existsSync()) {
-      return Image.file(
-        File(path),
+      image = _framed(FileImage(File(path)), width, height);
+    } else if (covers.isNotEmpty) {
+      image = _framedCover(covers.first, width, height);
+    }
+    if (image == null) return ColoredBox(color: design.color2);
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ClipRect(child: _effect(image)),
+    );
+  }
+
+  Widget _framed(ImageProvider provider, double width, double height) {
+    final focus = Alignment(design.imageX, design.imageY);
+    return Transform.scale(
+      scale: design.imageScale,
+      alignment: focus,
+      child: Image(
+        image: provider,
+        width: width,
+        height: height,
         fit: BoxFit.cover,
-        width: size,
-        height: size,
+        alignment: focus,
+        gaplessPlayback: true,
+      ),
+    );
+  }
+
+  Widget _framedCover(String cover, double width, double height) {
+    final resolver = coverImage;
+    if (resolver != null) {
+      final side = width > height ? width : height;
+      return _framed(
+        resolver(cover, (side * imagePixelRatio).round().clamp(1, 1200)),
+        width,
+        height,
+      );
+    }
+    return Transform.scale(
+      scale: design.imageScale,
+      alignment: Alignment(design.imageX, design.imageY),
+      child: OverflowBox(
+        maxWidth: double.infinity,
+        maxHeight: double.infinity,
+        child: _cover(cover, width > height ? width : height),
+      ),
+    );
+  }
+
+  /// One playlist cover, square.
+  Widget _cover(String cover, double side) {
+    final resolver = coverImage;
+    if (resolver != null) {
+      return Image(
+        image: resolver(cover, (side * imagePixelRatio).round().clamp(1, 1200)),
+        width: side,
+        height: side,
+        fit: BoxFit.cover,
         gaplessPlayback: true,
       );
     }
-    if (covers.isNotEmpty) {
-      return AlbumArtwork(
-        coverArt: covers.first,
-        size: size,
-        borderRadius: 0,
-        shadow: const BoxShadow(color: Color(0x00000000)),
-      );
-    }
-    return ColoredBox(color: design.color2);
+    return AlbumArtwork(
+      coverArt: cover,
+      size: side,
+      borderRadius: 0,
+      shadow: const BoxShadow(color: Color(0x00000000)),
+    );
   }
+
+  Widget _effect(Widget child) => switch (design.imageEffect) {
+        CoverImageEffect.none => child,
+        CoverImageEffect.mono => ColorFiltered(
+            colorFilter: const ColorFilter.matrix(_greyscale),
+            child: child,
+          ),
+        CoverImageEffect.tint => ColorFiltered(
+            colorFilter: ColorFilter.mode(design.color1, BlendMode.color),
+            child: child,
+          ),
+      };
+
+  /// Luminance weights of sRGB (Rec. 709).
+  static const List<double> _greyscale = [
+    0.2126, 0.7152, 0.0722, 0, 0, //
+    0.2126, 0.7152, 0.0722, 0, 0, //
+    0.2126, 0.7152, 0.0722, 0, 0, //
+    0, 0, 0, 1, 0,
+  ];
 
   static Widget _circle(double d, Color color) => Container(
         width: d,
@@ -400,4 +605,17 @@ class CoverArt extends StatelessWidget {
       background.computeLuminance() > 0.42
           ? const Color(0xFF141414)
           : const Color(0xFFFFFFFF);
+}
+
+/// Lower right half of the square, for the duo layout.
+class _DiagonalClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) => Path()
+    ..moveTo(size.width, size.height * 0.28)
+    ..lineTo(size.width, size.height)
+    ..lineTo(size.width * 0.28, size.height)
+    ..close();
+
+  @override
+  bool shouldReclip(_DiagonalClipper oldClipper) => false;
 }

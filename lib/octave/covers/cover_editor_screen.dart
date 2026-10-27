@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
@@ -47,7 +48,6 @@ class PlaylistCoverEditor extends StatefulWidget {
 }
 
 class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
-  final _previewKey = GlobalKey();
   final _title = TextEditingController();
   final _subtitle = TextEditingController();
 
@@ -197,12 +197,7 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
     final navigator = Navigator.of(context);
     setState(() => _saving = true);
     try {
-      final boundary = _previewKey.currentContext!.findRenderObject()
-          as RenderRepaintBoundary;
-      final image =
-          await boundary.toImage(pixelRatio: 1200 / boundary.size.width);
-      final data = await image.toByteData(format: ui.ImageByteFormat.png);
-      final png = data!.buffer.asUint8List();
+      final png = await _renderPng(design);
       await PlaylistCoverStore.instance.save(widget.playlist.id, design, png);
       final shared = await _upload(design, png);
       _initial = design;
@@ -214,6 +209,62 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
       debugPrint('[PlaylistCoverEditor] save failed: $e');
       if (mounted) setState(() => _saving = false);
       messenger.showSnackBar(SnackBar(content: Text(l10n.coverSaveFailed)));
+    }
+  }
+
+  /// Size of the exported cover, in pixels.
+  static const double _exportSize = 1200;
+
+  ImageProvider _coverImage(String cover, int pixels) => coverImageProvider(
+      Provider.of<SubsonicService>(context, listen: false), cover,
+      size: pixels);
+
+  /// Draws [design] at 1200 px out of sight, once every picture it shows
+  /// is loaded: capturing the on-screen preview could catch covers still
+  /// loading, and enlarged its small images.
+  Future<Uint8List> _renderPng(CoverDesign design) async {
+    final images = <ImageProvider>[
+      for (final (cover, px) in CoverArt.imageRequests(
+          design, _covers, _exportSize,
+          pixelRatio: 1))
+        _coverImage(cover, px),
+      if (design.imagePath != null) FileImage(File(design.imagePath!)),
+    ];
+    for (final image in images) {
+      await precacheImage(image, context, onError: (_, __) {});
+    }
+    if (!mounted) throw StateError('editor closed');
+
+    final key = GlobalKey();
+    final entry = OverlayEntry(
+      builder: (_) => Positioned(
+        left: -_exportSize * 2,
+        top: 0,
+        child: RepaintBoundary(
+          key: key,
+          child: CoverArt(
+            design: design,
+            size: _exportSize,
+            covers: _covers,
+            coverImage: _coverImage,
+            imagePixelRatio: 1,
+          ),
+        ),
+      ),
+    );
+    Overlay.of(context, rootOverlay: true).insert(entry);
+    try {
+      // Two frames: one to lay the cover out, one to paint it.
+      await WidgetsBinding.instance.endOfFrame;
+      await WidgetsBinding.instance.endOfFrame;
+      final boundary =
+          key.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      final image = await boundary.toImage(pixelRatio: 1);
+      final data = await image.toByteData(format: ui.ImageByteFormat.png);
+      image.dispose();
+      return data!.buffer.asUint8List();
+    } finally {
+      entry.remove();
     }
   }
 
@@ -237,10 +288,12 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
     final path = result?.files.single.path;
     if (path == null || _design == null) return;
     final design = _design!;
-    _update(design.copyWith(
-      imagePath: path,
-      template: design.template.usesImage ? null : CoverTemplate.photo,
-    ));
+    _update(design
+        .copyWith(
+          imagePath: path,
+          template: design.template.usesImage ? null : CoverTemplate.photo,
+        )
+        .recentered());
   }
 
   Future<bool> _confirmDiscard() async {
@@ -372,20 +425,51 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
           constraints.maxWidth - 96,
           MediaQuery.sizeOf(context).height * 0.36,
         );
+        Widget cover = ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: CoverArt(
+            design: design,
+            size: side,
+            covers: _covers,
+            coverImage: _coverImage,
+            imagePixelRatio: MediaQuery.devicePixelRatioOf(context),
+          ),
+        );
+        // Picture layouts: drag to move the picture, pinch to zoom.
+        if (design.template.usesImage) {
+          cover = GestureDetector(
+            onScaleStart: (_) => _gestureStart = _design,
+            onScaleUpdate: (d) => _frame(d, side),
+            child: cover,
+          );
+        }
         return Padding(
           padding: const EdgeInsets.fromLTRB(48, 4, 48, 20),
-          child: Center(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: RepaintBoundary(
-                key: _previewKey,
-                child: CoverArt(design: design, size: side, covers: _covers),
-              ),
-            ),
-          ),
+          child: Center(child: cover),
         );
       },
     );
+  }
+
+  /// Design when the current drag or pinch started.
+  CoverDesign? _gestureStart;
+
+  void _frame(ScaleUpdateDetails d, double side) {
+    final start = _gestureStart;
+    final current = _design;
+    if (start == null || current == null) return;
+    // The zoom is relative to the start of the gesture, the move to the
+    // last update.
+    final scale = (start.imageScale * d.scale)
+        .clamp(1.0, CoverDesign.maxImageScale)
+        .toDouble();
+    // Moving the finger right shows more of the left of the picture.
+    final travel = side / 2 * scale;
+    _update(current.copyWith(
+      imageScale: scale,
+      imageX: current.imageX - d.focalPointDelta.dx / travel,
+      imageY: current.imageY - d.focalPointDelta.dy / travel,
+    ));
   }
 
   List<Widget> _templateTab(CoverDesign design) {
@@ -424,6 +508,9 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
                               design: design.copyWith(template: template),
                               size: tile - 10,
                               covers: _covers,
+                              coverImage: _coverImage,
+                              imagePixelRatio:
+                                  MediaQuery.devicePixelRatioOf(context),
                             ),
                           ),
                         ),
@@ -515,6 +602,41 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
             ),
         ],
       ),
+      const SizedBox(height: 20),
+      _label(l10n.coverTextSize),
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          for (final (size, label) in [
+            (CoverTextSize.small, l10n.coverTextSizeSmall),
+            (CoverTextSize.medium, l10n.coverTextSizeMedium),
+            (CoverTextSize.large, l10n.coverTextSizeLarge),
+          ])
+            _Choice(
+              selected: design.textSize == size,
+              onTap: () => _update(design.copyWith(textSize: size)),
+              child: _choiceText(label, design.textSize == size),
+            ),
+        ],
+      ),
+      const SizedBox(height: 20),
+      _label(l10n.coverTextAlign),
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          for (final (centered, label) in [
+            (false, l10n.coverAlignLeft),
+            (true, l10n.coverAlignCenter),
+          ])
+            _Choice(
+              selected: design.centered == centered,
+              onTap: () => _update(design.copyWith(centered: centered)),
+              child: _choiceText(label, design.centered == centered),
+            ),
+        ],
+      ),
       const SizedBox(height: 12),
       SwitchListTile.adaptive(
         contentPadding: EdgeInsets.zero,
@@ -524,6 +646,15 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
       ),
     ];
   }
+
+  Widget _choiceText(String label, bool selected) => Text(
+        label,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+          color: selected ? context.octave.onAccentSoft : context.octave.text1,
+        ),
+      );
 
   List<Widget> _colorsTab(CoverDesign design) {
     final l10n = AppLocalizations.of(context)!;
@@ -540,13 +671,24 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
       const Color(0xFF121212),
     ];
 
-    // One scrolling row: colors of the playlist covers first, then the
-    // palette, after a thin separator.
+    // One scrolling row: the color in use when it is in no list, colors
+    // of the playlist covers, then the palette after a thin separator, and
+    // a last swatch for any other color.
     Widget picker(Color selected, ValueChanged<Color> onPick) => SizedBox(
           height: 40,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
+              if (!_coverColors.contains(selected) &&
+                  !palette.contains(selected))
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: _Swatch(
+                    color: selected,
+                    selected: true,
+                    onTap: () {},
+                  ),
+                ),
               for (final color in _coverColors)
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
@@ -574,6 +716,23 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
                     onTap: () => onPick(color),
                   ),
                 ),
+              Tooltip(
+                message: l10n.coverMoreColors,
+                child: GestureDetector(
+                  onTap: () => _pickAnyColor(selected, onPick),
+                  child: Container(
+                    width: 36,
+                    height: 36,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: colors.surface2,
+                      border: Border.all(color: colors.separator),
+                    ),
+                    child: Icon(CupertinoIcons.plus,
+                        size: 18, color: colors.text1),
+                  ),
+                ),
+              ),
             ],
           ),
         );
@@ -625,11 +784,195 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
       OutlinedButton.icon(
         onPressed: design.imagePath == null
             ? null
-            : () => _update(design.copyWith(clearImage: true)),
+            : () => _update(design.copyWith(clearImage: true).recentered()),
         icon: const Icon(CupertinoIcons.square_grid_2x2),
         label: Text(l10n.coverUsePlaylistCovers),
       ),
+      if (design.template.usesImage) ...[
+        const SizedBox(height: 24),
+        Text(
+          l10n.coverPhotoGesture,
+          style: TextStyle(fontSize: 13, color: colors.text2),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            onPressed: design.isFramed
+                ? () => _update(design.recentered())
+                : null,
+            style: TextButton.styleFrom(padding: EdgeInsets.zero),
+            icon: const Icon(CupertinoIcons.arrow_counterclockwise, size: 18),
+            label: Text(l10n.coverRecenter),
+          ),
+        ),
+        const SizedBox(height: 12),
+        _label(l10n.coverImageEffect),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          children: [
+            for (final (effect, label) in [
+              (CoverImageEffect.none, l10n.coverEffectNone),
+              (CoverImageEffect.mono, l10n.coverEffectMono),
+              (CoverImageEffect.tint, l10n.coverEffectTint),
+            ])
+              _Choice(
+                selected: design.imageEffect == effect,
+                onTap: () => _update(design.copyWith(imageEffect: effect)),
+                child: _choiceText(label, design.imageEffect == effect),
+              ),
+          ],
+        ),
+      ],
     ];
+  }
+
+  /// Any color, chosen by hue, intensity and lightness (HCT, the space of
+  /// the app colors), with a live sample.
+  Future<void> _pickAnyColor(Color initial, ValueChanged<Color> onPick) async {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = context.octave;
+    final start = Hct.fromInt(initial.toARGB32());
+    var hue = start.hue;
+    var chroma = start.chroma.clamp(0.0, 100.0);
+    var tone = start.tone.clamp(5.0, 98.0);
+    Color colorOf(double h, double c, double t) =>
+        Color(Hct.from(h, c, t).toInt());
+
+    final picked = await showModalBottomSheet<Color>(
+      context: context,
+      useRootNavigator: true,
+      backgroundColor: colors.surface1,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setSheet) {
+          final color = colorOf(hue, chroma, tone);
+          Widget slider({
+            required String label,
+            required double value,
+            required double min,
+            required double max,
+            required List<Color> track,
+            required ValueChanged<double> onChanged,
+          }) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 4, top: 12),
+                  child: Text(
+                    label,
+                    style: TextStyle(fontSize: 13, color: colors.text2),
+                  ),
+                ),
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Container(
+                        height: 10,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          gradient: LinearGradient(colors: track),
+                        ),
+                      ),
+                    ),
+                    SliderTheme(
+                      data: SliderTheme.of(ctx).copyWith(
+                        activeTrackColor: Colors.transparent,
+                        inactiveTrackColor: Colors.transparent,
+                        thumbColor: Colors.white,
+                        overlayColor: colors.text1.withValues(alpha: 0.12),
+                      ),
+                      child: Slider(
+                        value: value,
+                        min: min,
+                        max: max,
+                        onChanged: onChanged,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          }
+
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: color,
+                          border: Border.all(color: colors.separator),
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Text(
+                        l10n.coverMoreColors,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                          color: colors.text1,
+                        ),
+                      ),
+                    ],
+                  ),
+                  slider(
+                    label: l10n.coverHue,
+                    value: hue,
+                    min: 0,
+                    max: 360,
+                    track: [
+                      for (var h = 0; h <= 360; h += 30)
+                        colorOf(h.toDouble(), 60, 60),
+                    ],
+                    onChanged: (v) => setSheet(() => hue = v),
+                  ),
+                  slider(
+                    label: l10n.coverIntensity,
+                    value: chroma,
+                    min: 0,
+                    max: 100,
+                    track: [
+                      colorOf(hue, 0, tone),
+                      colorOf(hue, 100, tone),
+                    ],
+                    onChanged: (v) => setSheet(() => chroma = v),
+                  ),
+                  slider(
+                    label: l10n.coverLightness,
+                    value: tone,
+                    min: 5,
+                    max: 98,
+                    track: [
+                      colorOf(hue, chroma, 5),
+                      colorOf(hue, chroma, 50),
+                      colorOf(hue, chroma, 98),
+                    ],
+                    onChanged: (v) => setSheet(() => tone = v),
+                  ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () => Navigator.pop(ctx, color),
+                    child: Text(l10n.coverUseColor),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+    if (picked != null) onPick(picked);
   }
 
   Widget _label(String text) => Padding(
@@ -662,6 +1005,8 @@ class _PlaylistCoverEditorState extends State<PlaylistCoverEditor> {
         CoverTemplate.vinyl => l10n.coverTemplateVinyl,
         CoverTemplate.shapes => l10n.coverTemplateShapes,
         CoverTemplate.grid => l10n.coverTemplateGrid,
+        CoverTemplate.frame => l10n.coverTemplateFrame,
+        CoverTemplate.duo => l10n.coverTemplateDuo,
       };
 }
 

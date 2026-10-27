@@ -4528,6 +4528,126 @@ abstract class AppLocalizations {
   /// **'Mosaic'**
   String get coverTemplateGrid;
 
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Frame'**
+  String get coverTemplateFrame;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Duo'**
+  String get coverTemplateDuo;
+
+  /// Cover editor: title size
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get coverTextSize;
+
+  /// Cover editor: title size option
+  ///
+  /// In en, this message translates to:
+  /// **'Small'**
+  String get coverTextSizeSmall;
+
+  /// Cover editor: title size option
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get coverTextSizeMedium;
+
+  /// Cover editor: title size option
+  ///
+  /// In en, this message translates to:
+  /// **'Large'**
+  String get coverTextSizeLarge;
+
+  /// Cover editor: title alignment
+  ///
+  /// In en, this message translates to:
+  /// **'Alignment'**
+  String get coverTextAlign;
+
+  /// Cover editor: title alignment option
+  ///
+  /// In en, this message translates to:
+  /// **'Left'**
+  String get coverAlignLeft;
+
+  /// Cover editor: title alignment option
+  ///
+  /// In en, this message translates to:
+  /// **'Centered'**
+  String get coverAlignCenter;
+
+  /// Cover editor: opens a picker for any color
+  ///
+  /// In en, this message translates to:
+  /// **'Other color'**
+  String get coverMoreColors;
+
+  /// Cover editor color picker: hue slider
+  ///
+  /// In en, this message translates to:
+  /// **'Hue'**
+  String get coverHue;
+
+  /// Cover editor color picker: colorfulness slider
+  ///
+  /// In en, this message translates to:
+  /// **'Intensity'**
+  String get coverIntensity;
+
+  /// Cover editor color picker: lightness slider
+  ///
+  /// In en, this message translates to:
+  /// **'Lightness'**
+  String get coverLightness;
+
+  /// Cover editor color picker: confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Use this color'**
+  String get coverUseColor;
+
+  /// Cover editor: how to frame the picture
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the picture on the preview to move it, pinch to zoom.'**
+  String get coverPhotoGesture;
+
+  /// Cover editor: reset the picture framing
+  ///
+  /// In en, this message translates to:
+  /// **'Recenter'**
+  String get coverRecenter;
+
+  /// Cover editor: picture effect
+  ///
+  /// In en, this message translates to:
+  /// **'Effect'**
+  String get coverImageEffect;
+
+  /// Cover editor: picture effect option
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get coverEffectNone;
+
+  /// Cover editor: picture effect option
+  ///
+  /// In en, this message translates to:
+  /// **'Black and white'**
+  String get coverEffectMono;
+
+  /// Cover editor: picture effect option, picture in the main color
+  ///
+  /// In en, this message translates to:
+  /// **'Tinted'**
+  String get coverEffectTint;
+
   /// Cover title field
   ///
   /// In en, this message translates to:
@@ -4591,7 +4711,7 @@ abstract class AppLocalizations {
   /// Cover picture tab hint
   ///
   /// In en, this message translates to:
-  /// **'The Band and Photo layouts show this picture.'**
+  /// **'The Band, Photo and Frame layouts show this picture.'**
   String get coverImageHint;
 
   /// Cover editor action
