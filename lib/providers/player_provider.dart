@@ -1016,6 +1016,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _positionSub = _audioPlayer.positionStream.listen(
       (position) {
         if (_isRenderingRemotely) return;
+        // An empty player reports 0: keep the position restored at start
+        // until its song is loaded.
+        if (_audioPlayer.audioSource == null) return;
 
         _position = position;
         _positionController.add(position);
@@ -1830,6 +1833,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     } catch (e) {
       await _audioPlayer.pause();
     }
+    // A pause from the notification or headphones happens with the app in
+    // the background, where Android may end it later: keep where it stopped.
+    _saveQueueState();
   }
 
   Future<void> pauseLocal() async {
@@ -2445,6 +2451,11 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     if (_currentSong == null) return;
 
     if (_jukeboxService.enabled) return;
+    // Loading the song resets the position to 0: keep where to start,
+    // unless the song had played to its end.
+    final resumeAt = _audioPlayer.processingState == ProcessingState.completed
+        ? Duration.zero
+        : _position;
     try {
       if (_gaplessEnabled && _queue.isNotEmpty) {
         await _buildAndSetConcatenatingSource(initialIndex: _currentIndex);
@@ -2471,8 +2482,8 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         }
       }
 
-      if (_position.inMilliseconds > 0) {
-        await _audioPlayer.seek(_position);
+      if (resumeAt > Duration.zero) {
+        await _audioPlayer.seek(resumeAt);
       }
     } catch (e) {
       debugPrint('Error preparing current song after restore: $e');
