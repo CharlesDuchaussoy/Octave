@@ -986,6 +986,9 @@ class AppLocalizationsSq extends AppLocalizations {
   }
 
   @override
+  String get outsideLibrary => 'Not in your library';
+
+  @override
   String get sectionVolumeNormalization => 'VOLUME NORMALIZATION (REPLAYGAIN)';
 
   @override

@@ -988,6 +988,9 @@ class AppLocalizationsSv extends AppLocalizations {
   }
 
   @override
+  String get outsideLibrary => 'Not in your library';
+
+  @override
   String get sectionVolumeNormalization => 'VOLYM NORMALISERING (REPLAYGAIN)';
 
   @override

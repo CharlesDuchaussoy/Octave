@@ -994,6 +994,7 @@
   },
   "liveLabel": "EN DIRECT",
   "radioUnavailable": "Impossible de lire {name} pour l'instant.",
+  "outsideLibrary": "Hors de ta bibliothèque",
   "@liveLabel": {
     "description": "Badge shown next to a live radio stream"
   },

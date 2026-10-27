@@ -990,6 +990,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get outsideLibrary => 'Hors de ta bibliothèque';
+
+  @override
   String get sectionVolumeNormalization => 'VOLUME ÉGALISÉ (REPLAYGAIN)';
 
   @override

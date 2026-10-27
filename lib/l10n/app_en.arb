@@ -1124,6 +1124,10 @@
     "description": "Message when a radio station's stream cannot be played",
     "placeholders": {"name": {"type": "String"}}
   },
+  "outsideLibrary": "Not in your library",
+  "@outsideLibrary": {
+    "description": "Label of the small globe shown before the artist of a song the server finds outside the library"
+  },
   "@sectionAutoDj": {
     "description": "Playback settings section header for Auto DJ"
   },

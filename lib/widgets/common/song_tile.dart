@@ -12,6 +12,7 @@ import 'swipeable_song_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/octave/widgets/outside_library_badge.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -218,11 +219,15 @@ class SongTile extends StatelessWidget {
 
     if (parts.isEmpty) return null;
 
-    return Text(
-      parts.join(' • '),
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(fontSize: 12, color: context.octave.text2),
+    return withOutsideBadge(
+      outside: song.isExternal,
+      badgeColor: context.octave.text3,
+      text: Text(
+        parts.join(' • '),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(fontSize: 12, color: context.octave.text2),
+      ),
     );
   }
 
