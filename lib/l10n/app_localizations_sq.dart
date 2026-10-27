@@ -1105,7 +1105,7 @@ class AppLocalizationsSq extends AppLocalizations {
   String get aboutMadeBy => 'Made by dddevid';
 
   @override
-  String get aboutGitHub => 'github.com/dddevid';
+  String get aboutGitHub => 'github.com/dddevid/Musly';
 
   @override
   String get aboutLinkGitHub => 'GitHub Repository';
@@ -1115,6 +1115,46 @@ class AppLocalizationsSq extends AppLocalizations {
 
   @override
   String get aboutLinkReportIssue => 'Report Issue';
+
+  @override
+  String get aboutLicense => 'License';
+
+  @override
+  String get reportKindBug => 'A problem';
+
+  @override
+  String get reportKindIdea => 'An idea';
+
+  @override
+  String get reportMessageHintBug => 'What happened? What were you doing?';
+
+  @override
+  String get reportMessageHintIdea => 'What would you like Octave to do?';
+
+  @override
+  String get reportIncludeDetails => 'Include technical details';
+
+  @override
+  String get reportIncludeDetailsSubtitle =>
+      'App version, device, song playing and the app\'s recent log. Never a password.';
+
+  @override
+  String get reportSend => 'Send';
+
+  @override
+  String get reportSent => 'Thanks, your message is sent.';
+
+  @override
+  String get reportGitHubNote =>
+      'Your server doesn\'t take reports: the message will open on GitHub, which needs an account.';
+
+  @override
+  String get reportOpenGitHub => 'Continue on GitHub';
+
+  @override
+  String reportSendFailed(String error) {
+    return 'Couldn\'t send: $error';
+  }
 
   @override
   String get playbackSpeed => 'Playback Speed';

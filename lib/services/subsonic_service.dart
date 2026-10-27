@@ -748,6 +748,19 @@ class SubsonicService {
     return (result is Map ? result['state']?.toString() : null) ?? '';
   }
 
+  /// Sends a problem report to Octo (OpenSubsonic extension
+  /// "octoReportProblem"). The fields go in the request body, never in the
+  /// address: the log can reach 100 KB. Returns the report id.
+  Future<String?> octoReportProblem(Map<String, String> fields) async {
+    final response = await _dio.post(
+      _buildUrl('octo.reportProblem'),
+      data: fields,
+      options: Options(contentType: Headers.formUrlEncodedContentType),
+    );
+    final result = _checkResponse(response.data)['report'];
+    return result is Map ? result['id']?.toString() : null;
+  }
+
   Map<String, dynamic> _checkResponse(dynamic data) {
     final decoded = data is String ? json.decode(data) : data;
     final subsonicResponse = decoded['subsonic-response'];

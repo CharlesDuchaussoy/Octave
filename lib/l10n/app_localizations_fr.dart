@@ -1110,7 +1110,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aboutMadeBy => 'Basé sur Musly, créé par dddevid';
 
   @override
-  String get aboutGitHub => 'github.com/dddevid';
+  String get aboutGitHub => 'github.com/dddevid/Musly';
 
   @override
   String get aboutLinkGitHub => 'Dépôt GitHub';
@@ -1120,6 +1120,47 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aboutLinkReportIssue => 'Signaler un problème';
+
+  @override
+  String get aboutLicense => 'Licence';
+
+  @override
+  String get reportKindBug => 'Un problème';
+
+  @override
+  String get reportKindIdea => 'Une idée';
+
+  @override
+  String get reportMessageHintBug =>
+      'Que s\'est-il passé ? Que faisais-tu à ce moment-là ?';
+
+  @override
+  String get reportMessageHintIdea => 'Qu\'aimerais-tu qu\'Octave fasse ?';
+
+  @override
+  String get reportIncludeDetails => 'Joindre les infos techniques';
+
+  @override
+  String get reportIncludeDetailsSubtitle =>
+      'Version de l\'app, appareil, titre en cours et journal récent de l\'app. Jamais de mot de passe.';
+
+  @override
+  String get reportSend => 'Envoyer';
+
+  @override
+  String get reportSent => 'Merci, ton message est envoyé.';
+
+  @override
+  String get reportGitHubNote =>
+      'Ton serveur ne reçoit pas les signalements : le message s\'ouvrira sur GitHub, où il faut un compte.';
+
+  @override
+  String get reportOpenGitHub => 'Continuer sur GitHub';
+
+  @override
+  String reportSendFailed(String error) {
+    return 'Envoi impossible : $error';
+  }
 
   @override
   String get playbackSpeed => 'Vitesse de lecture';

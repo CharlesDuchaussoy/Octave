@@ -14,6 +14,7 @@ import 'package:musly/services/wrapped_service.dart';
 import 'package:musly/services/update_service.dart';
 import 'package:musly/widgets/dialogs/update_dialog.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
+import 'package:musly/octave/report/report_problem_screen.dart';
 
 class SettingsAboutTab extends StatefulWidget {
   const SettingsAboutTab({super.key});
@@ -50,7 +51,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               context,
               icon: CupertinoIcons.device_phone_portrait,
               title: AppLocalizations.of(context)!.aboutPlatform,
-              subtitle: Theme.of(context).platform.name.toUpperCase(),
+              subtitle: _platformName(Theme.of(context).platform),
             ),
             _buildDivider(context),
             _buildActionTile(
@@ -74,7 +75,33 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
         const SizedBox(height: 24),
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionAboutDeveloper,
-          children: [_buildDeveloperInfo(context)],
+          children: [
+            _buildLinkTile(
+              context,
+              icon: CupertinoIcons.person,
+              title: 'Charles Duchaussoy',
+              subtitle: 'github.com/CharlesDuchaussoy',
+              url: 'https://github.com/CharlesDuchaussoy',
+            ),
+            _buildDivider(context),
+            // Required by the license: Octave is a derivative of Musly.
+            _buildLinkTile(
+              context,
+              icon: Icons.code_rounded,
+              title: AppLocalizations.of(context)!.aboutMadeBy,
+              subtitle: AppLocalizations.of(context)!.aboutGitHub,
+              url: 'https://github.com/dddevid/Musly',
+            ),
+            _buildDivider(context),
+            _buildLinkTile(
+              context,
+              icon: CupertinoIcons.doc_plaintext,
+              title: AppLocalizations.of(context)!.aboutLicense,
+              subtitle: 'CC BY-NC-SA 4.0',
+              url:
+                  'https://github.com/CharlesDuchaussoy/Octave/blob/master/LICENSE',
+            ),
+          ],
         ),
         const SizedBox(height: 24),
         SettingsSectionCard(
@@ -95,11 +122,11 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
                   'https://github.com/CharlesDuchaussoy/Octave/releases/tag/v${UpdateService.currentVersion}',
             ),
             _buildDivider(context),
-            _buildLinkTile(
+            _buildActionTile(
               context,
               icon: CupertinoIcons.exclamationmark_bubble,
               title: AppLocalizations.of(context)!.aboutLinkReportIssue,
-              url: 'https://github.com/CharlesDuchaussoy/Octave/issues/new',
+              onTap: () => ReportProblemScreen.open(context),
             ),
             _buildDivider(context),
             _buildLinkTile(
@@ -231,24 +258,15 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
     }
   }
 
-  Widget _buildDeveloperInfo(BuildContext context) {
-    return SettingsListTile(
-      leading: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [context.octave.accent, context.octave.accent],
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: const Icon(Icons.code_rounded, color: Colors.white, size: 18),
-      ),
-      title: AppLocalizations.of(context)!.aboutMadeBy,
-      subtitle: AppLocalizations.of(context)!.aboutGitHub,
-      trailing: const Icon(Icons.open_in_new_rounded, size: 18),
-      onTap: () => _openUrl('https://github.com/dddevid'),
-    );
+  static String _platformName(TargetPlatform platform) {
+    return switch (platform) {
+      TargetPlatform.android => 'Android',
+      TargetPlatform.iOS => 'iOS',
+      TargetPlatform.macOS => 'macOS',
+      TargetPlatform.windows => 'Windows',
+      TargetPlatform.linux => 'Linux',
+      TargetPlatform.fuchsia => 'Fuchsia',
+    };
   }
 
   Widget _buildLinkTile(

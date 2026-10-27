@@ -29,6 +29,7 @@ import 'octave/setup/welcome_screen.dart';
 import 'utils/image_cache.dart';
 import 'package:musly/octave/covers/cover_store.dart';
 import 'package:musly/octave/home/home_layout.dart';
+import 'package:musly/octave/report/app_log.dart';
 
 class AppScrollBehavior extends MaterialScrollBehavior {
   @override
@@ -43,6 +44,8 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Keeps the recent log in memory for problem reports.
+  AppLog.install();
 
   LicenseRegistry.addLicense(() async* {
     yield LicenseEntryWithLineBreaks(
