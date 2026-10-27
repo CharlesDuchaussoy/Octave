@@ -93,6 +93,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 
 - L'Accueil a une ligne « Tes mix » : les mix et radios qu'Octo fait pour le compte. « Tes playlists » ne garde que les playlists du compte, et les mix calculés sur le téléphone ne s'affichent plus que sans Octo.
 - La bibliothèque se synchronise en quelques requêtes (tous les titres par pages de 500) au lieu d'une requête par album, qui chargeait le Raspberry Pi : 1 requête au lieu de 32 pour le compte d'essai.
+- Octave dit au serveur ce qu'il joue (rapports de lecture OpenSubsonic) : Navidrome affiche le titre en cours, et Octo compte l'écoute dès le tiers du titre. Les rapports ne comptent jamais une écoute de plus : Octo n'en garde qu'une.
 - Pour les comptes qu'Octo autorise, le menu d'un titre propose « Chercher une meilleure qualité » et « Retirer de ma bibliothèque » (après confirmation ; le fichier est mis de côté 30 jours).
 
 ### Lecture
