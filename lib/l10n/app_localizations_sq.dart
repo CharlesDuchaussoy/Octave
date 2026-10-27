@@ -981,6 +981,11 @@ class AppLocalizationsSq extends AppLocalizations {
   String get liveLabel => 'LIVE';
 
   @override
+  String radioUnavailable(String name) {
+    return 'Can\'t play $name right now.';
+  }
+
+  @override
   String get sectionVolumeNormalization => 'VOLUME NORMALIZATION (REPLAYGAIN)';
 
   @override

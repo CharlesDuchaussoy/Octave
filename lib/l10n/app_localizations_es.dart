@@ -987,6 +987,11 @@ class AppLocalizationsEs extends AppLocalizations {
   String get liveLabel => 'EN DIRECTO';
 
   @override
+  String radioUnavailable(String name) {
+    return 'Can\'t play $name right now.';
+  }
+
+  @override
   String get sectionVolumeNormalization =>
       'NORMALIZACIÓN DE VOLUMEN (REPLAYGAIN)';
 
