@@ -34,6 +34,14 @@ class Playlist {
       id.length == 22 &&
       (id.startsWith('og') || id.startsWith('or'));
 
+  /// Whether [username] can add songs to it: automatic playlists are
+  /// read-only, and the server only lets the owner change a playlist.
+  bool isEditableBy(String? username) =>
+      !isAutomatic &&
+      (owner == null ||
+          username == null ||
+          owner!.toLowerCase() == username.toLowerCase());
+
   Playlist({
     required this.id,
     required this.name,

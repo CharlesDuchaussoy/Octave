@@ -713,15 +713,6 @@
   "@playlistNameHint": {
     "description": "Hint text for playlist name input"
   },
-  "errorLoadingPlaylists": "Error loading playlists: {error}",
-  "@errorLoadingPlaylists": {
-    "description": "Snackbar shown when playlists fail to load",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "@_PLAYLIST_SCREEN": {},
   "playlistNotFound": "Playlist not found",
   "@playlistNotFound": {
@@ -1358,18 +1349,6 @@
   "audioFocusDenied": "Couldn't start playback — another app has audio focus",
   "@audioFocusDenied": {
     "description": "Shown when the OS denies Musly audio focus (e.g. another app refuses to yield)"
-  },
-  "addToLibrary": "Add to Library",
-  "@addToLibrary": {
-    "description": "Add to library option in menu"
-  },
-  "alreadyInLibrary": "Song already in server library",
-  "@alreadyInLibrary": {
-    "description": "Snackbar message when trying to add a song to the library that is already there"
-  },
-  "selectPlaylist": "Select Playlist",
-  "@selectPlaylist": {
-    "description": "Title for playlist selection bottom sheet"
   },
   "endOfSong": "End of Song",
   "@endOfSong": {
@@ -2881,7 +2860,7 @@
     "description": "Subtitle of downloaded songs",
     "placeholders": {"count": {"type": "int"}}
   },
-  "libraryPlaylistSubtitle": "{count, plural, =1{Playlist • 1 song} other{Playlist • {count} songs}}",
+  "libraryPlaylistSubtitle": "{count, plural, =0{Playlist • no songs} =1{Playlist • 1 song} other{Playlist • {count} songs}}",
   "@libraryPlaylistSubtitle": {
     "description": "Subtitle of a playlist in the library",
     "placeholders": {"count": {"type": "int"}}

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:musly/models/models.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
@@ -125,5 +126,24 @@ void main() {
       (widget) => widget is AlbumArtwork && widget.coverArt == 'custom_pl_cover_2',
     );
     expect(albumArtworkFinder, findsOneWidget);
+  });
+
+  testWidgets('an empty playlist shows the icon, not the server image',
+      (tester) async {
+    // Navidrome sends its own logo as the cover of an empty playlist.
+    await tester.pumpWidget(createTestApp(
+      child: PlaylistArtwork(
+        playlist: Playlist(
+          id: 'p1',
+          name: 'Road trip',
+          coverArt: 'pl-p1_0',
+          songCount: 0,
+        ),
+        size: 100,
+      ),
+    ));
+
+    expect(find.byType(AlbumArtwork), findsNothing);
+    expect(find.byIcon(CupertinoIcons.music_note_list), findsOneWidget);
   });
 }

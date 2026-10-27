@@ -16,7 +16,7 @@ import 'package:musly/services/offline_service.dart';
 import 'package:musly/services/lrc_ttml_parser.dart';
 import 'package:musly/widgets/now_playing/queue_view.dart';
 import 'package:musly/widgets/now_playing/now_playing_more_menu.dart';
-import 'package:musly/widgets/now_playing/add_to_menu.dart';
+import 'package:musly/widgets/modals/song_options_modal.dart';
 import 'package:musly/widgets/common/multi_artist_widget.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/wakelock_service.dart';
@@ -645,16 +645,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
             ),
             onPressed: () {
               if (currentSong == null) return;
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.transparent,
-                isScrollControlled: true,
-                useRootNavigator: true,
-                builder: (context) => AddToMenu(
-                  song: currentSong,
-                  coverProvider: _currentImageProvider ?? widget.image,
-                ),
-              );
+              SongOptionsModal.showPlaylistPicker(context, currentSong);
             },
           ),
         ],

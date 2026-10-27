@@ -596,15 +596,6 @@
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
   },
-  "errorLoadingPlaylists": "Erro ao carregar playlists: {error}",
-  "@errorLoadingPlaylists": {
-    "description": "Snackbar shown when playlists fail to load",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "@_PLAYLIST_SCREEN": {},
   "playlistNotFound": "Playlist não foi encontrada",
   "@playlistNotFound": {

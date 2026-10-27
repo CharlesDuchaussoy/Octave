@@ -697,11 +697,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get playlistNameHint => 'Playlist name';
 
   @override
-  String errorLoadingPlaylists(Object error) {
-    return 'Error loading playlists: $error';
-  }
-
-  @override
   String get playlistNotFound => 'Playlist not found';
 
   @override
@@ -1135,15 +1130,6 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get audioFocusDenied =>
       'Không thể bắt đầu phát — một ứng dụng khác đang giữ quyền âm thanh';
-
-  @override
-  String get addToLibrary => 'Add to Library';
-
-  @override
-  String get alreadyInLibrary => 'Song already in server library';
-
-  @override
-  String get selectPlaylist => 'Select Playlist';
 
   @override
   String get endOfSong => 'End of Song';
@@ -2296,6 +2282,7 @@ class AppLocalizationsVi extends AppLocalizations {
       locale: localeName,
       other: 'Playlist • $count songs',
       one: 'Playlist • 1 song',
+      zero: 'Playlist • no songs',
     );
     return '$_temp0';
   }

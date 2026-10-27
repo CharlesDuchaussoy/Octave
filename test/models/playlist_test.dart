@@ -47,5 +47,18 @@ void main() {
       expect(again.isOctoMix, isTrue);
       expect(again.validUntil, mix.validUntil);
     });
+
+    test('only offers its own, hand-made playlists to add songs to', () {
+      expect(read({'id': 'a', 'owner': 'lea'}).isEditableBy('lea'), isTrue);
+      expect(read({'id': 'a', 'owner': 'Lea'}).isEditableBy('lea'), isTrue);
+      // Shared by someone else: the server would refuse.
+      expect(read({'id': 'a', 'owner': 'max'}).isEditableBy('lea'), isFalse);
+      // Made by the server.
+      expect(
+        read({'id': 'a', 'owner': 'lea', 'readonly': true}).isEditableBy('lea'),
+        isFalse,
+      );
+      expect(read({'id': 'a'}).isEditableBy(null), isTrue);
+    });
   });
 }
