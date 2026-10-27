@@ -52,6 +52,8 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Les titres de section (Titres populaires, Albums, genres) sont en gras comme les autres.
 - Tuiles « Tout parcourir » en couleurs unies, sans dégradé ni violet ; champ de recherche plein, comme sur iPhone.
 - Le lecteur plein écran et tout ce qui s'ouvre depuis lui suivent la couleur de l'app et la police Inter (avant : violet et police par défaut).
+- Le lecteur plein écran a un fond uni pris de la pochette, comme Spotify, à la place des halos colorés animés en continu de Musly. Le thème le règle : l'intensité des couleurs le rend plus ou moins coloré, le noir pur le passe au noir, et un réglage (Affichage, Lecteur) lui donne plutôt la couleur de l'app. La barre de progression et les paroles prennent la couleur de l'app.
+- Les paroles ne brillent plus : la lueur autour de la ligne en cours est retirée.
 - Les filtres de l'Accueil, de la Bibliothèque et de la Recherche défilent jusqu'au bord de l'écran, au lieu d'être coupés net à la marge.
 - Un titre trop long défile enfin dans le lecteur plein écran, avec des bords qui s'estompent, au lieu d'être coupé au milieu d'une lettre. Si les animations sont coupées dans Android, il finit par des points de suspension.
 

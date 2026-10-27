@@ -252,6 +252,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get playerInterface => 'Интерфейс плеера';
 
   @override
+  String get playerBackgroundFromCover => 'Cover color in the background';
+
+  @override
+  String get playerBackgroundFromCoverSubtitle =>
+      'Otherwise the full player takes the app color.';
+
+  @override
   String get smartRecommendations => 'Умные рекомендации';
 
   @override

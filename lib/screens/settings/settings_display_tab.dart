@@ -20,6 +20,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
 import 'package:musly/octave/home/home_layout_screen.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
+import 'package:musly/octave/theme/player_background.dart';
 
 class SettingsDisplayTab extends StatefulWidget {
   const SettingsDisplayTab({super.key});
@@ -95,6 +96,8 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.playerInterface.toUpperCase(),
           children: [
+            _buildPlayerBackgroundToggle(),
+            const SettingsDivider(),
             _buildVolumeSliderToggle(),
             if (_isDesktop) ...[
               const SettingsDivider(),
@@ -247,6 +250,19 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           ],
         ],
       ),
+    );
+  }
+
+  Widget _buildPlayerBackgroundToggle() {
+    final themeService = Provider.of<ThemeService>(context);
+    return SettingsSwitchTile(
+      icon: CupertinoIcons.paintbrush,
+      title: AppLocalizations.of(context)!.playerBackgroundFromCover,
+      subtitle: AppLocalizations.of(context)!.playerBackgroundFromCoverSubtitle,
+      value: themeService.playerBackground == PlayerBackgroundSource.cover,
+      onChanged: (value) => themeService.setPlayerBackground(value
+          ? PlayerBackgroundSource.cover
+          : PlayerBackgroundSource.app),
     );
   }
 

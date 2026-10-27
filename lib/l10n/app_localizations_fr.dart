@@ -248,6 +248,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get playerInterface => 'Lecteur';
 
   @override
+  String get playerBackgroundFromCover => 'Fond aux couleurs de la pochette';
+
+  @override
+  String get playerBackgroundFromCoverSubtitle =>
+      'Sinon, le lecteur plein écran prend la couleur de l\'app.';
+
+  @override
   String get smartRecommendations => 'Recommandations';
 
   @override
