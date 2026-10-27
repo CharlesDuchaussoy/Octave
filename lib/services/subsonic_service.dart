@@ -8,6 +8,7 @@ import 'package:uuid/uuid.dart';
 import '../models/models.dart';
 import 'storage_service.dart';
 import 'lrclib_service.dart';
+import '../octave/server/library_actions.dart';
 
 class PingResult {
   final bool success;
@@ -719,6 +720,31 @@ class SubsonicService {
         await _request('octo.getPlaylistImageSettings', {'id': playlistId});
     final result = response['octoPlaylistImage'];
     return result is Map ? result['settings'] as String? : null;
+  }
+
+  /// What Octo lets this account do to its library, or null when the
+  /// server has no library actions (plain Navidrome, older Octo).
+  Future<LibraryActions?> octoGetLibraryActions() async {
+    try {
+      final response = await _request('getLibraryActions');
+      final actions = response['libraryActions'];
+      return actions is Map<String, dynamic>
+          ? LibraryActions.fromJson(actions)
+          : null;
+    } catch (e) {
+      debugPrint('SubsonicService: no library actions: $e');
+      return null;
+    }
+  }
+
+  /// Asks Octo to [action] ("remove" or "upgrade") the song [songId] of
+  /// the account's library. Returns Octo's state for it: "queued",
+  /// "skipped", or the outcome of the action.
+  Future<String> octoLibraryAction(String songId, String action) async {
+    final response =
+        await _request('libraryAction', {'id': songId, 'action': action});
+    final result = response['libraryAction'];
+    return (result is Map ? result['state']?.toString() : null) ?? '';
   }
 
   Map<String, dynamic> _checkResponse(dynamic data) {

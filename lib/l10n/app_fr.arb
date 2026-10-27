@@ -25,6 +25,8 @@
   "@yourPlaylists": {
     "description": "Your playlists section title"
   },
+  "homeServerMixes": "Tes mix",
+  "homeSectionPhoneMixes": "Mix faits sur le téléphone",
   "madeForYou": "Pour toi",
   "@madeForYou": {
     "description": "Made for you section title"
@@ -483,6 +485,14 @@
   "addToQueue": "Ajouter à la file d'attente",
   "goToAlbum": "Voir l'album",
   "goToArtist": "Voir l'artiste",
+  "libraryUpgrade": "Chercher une meilleure qualité",
+  "libraryUpgradeStarted": "Recherche lancée : le titre sera remplacé si une meilleure version existe.",
+  "libraryRemove": "Retirer de ma bibliothèque",
+  "libraryRemoveTitle": "Retirer ce titre ?",
+  "libraryRemoveMessage": "Le fichier est mis de côté {days} jours, puis supprimé. Il ne sera plus téléchargé.",
+  "libraryRemoved": "Titre retiré de ta bibliothèque",
+  "libraryActionSkipped": "Rien à faire pour ce titre",
+  "libraryActionFailed": "Le serveur n'a pas pu le faire",
   "rateSong": "Noter le titre",
   "rateSongValue": "Noter le titre ({rating} {stars})",
   "@rateSongValue": {
@@ -1665,7 +1675,6 @@
   "customizeHomeReset": "Revenir à l'ordre d'origine",
   "homeSectionQuickAccess": "Raccourcis",
   "homeSectionFavoritePlaylists": "Playlists favorites",
-  "homeSectionMixes": "Mix",
   "coverSavedThisDevice": "Pochette enregistrée sur cet appareil. Le serveur ne l'a pas acceptée.",
   "mixQuickPicks": "Sélection rapide",
   "mixDiscover": "Mix découverte",

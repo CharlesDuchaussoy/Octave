@@ -89,6 +89,11 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - L'import de playlists, qui associait les titres Spotify à des vidéos YouTube, est retiré.
 - Python et yt-dlp, embarqués dans l'APK pour YouTube, sont retirés : l'APK arm64-v8a pèse 27,5 Mo.
 
+### Avec Octo
+
+- L'Accueil a une ligne « Tes mix » : les mix et radios qu'Octo fait pour le compte. « Tes playlists » ne garde que les playlists du compte, et les mix calculés sur le téléphone ne s'affichent plus que sans Octo.
+- Pour les comptes qu'Octo autorise, le menu d'un titre propose « Chercher une meilleure qualité » et « Retirer de ma bibliothèque » (après confirmation ; le fichier est mis de côté 30 jours).
+
 ### Lecture
 
 - Un titre ne se rejoue plus en double : la fin d'un titre ne lance le suivant qu'une fois, et le cache de lecture de Musly, qui pouvait relancer un titre déjà fini, est retiré.

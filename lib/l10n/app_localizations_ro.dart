@@ -27,6 +27,12 @@ class AppLocalizationsRo extends AppLocalizations {
   String get yourPlaylists => 'Playlisturile tale';
 
   @override
+  String get homeServerMixes => 'Your mixes';
+
+  @override
+  String get homeSectionPhoneMixes => 'Mixes made on this device';
+
+  @override
   String get favoritePlaylists => 'Favorite Playlists';
 
   @override
@@ -520,6 +526,33 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get goToArtist => 'Go to Artist';
+
+  @override
+  String get libraryUpgrade => 'Look for a better quality';
+
+  @override
+  String get libraryUpgradeStarted =>
+      'Looking for a better copy. The song is replaced if one is found.';
+
+  @override
+  String get libraryRemove => 'Remove from my library';
+
+  @override
+  String get libraryRemoveTitle => 'Remove this song?';
+
+  @override
+  String libraryRemoveMessage(int days) {
+    return 'The file is set aside for $days days, then deleted. It will not be downloaded again.';
+  }
+
+  @override
+  String get libraryRemoved => 'Song removed from your library';
+
+  @override
+  String get libraryActionSkipped => 'Nothing to do for this song';
+
+  @override
+  String get libraryActionFailed => 'The server could not do it';
 
   @override
   String get rateSong => 'Rate Song';
@@ -2659,9 +2692,6 @@ class AppLocalizationsRo extends AppLocalizations {
 
   @override
   String get homeSectionFavoritePlaylists => 'Favorite playlists';
-
-  @override
-  String get homeSectionMixes => 'Mixes';
 
   @override
   String get coverSavedThisDevice =>

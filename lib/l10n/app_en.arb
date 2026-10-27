@@ -25,6 +25,14 @@
   "@yourPlaylists": {
     "description": "Your playlists section title"
   },
+  "homeServerMixes": "Your mixes",
+  "@homeServerMixes": {
+    "description": "Home row of the mixes and radios the server (Octo) makes for the account"
+  },
+  "homeSectionPhoneMixes": "Mixes made on this device",
+  "@homeSectionPhoneMixes": {
+    "description": "Customize home: row of mixes computed on the phone, shown only when the server makes none"
+  },
   "favoritePlaylists": "Favorite Playlists",
   "@favoritePlaylists": {
     "description": "Favorite playlists section title on home screen"
@@ -515,6 +523,39 @@
   "addToQueue": "Add to Queue",
   "goToAlbum": "Go to Album",
   "goToArtist": "Go to Artist",
+  "libraryUpgrade": "Look for a better quality",
+  "@libraryUpgrade": {
+    "description": "Song menu: ask the server (Octo) for a higher-quality copy"
+  },
+  "libraryUpgradeStarted": "Looking for a better copy. The song is replaced if one is found.",
+  "@libraryUpgradeStarted": {
+    "description": "Song menu: upgrade request accepted"
+  },
+  "libraryRemove": "Remove from my library",
+  "@libraryRemove": {
+    "description": "Song menu: remove the song file from the account's library on the server"
+  },
+  "libraryRemoveTitle": "Remove this song?",
+  "@libraryRemoveTitle": {
+    "description": "Confirmation title before removing a song from the library"
+  },
+  "libraryRemoveMessage": "The file is set aside for {days} days, then deleted. It will not be downloaded again.",
+  "@libraryRemoveMessage": {
+    "description": "Confirmation text before removing a song from the library",
+    "placeholders": {"days": {"type": "int"}}
+  },
+  "libraryRemoved": "Song removed from your library",
+  "@libraryRemoved": {
+    "description": "Snack bar after removing a song"
+  },
+  "libraryActionSkipped": "Nothing to do for this song",
+  "@libraryActionSkipped": {
+    "description": "Snack bar when the server skipped a library action"
+  },
+  "libraryActionFailed": "The server could not do it",
+  "@libraryActionFailed": {
+    "description": "Snack bar when a library action failed"
+  },
   "rateSong": "Rate Song",
   "rateSongValue": "Rate Song ({rating} {stars})",
   "@rateSongValue": {
@@ -3334,10 +3375,6 @@
   "homeSectionFavoritePlaylists": "Favorite playlists",
   "@homeSectionFavoritePlaylists": {
     "description": "Home rows of favorite playlists"
-  },
-  "homeSectionMixes": "Mixes",
-  "@homeSectionMixes": {
-    "description": "Home rows of generated mixes"
   },
   "coverSavedThisDevice": "Cover saved on this device. The server did not accept it.",
   "@coverSavedThisDevice": {

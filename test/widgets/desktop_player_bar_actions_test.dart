@@ -15,6 +15,7 @@ import 'package:musly/widgets/modals/song_options_modal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../test_helpers.dart';
 import '../bootstrap.dart';
+import 'package:musly/octave/server/library_actions.dart';
 
 void main() {
   initializeTestEnvironment();
@@ -26,6 +27,9 @@ void main() {
 
     setUp(() async {
       SharedPreferences.setMockInitialValues({});
+      // The song menu asks the server for Octo's library actions.
+      LibraryActions.testAnswer = () => null;
+      addTearDown(() => LibraryActions.testAnswer = null);
       subsonicService = SubsonicService();
       await subsonicService.configure(ServerConfig(
         serverUrl: 'https://demo.navidrome.org',
@@ -54,6 +58,46 @@ void main() {
       TestWidgetsFlutterBinding.instance.platformDispatcher.views.first
           .resetDevicePixelRatio();
     });
+
+    for (final allowed in [true, false]) {
+      testWidgets(
+          'song menu ${allowed ? 'offers' : 'hides'} library actions when '
+          'the account ${allowed ? 'may' : 'may not'} act', (tester) async {
+        tester.view.physicalSize = const Size(1280, 900);
+        tester.view.devicePixelRatio = 1.0;
+        LibraryActions.testAnswer = () => LibraryActions(
+              enabled: true,
+              allowed: allowed,
+              actions: const ['remove', 'upgrade'],
+            );
+
+        libraryProvider.setServerOfflineMode(true);
+        playerProvider.playSong(Song(
+          id: 'test_song_2',
+          title: 'Another Song',
+          artist: 'Test Artist',
+          duration: 180,
+        ));
+        await tester.pumpWidget(
+          createTestApp(
+            playerProvider: playerProvider,
+            libraryProvider: libraryProvider,
+            subsonicService: subsonicService,
+            child: const SizedBox(height: 90, child: DesktopPlayerBar()),
+          ),
+        );
+        await tester.pump(const Duration(seconds: 1));
+        await tester.tap(find.byIcon(Icons.more_horiz));
+        await tester.pumpAndSettle();
+
+        final matcher = allowed ? findsOneWidget : findsNothing;
+        expect(find.text('Remove from my library'), matcher);
+        expect(find.text('Look for a better quality'), matcher);
+
+        Navigator.pop(tester.element(find.byType(SongOptionsModal)));
+        await tester.pumpAndSettle();
+      });
+    }
 
     testWidgets(
         'renders favorite, add to playlist, and more options buttons for current song',
