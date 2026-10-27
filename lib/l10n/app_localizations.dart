@@ -3724,6 +3724,72 @@ abstract class AppLocalizations {
   /// **'Skip setup'**
   String get setupSkipAll;
 
+  /// Title of the artists step
+  ///
+  /// In en, this message translates to:
+  /// **'Your artists'**
+  String get setupArtistsTitle;
+
+  /// Text of the artists step
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the ones you love. Octo uses them for your mixes and radios.'**
+  String get setupArtistsBody;
+
+  /// Search field of the artists step
+  ///
+  /// In en, this message translates to:
+  /// **'Search for an artist'**
+  String get setupArtistsSearchHint;
+
+  /// Label above the picked artists
+  ///
+  /// In en, this message translates to:
+  /// **'Your picks ({count})'**
+  String setupArtistsPicked(int count);
+
+  /// Section of the artists the person plays most
+  ///
+  /// In en, this message translates to:
+  /// **'Your most played'**
+  String get setupArtistsMine;
+
+  /// Section of the France chart
+  ///
+  /// In en, this message translates to:
+  /// **'Most played in France'**
+  String get setupArtistsFrance;
+
+  /// Section of the world chart
+  ///
+  /// In en, this message translates to:
+  /// **'Most played worldwide'**
+  String get setupArtistsWorld;
+
+  /// Shown when the artist search finds nothing
+  ///
+  /// In en, this message translates to:
+  /// **'No artist found.'**
+  String get setupArtistsNoResult;
+
+  /// Shown when there are no suggested artists
+  ///
+  /// In en, this message translates to:
+  /// **'No suggestions right now. Search for your artists above.'**
+  String get setupArtistsEmpty;
+
+  /// Continue button with the number of picked artists
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Continue with {count} artist} other{Continue with {count} artists}}'**
+  String setupArtistsContinue(int count);
+
+  /// Summary row with the number of picked artists
+  ///
+  /// In en, this message translates to:
+  /// **'Artists'**
+  String get setupSummaryArtists;
+
   /// What screen readers say for the setup progress bar
   ///
   /// In en, this message translates to:
@@ -4057,7 +4123,7 @@ abstract class AppLocalizations {
   /// About tile description
   ///
   /// In en, this message translates to:
-  /// **'Color, display, quality and downloads'**
+  /// **'Color, display, artists, quality and downloads'**
   String get setupRedoSubtitle;
 
   /// App color name

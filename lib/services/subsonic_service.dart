@@ -9,6 +9,7 @@ import '../models/models.dart';
 import 'storage_service.dart';
 import 'lrclib_service.dart';
 import '../octave/server/library_actions.dart';
+import '../octave/server/taste_artists.dart';
 import '../octave/server/queue_handoff.dart';
 
 class PingResult {
@@ -759,6 +760,18 @@ class SubsonicService {
     );
     final result = _checkResponse(response.data)['report'];
     return result is Map ? result['id']?.toString() : null;
+  }
+
+  /// Artists to pick in the guided setup (extension "octoTasteArtists").
+  /// The picked ones are saved with star/unstar on the artist: Octo keeps
+  /// the heart of an artist outside the library itself.
+  Future<TasteArtists> octoGetTasteArtists({int count = 30}) async {
+    final response =
+        await _request('octo.getTasteArtists', {'count': '$count'});
+    final result = response['tasteArtists'];
+    return result is Map<String, dynamic>
+        ? TasteArtists.fromJson(result)
+        : TasteArtists.empty;
   }
 
   Map<String, dynamic> _checkResponse(dynamic data) {
