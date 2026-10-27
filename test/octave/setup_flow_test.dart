@@ -84,12 +84,4 @@ void main() {
     expect(find.text('Skip setup'), findsOneWidget);
     expect(find.text('Your home screen'), findsNothing);
   });
-
-  test('leaves the compilations artist out of the artists to pick', () {
-    expect(isCompilationArtist('Various Artists'), isTrue);
-    expect(isCompilationArtist(' various artists '), isTrue);
-    expect(isCompilationArtist('Artistes divers'), isTrue);
-    expect(isCompilationArtist('ABBA'), isFalse);
-    expect(isCompilationArtist('Vanessa Paradis'), isFalse);
-  });
 }

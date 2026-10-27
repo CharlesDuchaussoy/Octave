@@ -2069,28 +2069,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get setupModeDark => 'Sombre';
 
   @override
-  String get setupArtistsTitle => 'Tes artistes';
-
-  @override
-  String get setupArtistsBody =>
-      'Choisis ceux que tu écoutes le plus. Ils deviennent tes favoris et inspirent tes mix.';
-
-  @override
-  String get setupArtistsEmpty =>
-      'Aucun artiste dans ta bibliothèque pour l\'instant.';
-
-  @override
-  String setupArtistsContinue(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'Continuer avec $count artistes',
-      one: 'Continuer avec $count artiste',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String get setupHomeTitle => 'Ton accueil';
 
   @override
@@ -2208,9 +2186,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get setupSummaryMode => 'Affichage';
 
   @override
-  String get setupSummaryArtists => 'Artistes favoris';
-
-  @override
   String get setupSummaryWifi => 'Qualité en Wi-Fi';
 
   @override
@@ -2230,7 +2205,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get setupRedoSubtitle =>
-      'Couleur, affichage, artistes, qualité et téléchargements';
+      'Couleur, affichage, qualité et téléchargements';
 
   @override
   String get colorNameOctave => 'Nuit';

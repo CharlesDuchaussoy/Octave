@@ -3808,30 +3808,6 @@ abstract class AppLocalizations {
   /// **'Dark'**
   String get setupModeDark;
 
-  /// Title of the artists step
-  ///
-  /// In en, this message translates to:
-  /// **'Your artists'**
-  String get setupArtistsTitle;
-
-  /// Text of the artists step
-  ///
-  /// In en, this message translates to:
-  /// **'Pick the ones you listen to most. They become favorites and shape your mixes.'**
-  String get setupArtistsBody;
-
-  /// Shown when the library has no artists
-  ///
-  /// In en, this message translates to:
-  /// **'No artists in your library yet.'**
-  String get setupArtistsEmpty;
-
-  /// Continue button with the number of selected artists
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{Continue with 1 artist} other{Continue with {count} artists}}'**
-  String setupArtistsContinue(int count);
-
   /// Title of the home step
   ///
   /// In en, this message translates to:
@@ -4045,12 +4021,6 @@ abstract class AppLocalizations {
   /// Summary row
   ///
   /// In en, this message translates to:
-  /// **'Favorite artists'**
-  String get setupSummaryArtists;
-
-  /// Summary row
-  ///
-  /// In en, this message translates to:
   /// **'Quality on Wi-Fi'**
   String get setupSummaryWifi;
 
@@ -4087,7 +4057,7 @@ abstract class AppLocalizations {
   /// About tile description
   ///
   /// In en, this message translates to:
-  /// **'Color, display, artists, quality and downloads'**
+  /// **'Color, display, quality and downloads'**
   String get setupRedoSubtitle;
 
   /// App color name
