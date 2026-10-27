@@ -2727,7 +2727,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         await _offlineService.autoDownloadIfEnabled(
             song.copyWith(starred: true), _subsonicService, _libraryProvider);
       }
-      _libraryProvider?.refreshStarred();
+      _libraryProvider?.loadStarred();
     } catch (e) {
       debugPrint('Error toggling favorite: $e');
       _setStarredEverywhere(song, isStarred);
@@ -2745,7 +2745,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
             song, _subsonicService, _libraryProvider);
       }
       _setStarredEverywhere(song, !isStarred);
-      _libraryProvider?.refreshStarred();
+      _libraryProvider?.loadStarred();
     } catch (e) {
       debugPrint('Error toggling favorite for song: $e');
     }

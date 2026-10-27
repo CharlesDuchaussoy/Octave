@@ -706,13 +706,6 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     } catch (_) {}
   }
 
-  /// After a like or unlike: the liked list, and the playlists when the
-  /// server keeps automatic ones (Octo's liked songs playlist changes too).
-  Future<void> refreshStarred() async {
-    await loadStarred();
-    if (_playlists.any((p) => p.isAutomatic)) await loadPlaylists();
-  }
-
   /// Sets the liked state of a song in the liked list and the cached
   /// library (memory and database), so the library lists and the songs
   /// played from them show the right heart before the server answers.
@@ -895,7 +888,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
       albumId: albumId,
       artistId: artistId,
     );
-    await refreshStarred();
+    await loadStarred();
   }
 
   Future<void> unstar({
@@ -908,7 +901,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
       albumId: albumId,
       artistId: artistId,
     );
-    await refreshStarred();
+    await loadStarred();
   }
 
   @override
