@@ -143,6 +143,10 @@ class Song {
       'contentType': contentType,
       'size': size,
       'path': path,
+      // fromJson reads any "starred" value as liked, as the server sends
+      // a date: only liked songs carry it.
+      if (starred == true) 'starred': true,
+      if (userRating != null) 'userRating': userRating,
       'isLocal': isLocal,
       if (isExternal) 'isExternal': true,
       'replayGain': {

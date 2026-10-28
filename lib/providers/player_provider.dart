@@ -382,7 +382,31 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   }
 
   void setLibraryProvider(LibraryProvider libraryProvider) {
+    _libraryProvider?.removeListener(_syncStarredFromLibrary);
     _libraryProvider = libraryProvider;
+    libraryProvider.addListener(_syncStarredFromLibrary);
+  }
+
+  /// Follows the liked songs the library knows from the server: the queue
+  /// restored at start, or a song liked on another device, would otherwise
+  /// keep the heart it had when it was saved.
+  void _syncStarredFromLibrary() {
+    final liked = _libraryProvider?.starred?.songs;
+    if (liked == null) return;
+    final ids = {for (final s in liked) s.id};
+    bool stale(Song s) =>
+        !s.isLocal && (s.starred == true) != ids.contains(s.id);
+    final current = _currentSong;
+    final currentStale = current != null && stale(current);
+    if (!currentStale && !_queue.any(stale)) return;
+    if (currentStale) {
+      _currentSong = current.copyWith(starred: ids.contains(current.id));
+    }
+    _queue = [
+      for (final s in _queue)
+        stale(s) ? s.copyWith(starred: ids.contains(s.id)) : s,
+    ];
+    notifyListeners();
   }
 
   void setRecommendationService(RecommendationService recommendationService) {
@@ -1320,6 +1344,13 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     Duration? initialPosition,
   }) async {
     if (_currentSong?.id == song.id && !_isPlayingRadio) {
+      // The song passed in is the fresher copy (liked state, rating).
+      if (_currentSong!.starred != song.starred ||
+          _currentSong!.userRating != song.userRating) {
+        _currentSong = _currentSong!
+            .copyWith(starred: song.starred, userRating: song.userRating);
+        notifyListeners();
+      }
       if (initialPosition != null && initialPosition > Duration.zero) {
         await seek(initialPosition);
       }
@@ -2629,28 +2660,40 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     });
   }
 
+  /// Gives every copy of the song the same liked state: the current song,
+  /// the queue, and the cached library, so the heart stays right when the
+  /// song comes back or after a restart.
+  void _setStarredEverywhere(Song song, bool starred) {
+    if (_currentSong?.id == song.id) {
+      _currentSong = _currentSong!.copyWith(starred: starred);
+    }
+    _queue = [
+      for (final s in _queue)
+        s.id == song.id ? s.copyWith(starred: starred) : s,
+    ];
+    _libraryProvider?.markSongStarred(song, starred);
+    notifyListeners();
+  }
+
   Future<void> toggleFavorite() async {
     if (_currentSong == null) return;
 
-    final isStarred = _currentSong!.starred == true;
-
-    final newSong = _currentSong!.copyWith(starred: !isStarred);
-    _currentSong = newSong;
-    notifyListeners();
+    final song = _currentSong!;
+    final isStarred = song.starred == true;
+    _setStarredEverywhere(song, !isStarred);
 
     try {
       if (isStarred) {
-        await _subsonicService.unstar(id: newSong.id);
+        await _subsonicService.unstar(id: song.id);
       } else {
-        await _subsonicService.star(id: newSong.id);
+        await _subsonicService.star(id: song.id);
         await _offlineService.autoDownloadIfEnabled(
-            newSong, _subsonicService, _libraryProvider);
+            song.copyWith(starred: true), _subsonicService, _libraryProvider);
       }
       _libraryProvider?.loadStarred();
     } catch (e) {
       debugPrint('Error toggling favorite: $e');
-      _currentSong = _currentSong!.copyWith(starred: isStarred);
-      notifyListeners();
+      _setStarredEverywhere(song, isStarred);
     }
   }
 
@@ -2664,12 +2707,8 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         await _offlineService.autoDownloadIfEnabled(
             song, _subsonicService, _libraryProvider);
       }
+      _setStarredEverywhere(song, !isStarred);
       _libraryProvider?.loadStarred();
-
-      if (_currentSong?.id == song.id) {
-        _currentSong = _currentSong!.copyWith(starred: !isStarred);
-        notifyListeners();
-      }
     } catch (e) {
       debugPrint('Error toggling favorite for song: $e');
     }
@@ -2733,6 +2772,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _castSyncTimer?.cancel();
     _castEndCheck?.cancel();
     _reporter.dispose();
+    _libraryProvider?.removeListener(_syncStarredFromLibrary);
     _castService.removeListener(_onCastStateChanged);
     _upnpService.removeListener(_onUpnpStateChanged);
     if (_upnpService.onRendererLost == _onUpnpRendererLost) {
