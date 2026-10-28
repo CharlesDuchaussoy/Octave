@@ -1016,6 +1016,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _positionSub = _audioPlayer.positionStream.listen(
       (position) {
         if (_isRenderingRemotely) return;
+        // An empty player reports 0: keep the position restored at start
+        // until its song is loaded.
+        if (_audioPlayer.audioSource == null) return;
 
         _position = position;
         _positionController.add(position);
@@ -1056,8 +1059,8 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
           if (index >= 0 && index < _queue.length) {
             _applyReplayGain(_queue[index]).catchError((_) {});
           }
-          _onCurrentIndexChanged(index).catchError((e) {
-            debugPrint('[Player] _onCurrentIndexChanged error: $e');
+          onCurrentIndexChanged(index).catchError((e) {
+            debugPrint('[Player] onCurrentIndexChanged error: $e');
           });
         }
       },
@@ -1830,6 +1833,9 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     } catch (e) {
       await _audioPlayer.pause();
     }
+    // A pause from the notification or headphones happens with the app in
+    // the background, where Android may end it later: keep where it stopped.
+    _saveQueueState();
   }
 
   Future<void> pauseLocal() async {
@@ -2445,6 +2451,11 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     if (_currentSong == null) return;
 
     if (_jukeboxService.enabled) return;
+    // Loading the song resets the position to 0: keep where to start,
+    // unless the song had played to its end.
+    final resumeAt = _audioPlayer.processingState == ProcessingState.completed
+        ? Duration.zero
+        : _position;
     try {
       if (_gaplessEnabled && _queue.isNotEmpty) {
         await _buildAndSetConcatenatingSource(initialIndex: _currentIndex);
@@ -2471,15 +2482,16 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         }
       }
 
-      if (_position.inMilliseconds > 0) {
-        await _audioPlayer.seek(_position);
+      if (resumeAt > Duration.zero) {
+        await _audioPlayer.seek(resumeAt);
       }
     } catch (e) {
       debugPrint('Error preparing current song after restore: $e');
     }
   }
 
-  Future<void> _onCurrentIndexChanged(int newIndex) async {
+  @visibleForTesting
+  Future<void> onCurrentIndexChanged(int newIndex) async {
     if (newIndex < 0 || newIndex >= _queue.length) return;
     if (newIndex == _currentIndex) return;
 
@@ -2487,7 +2499,12 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         '[Player] â­ Track changed by index: $newIndex "${_queue[newIndex].title}"');
 
     if (_sleepTimerEndCurrentSong) {
+      // The player has already moved on to the next song: stop at its
+      // start, and show it, instead of leaving the finished song on screen
+      // over the next one's sound.
       _doSleepTimerStop();
+      retireCurrentTrack();
+      await adoptTrackAt(newIndex);
       return;
     }
 
@@ -2503,7 +2520,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   /// Retire the outgoing track: submit its completion scrobble and record the
   /// play against recommendations.
   ///
-  /// Split out of [_onCurrentIndexChanged] so the UPnP renderer's own
+  /// Split out of [onCurrentIndexChanged] so the UPnP renderer's own
   /// auto-advance can run it too. That path used to skip this entirely, so a
   /// DLNA session scrobbled only its very first track.
   @visibleForTesting
@@ -2537,7 +2554,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   /// re-resolution, scrobble tracking, the "now playing" scrobble, ReplayGain,
   /// and the service / media-session updates.
   ///
-  /// Local playback reaches this through [_onCurrentIndexChanged]; the UPnP
+  /// Local playback reaches this through [onCurrentIndexChanged]; the UPnP
   /// renderer reaches it when it gaplessly auto-advances. Keeping one
   /// implementation is the point — the UPnP path previously reimplemented the
   /// transition and performed only the media-session update.

@@ -132,6 +132,21 @@ void main() {
     await pending;
   });
 
+  test('the end-of-song sleep timer stops on the next song and shows it',
+      () async {
+    player.queue.addAll([song('a'), song('b')]);
+    await player.adoptTrackAt(0);
+    player.setSleepTimer(Duration.zero, endCurrentSong: true);
+
+    // Gapless playback has already moved on when the new index arrives.
+    // The screen used to keep song a over the sound of song b.
+    await player.onCurrentIndexChanged(1);
+
+    expect(player.currentSong?.id, 'b');
+    expect(player.isPlaying, isFalse);
+    expect(player.sleepTimerEndCurrentSong, isFalse);
+  });
+
   test('adoptTrackAt ignores an out-of-range index', () async {
     player.queue.addAll([song('a')]);
     await player.adoptTrackAt(0);
