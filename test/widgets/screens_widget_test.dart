@@ -9,8 +9,6 @@ import 'package:musly/screens/player/now_playing_screen.dart';
 import 'package:musly/models/lyric_line.dart';
 import 'package:musly/models/song.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 
 import '../test_helpers.dart';
 import '../bootstrap.dart';
@@ -50,15 +48,13 @@ void main() {
       expect(find.byType(SettingsScreen), findsOneWidget);
     });
 
-    testWidgets('SettingsDisplayTab displays Spotverlay on desktop', (
+    testWidgets('SettingsDisplayTab builds without the Spotverlay promotion', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(createTestApp(child: const SettingsDisplayTab()));
       await tester.pump();
-      if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-        await tester.scrollUntilVisible(find.text('Spotverlay'), 300);
-        expect(find.text('Spotverlay'), findsWidgets);
-      }
+      expect(find.byType(SettingsDisplayTab), findsOneWidget);
+      expect(find.text('Spotverlay'), findsNothing);
     });
 
     testWidgets('NowPlayingScreen builds without exception in portrait', (

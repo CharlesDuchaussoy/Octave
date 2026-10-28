@@ -131,33 +131,10 @@ class _MainScreenState extends State<MainScreen> {
 
       UsageTimeService().initialize();
 
-      _startUsageTimeChecker();
-
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) _checkForUpdate();
       });
     });
-  }
-
-  void _startUsageTimeChecker() {
-    Future.delayed(const Duration(minutes: 2), () {
-      if (!mounted) return;
-
-      final usageService = UsageTimeService();
-      if (usageService.shouldShowDialog) {
-        _showSupportDialog();
-      } else {
-        _startUsageTimeChecker();
-      }
-    });
-  }
-
-  void _showSupportDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => const SupportDialog(),
-      barrierDismissible: true,
-    );
   }
 
   Future<void> _checkForUpdate() async {

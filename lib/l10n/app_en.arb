@@ -562,26 +562,6 @@
   "@communityTranslationsSubtitle": {
     "description": "Community translations credit subtitle"
   },
-  "checkTranslationUpdates": "Check for Translation Updates",
-  "@checkTranslationUpdates": {
-    "description": "Title for checking live OTA translation updates"
-  },
-  "checkTranslationUpdatesSubtitle": "Sync latest community translations live (OTA)",
-  "@checkTranslationUpdatesSubtitle": {
-    "description": "Subtitle for checking live OTA translation updates"
-  },
-  "checkingTranslationUpdates": "Checking for translation updates…",
-  "@checkingTranslationUpdates": {
-    "description": "Snackbar message when checking for translation updates"
-  },
-  "translationsUpdated": "Translations updated successfully!",
-  "@translationsUpdated": {
-    "description": "Snackbar message when translations were updated"
-  },
-  "translationsUpToDate": "Translations are already up to date",
-  "@translationsUpToDate": {
-    "description": "Snackbar message when translations are already up to date"
-  },
   "@_LIBRARY": {},
   "yourLibrary": "Your Library",
   "filterAll": "All",
@@ -674,7 +654,6 @@
   "tabStorage": "Storage",
   "tabServer": "Server",
   "tabDisplay": "Display",
-  "tabSupport": "Support",
   "tabAbout": "About",
   "@_SETTINGS_PLAYBACK": {},
   "sectionAutoDj": "AUTO DJ",
@@ -1934,10 +1913,6 @@
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
   },
-  "aboutLinkDiscord": "Join Discord Community",
-  "@aboutLinkDiscord": {
-    "description": "Link tile title for the Discord server"
-  },
   "@_SETTINGS_ANALYTICS": {},
   "sectionAnalyticsPrivacy": "Analytics & Privacy",
   "@sectionAnalyticsPrivacy": {
@@ -1977,20 +1952,7 @@
     "description": "Explanation of what device ID is"
   },
   "@_SUPPORT": {},
-  "supportGreeting": "Hey there!",
-  "supportParagraph1": "I'm Devid, the developer behind Musly. I built this app because I love music and believe everyone deserves a beautiful, free music player.",
-  "supportParagraph2": "Musly is completely free and open-source. No ads and no subscription fees. I work on it in my free time because I genuinely enjoy making something useful for people like you.",
-  "supportParagraph3": "But servers, development tools, and coffee aren't free If Musly has become a part of your daily life and you'd like to say \"thanks,\" a small donation would mean the world to me. It helps cover costs and keeps me motivated to add new features.",
-  "supportParagraph4": "No pressure at all though - your enjoyment of the app is already the best reward!",
-  "supportDonationTitle": "Support with a Donation",
-  "supportDonationSubtitle": "via Revolut - any amount helps!",
-  "supportDiscordTitle": "Join our Discord",
-  "supportDiscordSubtitle": "Get help, suggest features, or just chat",
-  "supportWaysTitle": "Other ways to support",
   "supportWayRate": "Leave a rating on the app store",
-  "supportWayShare": "Tell your friends about Musly",
-  "supportWayBugs": "Report bugs or suggest features",
-  "supportWayEnjoy": "Just enjoy the music!",
   "supportMadeWithLove": "Crafted with passion in Italy",
   "@_NOW_PLAYING_DIALOGS": {},
   "playbackSpeed": "Playback Speed",
@@ -2285,22 +2247,6 @@
   "@playYourTopSongs": {
     "description": "Button to play top songs playlist"
   },
-  "milestone50SongsTitle": "Thank you from our hearts!",
-  "@milestone50SongsTitle": {
-    "description": "Title for 50-song milestone celebration"
-  },
-  "milestone50SongsBadge": "50 SONGS MILESTONE",
-  "@milestone50SongsBadge": {
-    "description": "Badge for 50-song milestone"
-  },
-  "milestone50SongsMessage": "You just reached the milestone of 50 songs listened to on Octave! Thank you for choosing this app for your daily music journey.",
-  "@milestone50SongsMessage": {
-    "description": "Message for 50-song milestone"
-  },
-  "continueListening": "Continue Listening",
-  "@continueListening": {
-    "description": "Button to continue listening after milestone celebration"
-  },
   "lyricsUnderArtwork": "Live Lyrics Under Artwork",
   "@lyricsUnderArtwork": {
     "description": "Toggle to show live lyrics under album artwork in player"
@@ -2584,53 +2530,9 @@
   "@muslyPlaybackAnnualSubtitle": {
     "description": "Subtitle for annual playback review"
   },
-  "sectionAboutSupport": "SUPPORT",
-  "@sectionAboutSupport": {
-    "description": "Section header for support in about tab"
-  },
-  "thanksForRating": "Thanks for Rating!",
-  "@thanksForRating": {
-    "description": "Title shown when user has already rated the app"
-  },
-  "rateMusly": "Rate Octave",
-  "@rateMusly": {
-    "description": "Title to rate the app"
-  },
-  "alreadyRatedSubtitle": "You've already rated the app",
-  "@alreadyRatedSubtitle": {
-    "description": "Subtitle when user has rated the app"
-  },
-  "shareFeedbackSubtitle": "Share your feedback",
-  "@shareFeedbackSubtitle": {
-    "description": "Subtitle to share rating feedback"
-  },
-  "supportMuslyTitle": "Support Musly",
-  "@supportMuslyTitle": {
-    "description": "Title for Musly support tile"
-  },
-  "supportMuslySubtitle": "Join Discord or donate",
-  "@supportMuslySubtitle": {
-    "description": "Subtitle for Musly support tile"
-  },
-  "rateMuslyDialogTitle": "Rate Octave",
-  "@rateMuslyDialogTitle": {
-    "description": "Title of rating dialog"
-  },
-  "rateMuslyDialogQuestion": "How would you rate your experience?",
-  "@rateMuslyDialogQuestion": {
-    "description": "Question in rating dialog"
-  },
-  "optionalFeedbackHint": "Optional feedback...",
-  "@optionalFeedbackHint": {
-    "description": "Hint text for rating feedback text field"
-  },
   "submit": "Submit",
   "@submit": {
     "description": "Submit button label"
-  },
-  "thankYouFeedback": "Thank you for your feedback!",
-  "@thankYouFeedback": {
-    "description": "Snackbar message after submitting rating feedback"
   },
   "devPlaybackTapsAway": "{count} taps away from Developer Playback Preview",
   "@devPlaybackTapsAway": {
@@ -2644,14 +2546,6 @@
   "devPlaybackUnlocked": "Developer Playback Preview unlocked!",
   "@devPlaybackUnlocked": {
     "description": "Snackbar message when developer wrapped preview is unlocked"
-  },
-  "craftedWith": "Crafted with ",
-  "@craftedWith": {
-    "description": "Footer text prefix: Crafted with"
-  },
-  "inItaly": " in Italy",
-  "@inItaly": {
-    "description": "Footer text suffix: in Italy"
   },
   "switchServerTitle": "Switch Server",
   "@switchServerTitle": {
@@ -2715,34 +2609,6 @@
   "noPlaylistsFound": "No playlists found",
   "@noPlaylistsFound": {
     "description": "Empty state message in playlist downloads screen"
-  },
-  "supportDialogDescription": "Octave is a free, open-source project. Your support helps keep it alive!",
-  "@supportDialogDescription": {
-    "description": "Description in support startup dialog"
-  },
-  "supportDialogJoinDiscord": "Join our Discord",
-  "@supportDialogJoinDiscord": {
-    "description": "Title of Discord button in support dialog"
-  },
-  "supportDialogDiscordSubtitle": "Get help, suggest features, chat with us",
-  "@supportDialogDiscordSubtitle": {
-    "description": "Subtitle of Discord button in support dialog"
-  },
-  "supportDialogDonateTitle": "Support with a Donation",
-  "@supportDialogDonateTitle": {
-    "description": "Title of donation button in support dialog"
-  },
-  "supportDialogDonateSubtitle": "Help cover server costs and development",
-  "@supportDialogDonateSubtitle": {
-    "description": "Subtitle of donation button in support dialog"
-  },
-  "dontShowAgain": "Don't show this again",
-  "@dontShowAgain": {
-    "description": "Checkbox label to not show support dialog again"
-  },
-  "maybeLater": "Maybe Later",
-  "@maybeLater": {
-    "description": "Button label to dismiss support dialog"
   },
   "addAllToQueue": "Add all to queue",
   "@addAllToQueue": {
@@ -3806,17 +3672,5 @@
   "androidAutoServerSection": "Server",
   "androidAutoDefaultServer": "Default Server",
   "androidAutoDefaultServerDesc": "Select which server to use when you start Android Auto",
-  "androidAutoUseActiveServer": "Use app's active server",
-  "desktopOverlaySection": "Desktop Overlay",
-  "@desktopOverlaySection": {
-    "description": "Settings section header for desktop overlay recommendation"
-  },
-  "spotverlayTitle": "Spotverlay",
-  "@spotverlayTitle": {
-    "description": "Title for Spotverlay desktop overlay"
-  },
-  "spotverlayDescription": "If you want a beautiful and lightweight \"Made for Octave\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)",
-  "@spotverlayDescription": {
-    "description": "Message recommending Spotverlay desktop overlay for Musly"
-  }
+  "androidAutoUseActiveServer": "Use app's active server"
 }

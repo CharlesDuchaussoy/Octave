@@ -1350,8 +1350,5 @@
   "@clearAllCache": {
     "description": "Button to clear all cached data"
   },
-  "audioFocusDenied": "Wiedergabe konnte nicht gestartet werden — eine andere App hat den Audiofokus",
-  "desktopOverlaySection": "Desktop-Overlay",
-  "spotverlayTitle": "Spotverlay",
-  "spotverlayDescription": "Wenn du ein schönes und leichtes \"Made for Octave\"-Overlay möchtest, kannst du Spotverlay verwenden (https://github.com/dddevid/Spotverlay)"
+  "audioFocusDenied": "Wiedergabe konnte nicht gestartet werden — eine andere App hat den Audiofokus"
 }

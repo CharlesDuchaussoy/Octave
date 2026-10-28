@@ -1753,9 +1753,5 @@
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
   },
-  "aboutLinkDiscord": "Присоединяйтесь к Discord сообществу",
-  "@aboutLinkDiscord": {
-    "description": "Link tile title for the Discord server"
-  },
   "audioFocusDenied": "Не удалось начать воспроизведение — аудиофокус занят другим приложением"
 }

@@ -1753,9 +1753,5 @@
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
   },
-  "aboutLinkDiscord": "Entrar na Comunidade do Discord",
-  "@aboutLinkDiscord": {
-    "description": "Link tile title for the Discord server"
-  },
   "audioFocusDenied": "Não foi possível iniciar a reprodução — outro aplicativo tem o foco de áudio"
 }

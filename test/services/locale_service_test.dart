@@ -81,16 +81,11 @@ void main() {
       expect(LocaleService.getFlagEmoji('unknown_lang'), '🌐');
     });
 
-    test('getCompletionPercentage returns baseline and dynamic OTA percentages', () {
+    test('getCompletionPercentage returns the bundled percentages', () {
       expect(LocaleService.getCompletionPercentage('en'), 100);
       expect(LocaleService.getCompletionPercentage('az'), 1);
       expect(LocaleService.getCompletionPercentage('it'), 90);
       expect(LocaleService.getCompletionPercentage('unknown_lang'), 0);
-
-      // Test dynamic OTA override
-      localeService.otaService.setCompletionPercentages({'az': 85, 'de': 95});
-      expect(LocaleService.getCompletionPercentage('az'), 85);
-      expect(LocaleService.getCompletionPercentage('de'), 95);
     });
   });
 }
