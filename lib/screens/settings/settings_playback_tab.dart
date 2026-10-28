@@ -79,8 +79,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
         const SizedBox(height: 24),
         _buildCrossfadeSection(),
         const SizedBox(height: 24),
-        _buildGaplessSection(),
-        const SizedBox(height: 24),
         _buildFadeSection(),
         const SizedBox(height: 24),
         SettingsSectionCard(
@@ -324,26 +322,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildGaplessSection() {
-    return Consumer<PlayerProvider>(
-      builder: (context, player, _) {
-        final l10n = AppLocalizations.of(context)!;
-        return SettingsSectionCard(
-          title: l10n.sectionGaplessPlayback,
-          children: [
-            SettingsSwitchTile(
-              icon: CupertinoIcons.link,
-              title: l10n.gaplessPlayback,
-              subtitle: l10n.gaplessPlaybackSubtitle,
-              value: player.gaplessEnabled,
-              onChanged: (_) => player.toggleGaplessPlayback(),
-            ),
-          ],
-        );
-      },
     );
   }
 

@@ -505,6 +505,11 @@ class SubsonicService {
     if (format != null && format.isNotEmpty && format != 'raw') {
       params['format'] = format;
     }
+    // A transcoded stream has no known size; Navidrome then announces an
+    // estimate, so players can seek and know where the song ends.
+    if (params.containsKey('format') || params.containsKey('maxBitRate')) {
+      params['estimateContentLength'] = 'true';
+    }
     return _buildUrl('stream', params);
   }
 
