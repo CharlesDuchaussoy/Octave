@@ -1888,6 +1888,12 @@ abstract class AppLocalizations {
   /// **'LIVE'**
   String get liveLabel;
 
+  /// Message when a radio station's stream cannot be played
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t play {name} right now.'**
+  String radioUnavailable(String name);
+
   /// Playback settings section header for ReplayGain
   ///
   /// In en, this message translates to:

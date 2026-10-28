@@ -984,6 +984,11 @@ class AppLocalizationsPt extends AppLocalizations {
   String get liveLabel => 'AO VIVO';
 
   @override
+  String radioUnavailable(String name) {
+    return 'Can\'t play $name right now.';
+  }
+
+  @override
   String get sectionVolumeNormalization =>
       'NORMALIZAÇÃO DE VOLUME (REPLAYGAIN)';
 

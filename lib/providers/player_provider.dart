@@ -1670,14 +1670,22 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     }
   }
 
-  Future<void> playRadioStation(RadioStation station) async {
+  /// Plays [station]. Returns false when its stream cannot be played; the
+  /// song and queue loaded before then come back, paused.
+  Future<bool> playRadioStation(RadioStation station) async {
     if (_isPlayingRadio && _currentRadioStation?.id == station.id) {
       await togglePlayPause();
-      return;
+      return true;
     }
 
     _isLoading = true;
     notifyListeners();
+
+    final previousSong = _isPlayingRadio ? null : _currentSong;
+    final previousQueue = _queue;
+    final previousIndex = _currentIndex;
+    final previousPosition = _position;
+    final previousDuration = _duration;
 
     try {
       _currentSong = null;
@@ -1708,11 +1716,23 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       await _ensureAudioFocus(_startPlayback);
 
       _updateSystemServicesForRadio(station);
+      return true;
     } catch (e) {
       debugPrint('Error playing radio station: $e');
       _isPlaying = false;
       _isPlayingRadio = false;
       _currentRadioStation = null;
+      // Clearing the queue for a stream that does not play would lose it,
+      // and the next save would keep it lost.
+      if (previousSong != null) {
+        _currentSong = previousSong;
+        _queue = previousQueue;
+        _currentIndex = previousIndex;
+        _position = previousPosition;
+        _duration = previousDuration;
+        await _prepareCurrentSong();
+      }
+      return false;
     } finally {
       _isLoading = false;
       notifyListeners();

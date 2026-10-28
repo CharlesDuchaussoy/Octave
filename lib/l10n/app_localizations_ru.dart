@@ -990,6 +990,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get liveLabel => 'В ЭФИРЕ';
 
   @override
+  String radioUnavailable(String name) {
+    return 'Can\'t play $name right now.';
+  }
+
+  @override
   String get sectionVolumeNormalization =>
       'ВЫРАВНИВАНИЕ ГРОМКОСТИ (REPLAYGAIN)';
 

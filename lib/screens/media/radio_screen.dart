@@ -53,9 +53,15 @@ class _RadioScreenState extends State<RadioScreen> {
     }
   }
 
-  void _playStation(RadioStation station) {
+  Future<void> _playStation(RadioStation station) async {
     final playerProvider = Provider.of<PlayerProvider>(context, listen: false);
-    playerProvider.playRadioStation(station);
+    final messenger = ScaffoldMessenger.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    if (!await playerProvider.playRadioStation(station)) {
+      messenger.showSnackBar(
+        SnackBar(content: Text(l10n.radioUnavailable(station.name))),
+      );
+    }
   }
 
   Future<void> _openHomePage(RadioStation station) async {
@@ -276,6 +282,9 @@ class _RadioStationTile extends StatelessWidget {
       builder: (context, playerProvider, child) {
         final isPlaying = playerProvider.isPlayingRadio &&
             playerProvider.currentRadioStation?.id == station.id;
+        final homePage = station.homePageUrl == null
+            ? null
+            : Uri.tryParse(station.homePageUrl!)?.host;
 
         return ListTile(
           contentPadding: const EdgeInsets.symmetric(
@@ -305,7 +314,7 @@ class _RadioStationTile extends StatelessWidget {
               isPlaying
                   ? CupertinoIcons.waveform
                   : CupertinoIcons.radiowaves_right,
-              color: Colors.white,
+              color: context.octave.onAccent,
               size: 28,
             ),
           ),
@@ -321,15 +330,19 @@ class _RadioStationTile extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
-          subtitle: Text(
-            station.streamUrl,
-            style: TextStyle(
-              fontSize: 13,
-              color: context.octave.text3,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+          // The stream address means nothing to a listener: only the
+          // station's website, when it has one.
+          subtitle: homePage == null || homePage.isEmpty
+              ? null
+              : Text(
+                  homePage,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: context.octave.text3,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
           trailing: isPlaying
               ? Container(
                   padding: const EdgeInsets.symmetric(

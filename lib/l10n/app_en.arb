@@ -1119,6 +1119,11 @@
   "@liveLabel": {
     "description": "Badge shown next to a live radio stream"
   },
+  "radioUnavailable": "Can't play {name} right now.",
+  "@radioUnavailable": {
+    "description": "Message when a radio station's stream cannot be played",
+    "placeholders": {"name": {"type": "String"}}
+  },
   "@sectionAutoDj": {
     "description": "Playback settings section header for Auto DJ"
   },

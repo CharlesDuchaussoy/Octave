@@ -985,6 +985,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get liveLabel => 'EN DIRECT';
 
   @override
+  String radioUnavailable(String name) {
+    return 'Impossible de lire $name pour l\'instant.';
+  }
+
+  @override
   String get sectionVolumeNormalization => 'VOLUME ÉGALISÉ (REPLAYGAIN)';
 
   @override

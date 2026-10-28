@@ -993,6 +993,7 @@
     "description": "Subtitle shown in the mini player and player bar when a radio station is playing"
   },
   "liveLabel": "EN DIRECT",
+  "radioUnavailable": "Impossible de lire {name} pour l'instant.",
   "@liveLabel": {
     "description": "Badge shown next to a live radio stream"
   },
