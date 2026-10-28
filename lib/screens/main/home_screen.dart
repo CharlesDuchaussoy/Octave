@@ -174,11 +174,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 preferredSize: const Size.fromHeight(48),
                 child: Container(
                   height: 48,
-                  padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 6),
+                  padding: const EdgeInsets.symmetric(vertical: 6),
                   alignment: Alignment.centerLeft,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     physics: const BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: hPad),
                     child: Row(
                       children: [
                         _buildCategoryChip('All', AppLocalizations.of(context)!.filterAll, isDark),
