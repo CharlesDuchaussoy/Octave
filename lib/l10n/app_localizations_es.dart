@@ -248,6 +248,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get playerInterface => 'Interfaz del reproductor';
 
   @override
+  String get playerBackgroundFromCover => 'Cover color in the background';
+
+  @override
+  String get playerBackgroundFromCoverSubtitle =>
+      'Otherwise the full player takes the app color.';
+
+  @override
   String get smartRecommendations => 'Recomendaciones Inteligentes';
 
   @override

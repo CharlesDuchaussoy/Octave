@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musly/octave/theme/octave_palette.dart';
+import 'package:musly/octave/theme/player_background.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Colors offered to the user, in display order. Saved by [persistKey],
@@ -105,12 +106,14 @@ class ThemeService extends ChangeNotifier {
   static const String _keyLiquidGlass = 'app_liquid_glass';
   static const String _keyPureBlack = 'app_pure_black';
   static const String _keyIntensity = 'app_color_intensity';
+  static const String _keyPlayerBackground = 'app_player_background';
 
   ThemeMode _themeMode = ThemeMode.system;
   AccentColor _accentColor = AccentColor.octave;
   bool _liquidGlass = true;
   bool _pureBlack = false;
   double _intensity = OctavePalette.defaultIntensity;
+  PlayerBackgroundSource _playerBackground = PlayerBackgroundSource.cover;
 
   ThemeMode get themeMode => _themeMode;
   AccentColor get accentColor => _accentColor;
@@ -121,6 +124,9 @@ class ThemeService extends ChangeNotifier {
 
   /// How much the seed color tints backgrounds, from 0 to 1.
   double get intensity => _intensity;
+
+  /// Where the full player takes its background color from.
+  PlayerBackgroundSource get playerBackground => _playerBackground;
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
@@ -135,6 +141,8 @@ class ThemeService extends ChangeNotifier {
     _pureBlack = prefs.getBool(_keyPureBlack) ?? false;
     _intensity =
         prefs.getDouble(_keyIntensity) ?? OctavePalette.defaultIntensity;
+    _playerBackground = PlayerBackgroundSource.fromName(
+        prefs.getString(_keyPlayerBackground));
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
@@ -170,6 +178,13 @@ class ThemeService extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble(_keyIntensity, _intensity);
+  }
+
+  Future<void> setPlayerBackground(PlayerBackgroundSource source) async {
+    _playerBackground = source;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyPlayerBackground, source.name);
   }
 
   static ThemeMode _themeModeFromKey(String key) {

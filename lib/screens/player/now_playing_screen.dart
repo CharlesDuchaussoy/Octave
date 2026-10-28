@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart' hide RepeatMode;
-import 'package:musly/widgets/common/blurred_gradient_background.dart';
 import 'package:musly/widgets/now_playing/album_art_view.dart';
 import 'package:musly/widgets/now_playing/marquee_text.dart';
 import 'package:musly/widgets/now_playing/playback_controls.dart';
@@ -24,6 +23,8 @@ import 'package:musly/services/wakelock_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/widgets/common/album_artwork.dart' show coverImageProvider;
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/octave/theme/player_background.dart';
+import 'package:musly/services/theme_service.dart';
 
 class NowPlayingScreen extends StatefulWidget {
   final ImageProvider image;
@@ -186,9 +187,17 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
 
   Future<void> _extractColors() async {
     if (_currentImageProvider == null || _lastSong == null) return;
-    final imageId = _lastSong!.id;
-    final colors =
-        await PaletteService.extractColors(_currentImageProvider!, imageId);
+    final song = _lastSong!;
+    // A small version of the cover is enough for its colors, and quick
+    // to download.
+    final coverArt = song.coverArt;
+    final image = coverArt != null && coverArt.isNotEmpty
+        ? coverImageProvider(
+            Provider.of<SubsonicService>(context, listen: false), coverArt,
+            size: 150)
+        : _currentImageProvider!;
+    final colors = await PaletteService.extractColors(image, song.id);
+    if (_lastSong?.id != song.id) return;
     if (mounted) {
       setState(() {
         _bgColors = colors;
@@ -240,7 +249,6 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
 
   @override
   Widget build(BuildContext context) {
-    final accentColor = _bgColors.isNotEmpty ? _bgColors.first : Colors.white;
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     final view = View.of(context);
@@ -258,17 +266,30 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
     final effectiveRightPadding =
         viewPadding.right > 0 ? viewPadding.right : mediaQueryPadding.right;
 
-    // The player is always dark, over the artwork colors: use Octave's
-    // dark theme in the user's color, not Flutter's default (purple).
-    final playerTheme = OctaveTheme.build(OctavePalette.build(
+    // The player is always dark: Octave's dark theme in the user's color
+    // (not Flutter's default, which is purple), over one plain color
+    // taken from the cover and set by the user's theme.
+    final theme = Provider.of<ThemeService>(context);
+    final playerColors = OctavePalette.build(
       seed: context.octave.accent,
       brightness: Brightness.dark,
-    ));
+      intensity: theme.intensity,
+      pureBlack: theme.pureBlack,
+    );
+    final playerTheme = OctaveTheme.build(playerColors);
+    final accentColor = playerColors.accent;
+    final background = playerBackground(
+      coverColor: _bgColors.isNotEmpty ? _bgColors.first : null,
+      appSeed: context.octave.accent,
+      intensity: theme.intensity,
+      pureBlack: theme.pureBlack,
+      source: theme.playerBackground,
+    );
 
     return Theme(
       data: playerTheme,
       child: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: background,
         body: GestureDetector(
           onVerticalDragUpdate: isLandscape ? null : _onVerticalDragUpdate,
           onVerticalDragEnd: isLandscape ? null : _onVerticalDragEnd,
@@ -276,8 +297,12 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
             children: [
               Positioned.fill(
                 child: RepaintBoundary(
-                  child: BlurredGradientBackground(
-                    colors: _bgColors,
+                  child: AnimatedContainer(
+                    // A short fade from one song's color to the next.
+                    duration: MediaQuery.of(context).disableAnimations
+                        ? Duration.zero
+                        : const Duration(milliseconds: 450),
+                    color: background,
                     child: PageView(
                       controller: _pageController,
                       onPageChanged: (index) {

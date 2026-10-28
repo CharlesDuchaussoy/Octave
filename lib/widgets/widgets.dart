@@ -11,7 +11,6 @@ export 'common/animated_equalizer.dart';
 export 'common/dolby_atmos_badge.dart';
 export 'common/shimmer_loading.dart';
 export 'common/gradient_header.dart';
-export 'common/blurred_gradient_background.dart';
 export 'common/section_header.dart';
 export 'common/lazy_indexed_stack.dart';
 export 'common/multi_artist_widget.dart';

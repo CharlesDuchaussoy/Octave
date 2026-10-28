@@ -580,6 +580,18 @@ abstract class AppLocalizations {
   /// **'Player Interface'**
   String get playerInterface;
 
+  /// Display settings: full player background follows the cover
+  ///
+  /// In en, this message translates to:
+  /// **'Cover color in the background'**
+  String get playerBackgroundFromCover;
+
+  /// Display settings: explanation of the player background switch
+  ///
+  /// In en, this message translates to:
+  /// **'Otherwise the full player takes the app color.'**
+  String get playerBackgroundFromCoverSubtitle;
+
   /// Smart Recommendations settings section title
   ///
   /// In en, this message translates to:

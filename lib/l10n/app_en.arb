@@ -309,6 +309,14 @@
   "@playerInterface": {
     "description": "Player Interface settings section"
   },
+  "playerBackgroundFromCover": "Cover color in the background",
+  "@playerBackgroundFromCover": {
+    "description": "Display settings: full player background follows the cover"
+  },
+  "playerBackgroundFromCoverSubtitle": "Otherwise the full player takes the app color.",
+  "@playerBackgroundFromCoverSubtitle": {
+    "description": "Display settings: explanation of the player background switch"
+  },
   "smartRecommendations": "Smart Recommendations",
   "@smartRecommendations": {
     "description": "Smart Recommendations settings section title"

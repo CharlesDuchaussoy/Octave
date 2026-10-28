@@ -46,7 +46,8 @@ class PlayerUiSettingsService {
   
   final ValueNotifier<bool> lyricsBlurUnfocusedNotifier = ValueNotifier(false);
   final ValueNotifier<String> lyricsAlignmentNotifier = ValueNotifier('left');
-  final ValueNotifier<bool> lyricsGlowEffectNotifier = ValueNotifier(true);
+  // No glow by default: Octave's design avoids glows.
+  final ValueNotifier<bool> lyricsGlowEffectNotifier = ValueNotifier(false);
   final ValueNotifier<bool> lyricsKeepScreenOnNotifier = ValueNotifier(true);
   final ValueNotifier<bool> showLiveLyricUnderArtworkNotifier =
       ValueNotifier(false);

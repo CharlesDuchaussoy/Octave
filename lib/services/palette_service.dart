@@ -14,7 +14,8 @@ class PaletteService {
       final palette = await PaletteGenerator.fromImageProvider(
         imageProvider,
         maximumColorCount: 32,
-        timeout: const Duration(seconds: 2),
+        // The cover may still be downloading.
+        timeout: const Duration(seconds: 8),
       );
 
       final dominant = palette.dominantColor?.color;
@@ -70,11 +71,10 @@ class PaletteService {
       _colorCache[imageId] = extracted;
       return extracted;
     } catch (e) {
-      return [
-        const Color(0xFF1A1A24),
-        const Color(0xFF2A2A3C),
-        const Color(0xFF121218),
-      ];
+      // No colors rather than a made-up navy: callers fall back to the
+      // app colors. Not cached, so the next attempt can succeed.
+      debugPrint('[PaletteService] no colors for $imageId: $e');
+      return const [];
     }
   }
 

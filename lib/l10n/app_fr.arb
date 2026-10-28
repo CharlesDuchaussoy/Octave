@@ -293,6 +293,8 @@
   "@playerInterface": {
     "description": "Player Interface settings section"
   },
+  "playerBackgroundFromCover": "Fond aux couleurs de la pochette",
+  "playerBackgroundFromCoverSubtitle": "Sinon, le lecteur plein écran prend la couleur de l'app.",
   "smartRecommendations": "Recommandations",
   "@smartRecommendations": {
     "description": "Smart Recommendations settings section title"
