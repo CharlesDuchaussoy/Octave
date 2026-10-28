@@ -349,7 +349,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                       const SizedBox(width: 12),
                       const Text(
-                        'Musly',
+                        'Octave',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -797,7 +797,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               const SizedBox(width: 10),
               const Text(
-                'Musly',
+                'Octave',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w700,

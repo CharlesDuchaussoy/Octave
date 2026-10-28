@@ -9,8 +9,8 @@
 int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
                       _In_ wchar_t *command_line, _In_ int show_command) {
   // Set explicit App User Model ID so Windows SMTC, Taskbar and Notifications
-  // display the application name "Musly" instead of "App sconosciuta".
-  ::SetCurrentProcessExplicitAppUserModelID(L"Musly");
+  // display the application name "Octave" instead of "App sconosciuta".
+  ::SetCurrentProcessExplicitAppUserModelID(L"Octave");
 
   // Attach to console when present (e.g., 'flutter run') or create a
   // new console when running with a debugger.
@@ -32,7 +32,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
-  if (!window.Create(L"Musly", origin, size)) {
+  if (!window.Create(L"Octave", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

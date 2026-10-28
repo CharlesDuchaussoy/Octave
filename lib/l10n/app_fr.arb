@@ -1,7 +1,7 @@
 {
   "@@locale": "fr",
   "@@last_modified": "2026-02-07T16:10:00Z",
-  "appName": "Musly",
+  "appName": "Octave",
   "@appName": {
     "description": "Application name"
   },
@@ -506,7 +506,7 @@
   "@communityTranslations": {
     "description": "Community translations credit label"
   },
-  "communityTranslationsSubtitle": "Aidez-nous à traduire Musly sur Crowdin",
+  "communityTranslationsSubtitle": "Aidez-nous à traduire Octave sur GitHub",
   "@communityTranslationsSubtitle": {
     "description": "Community translations credit subtitle"
   },
@@ -1170,7 +1170,7 @@
   "@updateAvailable": {
     "description": "Title of the update available dialog"
   },
-  "updateAvailableSubtitle": "Une nouvelle version de Musly est disponible !",
+  "updateAvailableSubtitle": "Une nouvelle version de Octave est disponible !",
   "@updateAvailableSubtitle": {
     "description": "Subtitle in the update dialog"
   },
@@ -1548,7 +1548,7 @@
   "@discordRpcStyleSong": {
     "description": "Discord RPC state style option: show song title"
   },
-  "discordRpcStyleApp": "Nom de l'application (Musly)",
+  "discordRpcStyleApp": "Nom de l'application (Octave)",
   "@discordRpcStyleApp": {
     "description": "Discord RPC state style option: show app name"
   },
@@ -1763,5 +1763,5 @@
   "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio",
   "desktopOverlaySection": "Overlay Bureau",
   "spotverlayTitle": "Spotverlay",
-  "spotverlayDescription": "Si vous souhaitez un overlay élégant et léger \"Made for Musly\", vous pouvez utiliser Spotverlay (https://github.com/dddevid/Spotverlay)"
+  "spotverlayDescription": "Si vous souhaitez un overlay élégant et léger \"Made for Octave\", vous pouvez utiliser Spotverlay (https://github.com/dddevid/Spotverlay)"
 }

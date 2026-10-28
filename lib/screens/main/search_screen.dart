@@ -655,7 +655,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 final cardSize = _isDesktop ? 175.0 : 150.0;
                 return MediaCard(
                   title: playlist.name,
-                  subtitle: 'Playlist • Musly',
+                  subtitle: 'Playlist • Octave',
                   coverArt: playlist.coverArt,
                   artwork: PlaylistArtwork(
                     playlist: playlist,

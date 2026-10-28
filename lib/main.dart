@@ -281,7 +281,7 @@ class MuslyApp extends StatelessWidget {
         }
 
         return MaterialApp(
-          title: 'Musly',
+          title: 'Octave',
           debugShowCheckedModeBanner: false,
           theme: light,
           darkTheme: dark,

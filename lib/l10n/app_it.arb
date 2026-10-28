@@ -1,7 +1,7 @@
 {
   "@@locale": "it",
   "@@last_modified": "2026-02-07T16:10:00Z",
-  "appName": "Musly",
+  "appName": "Octave",
   "@appName": {
     "description": "Application name"
   },
@@ -506,7 +506,7 @@
   "@communityTranslations": {
     "description": "Community translations credit label"
   },
-  "communityTranslationsSubtitle": "Aiuta a tradurre Musly su Crowdin",
+  "communityTranslationsSubtitle": "Aiuta a tradurre Octave su GitHub",
   "@communityTranslationsSubtitle": {
     "description": "Community translations credit subtitle"
   },
@@ -1149,7 +1149,7 @@
   "@checkingForUpdates": {
     "description": "Message shown while checking for updates"
   },
-  "appUpToDate": "Musly è aggiornato",
+  "appUpToDate": "Octave è aggiornato",
   "@appUpToDate": {
     "description": "Message shown when app is on the latest version"
   },
@@ -1233,7 +1233,7 @@
     "description": "Banner shown at the top of the screen in offline mode"
   },
   "@_UPDATE_DIALOG": {},
-  "updateAvailableSubtitle": "Una nuova versione di Musly è disponibile!",
+  "updateAvailableSubtitle": "Una nuova versione di Octave è disponibile!",
   "@updateAvailableSubtitle": {
     "description": "Subtitle in the update dialog"
   },
@@ -1603,7 +1603,7 @@
   "@discordRpcStyleSong": {
     "description": "Discord RPC state style option: show song title"
   },
-  "discordRpcStyleApp": "Nome app (Musly)",
+  "discordRpcStyleApp": "Nome app (Octave)",
   "@discordRpcStyleApp": {
     "description": "Discord RPC state style option: show app name"
   },
@@ -1832,13 +1832,13 @@
   "supportWayEnjoy": "Semplicemente goditi la musica!",
   "selectPlaylist": "Seleziona Playlist",
   "endOfSong": "Fine Brano",
-  "muslyConnect": "Musly Connect",
+  "muslyConnect": "Octave Connect",
   "connectToDevice": "Connetti a un Dispositivo",
   "currentlyPlayingOn": "In Riproduzione Su",
-  "noDevicesFound": "Nessun altro dispositivo Musly trovato sulla tua rete Wi-Fi.",
+  "noDevicesFound": "Nessun altro dispositivo Octave trovato sulla tua rete Wi-Fi.",
   "transferPlaybackHere": "Trasferisci la riproduzione qui",
   "playbackTransferredTo": "Riproduzione trasferita su {device}",
-  "muslyBeatSync": "Musly BeatSync",
+  "muslyBeatSync": "Octave BeatSync",
   "beatSyncSubtitle": "Sincronizza più telefoni e computer su Wi-Fi come altoparlanti surround per le feste con precisione al millisecondo.",
   "hostParty": "Crea Party",
   "joinParty": "Unisciti al Party",
@@ -1846,12 +1846,12 @@
   "audioPhaseCalibration": "Calibrazione Fase Audio",
   "phaseCalibrationSubtitle": "Regola per compensare la latenza di cuffie o altoparlanti Bluetooth.",
   "partySpeakers": "Altoparlanti Party",
-  "muslyWrapped": "Musly Wrapped",
-  "wrappedSeasonal": "Musly Playback è Stagionale",
+  "muslyWrapped": "Octave Wrapped",
+  "wrappedSeasonal": "Octave Playback è Stagionale",
   "playYourTopSongs": "Riproduci i tuoi brani top",
   "milestone50SongsTitle": "Grazie di cuore!",
   "milestone50SongsBadge": "50 BRANI ASCOLTATI",
-  "milestone50SongsMessage": "Hai appena raggiunto il traguardo di 50 brani ascoltati su Musly! Grazie per aver scelto quest'app per accompagnare la tua passione musicale ogni giorno.",
+  "milestone50SongsMessage": "Hai appena raggiunto il traguardo di 50 brani ascoltati su Octave! Grazie per aver scelto quest'app per accompagnare la tua passione musicale ogni giorno.",
   "continueListening": "Continua ad ascoltare",
   "lyricsUnderArtwork": "Testo sotto la copertina",
   "lyricsUnderArtworkSubtitle": "Mostra la riga sincronizzata corrente del testo sotto la copertina nel player a schermo intero",
@@ -1913,16 +1913,16 @@
   "welcomeTourSubtitle": "Rivedi l'esperienza introduttiva iniziale",
   "muslyPlaybackDev": "Anteprima Playback (Modalità Test)",
   "muslyPlaybackDevSubtitle": "Esplora direttamente l'anteprima del tuo Year-in-Review senza attendere novembre",
-  "muslyPlaybackAnnual": "Musly Playback",
+  "muslyPlaybackAnnual": "Octave Playback",
   "muslyPlaybackAnnualSubtitle": "Il tuo Year-in-Review annuale si sblocca automaticamente ogni anno tra fine novembre e metà gennaio.\n\nContinua ad ascoltare musica per espandere il tuo universo sonoro!",
   "sectionAboutSupport": "SUPPORTO",
   "thanksForRating": "Grazie per la valutazione!",
-  "rateMusly": "Valuta Musly",
+  "rateMusly": "Valuta Octave",
   "alreadyRatedSubtitle": "Hai già valutato l'app",
   "shareFeedbackSubtitle": "Condividi la tua opinione",
   "supportMuslyTitle": "Supporta Musly",
   "supportMuslySubtitle": "Unisciti a Discord o fai una donazione",
-  "rateMuslyDialogTitle": "Valuta Musly",
+  "rateMuslyDialogTitle": "Valuta Octave",
   "rateMuslyDialogQuestion": "Come valuteresti la tua esperienza?",
   "optionalFeedbackHint": "Feedback opzionale...",
   "submit": "Invia",
@@ -1943,7 +1943,7 @@
   "removeServerTitle": "Rimuovi server",
   "removeServerConfirm": "Sei sicuro di voler rimuovere \"{name}\" dai server salvati?",
   "noPlaylistsFound": "Nessuna playlist trovata",
-  "supportDialogDescription": "Musly è un progetto gratuito e open-source. Il tuo supporto aiuta a mantenerlo vivo!",
+  "supportDialogDescription": "Octave è un progetto gratuito e open-source. Il tuo supporto aiuta a mantenerlo vivo!",
   "supportDialogJoinDiscord": "Unisciti al nostro Discord",
   "supportDialogDiscordSubtitle": "Ottieni aiuto, suggerisci funzionalità, chatta con noi",
   "supportDialogDonateTitle": "Supporta con una donazione",
@@ -1994,8 +1994,8 @@
   "topSongBadge": "Brano #1",
   "topArtistMetric": "Top Artista",
   "genreMetric": "Genere",
-  "muslyPlaybackHeader": "MUSLY PLAYBACK",
-  "enableMuslyConnect": "Abilita Musly Connect",
+  "muslyPlaybackHeader": "OCTAVE PLAYBACK",
+  "enableMuslyConnect": "Abilita Octave Connect",
   "enableMuslyConnectSubtitle": "Rileva i dispositivi vicini tramite Wi-Fi per il controllo remoto e le sessioni di ascolto",
   "availableDevices": "Dispositivi disponibili",
   "lanDiscoveryActive": "Rilevamento LAN attivo • Nessun dispositivo nelle vicinanze",
@@ -2009,7 +2009,7 @@
   "localFirstStorageTitle": "Salvataggio Locale sul Dispositivo",
   "localFirstStorageDescription": "La tua libreria musicale e le credenziali rimangono sul tuo dispositivo.",
   "privateOpenTitle": "100% Privata & Aperta",
-  "privateOpenDescription": "Musly non raccoglie alcuna telemetria. Nessun identificatore, dato di tracciamento o analytics.",
+  "privateOpenDescription": "Octave non raccoglie alcuna telemetria. Nessun identificatore, dato di tracciamento o analytics.",
   "readFullPrivacyPolicy": "Leggi la Privacy Policy Completa",
   "viewCompleteDetailsWebsite": "Visualizza i dettagli completi sul nostro sito web",
   "understandAndContinue": "Ho capito e continua",
@@ -2072,7 +2072,7 @@
   "onboardingSlide1Feature3Desc": "Riproduzione gapless e bit-perfect per FLAC, ALAC e Opus.",
   "onboardingSlide2TitlePrefix": "Mix Intelligenti,\n",
   "onboardingSlide2TitleHighlight": "Creati su Misura per Te.",
-  "onboardingSlide2Description": "Musly apprende le tue abitudini sul dispositivo per creare mix quotidiani e riscoprire i tuoi brani preferiti.",
+  "onboardingSlide2Description": "Octave apprende le tue abitudini sul dispositivo per creare mix quotidiani e riscoprire i tuoi brani preferiti.",
   "onboardingSlide2Feature1Title": "Profilazione Gusti Algoritmica",
   "onboardingSlide2Feature1Desc": "Apprende frequenze d'ascolto, skip e valutazioni in locale.",
   "onboardingSlide2Feature2Title": "Mix Giornalieri Personalizzati",
@@ -2101,7 +2101,7 @@
   "whatDoYouWantToPlay": "Cosa vuoi ascoltare?",
   "noLyricsFound": "Nessun testo disponibile",
   "dynamicColor": "Material You (Colore dinamico)",
-  "muslyPlayback": "Musly Playback",
+  "muslyPlayback": "Octave Playback",
   "synthesizingUniverse": "Sintetizzando il tuo universo sonoro",
   "getReadyForBeatDrop": "Preparati al drop sonoro...",
   "yourYearInSound": "Il tuo {year}\nin Musica",
@@ -2194,5 +2194,5 @@
   "androidAutoUseActiveServer": "Usa server attivo dell'app",
   "desktopOverlaySection": "Overlay Desktop",
   "spotverlayTitle": "Spotverlay",
-  "spotverlayDescription": "Se desideri un overlay bello e leggero \"Made for Musly\", puoi utilizzare Spotverlay (https://github.com/dddevid/Spotverlay)"
+  "spotverlayDescription": "Se desideri un overlay bello e leggero \"Made for Octave\", puoi utilizzare Spotverlay (https://github.com/dddevid/Spotverlay)"
 }

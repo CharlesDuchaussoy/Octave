@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "@@last_modified": "2026-02-07T16:10:00Z",
-  "appName": "Musly",
+  "appName": "Octave",
   "@appName": {
     "description": "Application name"
   },
@@ -558,7 +558,7 @@
   "@communityTranslations": {
     "description": "Community translations credit label"
   },
-  "communityTranslationsSubtitle": "Help translate Musly on Crowdin",
+  "communityTranslationsSubtitle": "Help translate Octave on GitHub",
   "@communityTranslationsSubtitle": {
     "description": "Community translations credit subtitle"
   },
@@ -1239,7 +1239,7 @@
   "@checkingForUpdates": {
     "description": "Message shown while checking for updates"
   },
-  "appUpToDate": "Musly is up to date",
+  "appUpToDate": "Octave is up to date",
   "@appUpToDate": {
     "description": "Message shown when app is on the latest version"
   },
@@ -1327,7 +1327,7 @@
   "@updateAvailable": {
     "description": "Title of the update available dialog"
   },
-  "updateAvailableSubtitle": "A new version of Musly is available!",
+  "updateAvailableSubtitle": "A new version of Octave is available!",
   "@updateAvailableSubtitle": {
     "description": "Subtitle in the update dialog"
   },
@@ -1705,7 +1705,7 @@
   "@discordRpcStyleSong": {
     "description": "Discord RPC state style option: show song title"
   },
-  "discordRpcStyleApp": "App name (Musly)",
+  "discordRpcStyleApp": "App name (Octave)",
   "@discordRpcStyleApp": {
     "description": "Discord RPC state style option: show app name"
   },
@@ -1947,7 +1947,7 @@
   "@anonymousAnalytics": {
     "description": "Title for anonymous analytics toggle"
   },
-  "anonymousAnalyticsSubtitle": "Help improve Musly with anonymous crash reports and usage stats",
+  "anonymousAnalyticsSubtitle": "Help improve Octave with anonymous crash reports and usage stats",
   "@anonymousAnalyticsSubtitle": {
     "description": "Subtitle explaining anonymous analytics"
   },
@@ -2212,7 +2212,7 @@
   "@endOfSong": {
     "description": "Sleep timer option to end at the end of the current song"
   },
-  "muslyConnect": "Musly Connect",
+  "muslyConnect": "Octave Connect",
   "@muslyConnect": {
     "description": "Title for Musly Connect feature"
   },
@@ -2224,7 +2224,7 @@
   "@currentlyPlayingOn": {
     "description": "Label for currently active playback device"
   },
-  "noDevicesFound": "No other Musly devices found on your Wi-Fi network.",
+  "noDevicesFound": "No other Octave devices found on your Wi-Fi network.",
   "@noDevicesFound": {
     "description": "Empty state when no peer devices are discovered"
   },
@@ -2241,7 +2241,7 @@
       }
     }
   },
-  "muslyBeatSync": "Musly BeatSync",
+  "muslyBeatSync": "Octave BeatSync",
   "@muslyBeatSync": {
     "description": "Title for BeatSync feature"
   },
@@ -2273,11 +2273,11 @@
   "@partySpeakers": {
     "description": "List title for connected party devices"
   },
-  "muslyWrapped": "Musly Wrapped",
+  "muslyWrapped": "Octave Wrapped",
   "@muslyWrapped": {
     "description": "Title for Musly Wrapped retrospective"
   },
-  "wrappedSeasonal": "Musly Wrapped is Seasonal",
+  "wrappedSeasonal": "Octave Wrapped is Seasonal",
   "@wrappedSeasonal": {
     "description": "Title when Wrapped is accessed outside seasonal window"
   },
@@ -2293,7 +2293,7 @@
   "@milestone50SongsBadge": {
     "description": "Badge for 50-song milestone"
   },
-  "milestone50SongsMessage": "You just reached the milestone of 50 songs listened to on Musly! Thank you for choosing this app for your daily music journey.",
+  "milestone50SongsMessage": "You just reached the milestone of 50 songs listened to on Octave! Thank you for choosing this app for your daily music journey.",
   "@milestone50SongsMessage": {
     "description": "Message for 50-song milestone"
   },
@@ -2568,7 +2568,7 @@
   "@welcomeTourSubtitle": {
     "description": "Subtitle for welcome tour tile"
   },
-  "muslyPlaybackDev": "Musly Playback (Dev Preview)",
+  "muslyPlaybackDev": "Octave Playback (Dev Preview)",
   "@muslyPlaybackDev": {
     "description": "Title for developer preview of annual wrapped"
   },
@@ -2576,7 +2576,7 @@
   "@muslyPlaybackDevSubtitle": {
     "description": "Subtitle for developer preview of annual wrapped"
   },
-  "muslyPlaybackAnnual": "Musly Playback",
+  "muslyPlaybackAnnual": "Octave Playback",
   "@muslyPlaybackAnnual": {
     "description": "Title for annual playback review"
   },
@@ -2592,7 +2592,7 @@
   "@thanksForRating": {
     "description": "Title shown when user has already rated the app"
   },
-  "rateMusly": "Rate Musly",
+  "rateMusly": "Rate Octave",
   "@rateMusly": {
     "description": "Title to rate the app"
   },
@@ -2612,7 +2612,7 @@
   "@supportMuslySubtitle": {
     "description": "Subtitle for Musly support tile"
   },
-  "rateMuslyDialogTitle": "Rate Musly",
+  "rateMuslyDialogTitle": "Rate Octave",
   "@rateMuslyDialogTitle": {
     "description": "Title of rating dialog"
   },
@@ -2716,7 +2716,7 @@
   "@noPlaylistsFound": {
     "description": "Empty state message in playlist downloads screen"
   },
-  "supportDialogDescription": "Musly is a free, open-source project. Your support helps keep it alive!",
+  "supportDialogDescription": "Octave is a free, open-source project. Your support helps keep it alive!",
   "@supportDialogDescription": {
     "description": "Description in support startup dialog"
   },
@@ -2982,11 +2982,11 @@
   "@genreMetric": {
     "description": "Genre metric label in Wrapped summary"
   },
-  "muslyPlaybackHeader": "MUSLY PLAYBACK",
+  "muslyPlaybackHeader": "OCTAVE PLAYBACK",
   "@muslyPlaybackHeader": {
     "description": "Header in Wrapped summary slide"
   },
-  "enableMuslyConnect": "Enable Musly Connect",
+  "enableMuslyConnect": "Enable Octave Connect",
   "@enableMuslyConnect": {
     "description": "Enable Musly connect setting title"
   },
@@ -3047,7 +3047,7 @@
   "@privateOpenTitle": {
     "description": "100% private and open title"
   },
-  "privateOpenDescription": "Musly is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.",
+  "privateOpenDescription": "Octave is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.",
   "@privateOpenDescription": {
     "description": "Telemetry free description"
   },
@@ -3322,7 +3322,7 @@
   "@onboardingSlide2TitleHighlight": {
     "description": "Onboarding slide 2 title highlight"
   },
-  "onboardingSlide2Description": "Musly learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.",
+  "onboardingSlide2Description": "Octave learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.",
   "@onboardingSlide2Description": {
     "description": "Onboarding slide 2 description"
   },
@@ -3443,15 +3443,15 @@
   "@dynamicColor": {
     "description": "Material You wallpaper dynamic color option"
   },
-  "muslyPlayback": "Musly Playback",
+  "muslyPlayback": "Octave Playback",
   "@muslyPlayback": {
     "description": "Musly Playback / Wrapped title"
   },
-  "wrappedSeasonal": "Musly Playback is Seasonal",
+  "wrappedSeasonal": "Octave Playback is Seasonal",
   "@wrappedSeasonal": {
     "description": "Musly Playback seasonal dialog header"
   },
-  "muslyPlaybackAnnual": "Musly Playback",
+  "muslyPlaybackAnnual": "Octave Playback",
   "@muslyPlaybackAnnual": {
     "description": "Musly Playback annual title in settings"
   },
@@ -3552,7 +3552,7 @@
   "@yourListeningPersonality": {
     "description": "Wrapped personality slide header"
   },
-  "muslyPlaybackHeader": "MUSLY PLAYBACK",
+  "muslyPlaybackHeader": "OCTAVE PLAYBACK",
   "@muslyPlaybackHeader": {
     "description": "Wrapped summary card header"
   },
@@ -3815,7 +3815,7 @@
   "@spotverlayTitle": {
     "description": "Title for Spotverlay desktop overlay"
   },
-  "spotverlayDescription": "If you want a beautiful and lightweight \"Made for Musly\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)",
+  "spotverlayDescription": "If you want a beautiful and lightweight \"Made for Octave\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)",
   "@spotverlayDescription": {
     "description": "Message recommending Spotverlay desktop overlay for Musly"
   }

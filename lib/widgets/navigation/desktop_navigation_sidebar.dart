@@ -245,7 +245,7 @@ class _LogoRow extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Musly',
+                    'Octave',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

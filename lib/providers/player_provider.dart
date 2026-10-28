@@ -2898,7 +2898,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
       case 'song_title':
         return _currentSong?.title ?? 'Unknown Song';
       case 'app_name':
-        return 'Musly';
+        return 'Octave';
       case 'artist':
       default:
         return _currentSong?.artist ?? 'Unknown Artist';
@@ -2945,7 +2945,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
           state: stateText,
           details: _currentSong!.title,
           largeImageKey: 'musly_logo',
-          largeImageText: _currentSong!.album ?? 'Musly',
+          largeImageText: _currentSong!.album ?? 'Octave',
           smallImageKey: 'musly_logo',
           smallImageText: 'Paused',
           startTime: null,
@@ -2962,7 +2962,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
           state: stateText,
           details: _currentSong!.title,
           largeImageKey: 'musly_logo',
-          largeImageText: _currentSong!.album ?? 'Musly',
+          largeImageText: _currentSong!.album ?? 'Octave',
           smallImageKey: 'musly_logo',
           smallImageText: 'Playing',
           startTime: startTimestamp,

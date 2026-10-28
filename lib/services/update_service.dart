@@ -100,10 +100,10 @@ class ReleaseInfo {
 }
 
 class UpdateService {
-  static const String currentVersion = '2.0.3';
+  static const String currentVersion = '1.0.0';
 
   static const String _apiUrl =
-      'https://api.github.com/repos/dddevid/Musly/releases/latest';
+      'https://api.github.com/repos/CharlesDuchaussoy/Octave/releases/latest';
 
   static const String _skippedVersionKey = 'skipped_update_version';
   static const String _lastCheckTimestampKey = 'last_update_check_timestamp';
@@ -120,7 +120,7 @@ class UpdateService {
       headers: {
         'Accept': 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28',
-        'User-Agent': 'Musly-App/$currentVersion',
+        'User-Agent': 'Octave-App/$currentVersion',
       },
     ),
   );
@@ -215,7 +215,7 @@ class UpdateService {
         receiveTimeout: const Duration(minutes: 15),
         headers: {
           'Accept-Encoding': 'identity',
-          'User-Agent': 'Musly-App/$currentVersion',
+          'User-Agent': 'Octave-App/$currentVersion',
         },
       ),
     );

@@ -1,22 +1,23 @@
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "Musly Icon.png"
+  remove_alpha_ios: true
+  image_path: "assets/branding/octave-icon.png"
   min_sdk_android: 21
-  adaptive_icon_background: "#1C1C1E"
-  adaptive_icon_foreground: "Musly Icon.png"
+  adaptive_icon_background: "#0E2A47"
+  adaptive_icon_foreground: "assets/branding/octave-foreground.png"
   
   web:
     generate: true
-    image_path: "Musly Icon.png"
-    background_color: "#1C1C1E"
-    theme_color: "#FA243C"
+    image_path: "assets/branding/octave-icon-rounded.png"
+    background_color: "#0E2A47"
+    theme_color: "#0E2A47"
   
   windows:
     generate: true
-    image_path: "Musly Icon.png"
+    image_path: "assets/branding/octave-icon-rounded.png"
     icon_size: 48
   
   macos:
     generate: true
-    image_path: "Musly Icon.png"
+    image_path: "assets/branding/octave-icon-rounded.png"

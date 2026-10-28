@@ -34,6 +34,8 @@ class SubsonicService {
   JellyfinService? _jellyfin;
   YoutubeService? _youtube;
 
+  // Octo applies its Musly-specific settings (timed lyrics, library-only
+  // albums) to this client name. Keep it until Octo recognizes Octave.
   static const String _clientName = 'Musly';
   static const String _apiVersion = '1.16.1';
 

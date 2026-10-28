@@ -104,7 +104,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               context,
               icon: Icons.code_rounded,
               title: AppLocalizations.of(context)!.aboutLinkGitHub,
-              url: 'https://github.com/dddevid/Musly',
+              url: 'https://github.com/CharlesDuchaussoy/Octave',
             ),
             _buildDivider(context),
             _buildLinkTile(
@@ -112,14 +112,14 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               icon: CupertinoIcons.doc_text,
               title: AppLocalizations.of(context)!.aboutLinkChangelog,
               url:
-                  'https://github.com/dddevid/Musly/releases/tag/v${UpdateService.currentVersion}',
+                  'https://github.com/CharlesDuchaussoy/Octave/releases/tag/v${UpdateService.currentVersion}',
             ),
             _buildDivider(context),
             _buildLinkTile(
               context,
               icon: CupertinoIcons.exclamationmark_bubble,
               title: AppLocalizations.of(context)!.aboutLinkReportIssue,
-              url: 'https://github.com/dddevid/Musly/issues/new',
+              url: 'https://github.com/CharlesDuchaussoy/Octave/issues/new',
             ),
             _buildDivider(context),
             _buildLinkTile(

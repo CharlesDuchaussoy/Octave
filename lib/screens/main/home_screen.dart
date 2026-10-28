@@ -377,7 +377,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               final cardSize = isDesktop ? 180.0 : 155.0;
                               return MediaCard(
                                 title: playlist.name,
-                                subtitle: 'Playlist • Musly',
+                                subtitle: 'Playlist • Octave',
                                 coverArt: playlist.coverArt,
                                 artwork: PlaylistArtwork(
                                   playlist: playlist,
@@ -775,7 +775,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '#MuslyPlayback $year',
+                        '#OctavePlayback $year',
                         style: const TextStyle(
                           color: Colors.white70,
                           fontSize: 12,
