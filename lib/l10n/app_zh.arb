@@ -13,18 +13,6 @@
   "@goodEvening": {
     "description": "Evening greeting"
   },
-  "forYou": "为你推荐",
-  "@forYou": {
-    "description": "For You section title"
-  },
-  "quickPicks": "快速选择",
-  "@quickPicks": {
-    "description": "Quick Picks section title"
-  },
-  "discoverMix": "发现混音",
-  "@discoverMix": {
-    "description": "Discover Mix section title"
-  },
   "recentlyPlayed": "最近播放",
   "@recentlyPlayed": {
     "description": "Recently played section title"
@@ -41,14 +29,6 @@
   "@topRated": {
     "description": "Top rated albums title"
   },
-  "noContentAvailable": "暂无内容",
-  "@noContentAvailable": {
-    "description": "Message when no content is available"
-  },
-  "tryRefreshing": "请刷新或检查服务器连接",
-  "@tryRefreshing": {
-    "description": "Message to try refreshing"
-  },
   "refresh": "刷新",
   "@refresh": {
     "description": "Refresh button label"
@@ -64,10 +44,6 @@
   "errorLoadingAlbums": "加载专辑出错",
   "@errorLoadingAlbums": {
     "description": "Error message when albums fail to load"
-  },
-  "noTopRatedAlbums": "暂无评分最高的专辑",
-  "@noTopRatedAlbums": {
-    "description": "Message when there are no top rated albums"
   },
   "login": "登录",
   "@login": {
@@ -178,14 +154,6 @@
   "@repeat": {
     "description": "Repeat button label"
   },
-  "repeatOne": "单曲循环",
-  "@repeatOne": {
-    "description": "Repeat one button label"
-  },
-  "repeatOff": "关闭循环",
-  "@repeatOff": {
-    "description": "Repeat off button label"
-  },
   "addToPlaylist": "添加到歌单",
   "@addToPlaylist": {
     "description": "Add to playlist option"
@@ -214,10 +182,6 @@
   "@cancel": {
     "description": "Cancel button label"
   },
-  "ok": "确定",
-  "@ok": {
-    "description": "OK button label"
-  },
   "save": "保存",
   "@save": {
     "description": "Save button label"
@@ -226,29 +190,9 @@
   "@close": {
     "description": "Close button label"
   },
-  "general": "通用",
-  "@general": {
-    "description": "General settings section"
-  },
-  "appearance": "外观",
-  "@appearance": {
-    "description": "Appearance settings section"
-  },
-  "playback": "播放",
-  "@playback": {
-    "description": "Playback settings section"
-  },
   "storage": "存储",
   "@storage": {
     "description": "Storage settings section"
-  },
-  "about": "关于",
-  "@about": {
-    "description": "About settings section"
-  },
-  "darkMode": "深色模式",
-  "@darkMode": {
-    "description": "Dark mode setting"
   },
   "language": "语言",
   "@language": {
@@ -257,22 +201,6 @@
   "version": "版本",
   "@version": {
     "description": "Version info label"
-  },
-  "madeBy": "由 dddevid 开发",
-  "@madeBy": {
-    "description": "Developer credit"
-  },
-  "githubRepository": "GitHub 仓库",
-  "@githubRepository": {
-    "description": "GitHub repository link label"
-  },
-  "reportIssue": "报告问题",
-  "@reportIssue": {
-    "description": "Report issue link label"
-  },
-  "joinDiscord": "加入 Discord 社区",
-  "@joinDiscord": {
-    "description": "Discord community link label"
   },
   "unknownArtist": "未知艺术家",
   "@unknownArtist": {
@@ -286,41 +214,9 @@
   "@playAll": {
     "description": "Play all button label"
   },
-  "shuffleAll": "随机播放全部",
-  "@shuffleAll": {
-    "description": "Shuffle all button label"
-  },
   "sortBy": "排序方式",
   "@sortBy": {
     "description": "Sort by label"
-  },
-  "sortByName": "名称",
-  "@sortByName": {
-    "description": "Sort by name option"
-  },
-  "sortByArtist": "艺术家",
-  "@sortByArtist": {
-    "description": "Sort by artist option"
-  },
-  "sortByAlbum": "专辑",
-  "@sortByAlbum": {
-    "description": "Sort by album option"
-  },
-  "sortByDate": "日期",
-  "@sortByDate": {
-    "description": "Sort by date option"
-  },
-  "sortByDuration": "时长",
-  "@sortByDuration": {
-    "description": "Sort by duration option"
-  },
-  "ascending": "升序",
-  "@ascending": {
-    "description": "Ascending sort order"
-  },
-  "descending": "降序",
-  "@descending": {
-    "description": "Descending sort order"
   },
   "noLyricsAvailable": "暂无歌词",
   "@noLyricsAvailable": {
@@ -338,25 +234,9 @@
   "@retry": {
     "description": "Button to retry a failed server connection"
   },
-  "noResults": "无结果",
-  "@noResults": {
-    "description": "No search results message"
-  },
-  "searchHint": "搜索歌曲、专辑、艺术家...",
-  "@searchHint": {
-    "description": "Search field hint text"
-  },
   "allSongs": "全部歌曲",
   "@allSongs": {
     "description": "All songs title"
-  },
-  "allAlbums": "全部专辑",
-  "@allAlbums": {
-    "description": "All albums title"
-  },
-  "allArtists": "全部艺术家",
-  "@allArtists": {
-    "description": "All artists title"
   },
   "trackNumber": "第 {number} 首",
   "@trackNumber": {
@@ -389,18 +269,6 @@
   "@logout": {
     "description": "Logout button label"
   },
-  "confirmLogout": "确定要退出登录吗？",
-  "@confirmLogout": {
-    "description": "Logout confirmation message"
-  },
-  "yes": "是",
-  "@yes": {
-    "description": "Yes button label"
-  },
-  "no": "否",
-  "@no": {
-    "description": "No button label"
-  },
   "offlineMode": "离线模式",
   "@offlineMode": {
     "description": "Offline mode label"
@@ -409,10 +277,6 @@
   "@radio": {
     "description": "Radio section label"
   },
-  "changelog": "更新日志",
-  "@changelog": {
-    "description": "Changelog link label"
-  },
   "platform": "平台",
   "@platform": {
     "description": "Platform info label"
@@ -420,10 +284,6 @@
   "server": "服务器",
   "@server": {
     "description": "Server settings section"
-  },
-  "display": "显示",
-  "@display": {
-    "description": "Display settings section"
   },
   "playerInterface": "播放器界面",
   "@playerInterface": {
@@ -474,14 +334,6 @@
   "@historyCleared": {
     "description": "SnackBar message when history is cleared"
   },
-  "discordStatus": "Discord 状态",
-  "@discordStatus": {
-    "description": "Discord RPC toggle label"
-  },
-  "discordStatusSubtitle": "在 Discord 个人资料上显示正在播放的歌曲",
-  "@discordStatusSubtitle": {
-    "description": "Discord RPC toggle subtitle"
-  },
   "selectLanguage": "选择语言",
   "@selectLanguage": {
     "description": "Language selection dialog title"
@@ -502,8 +354,6 @@
   "yourLibrary": "你的音乐库",
   "filterAll": "全部",
   "filterPlaylists": "歌单",
-  "filterAlbums": "专辑",
-  "filterArtists": "艺术家",
   "likedSongs": "喜欢的歌曲",
   "radioStations": "电台",
   "playlist": "歌单",
@@ -536,14 +386,6 @@
       }
     }
   },
-  "errorDeletingPlaylist": "删除歌单出错：{error}",
-  "@errorDeletingPlaylist": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "playlistCreated": "歌单「{name}」已创建",
   "@playlistCreated": {
     "placeholders": {
@@ -553,16 +395,7 @@
     }
   },
   "@_SEARCH": {},
-  "searchTitle": "搜索",
-  "searchPlaceholder": "艺术家、歌曲、专辑",
-  "tryDifferentSearch": "尝试不同的搜索",
-  "noSuggestions": "无建议",
-  "browseCategories": "浏览分类",
-  "categoryMadeForYou": "为你制作",
   "categoryNewReleases": "新歌首发",
-  "categoryTopRated": "评分最高",
-  "categoryGenres": "分类",
-  "categoryFavorites": "收藏",
   "categoryRadio": "电台",
   "@_SETTINGS_GENERAL": {},
   "settingsTitle": "设置",
@@ -582,36 +415,10 @@
       }
     }
   },
-  "sectionReplayGain": "音量标准化 (REPLAYGAIN)",
   "replayGainMode": "模式",
-  "preamp": "前置增益：{value} dB",
-  "@preamp": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
-  "preventClipping": "防止削波",
-  "fallbackGain": "备用增益：{value} dB",
-  "@fallbackGain": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "sectionStreamingQuality": "流媒体质量",
-  "enableTranscoding": "启用转码",
-  "qualityWifi": "WiFi 质量",
-  "qualityMobile": "移动网络质量",
   "format": "格式",
-  "transcodingSubtitle": "降低质量以减少数据使用",
-  "modeOff": "关闭",
-  "modeTrack": "单曲",
-  "modeAlbum": "专辑",
   "@_SETTINGS_SERVER": {},
-  "sectionServerConnection": "服务器连接",
   "serverType": "服务器类型",
   "notConnected": "未连接",
   "unknown": "未知",
@@ -621,11 +428,6 @@
   "logoutConfirmation": "确定要退出登录吗？这也将清除所有缓存数据。",
   "@_SETTINGS_STORAGE": {},
   "imageCache": "图片缓存",
-  "musicCache": "音乐缓存",
-  "bpmCache": "BPM 缓存",
-  "saveAlbumCovers": "本地保存专辑封面",
-  "saveSongMetadata": "本地保存歌曲元数据",
-  "saveBpmAnalysis": "本地保存 BPM 分析",
   "sectionCacheCleanup": "缓存清理",
   "clearAllCache": "清除所有缓存",
   "allCacheCleared": "所有缓存已清除",
@@ -667,15 +469,7 @@
     }
   },
   "@_SETTINGS_ABOUT": {},
-  "sectionInformation": "信息",
-  "sectionDeveloper": "开发者",
-  "sectionLinks": "链接",
-  "githubRepo": "GitHub 仓库",
   "@_PLAYER_AND_MENUS": {},
-  "playingFrom": "正在播放来自",
-  "live": "直播",
-  "streamingLive": "正在直播",
-  "stopRadio": "停止电台",
   "removeFromLiked": "从喜欢的歌曲中移除",
   "addToLiked": "添加到喜欢的歌曲",
   "playNext": "下一首播放",
@@ -756,7 +550,6 @@
     }
   },
   "noPlaylists": "没有可用的歌单",
-  "createNewPlaylist": "创建新歌单",
   "artistNotFound": "未找到艺术家「{name}」",
   "@artistNotFound": {
     "placeholders": {
@@ -773,7 +566,6 @@
       }
     }
   },
-  "selectArtist": "选择艺术家",
   "removedFromFavorites": "已从收藏中移除",
   "addedToFavorites": "已添加到收藏",
   "star": "星",
@@ -782,27 +574,6 @@
   "albumNotFound": "未找到专辑",
   "@albumNotFound": {
     "description": "Message when album data is not available"
-  },
-  "durationHoursMinutes": "{hours} 小时 {minutes} 分钟",
-  "@durationHoursMinutes": {
-    "description": "Album duration in hours and minutes",
-    "placeholders": {
-      "hours": {
-        "type": "int"
-      },
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-  "durationMinutes": "{minutes} 分钟",
-  "@durationMinutes": {
-    "description": "Album duration in minutes only",
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
   },
   "topSongs": "热门歌曲",
   "@topSongs": {
@@ -817,30 +588,9 @@
   "@noSongPlaying": {
     "description": "Placeholder when no song is loaded in the player"
   },
-  "internetRadioUppercase": "网络电台",
-  "@internetRadioUppercase": {
-    "description": "Uppercase badge shown in the now-playing radio player"
-  },
-  "playingNext": "即将播放",
-  "@playingNext": {
-    "description": "Title of the queue / playing-next bottom sheet"
-  },
-  "createPlaylistTitle": "创建歌单",
-  "@createPlaylistTitle": {
-    "description": "Title of the create-new-playlist dialog"
-  },
   "playlistNameHint": "歌单名称",
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
-  },
-  "playlistCreatedWithSong": "已创建歌单「{name}」并添加了这首歌曲",
-  "@playlistCreatedWithSong": {
-    "description": "Snackbar shown after creating a playlist with the current song",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
   },
   "errorLoadingPlaylists": "加载歌单出错：{error}",
   "@errorLoadingPlaylists": {
@@ -874,14 +624,6 @@
   "@listeningHistory": {
     "description": "Title of the listening history screen"
   },
-  "noListeningHistory": "没有收听历史",
-  "@noListeningHistory": {
-    "description": "Empty state headline on the history screen"
-  },
-  "songsWillAppearHere": "您播放的歌曲将显示在这里",
-  "@songsWillAppearHere": {
-    "description": "Empty state subtitle on the history screen"
-  },
   "@_SORT_OPTIONS": {},
   "sortByTitleAZ": "标题 (A-Z)",
   "@sortByTitleAZ": {
@@ -895,17 +637,9 @@
   "@sortByArtistAZ": {
     "description": "Sort option: artist ascending"
   },
-  "sortByArtistZA": "艺术家 (Z-A)",
-  "@sortByArtistZA": {
-    "description": "Sort option: artist descending"
-  },
   "sortByAlbumAZ": "专辑 (A-Z)",
   "@sortByAlbumAZ": {
     "description": "Sort option: album ascending"
-  },
-  "sortByAlbumZA": "专辑 (Z-A)",
-  "@sortByAlbumZA": {
-    "description": "Sort option: album descending"
   },
   "recentlyAdded": "最近添加",
   "@recentlyAdded": {
@@ -924,14 +658,6 @@
   "@noHomepageUrl": {
     "description": "Snackbar when a radio station has no homepage URL"
   },
-  "playStation": "播放电台",
-  "@playStation": {
-    "description": "Context menu option to play a radio station"
-  },
-  "openHomepage": "打开首页",
-  "@openHomepage": {
-    "description": "Context menu option to open a radio station's homepage"
-  },
   "copyStreamUrl": "复制流地址",
   "@copyStreamUrl": {
     "description": "Context menu option to copy a radio station stream URL"
@@ -943,10 +669,6 @@
   "noRadioStations": "没有电台",
   "@noRadioStations": {
     "description": "Empty state headline on the radio screen"
-  },
-  "noRadioStationsHint": "在您的 Navidrome 服务器设置中添加电台以在此处查看。",
-  "@noRadioStationsHint": {
-    "description": "Empty state subtitle on the radio screen"
   },
   "@_LOGIN_SCREEN": {},
   "connectToServerSubtitle": "连接到您的 Subsonic 服务器",
@@ -1030,10 +752,6 @@
   "@connect": {
     "description": "Login submit button label"
   },
-  "or": "或者",
-  "@or": {
-    "description": "Divider label between Connect and Use Local Files"
-  },
   "useLocalFiles": "使用本地文件",
   "@useLocalFiles": {
     "description": "Button label to start local-files mode"
@@ -1069,10 +787,6 @@
   "@home": {
     "description": "Home navigation item label in the desktop sidebar"
   },
-  "playlistsSection": "歌单",
-  "@playlistsSection": {
-    "description": "Uppercase section header for playlists in the desktop sidebar"
-  },
   "collapse": "收起",
   "@collapse": {
     "description": "Tooltip/label for the sidebar collapse button"
@@ -1085,52 +799,7 @@
   "@createPlaylist": {
     "description": "Tooltip/label for the create-playlist button in the sidebar library header"
   },
-  "likedSongsSidebar": "喜欢的歌曲",
-  "@likedSongsSidebar": {
-    "description": "Liked Songs item label in the desktop sidebar"
-  },
-  "playlistSongsCount": "歌单 • {count} 首歌曲",
-  "@playlistSongsCount": {
-    "description": "Subtitle for a playlist item in the desktop sidebar",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "@_LYRICS": {},
-  "failedToLoadLyrics": "加载歌词失败",
-  "@failedToLoadLyrics": {
-    "description": "Error state message when lyrics cannot be loaded"
-  },
-  "lyricsNotFoundSubtitle": "无法找到这首歌曲的歌词",
-  "@lyricsNotFoundSubtitle": {
-    "description": "Empty/error subtitle in the lyrics view"
-  },
-  "backToCurrent": "返回当前",
-  "@backToCurrent": {
-    "description": "Button to scroll the lyrics view back to the current line"
-  },
-  "exitFullscreen": "退出全屏",
-  "@exitFullscreen": {
-    "description": "Tooltip for the exit-fullscreen button in lyrics view"
-  },
-  "fullscreen": "全屏",
-  "@fullscreen": {
-    "description": "Tooltip for the enter-fullscreen button in lyrics view"
-  },
-  "noLyrics": "无歌词",
-  "@noLyrics": {
-    "description": "Fallback text when no lyrics controller is available"
-  },
-  "internetRadioMiniPlayer": "网络电台",
-  "@internetRadioMiniPlayer": {
-    "description": "Subtitle shown in the mini player when streaming internet radio"
-  },
-  "liveBadge": "直播",
-  "@liveBadge": {
-    "description": "Badge text shown in the mini player for live radio streams"
-  },
   "@_BANNERS": {},
   "localFilesModeBanner": "本地文件模式",
   "@localFilesModeBanner": {
@@ -1145,35 +814,9 @@
   "@updateAvailable": {
     "description": "Title of the update available dialog"
   },
-  "updateAvailableSubtitle": "新版本的 Octave 已可用！",
-  "@updateAvailableSubtitle": {
-    "description": "Subtitle in the update dialog"
-  },
-  "updateCurrentVersion": "当前版本：v{version}",
-  "@updateCurrentVersion": {
-    "description": "Current version label in the update dialog",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateLatestVersion": "最新版本：v{version}",
-  "@updateLatestVersion": {
-    "description": "Latest version label in the update dialog",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
   "whatsNew": "更新内容",
   "@whatsNew": {
     "description": "Section header for the changelog in the update dialog"
-  },
-  "downloadUpdate": "下载",
-  "@downloadUpdate": {
-    "description": "Primary button in the update dialog that opens the release page"
   },
   "remindLater": "稍后提醒",
   "@remindLater": {
@@ -1193,39 +836,9 @@
   "@casting": {
     "description": "Title shown in the Chromecast control dialog when actively casting"
   },
-  "castDlnaBeta": "投射 / DLNA（测试版）",
-  "@castDlnaBeta": {
-    "description": "Title of the Cast/DLNA device picker dialog"
-  },
   "disconnect": "断开连接",
   "@disconnect": {
     "description": "Button to clear server credentials and go back to login"
-  },
-  "searchingDevices": "正在搜索设备",
-  "@searchingDevices": {
-    "description": "Loading message in the device picker when no devices have been found yet"
-  },
-  "castWifiHint": "请确保您的投射/DLNA设备\n处于同一 Wi-Fi 网络上",
-  "@castWifiHint": {
-    "description": "Hint shown while searching for cast/DLNA devices"
-  },
-  "connectedToDevice": "已连接到 {name}",
-  "@connectedToDevice": {
-    "description": "Snackbar shown after successfully connecting to a cast/DLNA device",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "failedToConnectDevice": "连接到 {name} 失败",
-  "@failedToConnectDevice": {
-    "description": "Snackbar shown when connecting to a cast/DLNA device fails",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
   },
   "@_LIKED_SONGS_SNACKBARS": {},
   "removedFromLikedSongs": "已从喜欢的歌曲中移除",
@@ -1237,22 +850,10 @@
     "description": "Snackbar shown after liking a song in the song tile menu"
   },
   "@_PLAYER_BAR": {},
-  "enableShuffle": "启用随机播放",
-  "@enableShuffle": {
-    "description": "Tooltip for the shuffle toggle button in the desktop player bar"
-  },
-  "enableRepeat": "启用循环",
-  "@enableRepeat": {
-    "description": "Tooltip for the repeat toggle button in the desktop player bar"
-  },
   "@_CAST_TOOLTIPS": {},
   "connecting": "正在连接",
   "@connecting": {
     "description": "Tooltip for the cast button when connecting to a device"
-  },
-  "closeLyrics": "关闭歌词",
-  "@closeLyrics": {
-    "description": "Tooltip for the lyrics button when lyrics panel is open"
   },
   "@_ERROR_MESSAGES": {},
   "errorStartingDownload": "开始下载出错：{error}",
@@ -1298,25 +899,9 @@
   "@jukeboxClearQueue": {
     "description": "Action label to clear the jukebox playback queue"
   },
-  "jukeboxShuffleQueue": "随机排序队列",
-  "@jukeboxShuffleQueue": {
-    "description": "Action label to shuffle the jukebox playback queue"
-  },
   "jukeboxQueueEmpty": "队列中没有歌曲",
   "@jukeboxQueueEmpty": {
     "description": "Empty state when the jukebox queue has no songs"
-  },
-  "jukeboxNowPlaying": "正在播放",
-  "@jukeboxNowPlaying": {
-    "description": "Section header for the now-playing area in the jukebox controller"
-  },
-  "jukeboxQueue": "播放队列",
-  "@jukeboxQueue": {
-    "description": "Section header for the queue list in the jukebox controller"
-  },
-  "jukeboxVolume": "音量",
-  "@jukeboxVolume": {
-    "description": "Label for the volume slider in the jukebox controller"
   },
   "playOnJukebox": "在点唱机上播放",
   "@playOnJukebox": {
@@ -1331,98 +916,9 @@
     "description": "Error shown when the server returns 501 for jukebox API calls"
   },
   "@_MUSIC_FOLDERS": {},
-  "musicFoldersDialogTitle": "选择音乐文件夹",
-  "@musicFoldersDialogTitle": {
-    "description": "Title of the music folders selection dialog"
-  },
   "musicFoldersHint": "保持全部启用以使用所有文件夹（默认）。",
   "@musicFoldersHint": {
     "description": "Hint text in the music folders selection dialog"
-  },
-  "musicFoldersSaved": "音乐文件夹选择已保存",
-  "@musicFoldersSaved": {
-    "description": "Snackbar shown after saving music folder selection"
-  },
-  "artworkStyleSection": "封面样式",
-  "@artworkStyleSection": {
-    "description": "Display settings section header for artwork customisation"
-  },
-  "artworkCornerRadius": "圆角",
-  "@artworkCornerRadius": {
-    "description": "Label for the album art corner radius slider"
-  },
-  "artworkCornerRadiusSubtitle": "调整专辑封面的圆角程度",
-  "@artworkCornerRadiusSubtitle": {
-    "description": "Subtitle for the album art corner radius slider"
-  },
-  "artworkCornerRadiusNone": "无",
-  "@artworkCornerRadiusNone": {
-    "description": "Label shown when corner radius is set to 0 (no rounded corners)"
-  },
-  "artworkShape": "形状",
-  "@artworkShape": {
-    "description": "Label for the artwork shape selector"
-  },
-  "artworkShapeRounded": "圆角矩形",
-  "@artworkShapeRounded": {
-    "description": "Rounded rectangle artwork shape option"
-  },
-  "artworkShapeCircle": "圆形",
-  "@artworkShapeCircle": {
-    "description": "Circle artwork shape option"
-  },
-  "artworkShapeSquare": "方形",
-  "@artworkShapeSquare": {
-    "description": "Square (no rounding) artwork shape option"
-  },
-  "artworkShadow": "阴影",
-  "@artworkShadow": {
-    "description": "Label for the artwork shadow intensity selector"
-  },
-  "artworkShadowNone": "无",
-  "@artworkShadowNone": {
-    "description": "No shadow option for artwork"
-  },
-  "artworkShadowSoft": "柔和",
-  "@artworkShadowSoft": {
-    "description": "Soft shadow option for artwork"
-  },
-  "artworkShadowMedium": "中等",
-  "@artworkShadowMedium": {
-    "description": "Medium shadow option for artwork"
-  },
-  "artworkShadowStrong": "强烈",
-  "@artworkShadowStrong": {
-    "description": "Strong shadow option for artwork"
-  },
-  "artworkShadowColor": "阴影颜色",
-  "@artworkShadowColor": {
-    "description": "Label for the artwork shadow color selector"
-  },
-  "artworkShadowColorBlack": "黑色",
-  "@artworkShadowColorBlack": {
-    "description": "Black shadow color option"
-  },
-  "artworkShadowColorAccent": "强调色",
-  "@artworkShadowColorAccent": {
-    "description": "Accent color shadow (matches app accent color)"
-  },
-  "artworkPreview": "预览",
-  "@artworkPreview": {
-    "description": "Label shown above the live artwork style preview"
-  },
-  "artworkCornerRadiusLabel": "{value}像素",
-  "@artworkCornerRadiusLabel": {
-    "description": "Formatted corner radius value label",
-    "placeholders": {
-      "value": {
-        "type": "int"
-      }
-    }
-  },
-  "noArtwork": "无封面",
-  "@noArtwork": {
-    "description": "Placeholder label shown in the player when a song has no cover art"
   },
   "@internetRadio": {
     "description": "Subtitle shown in the mini player and player bar when a radio station is playing"

@@ -100,7 +100,6 @@ class AndroidAutoService {
     return lookupAppLocalizations(ui.PlatformDispatcher.instance.locale);
   }
 
-  bool get _isWebStream => _subsonicService.isYoutube;
 
   Future<List<MediaItem>> getChildren(
     String parentId, [
@@ -314,7 +313,7 @@ class AndroidAutoService {
       ));
     }
 
-    if (!_isWebStream && settings.getShowFavorites()) {
+    if (settings.getShowFavorites()) {
       items.add(_browsableItem(
         id: _idFavorites,
         title: _l10n.androidAutoFavorites,
@@ -362,42 +361,40 @@ class AndroidAutoService {
       ));
     }
 
-    if (!_isWebStream) {
-      if (settings.getShowGenres()) {
-        items.add(_browsableItem(
-          id: _idGenres,
-          title: _l10n.androidAutoGenres,
-          iconUri: _androidResourceUri('ic_auto_genres'),
-          extras: {
-            _contentStyleBrowsable: _contentStyleList,
-            _contentStylePlayable: _contentStyleList,
-          },
-        ));
-      }
+    if (settings.getShowGenres()) {
+      items.add(_browsableItem(
+        id: _idGenres,
+        title: _l10n.androidAutoGenres,
+        iconUri: _androidResourceUri('ic_auto_genres'),
+        extras: {
+          _contentStyleBrowsable: _contentStyleList,
+          _contentStylePlayable: _contentStyleList,
+        },
+      ));
+    }
 
-      if (settings.getShowRadio()) {
-        items.add(_browsableItem(
-          id: _idRadio,
-          title: _l10n.androidAutoRadio,
-          iconUri: _androidResourceUri('ic_auto_radio'),
-          extras: {
-            _contentStyleBrowsable: _contentStyleList,
-            _contentStylePlayable: _contentStyleList,
-          },
-        ));
-      }
+    if (settings.getShowRadio()) {
+      items.add(_browsableItem(
+        id: _idRadio,
+        title: _l10n.androidAutoRadio,
+        iconUri: _androidResourceUri('ic_auto_radio'),
+        extras: {
+          _contentStyleBrowsable: _contentStyleList,
+          _contentStylePlayable: _contentStyleList,
+        },
+      ));
+    }
 
-      if (settings.getShowDownloads()) {
-        items.add(_browsableItem(
-          id: _idDownloads,
-          title: _l10n.androidAutoDownloads,
-          iconUri: _androidResourceUri('ic_auto_downloads'),
-          extras: {
-            _contentStyleBrowsable: _contentStyleList,
-            _contentStylePlayable: _contentStyleList,
-          },
-        ));
-      }
+    if (settings.getShowDownloads()) {
+      items.add(_browsableItem(
+        id: _idDownloads,
+        title: _l10n.androidAutoDownloads,
+        iconUri: _androidResourceUri('ic_auto_downloads'),
+        extras: {
+          _contentStyleBrowsable: _contentStyleList,
+          _contentStylePlayable: _contentStyleList,
+        },
+      ));
     }
 
     items.add(MediaItem(
@@ -727,9 +724,6 @@ class AndroidAutoService {
 
       if (song != null) {
         await player.playSong(song);
-      } else if (_isWebStream) {
-        final tempSong = Song(id: songId, title: _l10n.androidAutoLoading, artist: _l10n.androidAutoOnlineStream, duration: 0);
-        await player.playSong(tempSong);
       }
     } catch (e) {
       debugPrint('[AndroidAutoService] _playBySongId($songId) error: $e');

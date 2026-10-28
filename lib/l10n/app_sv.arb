@@ -17,18 +17,6 @@
   "@goodEvening": {
     "description": "Evening greeting"
   },
-  "forYou": "För Dig",
-  "@forYou": {
-    "description": "For You section title"
-  },
-  "quickPicks": "Snabba Val",
-  "@quickPicks": {
-    "description": "Quick Picks section title"
-  },
-  "discoverMix": "Discover Mix",
-  "@discoverMix": {
-    "description": "Discover Mix section title"
-  },
   "recentlyPlayed": "Nyligen spelade",
   "@recentlyPlayed": {
     "description": "Recently played section title"
@@ -45,14 +33,6 @@
   "@topRated": {
     "description": "Top rated albums title"
   },
-  "noContentAvailable": "Inget innehåll tillgängligt",
-  "@noContentAvailable": {
-    "description": "Message when no content is available"
-  },
-  "tryRefreshing": "Försök ladda om eller kontrollera din servers anslutning",
-  "@tryRefreshing": {
-    "description": "Message to try refreshing"
-  },
   "refresh": "Ladda om",
   "@refresh": {
     "description": "Refresh button label"
@@ -68,10 +48,6 @@
   "errorLoadingAlbums": "Fel vid laddning av album",
   "@errorLoadingAlbums": {
     "description": "Error message when albums fail to load"
-  },
-  "noTopRatedAlbums": "Inga högst rankade album",
-  "@noTopRatedAlbums": {
-    "description": "Message when there are no top rated albums"
   },
   "login": "Logga in",
   "@login": {
@@ -182,14 +158,6 @@
   "@repeat": {
     "description": "Repeat button label"
   },
-  "repeatOne": "Upprepa en gång",
-  "@repeatOne": {
-    "description": "Repeat one button label"
-  },
-  "repeatOff": "Upprepning av",
-  "@repeatOff": {
-    "description": "Repeat off button label"
-  },
   "addToPlaylist": "Lägg till Spellista",
   "@addToPlaylist": {
     "description": "Add to playlist option"
@@ -218,10 +186,6 @@
   "@cancel": {
     "description": "Cancel button label"
   },
-  "ok": "OK",
-  "@ok": {
-    "description": "OK button label"
-  },
   "save": "Spara",
   "@save": {
     "description": "Save button label"
@@ -230,29 +194,9 @@
   "@close": {
     "description": "Close button label"
   },
-  "general": "Allmän",
-  "@general": {
-    "description": "General settings section"
-  },
-  "appearance": "Utseende",
-  "@appearance": {
-    "description": "Appearance settings section"
-  },
-  "playback": "Uppspelning",
-  "@playback": {
-    "description": "Playback settings section"
-  },
   "storage": "Lagring",
   "@storage": {
     "description": "Storage settings section"
-  },
-  "about": "Om",
-  "@about": {
-    "description": "About settings section"
-  },
-  "darkMode": "Mörkt Läge",
-  "@darkMode": {
-    "description": "Dark mode setting"
   },
   "language": "Språk",
   "@language": {
@@ -261,22 +205,6 @@
   "version": "Version",
   "@version": {
     "description": "Version info label"
-  },
-  "madeBy": "Gjord av dddevid",
-  "@madeBy": {
-    "description": "Developer credit"
-  },
-  "githubRepository": "Github Repository",
-  "@githubRepository": {
-    "description": "GitHub repository link label"
-  },
-  "reportIssue": "Rapportera Problem",
-  "@reportIssue": {
-    "description": "Report issue link label"
-  },
-  "joinDiscord": "Gå med Discord Community:t",
-  "@joinDiscord": {
-    "description": "Discord community link label"
   },
   "unknownArtist": "Okänd Artist",
   "@unknownArtist": {
@@ -290,41 +218,9 @@
   "@playAll": {
     "description": "Play all button label"
   },
-  "shuffleAll": "Blanda Alla",
-  "@shuffleAll": {
-    "description": "Shuffle all button label"
-  },
   "sortBy": "Sortera efter",
   "@sortBy": {
     "description": "Sort by label"
-  },
-  "sortByName": "Namn",
-  "@sortByName": {
-    "description": "Sort by name option"
-  },
-  "sortByArtist": "Artist",
-  "@sortByArtist": {
-    "description": "Sort by artist option"
-  },
-  "sortByAlbum": "Album",
-  "@sortByAlbum": {
-    "description": "Sort by album option"
-  },
-  "sortByDate": "Datum",
-  "@sortByDate": {
-    "description": "Sort by date option"
-  },
-  "sortByDuration": "Längd",
-  "@sortByDuration": {
-    "description": "Sort by duration option"
-  },
-  "ascending": "Stigande ordning",
-  "@ascending": {
-    "description": "Ascending sort order"
-  },
-  "descending": "Fallande ordning",
-  "@descending": {
-    "description": "Descending sort order"
   },
   "noLyricsAvailable": "Ingen låttext tillgänglig",
   "@noLyricsAvailable": {
@@ -342,25 +238,9 @@
   "@retry": {
     "description": "Button to retry a failed server connection"
   },
-  "noResults": "Inga resultat",
-  "@noResults": {
-    "description": "No search results message"
-  },
-  "searchHint": "Sök efter låt, album, artist...",
-  "@searchHint": {
-    "description": "Search field hint text"
-  },
   "allSongs": "Alla Låtar",
   "@allSongs": {
     "description": "All songs title"
-  },
-  "allAlbums": "Alla Album",
-  "@allAlbums": {
-    "description": "All albums title"
-  },
-  "allArtists": "Alla Artister",
-  "@allArtists": {
-    "description": "All artists title"
   },
   "trackNumber": "Låt {number}",
   "@trackNumber": {
@@ -393,18 +273,6 @@
   "@logout": {
     "description": "Logout button label"
   },
-  "confirmLogout": "Är du säker på att du vill logga ut?",
-  "@confirmLogout": {
-    "description": "Logout confirmation message"
-  },
-  "yes": "Ja",
-  "@yes": {
-    "description": "Yes button label"
-  },
-  "no": "Nej",
-  "@no": {
-    "description": "No button label"
-  },
   "offlineMode": "Offline Läge",
   "@offlineMode": {
     "description": "Offline mode label"
@@ -413,10 +281,6 @@
   "@radio": {
     "description": "Radio section label"
   },
-  "changelog": "Ändringslogg",
-  "@changelog": {
-    "description": "Changelog link label"
-  },
   "platform": "Plattform",
   "@platform": {
     "description": "Platform info label"
@@ -424,10 +288,6 @@
   "server": "Server",
   "@server": {
     "description": "Server settings section"
-  },
-  "display": "Display",
-  "@display": {
-    "description": "Display settings section"
   },
   "playerInterface": "Spelargränsnitt",
   "@playerInterface": {
@@ -478,14 +338,6 @@
   "@historyCleared": {
     "description": "SnackBar message when history is cleared"
   },
-  "discordStatus": "Discord Status",
-  "@discordStatus": {
-    "description": "Discord RPC toggle label"
-  },
-  "discordStatusSubtitle": "Visa låt som spelas på Discord profil",
-  "@discordStatusSubtitle": {
-    "description": "Discord RPC toggle subtitle"
-  },
   "selectLanguage": "Välj Språk",
   "@selectLanguage": {
     "description": "Language selection dialog title"
@@ -506,8 +358,6 @@
   "yourLibrary": "Ditt Bibliotek",
   "filterAll": "Alla",
   "filterPlaylists": "Spellistor",
-  "filterAlbums": "Album",
-  "filterArtists": "Artister",
   "likedSongs": "Gillade Låtar",
   "radioStations": "Radio Stationer",
   "playlist": "Spellista",
@@ -540,14 +390,6 @@
       }
     }
   },
-  "errorDeletingPlaylist": "Fel uppstod vid borttagning av spellista: {error}",
-  "@errorDeletingPlaylist": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "playlistCreated": "Spellista \"{name}\" skapad",
   "@playlistCreated": {
     "placeholders": {
@@ -557,16 +399,7 @@
     }
   },
   "@_SEARCH": {},
-  "searchTitle": "Sök",
-  "searchPlaceholder": "Artister, Låtar, Album",
-  "tryDifferentSearch": "Försök söka någonting annat",
-  "noSuggestions": "Inga förslag",
-  "browseCategories": "Bläddra Kategorier",
-  "categoryMadeForYou": "Skapad För Dig",
   "categoryNewReleases": "Nytt Släpp",
-  "categoryTopRated": "Högst rankade",
-  "categoryGenres": "Genrer",
-  "categoryFavorites": "Favoriter",
   "categoryRadio": "Radio",
   "@_SETTINGS_GENERAL": {},
   "settingsTitle": "Inställningar",
@@ -586,36 +419,10 @@
       }
     }
   },
-  "sectionReplayGain": "VOLYM NORMALISERING (REPLAYGAIN)",
   "replayGainMode": "Läge",
-  "preamp": "Preamp: {value} dB",
-  "@preamp": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
-  "preventClipping": "Förhindra Ljudklippning",
-  "fallbackGain": "Fallback Gain: {value} dB",
-  "@fallbackGain": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "sectionStreamingQuality": "STREAMING KVALITET",
-  "enableTranscoding": "Aktivera Transkodning",
-  "qualityWifi": "WiFi Kvalité",
-  "qualityMobile": "Mobil Kvalité",
   "format": "Format",
-  "transcodingSubtitle": "Minska dataanvändning med sämre kvalité",
-  "modeOff": "Av",
-  "modeTrack": "Låt",
-  "modeAlbum": "Album",
   "@_SETTINGS_SERVER": {},
-  "sectionServerConnection": "SERVER ANSLUTNING",
   "serverType": "Server Typ",
   "notConnected": "Inte ansluten",
   "unknown": "Okänd",
@@ -625,11 +432,6 @@
   "logoutConfirmation": "Är du säker på att du vill logga ut? Detta kommer även rensa all cachelagrad data.",
   "@_SETTINGS_STORAGE": {},
   "imageCache": "Bild Cache",
-  "musicCache": "Musik Cache",
-  "bpmCache": "BPM Cache",
-  "saveAlbumCovers": "Spara albumomslag lokalt",
-  "saveSongMetadata": "Spara låt metadata lokalt",
-  "saveBpmAnalysis": "Spara BPM analys lokalt",
   "sectionCacheCleanup": "CACHE RENSNING",
   "clearAllCache": "Rensa all cache",
   "allCacheCleared": "Alla cacher rensade",
@@ -671,15 +473,7 @@
     }
   },
   "@_SETTINGS_ABOUT": {},
-  "sectionInformation": "INFORMATION",
-  "sectionDeveloper": "UTVECKLARE",
-  "sectionLinks": "LÄNKAR",
-  "githubRepo": "GitHub Repository",
   "@_PLAYER_AND_MENUS": {},
-  "playingFrom": "SPELAR FRÅN",
-  "live": "LIVE",
-  "streamingLive": "Sänder Live",
-  "stopRadio": "Stoppa Radio",
   "removeFromLiked": "Ta bort från Gillade Låtar",
   "addToLiked": "Lägg till Gillade låtar",
   "playNext": "Spela Nästa",
@@ -760,7 +554,6 @@
     }
   },
   "noPlaylists": "Inga spellistor tillgängliga",
-  "createNewPlaylist": "Skapa Ny Spellista",
   "artistNotFound": "Artist \"{name}\" hittades inte",
   "@artistNotFound": {
     "placeholders": {
@@ -777,7 +570,6 @@
       }
     }
   },
-  "selectArtist": "Välj Artist",
   "removedFromFavorites": "Ta bort från Favoriter",
   "addedToFavorites": "Lades till i Favoriter",
   "star": "stjärna",
@@ -786,27 +578,6 @@
   "albumNotFound": "Albumet hittades inte",
   "@albumNotFound": {
     "description": "Message when album data is not available"
-  },
-  "durationHoursMinutes": "{hours} HR {minutes} MIN",
-  "@durationHoursMinutes": {
-    "description": "Album duration in hours and minutes",
-    "placeholders": {
-      "hours": {
-        "type": "int"
-      },
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-  "durationMinutes": "{minutes} MIN",
-  "@durationMinutes": {
-    "description": "Album duration in minutes only",
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
   },
   "topSongs": "Topplåtar",
   "@topSongs": {
@@ -821,30 +592,9 @@
   "@noSongPlaying": {
     "description": "Placeholder when no song is loaded in the player"
   },
-  "internetRadioUppercase": "INTERNET RADIO",
-  "@internetRadioUppercase": {
-    "description": "Uppercase badge shown in the now-playing radio player"
-  },
-  "playingNext": "Spelar Nästa",
-  "@playingNext": {
-    "description": "Title of the queue / playing-next bottom sheet"
-  },
-  "createPlaylistTitle": "Skapa Spellista",
-  "@createPlaylistTitle": {
-    "description": "Title of the create-new-playlist dialog"
-  },
   "playlistNameHint": "Spellista namn",
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
-  },
-  "playlistCreatedWithSong": "Skapad spellista \"{name}\" med den här låten",
-  "@playlistCreatedWithSong": {
-    "description": "Snackbar shown after creating a playlist with the current song",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
   },
   "errorLoadingPlaylists": "Fel vid laddning av spellistor: {error}",
   "@errorLoadingPlaylists": {
@@ -878,14 +628,6 @@
   "@listeningHistory": {
     "description": "Title of the listening history screen"
   },
-  "noListeningHistory": "Ingen Lyssningshistorik",
-  "@noListeningHistory": {
-    "description": "Empty state headline on the history screen"
-  },
-  "songsWillAppearHere": "Låtar du spelar visas här",
-  "@songsWillAppearHere": {
-    "description": "Empty state subtitle on the history screen"
-  },
   "@_SORT_OPTIONS": {},
   "sortByTitleAZ": "Titel (A-Ö)",
   "@sortByTitleAZ": {
@@ -899,17 +641,9 @@
   "@sortByArtistAZ": {
     "description": "Sort option: artist ascending"
   },
-  "sortByArtistZA": "Artist (Ö-A)",
-  "@sortByArtistZA": {
-    "description": "Sort option: artist descending"
-  },
   "sortByAlbumAZ": "Album (A-Ö)",
   "@sortByAlbumAZ": {
     "description": "Sort option: album ascending"
-  },
-  "sortByAlbumZA": "Album (Ö-A)",
-  "@sortByAlbumZA": {
-    "description": "Sort option: album descending"
   },
   "recentlyAdded": "Nyligen tillagda",
   "@recentlyAdded": {
@@ -928,14 +662,6 @@
   "@noHomepageUrl": {
     "description": "Snackbar when a radio station has no homepage URL"
   },
-  "playStation": "Play Station",
-  "@playStation": {
-    "description": "Context menu option to play a radio station"
-  },
-  "openHomepage": "Öppna Hemsida",
-  "@openHomepage": {
-    "description": "Context menu option to open a radio station's homepage"
-  },
   "copyStreamUrl": "Kopiera Stream URL",
   "@copyStreamUrl": {
     "description": "Context menu option to copy a radio station stream URL"
@@ -947,10 +673,6 @@
   "noRadioStations": "Inga Radiostationer",
   "@noRadioStations": {
     "description": "Empty state headline on the radio screen"
-  },
-  "noRadioStationsHint": "Lägg till radiostationer i dina Navidrome serverinställningar för att se dem här.",
-  "@noRadioStationsHint": {
-    "description": "Empty state subtitle on the radio screen"
   },
   "@_LOGIN_SCREEN": {},
   "connectToServerSubtitle": "Anslut till din Subsonic server",
@@ -1034,10 +756,6 @@
   "@connect": {
     "description": "Login submit button label"
   },
-  "or": "ELLER",
-  "@or": {
-    "description": "Divider label between Connect and Use Local Files"
-  },
   "useLocalFiles": "Använd Lokala Filer",
   "@useLocalFiles": {
     "description": "Button label to start local-files mode"
@@ -1073,10 +791,6 @@
   "@home": {
     "description": "Home navigation item label in the desktop sidebar"
   },
-  "playlistsSection": "SPELLISTOR",
-  "@playlistsSection": {
-    "description": "Uppercase section header for playlists in the desktop sidebar"
-  },
   "collapse": "Kollapsa",
   "@collapse": {
     "description": "Tooltip/label for the sidebar collapse button"
@@ -1089,52 +803,7 @@
   "@createPlaylist": {
     "description": "Tooltip/label for the create-playlist button in the sidebar library header"
   },
-  "likedSongsSidebar": "Gillade Låtar",
-  "@likedSongsSidebar": {
-    "description": "Liked Songs item label in the desktop sidebar"
-  },
-  "playlistSongsCount": "Spellista • {count} låtar",
-  "@playlistSongsCount": {
-    "description": "Subtitle for a playlist item in the desktop sidebar",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "@_LYRICS": {},
-  "failedToLoadLyrics": "Misslyckades ladda låttext",
-  "@failedToLoadLyrics": {
-    "description": "Error state message when lyrics cannot be loaded"
-  },
-  "lyricsNotFoundSubtitle": "Låttext för denna låt kunde inte hittas",
-  "@lyricsNotFoundSubtitle": {
-    "description": "Empty/error subtitle in the lyrics view"
-  },
-  "backToCurrent": "Tillbaka till nuvarande",
-  "@backToCurrent": {
-    "description": "Button to scroll the lyrics view back to the current line"
-  },
-  "exitFullscreen": "Avsluta Helskärmsläge",
-  "@exitFullscreen": {
-    "description": "Tooltip for the exit-fullscreen button in lyrics view"
-  },
-  "fullscreen": "Helskärmsläge",
-  "@fullscreen": {
-    "description": "Tooltip for the enter-fullscreen button in lyrics view"
-  },
-  "noLyrics": "Ingen låttext",
-  "@noLyrics": {
-    "description": "Fallback text when no lyrics controller is available"
-  },
-  "internetRadioMiniPlayer": "Internet Radio",
-  "@internetRadioMiniPlayer": {
-    "description": "Subtitle shown in the mini player when streaming internet radio"
-  },
-  "liveBadge": "LIVE",
-  "@liveBadge": {
-    "description": "Badge text shown in the mini player for live radio streams"
-  },
   "@_BANNERS": {},
   "localFilesModeBanner": "Lokalt Filläge",
   "@localFilesModeBanner": {
@@ -1149,35 +818,9 @@
   "@updateAvailable": {
     "description": "Title of the update available dialog"
   },
-  "updateAvailableSubtitle": "En ny version av Octave finns tillgänglig!",
-  "@updateAvailableSubtitle": {
-    "description": "Subtitle in the update dialog"
-  },
-  "updateCurrentVersion": "Nuvarande: v{version}",
-  "@updateCurrentVersion": {
-    "description": "Current version label in the update dialog",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "updateLatestVersion": "Senaste: v{version}",
-  "@updateLatestVersion": {
-    "description": "Latest version label in the update dialog",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
   "whatsNew": "Nyheter",
   "@whatsNew": {
     "description": "Section header for the changelog in the update dialog"
-  },
-  "downloadUpdate": "Ladda ner",
-  "@downloadUpdate": {
-    "description": "Primary button in the update dialog that opens the release page"
   },
   "remindLater": "Senare",
   "@remindLater": {
@@ -1197,51 +840,9 @@
   "@casting": {
     "description": "Title shown in the Chromecast control dialog when actively casting"
   },
-  "dlna": "DLNA",
-  "@dlna": {
-    "description": "Title shown in the DLNA control dialog when connected"
-  },
-  "castDlnaBeta": "Cast / DLNA (Beta)",
-  "@castDlnaBeta": {
-    "description": "Title of the Cast/DLNA device picker dialog"
-  },
-  "chromecast": "Chromecast",
-  "@chromecast": {
-    "description": "Section header for Chromecast devices in the device picker"
-  },
-  "dlnaUpnp": "DLNA / UPnP",
-  "@dlnaUpnp": {
-    "description": "Section header for DLNA/UPnP devices in the device picker"
-  },
   "disconnect": "Koppla ifrån",
   "@disconnect": {
     "description": "Button to clear server credentials and go back to login"
-  },
-  "searchingDevices": "Söker efter enheter",
-  "@searchingDevices": {
-    "description": "Loading message in the device picker when no devices have been found yet"
-  },
-  "castWifiHint": "Se till att din Cast / DLNA-enhet\när kopplad till samma Wi-Fi nätverk",
-  "@castWifiHint": {
-    "description": "Hint shown while searching for cast/DLNA devices"
-  },
-  "connectedToDevice": "Ansluten till {name}",
-  "@connectedToDevice": {
-    "description": "Snackbar shown after successfully connecting to a cast/DLNA device",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "failedToConnectDevice": "Misslyckades att ansluta till {name}",
-  "@failedToConnectDevice": {
-    "description": "Snackbar shown when connecting to a cast/DLNA device fails",
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
   },
   "@_LIKED_SONGS_SNACKBARS": {},
   "removedFromLikedSongs": "Borttagen från Gillade Låtar",
@@ -1253,22 +854,10 @@
     "description": "Snackbar shown after liking a song in the song tile menu"
   },
   "@_PLAYER_BAR": {},
-  "enableShuffle": "Aktivera Blandning",
-  "@enableShuffle": {
-    "description": "Tooltip for the shuffle toggle button in the desktop player bar"
-  },
-  "enableRepeat": "Aktivera Upprepning",
-  "@enableRepeat": {
-    "description": "Tooltip for the repeat toggle button in the desktop player bar"
-  },
   "@_CAST_TOOLTIPS": {},
   "connecting": "Ansluter",
   "@connecting": {
     "description": "Tooltip for the cast button when connecting to a device"
-  },
-  "closeLyrics": "Stäng Låttext",
-  "@closeLyrics": {
-    "description": "Tooltip for the lyrics button when lyrics panel is open"
   },
   "@_ERROR_MESSAGES": {},
   "errorStartingDownload": "Fel vid start av nerladdning: {error}",
@@ -1314,25 +903,9 @@
   "@jukeboxClearQueue": {
     "description": "Action label to clear the jukebox playback queue"
   },
-  "jukeboxShuffleQueue": "Blanda Kö",
-  "@jukeboxShuffleQueue": {
-    "description": "Action label to shuffle the jukebox playback queue"
-  },
   "jukeboxQueueEmpty": "Inga låtar i kö",
   "@jukeboxQueueEmpty": {
     "description": "Empty state when the jukebox queue has no songs"
-  },
-  "jukeboxNowPlaying": "Spelas Nu",
-  "@jukeboxNowPlaying": {
-    "description": "Section header for the now-playing area in the jukebox controller"
-  },
-  "jukeboxQueue": "Kö",
-  "@jukeboxQueue": {
-    "description": "Section header for the queue list in the jukebox controller"
-  },
-  "jukeboxVolume": "Volym",
-  "@jukeboxVolume": {
-    "description": "Label for the volume slider in the jukebox controller"
   },
   "playOnJukebox": "Spela på Jukebox",
   "@playOnJukebox": {
@@ -1347,98 +920,9 @@
     "description": "Error shown when the server returns 501 for jukebox API calls"
   },
   "@_MUSIC_FOLDERS": {},
-  "musicFoldersDialogTitle": "Välj Musikmappar",
-  "@musicFoldersDialogTitle": {
-    "description": "Title of the music folders selection dialog"
-  },
   "musicFoldersHint": "Lämna alla aktiverade för att använda alla mappar (standard).",
   "@musicFoldersHint": {
     "description": "Hint text in the music folders selection dialog"
-  },
-  "musicFoldersSaved": "Val av musikmappar sparad",
-  "@musicFoldersSaved": {
-    "description": "Snackbar shown after saving music folder selection"
-  },
-  "artworkStyleSection": "Konststil",
-  "@artworkStyleSection": {
-    "description": "Display settings section header for artwork customisation"
-  },
-  "artworkCornerRadius": "Hörnradie",
-  "@artworkCornerRadius": {
-    "description": "Label for the album art corner radius slider"
-  },
-  "artworkCornerRadiusSubtitle": "Justera hur runda hörnen på albumomslag ser ut",
-  "@artworkCornerRadiusSubtitle": {
-    "description": "Subtitle for the album art corner radius slider"
-  },
-  "artworkCornerRadiusNone": "Ingen",
-  "@artworkCornerRadiusNone": {
-    "description": "Label shown when corner radius is set to 0 (no rounded corners)"
-  },
-  "artworkShape": "Form",
-  "@artworkShape": {
-    "description": "Label for the artwork shape selector"
-  },
-  "artworkShapeRounded": "Avrundad",
-  "@artworkShapeRounded": {
-    "description": "Rounded rectangle artwork shape option"
-  },
-  "artworkShapeCircle": "Cirkel",
-  "@artworkShapeCircle": {
-    "description": "Circle artwork shape option"
-  },
-  "artworkShapeSquare": "Kvadrat",
-  "@artworkShapeSquare": {
-    "description": "Square (no rounding) artwork shape option"
-  },
-  "artworkShadow": "Skugga",
-  "@artworkShadow": {
-    "description": "Label for the artwork shadow intensity selector"
-  },
-  "artworkShadowNone": "Ingen",
-  "@artworkShadowNone": {
-    "description": "No shadow option for artwork"
-  },
-  "artworkShadowSoft": "Mjuk",
-  "@artworkShadowSoft": {
-    "description": "Soft shadow option for artwork"
-  },
-  "artworkShadowMedium": "Medium",
-  "@artworkShadowMedium": {
-    "description": "Medium shadow option for artwork"
-  },
-  "artworkShadowStrong": "Stark",
-  "@artworkShadowStrong": {
-    "description": "Strong shadow option for artwork"
-  },
-  "artworkShadowColor": "Skuggfärg",
-  "@artworkShadowColor": {
-    "description": "Label for the artwork shadow color selector"
-  },
-  "artworkShadowColorBlack": "Svart",
-  "@artworkShadowColorBlack": {
-    "description": "Black shadow color option"
-  },
-  "artworkShadowColorAccent": "Accentfärg",
-  "@artworkShadowColorAccent": {
-    "description": "Accent color shadow (matches app accent color)"
-  },
-  "artworkPreview": "Förhandsgranskning",
-  "@artworkPreview": {
-    "description": "Label shown above the live artwork style preview"
-  },
-  "artworkCornerRadiusLabel": "{value}px",
-  "@artworkCornerRadiusLabel": {
-    "description": "Formatted corner radius value label",
-    "placeholders": {
-      "value": {
-        "type": "int"
-      }
-    }
-  },
-  "noArtwork": "Ingen bild",
-  "@noArtwork": {
-    "description": "Placeholder label shown in the player when a song has no cover art"
   },
   "serverUnreachableTitle": "Kan inte nå servern",
   "@serverUnreachableTitle": {
@@ -1490,26 +974,6 @@
   "liveLabel": "LIVE",
   "@liveLabel": {
     "description": "Badge shown next to a live radio stream"
-  },
-  "discordStatusText": "Discord statustext",
-  "@discordStatusText": {
-    "description": "Settings label for the Discord Rich Presence second-line style"
-  },
-  "discordStatusTextSubtitle": "Andra raden visas i Discord-aktivitet",
-  "@discordStatusTextSubtitle": {
-    "description": "Subtitle for the Discord status text setting"
-  },
-  "discordRpcStyleArtist": "Artistnamn",
-  "@discordRpcStyleArtist": {
-    "description": "Discord RPC state style option: show artist name"
-  },
-  "discordRpcStyleSong": "Låttitel",
-  "@discordRpcStyleSong": {
-    "description": "Discord RPC state style option: show song title"
-  },
-  "discordRpcStyleApp": "Appnamn (Octave)",
-  "@discordRpcStyleApp": {
-    "description": "Discord RPC state style option: show app name"
   },
   "@sectionAutoDj": {
     "description": "Playback settings section header for Auto DJ"

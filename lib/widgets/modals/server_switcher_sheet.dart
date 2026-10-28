@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +33,6 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
 
   bool _isSameServer(ServerConfig a, ServerConfig? b) {
     if (b == null) return false;
-    if (a.isYoutube && b.isYoutube) return true;
     if (a.name != null &&
         b.name != null &&
         a.name!.isNotEmpty &&
@@ -205,11 +202,6 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
           profiles = [currentConfig, ...profiles];
         }
 
-        if (!kIsWeb && Platform.isIOS) {
-          profiles = profiles.where((p) => !p.isYoutube).toList();
-        }
-
-        final hasYtStream = profiles.any((p) => p.isYoutube);
 
         return Container(
           constraints: BoxConstraints(
@@ -280,7 +272,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   shrinkWrap: true,
                   children: [
-                    if (profiles.isEmpty && !hasYtStream)
+                    if (profiles.isEmpty)
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 24),
                         child: Center(
@@ -295,9 +287,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                     ...profiles.map((profile) {
                       final isActive = _isSameServer(profile, currentConfig);
                       final isSwitchingThis = _switchingServerKey ==
-                              '${profile.serverFamily}_${profile.serverUrl}_${profile.username}' ||
-                          (profile.isYoutube &&
-                              _switchingServerKey == 'youtube');
+                          '${profile.serverFamily}_${profile.serverUrl}_${profile.username}';
 
                       return _buildServerCard(
                         context,
@@ -309,10 +299,6 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                         onDelete: () => _confirmDeleteProfile(profile),
                       );
                     }),
-                    if (!kIsWeb && !Platform.isIOS && !hasYtStream) ...[
-                      const SizedBox(height: 12),
-                      _buildQuickAddYtStreamTile(context),
-                    ],
                     const SizedBox(height: 12),
                     Divider(
                         height: 1,
@@ -419,21 +405,10 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
     final primaryColor = Theme.of(context).colorScheme.primary;
     final l10n = AppLocalizations.of(context)!;
 
-    final (IconData icon, List<Color> gradient) =
-        switch (profile.serverFamily) {
-      'youtube' => (
-          CupertinoIcons.play_rectangle_fill,
-          [context.octave.danger, context.octave.danger],
-        ),
-      'jellyfin' => (
-          CupertinoIcons.tv_fill,
-          [Color(0xFF00A4DC), context.octave.accent],
-        ),
-      _ => (
-          CupertinoIcons.music_note_2,
-          [context.octave.accent, context.octave.accent],
-        ),
-    };
+    final (IconData icon, List<Color> gradient) = (
+      CupertinoIcons.music_note_2,
+      [context.octave.accent, context.octave.accent],
+    );
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -533,9 +508,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      profile.isYoutube
-                          ? AppLocalizations.of(context)!.freeOnlineStreaming
-                          : '${profile.username} • ${profile.displayUrl}',
+                      '${profile.username} • ${profile.displayUrl}',
                       style: TextStyle(
                         fontSize: 12,
                         color: context.octave.text2,
@@ -589,8 +562,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                         ],
                       ),
                     ),
-                    if (!profile.isYoutube)
-                      PopupMenuItem(
+                    PopupMenuItem(
                         value: 'delete',
                         child: Row(
                           children: [
@@ -611,45 +583,4 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
     );
   }
 
-  Widget _buildQuickAddYtStreamTile(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
-    return Material(
-      color: context.octave.surface2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-        side: BorderSide(
-          color: context.octave.danger.withValues(alpha: 0.3),
-        ),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-        leading: Container(
-          width: 36,
-          height: 36,
-          decoration: BoxDecoration(
-            color: context.octave.danger.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(CupertinoIcons.play_rectangle_fill,
-              color: context.octave.danger, size: 18),
-        ),
-        title: Text(l10n.addWebStream,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-        subtitle: Text(l10n.addWebStreamSubtitle,
-            style: const TextStyle(fontSize: 12)),
-        trailing: FilledButton.tonal(
-          onPressed: () => _openAddServerScreen(family: 'youtube'),
-          style: FilledButton.styleFrom(
-            backgroundColor: context.octave.danger.withValues(alpha: 0.15),
-            foregroundColor: context.octave.danger,
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-          ),
-          child: Text(l10n.add,
-              style: const TextStyle(fontWeight: FontWeight.bold)),
-        ),
-      ),
-    );
-  }
 }

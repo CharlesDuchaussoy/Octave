@@ -11,8 +11,7 @@ import 'package:musly/services/local_music_service.dart';
 import 'package:musly/services/storage_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/screen_helper.dart';
-import 'package:musly/services/tv_detection_service.dart';
-import 'package:musly/widgets/navigation/tv_remote_scope.dart';
+import 'package:musly/octave/widgets/focusable_tap.dart';
 
 enum _LoginErrorType {
   ssl,
@@ -68,35 +67,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _usernameController.addListener(_clearError);
     _passwordController.addListener(_clearError);
     _profileNameController.addListener(_clearError);
-    
-    _serverFocusNode.addListener(_onTvFocusChange);
-    _usernameFocusNode.addListener(_onTvFocusChange);
-    _passwordFocusNode.addListener(_onTvFocusChange);
-    
-    _loadSavedServerFamily();
-  }
 
-  void _onTvFocusChange() {
-    if (!mounted) return;
-    
-    final isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
-    if (isTv) {
-      // Rebuild to apply the extra bottom padding
-      setState(() {});
-      
-      // A small delay lets the TV keyboard animation start, and then we force scroll
-      // the focused field to the top 20% of the screen so it's not covered by the keyboard overlay.
-      Future.delayed(const Duration(milliseconds: 150), () {
-        if (!mounted) return;
-        if (_serverFocusNode.hasFocus) {
-          Scrollable.ensureVisible(_serverFocusNode.context!, alignment: 0.15, duration: const Duration(milliseconds: 300));
-        } else if (_usernameFocusNode.hasFocus) {
-          Scrollable.ensureVisible(_usernameFocusNode.context!, alignment: 0.15, duration: const Duration(milliseconds: 300));
-        } else if (_passwordFocusNode.hasFocus) {
-          Scrollable.ensureVisible(_passwordFocusNode.context!, alignment: 0.15, duration: const Duration(milliseconds: 300));
-        }
-      });
-    }
+    _loadSavedServerFamily();
   }
 
   Future<void> _loadSavedServerFamily() async {
@@ -388,18 +360,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _login() async {
-    if (_serverFamily != 'youtube') {
-      if (!_formKey.currentState!.validate()) return;
-    }
+    if (!_formKey.currentState!.validate()) return;
 
     setState(() => _loginError = null);
 
-    final serverUrl = _serverFamily == 'youtube'
-        ? 'https://music.youtube.com'
-        : _serverController.text.trim();
+    final serverUrl = _serverController.text.trim();
 
-    if (_serverFamily != 'youtube' &&
-        !serverUrl.startsWith('http://') &&
+    if (!serverUrl.startsWith('http://') &&
         !serverUrl.startsWith('https://')) {
       setState(
         () => _loginError = AppLocalizations.of(context)!.serverUrlMustStartWith,
@@ -532,11 +499,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final theme = Theme.of(context);
     final isBusy = isLoading || _isScanning;
 
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
-    final bool anyFieldFocused = _serverFocusNode.hasFocus || _usernameFocusNode.hasFocus || _passwordFocusNode.hasFocus;
-    
-    // Add extra padding at the bottom when a field is focused on TV so there's enough room to scroll it up
-    final bottomPadding = (isTv && anyFieldFocused) ? 400.0 : ScreenHelper.loginPadding(context);
+    final bottomPadding = ScreenHelper.loginPadding(context);
 
     return Scaffold(
       body: SafeArea(
@@ -551,7 +514,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: Center(
               child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: isTv ? 600 : 480),
+                constraints: const BoxConstraints(maxWidth: 480),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -708,36 +671,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                      ] else if (_serverFamily == 'youtube') ...[
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: context.octave.danger.withAlpha(20),
-                            border: Border.all(
-                              color: context.octave.danger.withAlpha(80),
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                CupertinoIcons.info_circle,
-                                color: context.octave.danger,
-                                size: 18,
-                              ),
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: Text(
-                                  'Web Stream streams music directly online. No account required — tap Connect to start.',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: context.octave.text2,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ] else ...[
                         TextFormField(
                           controller: _serverController,
@@ -751,9 +684,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelText:
                                 AppLocalizations.of(context)?.serverUrl ??
                                     'Server URL',
-                            hintText: _serverFamily == 'jellyfin'
-                                ? 'https://jellyfin.example.com'
-                                : AppLocalizations.of(context)!.serverUrlHint,
+                            hintText: AppLocalizations.of(context)!.serverUrlHint,
                             prefixIcon: const Icon(CupertinoIcons.globe),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -864,8 +795,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                       ],
-                      if (_serverFamily == 'subsonic' ||
-                          _serverFamily == 'jellyfin') ...[
+                      if (_serverFamily == 'subsonic') ...[
                         const SizedBox(height: 24),
                         InkWell(
                           onTap: () {
@@ -1191,7 +1121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: TvFocusableCard(
+                          child: FocusableTap(
                             onTap: isLoading ? null : _login,
                             borderRadius: BorderRadius.circular(12),
                             child: AnimatedContainer(

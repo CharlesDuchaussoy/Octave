@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -217,9 +216,7 @@ class StorageService {
       }
 
       final config = ServerConfig.fromJson(map);
-      if (!kIsWeb && Platform.isIOS && config.isYoutube) {
-        return null;
-      }
+      if (!config.isSupported) return null;
       return config;
     }
     return null;
@@ -314,22 +311,17 @@ class StorageService {
       }
 
       final cfg = ServerConfig.fromJson(map);
-      if (!kIsWeb && Platform.isIOS && cfg.isYoutube) {
-        continue;
-      }
+      if (!cfg.isSupported) continue;
       profiles.add(cfg);
     }
     return profiles;
   }
 
   Future<void> saveProfile(ServerConfig config) async {
-    if (!kIsWeb && Platform.isIOS && config.isYoutube) {
-      return;
-    }
+    if (!config.isSupported) return;
     final profiles = await getSavedProfiles();
     final idx = profiles.indexWhere(
       (p) =>
-          (config.isYoutube && p.isYoutube) ||
           (p.serverFamily == config.serverFamily &&
               p.serverUrl == config.serverUrl &&
               p.username == config.username &&
@@ -367,17 +359,10 @@ class StorageService {
     await prefs.setString(_serverProfilesKey, jsonEncode(safeProfiles));
   }
 
-  Future<bool> hasYoutubeProfile() async {
-    if (!kIsWeb && Platform.isIOS) return false;
-    final profiles = await getSavedProfiles();
-    return profiles.any((p) => p.isYoutube);
-  }
-
   Future<void> deleteProfile(ServerConfig config) async {
     final profiles = await getSavedProfiles();
     final idx = profiles.indexWhere(
       (p) =>
-          (config.isYoutube && p.isYoutube) ||
           (p.serverFamily == config.serverFamily &&
               p.serverUrl == config.serverUrl &&
               p.username == config.username &&
@@ -488,16 +473,6 @@ class StorageService {
     return prefs.getDouble(_volumeKey) ?? 1.0;
   }
 
-  Future<void> saveDiscordRpcEnabled(bool enabled) async {
-    final prefs = await _prefs;
-    await prefs.setBool('discord_rpc_enabled', enabled);
-  }
-
-  Future<bool> getDiscordRpcEnabled() async {
-    final prefs = await _prefs;
-    return prefs.getBool('discord_rpc_enabled') ?? true;
-  }
-
   Future<void> saveMuslyConnectEnabled(bool enabled) async {
     final prefs = await _prefs;
     await prefs.setBool('musly_connect_enabled', enabled);
@@ -506,16 +481,6 @@ class StorageService {
   Future<bool> getMuslyConnectEnabled() async {
     final prefs = await _prefs;
     return prefs.getBool('musly_connect_enabled') ?? true;
-  }
-
-  Future<void> saveDiscordRpcStateStyle(String style) async {
-    final prefs = await _prefs;
-    await prefs.setString('discord_rpc_state_style', style);
-  }
-
-  Future<String> getDiscordRpcStateStyle() async {
-    final prefs = await _prefs;
-    return prefs.getString('discord_rpc_state_style') ?? 'artist';
   }
 
   Future<String> getOrCreateSubsonicSalt() async {

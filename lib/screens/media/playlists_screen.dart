@@ -25,11 +25,6 @@ class PlaylistsScreen extends StatelessWidget {
         title: Text(l10n.playlists),
         actions: [
           IconButton(
-            icon: const Icon(CupertinoIcons.square_arrow_down),
-            tooltip: l10n.importPlaylist,
-            onPressed: () => ImportPlaylistDialog.show(context),
-          ),
-          IconButton(
             icon: const Icon(CupertinoIcons.add),
             tooltip: l10n.newPlaylist,
             onPressed: () => _showCreatePlaylistDialog(context),
@@ -71,12 +66,6 @@ class PlaylistsScreen extends StatelessWidget {
                               ? Colors.white
                               : Colors.black,
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                      OutlinedButton.icon(
-                        onPressed: () => ImportPlaylistDialog.show(context),
-                        icon: const Icon(CupertinoIcons.square_arrow_down),
-                        label: Text(l10n.importPlaylist),
                       ),
                     ],
                   ),

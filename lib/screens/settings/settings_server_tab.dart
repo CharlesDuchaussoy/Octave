@@ -7,7 +7,6 @@ import 'package:musly/models/server_config.dart';
 import 'package:musly/providers/auth_provider.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/providers/library_provider.dart';
-import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/screens/auth/add_server_screen.dart';
@@ -31,13 +30,10 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
     final authProvider = Provider.of<AuthProvider>(context);
     final currentConfig = authProvider.config;
 
-    final isYoutube = currentConfig?.isYoutube == true ||
-        Provider.of<SubsonicService>(context, listen: false).isYoutube;
-
     return ListView(
       padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
-        _buildActiveServerCard(context, authProvider, currentConfig, isYoutube),
+        _buildActiveServerCard(context, authProvider, currentConfig),
         const SizedBox(height: 24),
         _buildSavedServersSection(context, authProvider, currentConfig),
         const SizedBox(height: 24),
@@ -54,32 +50,18 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
     BuildContext context,
     AuthProvider authProvider,
     ServerConfig? config,
-    bool isYoutube,
   ) {
     final isDark = context.isDark;
 
-    final (IconData icon, List<Color> gradient, String serviceLabel) = isYoutube
-        ? (
-            CupertinoIcons.play_rectangle_fill,
-            [context.octave.danger, context.octave.danger],
-            'Web Stream'
-          )
-        : config?.isJellyfin == true
-            ? (
-                CupertinoIcons.tv_fill,
-                [Color(0xFF00A4DC), context.octave.accent],
-                'Jellyfin'
-              )
-            : (
-                CupertinoIcons.music_note_2,
-                [context.octave.accent, context.octave.accent],
-                config?.serverType ?? 'Navidrome / Subsonic'
-              );
+    final (IconData icon, List<Color> gradient, String serviceLabel) = (
+      CupertinoIcons.music_note_2,
+      [context.octave.accent, context.octave.accent],
+      config?.serverType ?? 'Navidrome',
+    );
 
     final l10n = AppLocalizations.of(context)!;
     final serverName = config?.displayServerName ?? serviceLabel;
-    final displayUrl = config?.displayUrl ??
-        (isYoutube ? 'Web Stream' : l10n.serverStatusNotConnected);
+    final displayUrl = config?.displayUrl ?? l10n.serverStatusNotConnected;
 
     final isConnected = authProvider.state == AuthState.authenticated;
     final isAuthenticating = authProvider.state == AuthState.authenticating;
@@ -213,7 +195,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
               ],
             ),
           ),
-          if (!isYoutube && config != null) ...[
+          if (config != null) ...[
             Divider(
                 height: 1,
                 color: context.octave.separator),
@@ -285,9 +267,8 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
         var profiles = snapshot.data ?? [];
         if (currentConfig != null &&
             !profiles.any((p) =>
-                (p.isYoutube && currentConfig.isYoutube) ||
-                (p.serverUrl == currentConfig.serverUrl &&
-                    p.username == currentConfig.username))) {
+                p.serverUrl == currentConfig.serverUrl &&
+                p.username == currentConfig.username)) {
           profiles = [currentConfig, ...profiles];
         }
 
@@ -349,28 +330,14 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                   child: Column(
                     children: [
                     ...profiles.map((profile) {
-                      final isActive = (profile.isYoutube &&
-                              currentConfig?.isYoutube == true) ||
-                          (currentConfig?.serverUrl == profile.serverUrl &&
-                              currentConfig?.username == profile.username);
+                      final isActive =
+                          currentConfig?.serverUrl == profile.serverUrl &&
+                              currentConfig?.username == profile.username;
 
-                      final (
-                        IconData pIcon,
-                        List<Color> pGradient
-                      ) = profile.isYoutube
-                          ? (
-                              CupertinoIcons.play_rectangle_fill,
-                              [context.octave.danger, context.octave.danger]
-                            )
-                          : profile.isJellyfin
-                              ? (
-                                  CupertinoIcons.tv_fill,
-                                  [Color(0xFF00A4DC), context.octave.accent]
-                                )
-                              : (
-                                  CupertinoIcons.music_note_2,
-                                  [context.octave.accent, context.octave.accent]
-                                );
+                      final (IconData pIcon, List<Color> pGradient) = (
+                        CupertinoIcons.music_note_2,
+                        [context.octave.accent, context.octave.accent],
+                      );
 
                       return Column(
                         mainAxisSize: MainAxisSize.min,

@@ -266,7 +266,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
       return;
     }
 
-    if (_subsonicService.isYoutube || _serverOfflineMode) return;
+    if (_serverOfflineMode) return;
 
     if (_cachedAllAlbums.isNotEmpty && _cachedAllSongs.isNotEmpty) return;
 
@@ -305,41 +305,6 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         _playlists = _cachedPlaylists;
       }
 
-      if (_subsonicService.isYoutube) {
-        _cachedAllAlbums = [];
-        _cachedAllSongs = await _db.getAllSongs();
-        _cachedPlaylists = await _subsonicService.getPlaylists();
-        _playlists = _cachedPlaylists;
-
-        final songMap = {for (final song in _cachedAllSongs) song.id: song};
-        for (final playlist in _playlists) {
-          if (playlist.songs != null) {
-            for (final song in playlist.songs!) {
-              songMap[song.id] = song;
-            }
-          }
-        }
-        _cachedAllSongs = songMap.values.toList();
-
-        final artistMap = <String, int>{};
-        for (final song in _cachedAllSongs) {
-          if (song.artist != null &&
-              song.artist!.isNotEmpty &&
-              song.artist != 'Unknown') {
-            artistMap[song.artist!] = (artistMap[song.artist!] ?? 0) + 1;
-          }
-        }
-        _artists = artistMap.keys
-            .map((name) => Artist(id: 'yt-$name', name: name))
-            .toList();
-
-        if (_randomSongs.isEmpty && _cachedAllSongs.isNotEmpty) {
-          _randomSongs = _cachedAllSongs.take(50).toList();
-        } else if (_cachedAllSongs.isEmpty) {
-          Future.microtask(() => loadRandomSongs());
-        }
-        return;
-      }
 
       final artistsJson = prefs.getString(_artistsCacheKey);
       if (artistsJson != null) {
@@ -365,7 +330,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   }
 
   void _scheduleBackgroundRefresh() {
-    if (_subsonicService.isYoutube || _serverOfflineMode || _localOnlyMode) return;
+    if (_serverOfflineMode || _localOnlyMode) return;
 
     final isLibraryEmpty = _cachedAllAlbums.isEmpty || _cachedAllSongs.isEmpty;
     final shouldRefresh = isLibraryEmpty ||
@@ -382,7 +347,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
   }
 
   Future<void> _refreshAllDataInBackground() async {
-    if (_subsonicService.isYoutube || _serverOfflineMode || _localOnlyMode) return;
+    if (_serverOfflineMode || _localOnlyMode) return;
     if (_isBackgroundSyncing) {
       if (_syncFuture != null) await _syncFuture;
       return;
@@ -414,17 +379,6 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         notifyListeners();
       }
 
-      if (_subsonicService.isJellyfin) {
-        try {
-          final allSongs = await _subsonicService.getAllSongs();
-          for (final song in allSongs) {
-            seenSongIds.add(song.id);
-          }
-          await _db.insertSongsBatch(allSongs);
-          _cachedAllSongs = allSongs;
-          notifyListeners();
-        } catch (_) {}
-      }
 
       if (seenSongIds.isEmpty) {
         final albumCount = await _db.getAlbumCount();
@@ -489,10 +443,8 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
 
   Future<void> _saveCachedData() async {
     try {
-      if (!_subsonicService.isYoutube) {
-        await _db.insertAlbumsBatch(_cachedAllAlbums);
-        await _db.insertSongsBatch(_cachedAllSongs);
-      }
+      await _db.insertAlbumsBatch(_cachedAllAlbums);
+      await _db.insertSongsBatch(_cachedAllSongs);
 
       final prefs = await SharedPreferences.getInstance();
       final playlistsJson = json.encode(
@@ -500,7 +452,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
       );
       await prefs.setString(_playlistsCacheKey, playlistsJson);
 
-      if (!_subsonicService.isYoutube && _artists.isNotEmpty) {
+      if (_artists.isNotEmpty) {
         final artistsJson = json.encode(
           _artists.map((artist) => artist.toJson()).toList(),
         );
@@ -552,14 +504,12 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     _starred = null;
     ImageUrlCache.clear();
     try {
-      if (!_subsonicService.isYoutube) {
-        await _db.clearServerData();
-      }
+      await _db.clearServerData();
     } catch (_) {}
     notifyListeners();
     await initialize();
 
-    if (!_serverOfflineMode && !_localOnlyMode && !_subsonicService.isYoutube) {
+    if (!_serverOfflineMode && !_localOnlyMode) {
       _syncFuture = _refreshAllDataInBackground();
       await _syncFuture;
     }
@@ -676,25 +626,6 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     try {
       final songs = await _subsonicService.getRandomSongs(size: 50);
       _randomSongs = songs;
-      if (_subsonicService.isYoutube && songs.isNotEmpty) {
-        final existingMap = {for (final song in _cachedAllSongs) song.id: song};
-        for (final song in songs) {
-          existingMap[song.id] = song;
-        }
-        _cachedAllSongs = existingMap.values.toList();
-
-        final artistMap = <String, int>{};
-        for (final song in _cachedAllSongs) {
-          if (song.artist != null &&
-              song.artist!.isNotEmpty &&
-              song.artist != 'Unknown') {
-            artistMap[song.artist!] = (artistMap[song.artist!] ?? 0) + 1;
-          }
-        }
-        _artists = artistMap.keys
-            .map((name) => Artist(id: 'yt-$name', name: name))
-            .toList();
-      }
       notifyListeners();
       _audioHandler
           .notifyAutoChildrenChanged([MuslyAudioHandler.mediaIdRecent]);
@@ -790,34 +721,6 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     await loadPlaylists();
   }
 
-  Future<Playlist> importPlaylistFromPreview({
-    required PlaylistImportPreview preview,
-    String? customName,
-    void Function(int current, int total, String status)? onProgress,
-  }) async {
-    final playlist = await PlaylistImportService().importFromPreview(
-      preview,
-      customName: customName,
-      onProgress: onProgress,
-    );
-    await loadPlaylists();
-    return playlist;
-  }
-
-  Future<Playlist> importPlaylistFromUrl({
-    required String urlOrId,
-    String? customName,
-    void Function(int current, int total, String status)? onProgress,
-  }) async {
-    final playlist = await PlaylistImportService().importFromUrl(
-      urlOrId,
-      customName: customName,
-      onProgress: onProgress,
-    );
-    await loadPlaylists();
-    return playlist;
-  }
-
   Future<void> deletePlaylist(String playlistId) async {
     _playlists.removeWhere((p) => p.id == playlistId);
     _cachedPlaylists.removeWhere((p) => p.id == playlistId);
@@ -857,9 +760,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
     final newSongs = songs.where((s) => !_cachedAllSongs.any((c) => c.id == s.id)).toList();
     if (newSongs.isNotEmpty) {
       _cachedAllSongs.addAll(newSongs);
-      if (!_subsonicService.isYoutube) {
-        await _db.insertSongsBatch(newSongs);
-      }
+      await _db.insertSongsBatch(newSongs);
       notifyListeners();
     }
   }

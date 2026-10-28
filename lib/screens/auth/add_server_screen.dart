@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +9,6 @@ import 'package:musly/providers/library_provider.dart';
 import 'package:musly/services/local_music_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
-import 'package:musly/services/tv_detection_service.dart';
 
 class AddServerScreen extends StatefulWidget {
   final String? initialFamily;
@@ -44,17 +42,13 @@ class _AddServerScreenState extends State<AddServerScreen> {
 
   bool _isConnecting = false;
   String? _errorMessage;
-  late Future<bool> _hasYoutubeFuture;
 
   @override
   void initState() {
     super.initState();
-    final isIos = !kIsWeb && Platform.isIOS;
-    _selectedFamily = (isIos && widget.initialFamily == 'youtube')
-        ? 'subsonic'
-        : (widget.initialFamily ?? 'subsonic');
-    _hasYoutubeFuture =
-        Provider.of<AuthProvider>(context, listen: false).hasYoutubeProfile();
+    // Octave adds Navidrome servers, or phone files while they last.
+    _selectedFamily =
+        widget.initialFamily == 'local' ? 'local' : 'subsonic';
   }
 
   @override
@@ -120,73 +114,6 @@ class _AddServerScreenState extends State<AddServerScreen> {
     return true;
   }
 
-  Future<void> _connectYtStream() async {
-    if (!kIsWeb && Platform.isIOS) {
-      setState(() {
-        _errorMessage = 'Web Stream is not available on iOS.';
-      });
-      return;
-    }
-
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final playerProvider = Provider.of<PlayerProvider>(context, listen: false);
-    final libraryProvider =
-        Provider.of<LibraryProvider>(context, listen: false);
-
-    final hasYt = await authProvider.hasYoutubeProfile();
-    if (hasYt) {
-      setState(() {
-        _errorMessage =
-            'Web Stream is already configured in your music sources.';
-      });
-      return;
-    }
-
-    setState(() {
-      _isConnecting = true;
-      _errorMessage = null;
-    });
-
-    try {
-      await playerProvider.stop();
-      final success = await authProvider.connectYtStream();
-      if (success) {
-        await libraryProvider.refresh();
-        if (!mounted) return;
-        final l10n = AppLocalizations.of(context)!;
-        Navigator.of(context).pop();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                Icon(CupertinoIcons.checkmark_circle_fill,
-                    color: context.octave.success, size: 18),
-                const SizedBox(width: 10),
-                Text(l10n.connectedToWebStream,
-                    style: const TextStyle(fontWeight: FontWeight.w500)),
-              ],
-            ),
-            duration: const Duration(seconds: 2),
-            behavior: SnackBarBehavior.floating,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          ),
-        );
-      } else {
-        setState(() {
-          _isConnecting = false;
-          _errorMessage =
-              authProvider.error ?? 'Failed to connect to Web Stream';
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _isConnecting = false;
-        _errorMessage = e.toString();
-      });
-    }
-  }
-
   Future<void> _connectServer() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -242,7 +169,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
-                    'Connected to ${profileName.isNotEmpty ? profileName : user}',
+                    AppLocalizations.of(context)!.connectedTo(
+                        profileName.isNotEmpty ? profileName : user),
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -257,8 +185,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
       } else {
         setState(() {
           _isConnecting = false;
-          _errorMessage = authProvider.error ??
-              'Connection failed. Check URL and credentials.';
+          _errorMessage =
+              authProvider.error ?? AppLocalizations.of(context)!.loginHintCredentials;
         });
       }
     } catch (e) {
@@ -273,7 +201,6 @@ class _AddServerScreenState extends State<AddServerScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
 
     return Scaffold(
       backgroundColor:
@@ -292,7 +219,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Add Music Source',
+          AppLocalizations.of(context)!.addServerButton,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -301,221 +228,21 @@ class _AddServerScreenState extends State<AddServerScreen> {
         ),
         centerTitle: true,
       ),
-      body: FutureBuilder<bool>(
-        future: _hasYoutubeFuture,
-        builder: (context, snapshot) {
-          final hasYtStream = snapshot.data ?? false;
-
-          return SingleChildScrollView(
-            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Select Music Provider',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: context.octave.text2,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                _buildProviderCard(
-                  family: 'subsonic',
-                  title: 'Navidrome / Subsonic',
-                  subtitle: 'Connect to your self-hosted music library',
-                  icon: CupertinoIcons.music_note_2,
-                  gradient: [context.octave.accent, context.octave.accent],
-                  badge: 'Self-Hosted',
-                  isSelected: _selectedFamily == 'subsonic',
-                  isDisabled: false,
-                ),
-                const SizedBox(height: 10),
-                _buildProviderCard(
-                  family: 'jellyfin',
-                  title: 'Jellyfin / Emby',
-                  subtitle: 'Connect to your Jellyfin or Emby media server',
-                  icon: CupertinoIcons.tv_fill,
-                  gradient: const [Color(0xFF00A4DC), Color(0xFF006699)],
-                  badge: 'Media Server',
-                  isSelected: _selectedFamily == 'jellyfin',
-                  isDisabled: false,
-                ),
-                if (!kIsWeb && !Platform.isIOS && !isTv) ...[
-                  const SizedBox(height: 10),
-                  _buildProviderCard(
-                    family: 'youtube',
-                    title: 'Web Stream',
-                    subtitle: hasYtStream
-                        ? 'Already configured in your music sources'
-                        : 'Stream music online without account setup',
-                    icon: CupertinoIcons.play_rectangle_fill,
-                    gradient: [context.octave.danger, context.octave.danger],
-                    badge: hasYtStream ? 'ALREADY ADDED' : 'No Account Needed',
-                    isSelected: _selectedFamily == 'youtube',
-                    isDisabled: hasYtStream,
-                  ),
-                ],
-                if (!isTv) ...[
-                  const SizedBox(height: 10),
-                  _buildProviderCard(
-                    family: 'local',
-                    title: 'Local Files',
-                    subtitle: 'Play audio files stored directly on this device',
-                    icon: CupertinoIcons.folder_fill,
-                    gradient: [context.octave.success, Color(0xFF30B0C7)],
-                    badge: 'Offline',
-                    isSelected: _selectedFamily == 'local',
-                    isDisabled: false,
-                  ),
-                ],
-                const SizedBox(height: 24),
-                if (_errorMessage != null) ...[
-                  _buildErrorBanner(isDark),
-                  const SizedBox(height: 16),
-                ],
-                if (_selectedFamily == 'youtube') ...[
-                  _buildYtStreamInfoCard(isDark, hasYtStream),
-                ] else if (_selectedFamily == 'local') ...[
-                  _buildLocalFilesCard(isDark),
-                ] else ...[
-                  _buildServerForm(isDark),
-                ],
-                const SizedBox(height: 32),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildProviderCard({
-    required String family,
-    required String title,
-    required String subtitle,
-    required IconData icon,
-    required List<Color> gradient,
-    required String badge,
-    required bool isSelected,
-    required bool isDisabled,
-  }) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final primaryColor = Theme.of(context).colorScheme.primary;
-
-    return InkWell(
-      onTap: () {
-        setState(() {
-          _selectedFamily = family;
-          _errorMessage = null;
-        });
-      },
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: isSelected ? context.octave.surface2 : context.octave.surface1,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isSelected
-                ? primaryColor
-                : (isDark
-                    ? Colors.white10
-                    : Colors.black.withValues(alpha: 0.06)),
-            width: isSelected ? 2 : 1,
-          ),
-          boxShadow: isSelected
-              ? [
-                  BoxShadow(
-                    color: primaryColor.withValues(alpha: 0.12),
-                    blurRadius: 10,
-                    offset: const Offset(0, 3),
-                  ),
-                ]
-              : null,
-        ),
-        child: Row(
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 44,
-              height: 44,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(colors: gradient),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: Colors.white, size: 22),
-            ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        title,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 6, vertical: 2),
-                        decoration: BoxDecoration(
-                          color: isDisabled
-                              ? context.octave.success.withValues(alpha: 0.15)
-                              : (isDark
-                                  ? Colors.white12
-                                  : Colors.black.withValues(alpha: 0.06)),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Text(
-                          badge,
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.bold,
-                            color: isDisabled
-                                ? context.octave.success
-                                : (context.octave.text2),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: context.octave.text2,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected
-                      ? primaryColor
-                      : (context.octave.separator),
-                  width: 2,
-                ),
-                color: isSelected ? primaryColor : Colors.transparent,
-              ),
-              child: isSelected
-                  ? const Center(
-                      child: Icon(Icons.check, size: 14, color: Colors.white))
-                  : null,
-            ),
+            if (_errorMessage != null) ...[
+              _buildErrorBanner(isDark),
+              const SizedBox(height: 16),
+            ],
+            if (_selectedFamily == 'local')
+              _buildLocalFilesCard(isDark)
+            else
+              _buildServerForm(isDark),
+            const SizedBox(height: 32),
           ],
         ),
       ),
@@ -540,7 +267,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Connection Error',
+                  AppLocalizations.of(context)!.failedToConnect,
                   style: TextStyle(
                       color: context.octave.danger,
                       fontWeight: FontWeight.bold,
@@ -559,144 +286,6 @@ class _AddServerScreenState extends State<AddServerScreen> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildYtStreamInfoCard(bool isDark, bool hasYtStream) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: context.octave.surface1,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: context.octave.danger.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(CupertinoIcons.sparkles,
-                    color: context.octave.danger, size: 18),
-              ),
-              const SizedBox(width: 12),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Zero-Config Streaming',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'No server setup or account credentials required',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Divider(height: 1),
-          const SizedBox(height: 16),
-          _buildFeatureBullet(
-            icon: CupertinoIcons.music_albums,
-            title: 'Global Music Search',
-            subtitle:
-                'Search and stream millions of tracks, albums, and playlists seamlessly.',
-            isDark: isDark,
-          ),
-          const SizedBox(height: 12),
-          _buildFeatureBullet(
-            icon: CupertinoIcons.antenna_radiowaves_left_right,
-            title: 'Dynamic Radio',
-            subtitle:
-                'Auto-generates seamless radio stations tailored to any song or artist.',
-            isDark: isDark,
-          ),
-          const SizedBox(height: 12),
-          _buildFeatureBullet(
-            icon: CupertinoIcons.lock_shield,
-            title: 'Private & Direct',
-            subtitle:
-                'Audio streams directly to your device with local smart caching.',
-            isDark: isDark,
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            height: 50,
-            child: FilledButton(
-              onPressed: hasYtStream || _isConnecting ? null : _connectYtStream,
-              style: FilledButton.styleFrom(
-                backgroundColor: context.octave.danger,
-                disabledBackgroundColor: hasYtStream
-                    ? context.octave.success.withValues(alpha: 0.3)
-                    : Colors.grey.withValues(alpha: 0.3),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14)),
-              ),
-              child: _isConnecting
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                          color: Colors.white, strokeWidth: 2.5),
-                    )
-                  : Text(
-                      hasYtStream
-                          ? 'Web Stream is Already Added'
-                          : 'Connect Web Stream',
-                      style: const TextStyle(
-                          fontSize: 15, fontWeight: FontWeight.bold),
-                    ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFeatureBullet({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required bool isDark,
-  }) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(icon, size: 18, color: context.octave.danger),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 14, fontWeight: FontWeight.w600)),
-              const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: context.octave.text2,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 
@@ -732,14 +321,14 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Local Music Library',
+                    Text(
+                      AppLocalizations.of(context)!.localMusicLibrary,
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'Play local audio files stored on device',
+                      AppLocalizations.of(context)!.localFilesDescription,
                       style: TextStyle(
                         fontSize: 12,
                         color: context.octave.text2,
@@ -757,8 +346,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
             child: ElevatedButton.icon(
               onPressed: _isConnecting ? null : _connectLocalFiles,
               icon: const Icon(CupertinoIcons.folder_open, size: 18),
-              label: const Text(
-                'Scan & Use Local Files',
+              label: Text(
+                AppLocalizations.of(context)!.useLocalFiles,
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
               style: ElevatedButton.styleFrom(
@@ -811,7 +400,6 @@ class _AddServerScreenState extends State<AddServerScreen> {
   }
 
   Widget _buildServerForm(bool isDark) {
-    final isJellyfin = _selectedFamily == 'jellyfin';
     final primaryColor = Theme.of(context).colorScheme.primary;
     final l10n = AppLocalizations.of(context)!;
 
@@ -830,19 +418,11 @@ class _AddServerScreenState extends State<AddServerScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              isJellyfin
-                  ? 'Jellyfin Connection Details'
-                  : 'Subsonic / Navidrome Details',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 16),
             TextFormField(
               controller: _nameController,
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!.profileNameOptional,
-                hintText:
-                    isJellyfin ? 'e.g. Home Jellyfin' : 'e.g. Navidrome Cloud',
+                hintText: AppLocalizations.of(context)!.profileNameHint,
                 prefixIcon: const Icon(CupertinoIcons.tag),
                 filled: true,
                 fillColor:
@@ -865,9 +445,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
               },
               decoration: InputDecoration(
                 labelText: AppLocalizations.of(context)!.serverUrlRequired,
-                hintText: isJellyfin
-                    ? 'https://jellyfin.example.com'
-                    : 'https://music.example.com',
+                hintText: AppLocalizations.of(context)!.serverUrlHint,
                 prefixIcon: const Icon(CupertinoIcons.link),
                 filled: true,
                 fillColor:
@@ -896,7 +474,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Insecure HTTP: Passwords and streaming traffic are not encrypted over public networks. HTTPS is recommended.',
+                        AppLocalizations.of(context)!.loginInsecureHttp,
                         style: TextStyle(
                           fontSize: 12,
                           color: context.octave.warning,
@@ -994,7 +572,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                     ),
                     const SizedBox(width: 6),
                     Text(
-                      'Advanced Security & TLS Settings',
+                      AppLocalizations.of(context)!.advancedOptions,
                       style: TextStyle(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
@@ -1025,19 +603,17 @@ class _AddServerScreenState extends State<AddServerScreen> {
                       value: _allowSelfSigned,
                       onChanged: (v) => setState(() => _allowSelfSigned = v),
                     ),
-                    if (!isJellyfin) ...[
-                      const Divider(height: 12),
-                      SwitchListTile(
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(l10n.legacyAuthentication,
-                            style: const TextStyle(fontSize: 13)),
-                        subtitle: Text(l10n.legacyAuthenticationSubtitle,
-                            style: const TextStyle(fontSize: 11)),
-                        value: _useLegacyAuth,
-                        onChanged: (v) => setState(() => _useLegacyAuth = v),
-                      ),
-                    ],
+                    const Divider(height: 12),
+                    SwitchListTile(
+                      dense: true,
+                      contentPadding: EdgeInsets.zero,
+                      title: Text(l10n.legacyAuthentication,
+                          style: const TextStyle(fontSize: 13)),
+                      subtitle: Text(l10n.legacyAuthenticationSubtitle,
+                          style: const TextStyle(fontSize: 11)),
+                      value: _useLegacyAuth,
+                      onChanged: (v) => setState(() => _useLegacyAuth = v),
+                    ),
                     const Divider(height: 12),
                     ListTile(
                       dense: true,
@@ -1111,8 +687,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
                         child: CircularProgressIndicator(
                             color: Colors.white, strokeWidth: 2.5),
                       )
-                    : const Text(
-                        'Connect & Save Server',
+                    : Text(
+                        AppLocalizations.of(context)!.addServerButton,
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),

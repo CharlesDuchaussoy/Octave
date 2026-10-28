@@ -8,8 +8,6 @@ import 'album_artwork.dart';
 import 'animated_equalizer.dart';
 import '../modals/song_options_modal.dart';
 
-import 'package:musly/services/tv_detection_service.dart';
-import 'package:musly/widgets/navigation/tv_remote_scope.dart';
 import 'swipeable_song_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
@@ -49,13 +47,6 @@ class SongTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    bool isTv = false;
-    try {
-      isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
-    } catch (_) {
-      isTv = TvDetectionService().isTvMode;
-    }
-
     return Consumer<PlayerProvider>(
       builder: (context, playerProvider, child) {
         final isCurrentSong = playerProvider.currentSong?.id == song.id;
@@ -86,8 +77,8 @@ class SongTile extends StatelessWidget {
           ),
           subtitle: _buildSubtitle(context),
           trailing: trailing ?? _buildTrailing(context),
-          onTap: isTv ? null : actualOnTap,
-          onLongPress: isTv ? null : actualOnLongPress,
+          onTap: actualOnTap,
+          onLongPress: actualOnLongPress,
         );
 
         Widget finalTile = tile;
@@ -120,16 +111,6 @@ class SongTile extends StatelessWidget {
               );
             },
             child: tile,
-          );
-        }
-
-        if (isTv) {
-          return TvFocusableCard(
-            onTap: actualOnTap,
-            onLongPress: actualOnLongPress,
-            borderRadius: BorderRadius.circular(8),
-            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-            child: finalTile,
           );
         }
 

@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:musly/providers/providers.dart';
 import 'package:musly/services/local_music_service.dart';
-import '../../widgets/navigation/tv_remote_scope.dart';
-import '../../services/tv_detection_service.dart';
 import 'package:musly/services/recommendation_service.dart';
 import 'package:musly/services/theme_service.dart';
 import 'package:musly/services/usage_time_service.dart';
@@ -17,7 +15,6 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'home_screen.dart';
 import 'library_screen.dart';
 import 'search_screen.dart';
-import 'tv_main_screen.dart';
 import 'package:musly/screens/media/fantasy_screen.dart';
 
 class PlayPauseIntent extends Intent {
@@ -152,12 +149,6 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final isLocalMode = authProvider.isLocalOnlyMode;
-    final isTv = Provider.of<TvDetectionService>(context).isTvMode;
-
-    if (isTv) {
-      return TvMainScreen(isOfflineMode: widget.isOfflineMode);
-    }
-
     if (_isLargeScreen(context)) {
       final content = Scaffold(
         body: Column(
@@ -258,11 +249,9 @@ class _MainScreenState extends State<MainScreen> {
           actions: <Type, Action<Intent>>{
             PlayPauseIntent: _PlayPauseAction(context),
           },
-          child: TvRemoteScope(
-            child: Focus(
-              autofocus: true,
-              child: content,
-            ),
+          child: Focus(
+            autofocus: true,
+            child: content,
           ),
         ),
       );
@@ -279,161 +268,159 @@ class _MainScreenState extends State<MainScreen> {
             if (didPop) return;
             _handleBackButton();
           },
-          child: TvRemoteScope(
-            child: Scaffold(
-              backgroundColor: context.octave.background,
-              resizeToAvoidBottomInset: false,
-              body: Stack(
-                children: [
-                  Column(
-                    children: [
-                      if (widget.isOfflineMode || isLocalMode)
-                        Container(
-                          width: double.infinity,
-                          color: isLocalMode
-                              ? context.octave.accentSoft
-                              : context.octave.warning,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 16,
+          child: Scaffold(
+            backgroundColor: context.octave.background,
+            resizeToAvoidBottomInset: false,
+            body: Stack(
+              children: [
+                Column(
+                  children: [
+                    if (widget.isOfflineMode || isLocalMode)
+                      Container(
+                        width: double.infinity,
+                        color: isLocalMode
+                            ? context.octave.accentSoft
+                            : context.octave.warning,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
+                        child: SafeArea(
+                          bottom: false,
+                          child: Row(
+                            children: [
+                              Icon(
+                                isLocalMode
+                                    ? CupertinoIcons.folder_fill
+                                    : CupertinoIcons.wifi_slash,
+                                color: isLocalMode
+                                    ? context.octave.onAccentSoft
+                                    : context.octave.background,
+                                size: 18,
+                              ),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  isLocalMode
+                                      ? AppLocalizations.of(
+                                          context,
+                                        )!
+                                          .localFilesModeBanner
+                                      : AppLocalizations.of(
+                                          context,
+                                        )!
+                                          .offlineModeBanner,
+                                  style: TextStyle(
+                                    color: isLocalMode
+                                        ? context.octave.onAccentSoft
+                                        : context.octave.background,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          child: SafeArea(
-                            bottom: false,
+                        ),
+                      ),
+                    if (isLocalMode)
+                      Selector<LocalMusicService, (bool, double, String)>(
+                        selector: (_, s) =>
+                            (s.isScanning, s.scanProgress, s.scanStatus),
+                        builder: (context, data, _) {
+                          final (isScanning, progress, status) = data;
+                          if (!isScanning) return const SizedBox.shrink();
+                          return Container(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primaryContainer
+                                .withValues(alpha: 0.85),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
                             child: Row(
                               children: [
-                                Icon(
-                                  isLocalMode
-                                      ? CupertinoIcons.folder_fill
-                                      : CupertinoIcons.wifi_slash,
-                                  color: isLocalMode
-                                      ? context.octave.onAccentSoft
-                                      : context.octave.background,
-                                  size: 18,
+                                const SizedBox(
+                                  width: 16,
+                                  height: 16,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                                const SizedBox(width: 8),
+                                const SizedBox(width: 12),
                                 Expanded(
                                   child: Text(
-                                    isLocalMode
-                                        ? AppLocalizations.of(
-                                            context,
-                                          )!
-                                            .localFilesModeBanner
-                                        : AppLocalizations.of(
-                                            context,
-                                          )!
-                                            .offlineModeBanner,
-                                    style: TextStyle(
-                                      color: isLocalMode
-                                          ? context.octave.onAccentSoft
-                                          : context.octave.background,
+                                    status,
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                       fontSize: 13,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
+                                if (progress > 0)
+                                  Text(
+                                    '${(progress * 100).toStringAsFixed(0)}%',
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 12,
+                                    ),
+                                  ),
                               ],
                             ),
+                          );
+                        },
+                      ),
+                    Expanded(
+                      // With floating bars, content scrolls under them: its
+                      // bottom padding reserves their height.
+                      child: MediaQuery(
+                        data: MediaQuery.of(context).copyWith(
+                          padding: MediaQuery.paddingOf(context).copyWith(
+                            bottom: liquidGlass && !keyboardOpen
+                                ? _floatingBarsHeight(context, hasCurrentSong)
+                                : MediaQuery.paddingOf(context).bottom,
                           ),
                         ),
-                      if (isLocalMode)
-                        Selector<LocalMusicService, (bool, double, String)>(
-                          selector: (_, s) =>
-                              (s.isScanning, s.scanProgress, s.scanStatus),
-                          builder: (context, data, _) {
-                            final (isScanning, progress, status) = data;
-                            if (!isScanning) return const SizedBox.shrink();
-                            return Container(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .primaryContainer
-                                  .withValues(alpha: 0.85),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 8,
-                              ),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 16,
-                                    height: 16,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Text(
-                                      status,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  if (progress > 0)
-                                    Text(
-                                      '${(progress * 100).toStringAsFixed(0)}%',
-                                      style: const TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 12,
-                                      ),
-                                    ),
-                                ],
+                        child: Navigator(
+                          key: NavigationHelper.appNavigatorKey,
+                          onGenerateRoute: (settings) {
+                            return MaterialPageRoute(
+                              builder: (_) => LazyIndexedStack(
+                                index: _currentIndex,
+                                children: _screens,
                               ),
                             );
                           },
                         ),
-                      Expanded(
-                        // With floating bars, content scrolls under them: its
-                        // bottom padding reserves their height.
-                        child: MediaQuery(
-                          data: MediaQuery.of(context).copyWith(
-                            padding: MediaQuery.paddingOf(context).copyWith(
-                              bottom: liquidGlass && !keyboardOpen
-                                  ? _floatingBarsHeight(context, hasCurrentSong)
-                                  : MediaQuery.paddingOf(context).bottom,
-                            ),
-                          ),
-                          child: Navigator(
-                            key: NavigationHelper.appNavigatorKey,
-                            onGenerateRoute: (settings) {
-                              return MaterialPageRoute(
-                                builder: (_) => LazyIndexedStack(
-                                  index: _currentIndex,
-                                  children: _screens,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
                       ),
-                      if (!liquidGlass && !keyboardOpen)
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            if (hasCurrentSong) const MiniPlayer(),
-                            _buildBottomNav(context),
-                          ],
-                        ),
-                    ],
-                  ),
-                  if (liquidGlass && !keyboardOpen)
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Column(
+                    ),
+                    if (!liquidGlass && !keyboardOpen)
+                      Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           if (hasCurrentSong) const MiniPlayer(),
-                          _buildGlassBottomNav(context),
+                          _buildBottomNav(context),
                         ],
                       ),
+                  ],
+                ),
+                if (liquidGlass && !keyboardOpen)
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (hasCurrentSong) const MiniPlayer(),
+                        _buildGlassBottomNav(context),
+                      ],
                     ),
-                ],
-              ),
+                  ),
+              ],
             ),
           ),
         );

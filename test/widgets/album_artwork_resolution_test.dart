@@ -75,29 +75,6 @@ void main() {
       expect(defaultUrl, contains('size=600'));
     });
 
-    test('ImageUrlCache upscales Google CDN image URLs dynamically by size', () {
-      final service = SubsonicService();
-      const googleThumb =
-          'https://yt3.googleusercontent.com/abc123xyz=w60-h60-l90-rj';
-
-      final url60 = ImageUrlCache.getUrl(service, googleThumb, 60);
-      expect(url60, contains('=w60-h60-l90-rj'));
-
-      final url800 = ImageUrlCache.getUrl(service, googleThumb, 800);
-      expect(url800, contains('=w800-h800-l90-rj'));
-      expect(url800, isNot(contains('=w60-h60')));
-    });
-
-    test('ImageUrlCache upgrades legacy YouTube hqdefault.jpg to hq720.jpg', () {
-      final service = SubsonicService();
-      const legacyYtThumb =
-          'https://i.ytimg.com/vi/b53QJYP-lqY/hqdefault.jpg';
-
-      final upgraded = ImageUrlCache.getUrl(service, legacyYtThumb, 600);
-      expect(upgraded, 'https://i.ytimg.com/vi/b53QJYP-lqY/hq720.jpg');
-      expect(upgraded, isNot(contains('hqdefault.jpg')));
-    });
-
     testWidgets('AlbumArtView enforces 1:1 square AspectRatio and BoxFit.cover',
         (tester) async {
       await tester.pumpWidget(

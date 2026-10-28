@@ -1,8 +1,8 @@
 # Privacy Policy for Octave
 
-**Last Updated:** October 25, 2026
+**Last Updated:** October 26, 2026
 
-Octave ("we", "our", or "the app") is a free, open-source client for self-hosted music servers (Subsonic, Navidrome, Jellyfin) and local audio playback. We believe privacy is a fundamental human right.
+Octave ("we", "our", or "the app") is a free, open-source client for self-hosted music servers (Navidrome and other Subsonic servers) and local audio playback. We believe privacy is a fundamental human right.
 
 Octave is built on a **privacy-first, zero-telemetry architecture**.
 
@@ -15,7 +15,7 @@ Octave is built on a **privacy-first, zero-telemetry architecture**.
 - Your listening habits, favorite songs, play counts, and search queries are never transmitted to us or any analytics service.
 
 ## 2. Direct Client-to-Server Communication
-- Octave connects directly and exclusively to the music server URLs (Subsonic, Navidrome, Jellyfin) that you explicitly configure.
+- Octave connects directly and exclusively to the music server URLs (Navidrome and other Subsonic servers) that you explicitly configure.
 - No audio streams, metadata requests, or authentication packets ever pass through intermediary Octave servers.
 - Your server credentials (usernames, passwords, API tokens, and certificate keys) are encrypted on your device using hardware-backed secure storage (Android Keystore, Apple Keychain, Windows DPAPI). They never leave your device.
 
@@ -34,9 +34,8 @@ Octave is built on a **privacy-first, zero-telemetry architecture**.
 
 ## 6. Optional Third-Party Services
 When enabled, Octave interacts with public services strictly on-demand:
-- **LRCLIB (Synced Lyrics)**: If lyrics fallback is enabled in playback settings, Octave queries the public LRCLIB API strictly using the song title and artist name to retrieve time-synced lyrics. No personal identifiers or account details are sent.
-- **GitHub (Updates and Translations)**: Octave checks the latest release of its GitHub repository to offer updates, downloads the update file from GitHub when you accept it, and can download translation files from the same repository. These requests contain no personal data; GitHub receives the usual technical information of any web request (such as the IP address).
-- **Discord Rich Presence**: If enabled on desktop (Windows/macOS/Linux), playback metadata (track title, artist, elapsed/remaining time) is transmitted locally via Discord IPC to update your Discord status.
+- **LRCLIB (Synced Lyrics)**: When your server has no lyrics for a song, Octave queries the public LRCLIB API strictly using the song title and artist name to retrieve time-synced lyrics. No personal identifiers or account details are sent.
+- **GitHub (Updates and Translations)**: Octave checks the latest release of its GitHub repository to offer updates, downloads the update file from GitHub when you accept it. These requests contain no personal data; GitHub receives the usual technical information of any web request (such as the IP address).
 
 ## 7. User Control & Data Deletion
 - You have absolute control over your local data.

@@ -50,30 +50,13 @@ dependencies:
   flutter_displaymode: ^0.6.0
   window_manager: ^0.3.9
   file_picker: ^8.1.4
-  dart_discord_rpc: ^0.0.2
   flutter_chrome_cast: ^1.4.1
   dynamic_color: ^1.7.0
   material_color_utilities: any
   connectivity_plus: ^7.0.0
-  youtube_explode_dart: ^3.0.5
   sqflite: ^2.3.0
   wakelock_plus: ^1.4.0
   flutter_secure_storage: ^10.3.1
-  shared_preferences_tizen: any
-  path_provider_tizen: any
-  sqflite_tizen: any
-  url_launcher_tizen: any
-  wakelock_plus_tizen: any
-  flutter_secure_storage_tizen: any
-  connectivity_plus_tizen: any
-  permission_handler_tizen: any
-  package_info_plus_tizen: any
-  audioplayers_tizen:
-    git:
-      url: https://github.com/flutter-tizen/plugins.git
-      path: packages/audioplayers
-  video_player_tizen: ^2.5.15
-  audioplayers: 6.1.1
 dependency_overrides:
   ffi: ^2.1.4
 dev_dependencies:

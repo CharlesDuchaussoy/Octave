@@ -12,13 +12,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get appName => 'Octave';
 
   @override
-  String get emulatorDetected => 'Emulator Detected';
-
-  @override
-  String get emulatorNotAllowed =>
-      'This app cannot run on an emulator.\\nPlease use a physical device.';
-
-  @override
   String get goodMorning => '早上好';
 
   @override
@@ -26,15 +19,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get goodEvening => '晚上好';
-
-  @override
-  String get forYou => '为你推荐';
-
-  @override
-  String get quickPicks => '快速选择';
-
-  @override
-  String get discoverMix => '发现混音';
 
   @override
   String get recentlyPlayed => '最近播放';
@@ -61,12 +45,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get topRated => '评分最高';
 
   @override
-  String get noContentAvailable => '暂无内容';
-
-  @override
-  String get tryRefreshing => '请刷新或检查服务器连接';
-
-  @override
   String get refresh => '刷新';
 
   @override
@@ -77,9 +55,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get errorLoadingAlbums => '加载专辑出错';
-
-  @override
-  String get noTopRatedAlbums => '暂无评分最高的专辑';
 
   @override
   String get login => '登录';
@@ -132,9 +107,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get genres => '分类';
 
   @override
-  String get years => 'Years';
-
-  @override
   String get favorites => '收藏';
 
   @override
@@ -165,12 +137,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get repeat => '循环';
 
   @override
-  String get repeatOne => '单曲循环';
-
-  @override
-  String get repeatOff => '关闭循环';
-
-  @override
   String get addToPlaylist => '添加到歌单';
 
   @override
@@ -192,49 +158,19 @@ class AppLocalizationsZh extends AppLocalizations {
   String get cancel => '取消';
 
   @override
-  String get ok => '确定';
-
-  @override
   String get save => '保存';
 
   @override
   String get close => '关闭';
 
   @override
-  String get general => '通用';
-
-  @override
-  String get appearance => '外观';
-
-  @override
-  String get playback => '播放';
-
-  @override
   String get storage => '存储';
-
-  @override
-  String get about => '关于';
-
-  @override
-  String get darkMode => '深色模式';
 
   @override
   String get language => '语言';
 
   @override
   String get version => '版本';
-
-  @override
-  String get madeBy => '由 dddevid 开发';
-
-  @override
-  String get githubRepository => 'GitHub 仓库';
-
-  @override
-  String get reportIssue => '报告问题';
-
-  @override
-  String get joinDiscord => '加入 Discord 社区';
 
   @override
   String get unknownArtist => '未知艺术家';
@@ -246,31 +182,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get playAll => '播放全部';
 
   @override
-  String get shuffleAll => '随机播放全部';
-
-  @override
   String get sortBy => '排序方式';
-
-  @override
-  String get sortByName => '名称';
-
-  @override
-  String get sortByArtist => '艺术家';
-
-  @override
-  String get sortByAlbum => '专辑';
-
-  @override
-  String get sortByDate => '日期';
-
-  @override
-  String get sortByDuration => '时长';
-
-  @override
-  String get ascending => '升序';
-
-  @override
-  String get descending => '降序';
 
   @override
   String get noLyricsAvailable => '暂无歌词';
@@ -285,19 +197,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get retry => '重试';
 
   @override
-  String get noResults => '无结果';
-
-  @override
-  String get searchHint => '搜索歌曲、专辑、艺术家...';
-
-  @override
   String get allSongs => '全部歌曲';
-
-  @override
-  String get allAlbums => '全部专辑';
-
-  @override
-  String get allArtists => '全部艺术家';
 
   @override
   String trackNumber(int number) {
@@ -332,31 +232,16 @@ class AppLocalizationsZh extends AppLocalizations {
   String get logout => '退出登录';
 
   @override
-  String get confirmLogout => '确定要退出登录吗？';
-
-  @override
-  String get yes => '是';
-
-  @override
-  String get no => '否';
-
-  @override
   String get offlineMode => '离线模式';
 
   @override
   String get radio => '电台';
 
   @override
-  String get changelog => '更新日志';
-
-  @override
   String get platform => '平台';
 
   @override
   String get server => '服务器';
-
-  @override
-  String get display => '显示';
 
   @override
   String get playerInterface => '播放器界面';
@@ -394,12 +279,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get historyCleared => '收听历史已清除';
 
   @override
-  String get discordStatus => 'Discord 状态';
-
-  @override
-  String get discordStatusSubtitle => '在 Discord 个人资料上显示正在播放的歌曲';
-
-  @override
   String get selectLanguage => '选择语言';
 
   @override
@@ -418,25 +297,13 @@ class AppLocalizationsZh extends AppLocalizations {
   String get filterAll => '全部';
 
   @override
-  String get faves => 'Faves';
-
-  @override
   String get filterPlaylists => '歌单';
-
-  @override
-  String get filterAlbums => '专辑';
-
-  @override
-  String get filterArtists => '艺术家';
 
   @override
   String get likedSongs => '喜欢的歌曲';
 
   @override
   String get likedAlbums => 'Liked Albums';
-
-  @override
-  String get noLikedAlbums => 'No liked albums yet';
 
   @override
   String get localMusicLibrary => 'Local Music Library';
@@ -456,19 +323,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get rescanLocalMusic => 'Rescan Local Music';
-
-  @override
-  String get localLibraryEmpty => 'Your library is empty';
-
-  @override
-  String get localLibraryEmptySubtitle =>
-      'No local music files were found. Tap the button below to scan again.';
-
-  @override
-  String get libraryEmpty => 'Your library is empty';
-
-  @override
-  String get libraryEmptySubtitle => 'Add some songs to get started.';
 
   @override
   String get scanForMusic => 'Scan for Music';
@@ -510,29 +364,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String errorDeletingPlaylist(Object error) {
-    return '删除歌单出错：$error';
-  }
-
-  @override
   String playlistCreated(String name) {
     return '歌单「$name」已创建';
   }
-
-  @override
-  String get searchTitle => '搜索';
-
-  @override
-  String get searchPlaceholder => '艺术家、歌曲、专辑';
-
-  @override
-  String get tryDifferentSearch => '尝试不同的搜索';
-
-  @override
-  String get noSuggestions => '无建议';
-
-  @override
-  String get browseCategories => '浏览分类';
 
   @override
   String get homeSection => 'Home';
@@ -545,19 +379,7 @@ class AppLocalizationsZh extends AppLocalizations {
       'Show each favorite playlist as its own row at the top of the Home screen';
 
   @override
-  String get categoryMadeForYou => '为你制作';
-
-  @override
   String get categoryNewReleases => '新歌首发';
-
-  @override
-  String get categoryTopRated => '评分最高';
-
-  @override
-  String get categoryGenres => '分类';
-
-  @override
-  String get categoryFavorites => '收藏';
 
   @override
   String get categoryRadio => '电台';
@@ -592,53 +414,13 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get sectionReplayGain => '音量标准化 (REPLAYGAIN)';
-
-  @override
   String get replayGainMode => '模式';
-
-  @override
-  String preamp(String value) {
-    return '前置增益：$value dB';
-  }
-
-  @override
-  String get preventClipping => '防止削波';
-
-  @override
-  String fallbackGain(String value) {
-    return '备用增益：$value dB';
-  }
 
   @override
   String get sectionStreamingQuality => '流媒体质量';
 
   @override
-  String get enableTranscoding => '启用转码';
-
-  @override
-  String get qualityWifi => 'WiFi 质量';
-
-  @override
-  String get qualityMobile => '移动网络质量';
-
-  @override
   String get format => '格式';
-
-  @override
-  String get transcodingSubtitle => '降低质量以减少数据使用';
-
-  @override
-  String get modeOff => '关闭';
-
-  @override
-  String get modeTrack => '单曲';
-
-  @override
-  String get modeAlbum => '专辑';
-
-  @override
-  String get sectionServerConnection => '服务器连接';
 
   @override
   String get serverType => '服务器类型';
@@ -656,21 +438,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noMusicFolders => '未找到音乐文件夹';
 
   @override
-  String get sectionSavedProfiles => 'SAVED PROFILES';
-
-  @override
   String get switchProfile => 'Switch Profile';
 
   @override
   String get switchServer => 'Switch Server';
-
-  @override
-  String get addProfile => 'Add Profile';
-
-  @override
-  String switchProfileConfirmation(String profile) {
-    return 'Connect to \"$profile\"?';
-  }
 
   @override
   String get sectionAccount => '账户';
@@ -680,21 +451,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get imageCache => '图片缓存';
-
-  @override
-  String get musicCache => '音乐缓存';
-
-  @override
-  String get bpmCache => 'BPM 缓存';
-
-  @override
-  String get saveAlbumCovers => '本地保存专辑封面';
-
-  @override
-  String get saveSongMetadata => '本地保存歌曲元数据';
-
-  @override
-  String get saveBpmAnalysis => '本地保存 BPM 分析';
 
   @override
   String get sectionCacheCleanup => '缓存清理';
@@ -740,30 +496,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String downloadedStats(int count, String size) {
     return '$count 首歌曲 • $size';
   }
-
-  @override
-  String get sectionInformation => '信息';
-
-  @override
-  String get sectionDeveloper => '开发者';
-
-  @override
-  String get sectionLinks => '链接';
-
-  @override
-  String get githubRepo => 'GitHub 仓库';
-
-  @override
-  String get playingFrom => '正在播放来自';
-
-  @override
-  String get live => '直播';
-
-  @override
-  String get streamingLive => '正在直播';
-
-  @override
-  String get stopRadio => '停止电台';
 
   @override
   String get removeFromLiked => '从喜欢的歌曲中移除';
@@ -846,9 +578,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noPlaylists => '没有可用的歌单';
 
   @override
-  String get createNewPlaylist => '创建新歌单';
-
-  @override
   String artistNotFound(String name) {
     return '未找到艺术家「$name」';
   }
@@ -857,9 +586,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String errorSearchingArtist(Object error) {
     return '搜索艺术家出错：$error';
   }
-
-  @override
-  String get selectArtist => '选择艺术家';
 
   @override
   String get removedFromFavorites => '已从收藏中移除';
@@ -877,16 +603,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get albumNotFound => '未找到专辑';
 
   @override
-  String durationHoursMinutes(int hours, int minutes) {
-    return '$hours 小时 $minutes 分钟';
-  }
-
-  @override
-  String durationMinutes(int minutes) {
-    return '$minutes 分钟';
-  }
-
-  @override
   String get topSongs => '热门歌曲';
 
   @override
@@ -896,21 +612,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noSongPlaying => '当前无歌曲播放';
 
   @override
-  String get internetRadioUppercase => '网络电台';
-
-  @override
-  String get playingNext => '即将播放';
-
-  @override
-  String get createPlaylistTitle => '创建歌单';
-
-  @override
   String get playlistNameHint => '歌单名称';
-
-  @override
-  String playlistCreatedWithSong(String name) {
-    return '已创建歌单「$name」并添加了这首歌曲';
-  }
 
   @override
   String errorLoadingPlaylists(Object error) {
@@ -933,12 +635,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get listeningHistory => '收听历史';
 
   @override
-  String get noListeningHistory => '没有收听历史';
-
-  @override
-  String get songsWillAppearHere => '您播放的歌曲将显示在这里';
-
-  @override
   String get sortByTitleAZ => '标题 (A-Z)';
 
   @override
@@ -948,13 +644,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get sortByArtistAZ => '艺术家 (A-Z)';
 
   @override
-  String get sortByArtistZA => '艺术家 (Z-A)';
-
-  @override
   String get sortByAlbumAZ => '专辑 (A-Z)';
-
-  @override
-  String get sortByAlbumZA => '专辑 (Z-A)';
 
   @override
   String get recentlyAdded => '最近添加';
@@ -969,12 +659,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get noHomepageUrl => '没有可用的首页链接';
 
   @override
-  String get playStation => '播放电台';
-
-  @override
-  String get openHomepage => '打开首页';
-
-  @override
   String get copyStreamUrl => '复制流地址';
 
   @override
@@ -982,9 +666,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noRadioStations => '没有电台';
-
-  @override
-  String get noRadioStationsHint => '在您的 Navidrome 服务器设置中添加电台以在此处查看。';
 
   @override
   String get connectToServerSubtitle => '连接到您的 Subsonic 服务器';
@@ -1046,9 +727,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get connect => '连接';
 
   @override
-  String get or => '或者';
-
-  @override
   String get useLocalFiles => '使用本地文件';
 
   @override
@@ -1072,9 +750,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get home => '首页';
 
   @override
-  String get playlistsSection => '歌单';
-
-  @override
   String get collapse => '收起';
 
   @override
@@ -1082,13 +757,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get createPlaylist => '创建歌单';
-
-  @override
-  String get importPlaylist => 'Import Playlist';
-
-  @override
-  String get importPlaylistSubtitle =>
-      'Import from Spotify or YouTube Music (no login)';
 
   @override
   String get checkForUpdates => 'Check for updates';
@@ -1106,48 +774,10 @@ class AppLocalizationsZh extends AppLocalizations {
   String get updateNow => 'Update now';
 
   @override
-  String get downloadingUpdate => 'Downloading update...';
-
-  @override
   String get openOnGitHub => 'Open on GitHub';
 
   @override
   String get skipThisVersion => 'Skip this version';
-
-  @override
-  String get updateDownloaded => 'Download complete. Starting installation...';
-
-  @override
-  String get likedSongsSidebar => '喜欢的歌曲';
-
-  @override
-  String playlistSongsCount(int count) {
-    return '歌单 • $count 首歌曲';
-  }
-
-  @override
-  String get failedToLoadLyrics => '加载歌词失败';
-
-  @override
-  String get lyricsNotFoundSubtitle => '无法找到这首歌曲的歌词';
-
-  @override
-  String get backToCurrent => '返回当前';
-
-  @override
-  String get exitFullscreen => '退出全屏';
-
-  @override
-  String get fullscreen => '全屏';
-
-  @override
-  String get noLyrics => '无歌词';
-
-  @override
-  String get internetRadioMiniPlayer => '网络电台';
-
-  @override
-  String get liveBadge => '直播';
 
   @override
   String get localFilesModeBanner => '本地文件模式';
@@ -1156,23 +786,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get offlineModeBanner => '离线模式 - 仅播放已下载的音乐';
 
   @override
-  String get updateAvailableSubtitle => '新版本的 Octave 已可用！';
-
-  @override
-  String updateCurrentVersion(String version) {
-    return '当前版本：v$version';
-  }
-
-  @override
-  String updateLatestVersion(String version) {
-    return '最新版本：v$version';
-  }
-
-  @override
   String get whatsNew => '更新内容';
-
-  @override
-  String get downloadUpdate => '下载';
 
   @override
   String get remindLater => '稍后提醒';
@@ -1193,35 +807,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get casting => '投射中';
 
   @override
-  String get dlna => 'DLNA';
-
-  @override
-  String get castDlnaBeta => '投射 / DLNA（测试版）';
-
-  @override
-  String get chromecast => 'Chromecast';
-
-  @override
-  String get dlnaUpnp => 'DLNA / UPnP';
-
-  @override
   String get disconnect => '断开连接';
-
-  @override
-  String get searchingDevices => '正在搜索设备';
-
-  @override
-  String get castWifiHint => '请确保您的投射/DLNA设备\n处于同一 Wi-Fi 网络上';
-
-  @override
-  String connectedToDevice(String name) {
-    return '已连接到 $name';
-  }
-
-  @override
-  String failedToConnectDevice(String name) {
-    return '连接到 $name 失败';
-  }
 
   @override
   String get removedFromLikedSongs => '已从喜欢的歌曲中移除';
@@ -1230,16 +816,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get addedToLikedSongs => '已添加到喜欢的歌曲';
 
   @override
-  String get enableShuffle => '启用随机播放';
-
-  @override
-  String get enableRepeat => '启用循环';
-
-  @override
   String get connecting => '正在连接';
-
-  @override
-  String get closeLyrics => '关闭歌词';
 
   @override
   String errorStartingDownload(Object error) {
@@ -1267,19 +844,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get jukeboxClearQueue => '清空队列';
 
   @override
-  String get jukeboxShuffleQueue => '随机排序队列';
-
-  @override
   String get jukeboxQueueEmpty => '队列中没有歌曲';
-
-  @override
-  String get jukeboxNowPlaying => '正在播放';
-
-  @override
-  String get jukeboxQueue => '播放队列';
-
-  @override
-  String get jukeboxVolume => '音量';
 
   @override
   String get playOnJukebox => '在点唱机上播放';
@@ -1292,72 +857,7 @@ class AppLocalizationsZh extends AppLocalizations {
       '此服务器不支持点唱机模式。请在服务器配置中启用（例如在 Navidrome 中设置 EnableJukebox = true）。';
 
   @override
-  String get musicFoldersDialogTitle => '选择音乐文件夹';
-
-  @override
   String get musicFoldersHint => '保持全部启用以使用所有文件夹（默认）。';
-
-  @override
-  String get musicFoldersSaved => '音乐文件夹选择已保存';
-
-  @override
-  String get artworkStyleSection => '封面样式';
-
-  @override
-  String get artworkCornerRadius => '圆角';
-
-  @override
-  String get artworkCornerRadiusSubtitle => '调整专辑封面的圆角程度';
-
-  @override
-  String get artworkCornerRadiusNone => '无';
-
-  @override
-  String get artworkShape => '形状';
-
-  @override
-  String get artworkShapeRounded => '圆角矩形';
-
-  @override
-  String get artworkShapeCircle => '圆形';
-
-  @override
-  String get artworkShapeSquare => '方形';
-
-  @override
-  String get artworkShadow => '阴影';
-
-  @override
-  String get artworkShadowNone => '无';
-
-  @override
-  String get artworkShadowSoft => '柔和';
-
-  @override
-  String get artworkShadowMedium => '中等';
-
-  @override
-  String get artworkShadowStrong => '强烈';
-
-  @override
-  String get artworkShadowColor => '阴影颜色';
-
-  @override
-  String get artworkShadowColorBlack => '黑色';
-
-  @override
-  String get artworkShadowColorAccent => '强调色';
-
-  @override
-  String get artworkPreview => '预览';
-
-  @override
-  String artworkCornerRadiusLabel(int value) {
-    return '$value像素';
-  }
-
-  @override
-  String get noArtwork => '无封面';
 
   @override
   String get serverUnreachableTitle => 'Cannot reach server';
@@ -1396,22 +896,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get liveLabel => 'LIVE';
-
-  @override
-  String get discordStatusText => 'Discord status text';
-
-  @override
-  String get discordStatusTextSubtitle =>
-      'Second line shown in Discord activity';
-
-  @override
-  String get discordRpcStyleArtist => 'Artist name';
-
-  @override
-  String get discordRpcStyleSong => 'Song title';
-
-  @override
-  String get discordRpcStyleApp => 'App name (Octave)';
 
   @override
   String get sectionVolumeNormalization => 'VOLUME NORMALIZATION (REPLAYGAIN)';
@@ -1541,45 +1025,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get aboutLinkReportIssue => 'Report Issue';
 
   @override
-  String get sectionAnalyticsPrivacy => 'Analytics & Privacy';
-
-  @override
-  String get anonymousAnalytics => 'Anonymous Analytics';
-
-  @override
-  String get anonymousAnalyticsSubtitle =>
-      'Help improve Octave with anonymous crash reports and usage stats';
-
-  @override
-  String get deviceId => 'Device ID';
-
-  @override
-  String deviceIdAnonymous(String id) {
-    return 'Anonymous ID: $id';
-  }
-
-  @override
-  String get deviceIdDisabled =>
-      'Enable analytics to see your anonymous device ID';
-
-  @override
-  String get aboutDeviceId => 'About Device ID';
-
-  @override
-  String get aboutDeviceIdSubtitle =>
-      'This is an anonymous identifier generated by the app. It cannot be linked to your personal identity and is used only for analytics.';
-
-  @override
-  String get supportWayRate => 'Leave a rating on the app store';
-
-  @override
-  String get supportMadeWithLove => 'Crafted with passion in Italy';
-
-  @override
   String get playbackSpeed => 'Playback Speed';
-
-  @override
-  String get normalSpeed => 'Normal (1×)';
 
   @override
   String get preservePitch => 'Preserve pitch';
@@ -1588,40 +1034,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get preservePitchSubtitle => 'Keep original pitch when changing speed';
 
   @override
-  String get pitch => 'Pitch';
-
-  @override
-  String get pitchPreserved => 'pitch preserved';
-
-  @override
-  String speedTooltipWithPitch(String speed, String pitch) {
-    return 'Speed $speed · pitch $pitch×';
-  }
-
-  @override
-  String speedTooltipPitchPreserved(String speed) {
-    return 'Speed $speed · pitch preserved';
-  }
-
-  @override
   String get sleepTimer => 'Sleep Timer';
-
-  @override
-  String get sleepTimerActive => 'Sleep timer active';
-
-  @override
-  String get fadeOut => 'Fade out';
-
-  @override
-  String fadeOutSubtitle(int seconds) {
-    return 'Gradually lower volume in the last $seconds s';
-  }
-
-  @override
-  String get finishCurrentSong => 'Finish current song';
-
-  @override
-  String get finishCurrentSongSubtitle => 'Stop after the current track ends';
 
   @override
   String sleepTimerMinutes(int count) {
@@ -1629,79 +1042,7 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String sleepTimerHours(int count) {
-    return '$count hour';
-  }
-
-  @override
-  String sleepTimerSetFor(String duration) {
-    return 'Sleep timer set for $duration';
-  }
-
-  @override
-  String get customDuration => 'Custom duration…';
-
-  @override
-  String get cancelTimer => 'Cancel timer';
-
-  @override
-  String get customSleepTimer => 'Custom Sleep Timer';
-
-  @override
-  String get set => 'Set';
-
-  @override
-  String get addToPlaylistTitle => 'Add to Playlist';
-
-  @override
-  String get yourPlaylistsLabel => 'Your Playlists';
-
-  @override
-  String get themeSaved => 'Theme saved';
-
-  @override
-  String get themeUnsavedChanges => 'Unsaved changes';
-
-  @override
-  String get themeUnsavedChangesTitle => 'Unsaved Changes';
-
-  @override
-  String get themeUnsavedChangesBody =>
-      'You have unsaved changes. Do you want to save before leaving?';
-
-  @override
-  String get discard => 'Discard';
-
-  @override
   String get done => 'Done';
-
-  @override
-  String pickColor(String label) {
-    return 'Pick $label';
-  }
-
-  @override
-  String get titleStyle => 'Title Style';
-
-  @override
-  String get artistStyle => 'Artist Style';
-
-  @override
-  String get themeActive => 'ACTIVE';
-
-  @override
-  String get themeSafeMode => 'SAFE';
-
-  @override
-  String get themeCodeMode => 'CODE';
-
-  @override
-  String get themeAnimBadge => 'ANIM';
-
-  @override
-  String themeAuthor(String author) {
-    return 'by $author';
-  }
 
   @override
   String get audioFocusDenied =>
@@ -1720,54 +1061,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get endOfSong => 'End of Song';
 
   @override
-  String get muslyConnect => 'Octave Connect';
-
-  @override
   String get connectToDevice => 'Connect to a Device';
-
-  @override
-  String get currentlyPlayingOn => 'Currently Playing On';
-
-  @override
-  String get noDevicesFound =>
-      'No other Octave devices found on your Wi-Fi network.';
-
-  @override
-  String get transferPlaybackHere => 'Transfer playback here';
-
-  @override
-  String playbackTransferredTo(String device) {
-    return 'Playback transferred to $device';
-  }
-
-  @override
-  String get muslyBeatSync => 'Octave BeatSync';
-
-  @override
-  String get beatSyncSubtitle =>
-      'Synchronize multiple phones & computers over Wi-Fi as surround party speakers with millisecond precision.';
-
-  @override
-  String get hostParty => 'Host Party';
-
-  @override
-  String get joinParty => 'Join Party';
-
-  @override
-  String get leaveParty => 'Leave Party';
-
-  @override
-  String get audioPhaseCalibration => 'Audio Phase Calibration';
-
-  @override
-  String get phaseCalibrationSubtitle =>
-      'Adjust if using Bluetooth headphones or external speaker latency.';
-
-  @override
-  String get partySpeakers => 'Party Speakers';
-
-  @override
-  String get muslyWrapped => 'Octave Wrapped';
 
   @override
   String get wrappedSeasonal => 'Octave Playback is Seasonal';
@@ -1914,9 +1208,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get muslyPlaybackAnnualSubtitle =>
       'Your annual Year-in-Review unlocks automatically every year between late November and mid-January.\n\nKeep listening to music to expand your sonic universe!';
-
-  @override
-  String get submit => 'Submit';
 
   @override
   String devPlaybackTapsAway(int count) {
@@ -2137,30 +1428,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get muslyPlaybackHeader => 'OCTAVE PLAYBACK';
 
   @override
-  String get enableMuslyConnect => 'Enable Octave Connect';
-
-  @override
-  String get enableMuslyConnectSubtitle =>
-      'Discover nearby devices over Wi-Fi for remote control and listening sessions';
-
-  @override
-  String get availableDevices => 'Available Devices';
-
-  @override
-  String get lanDiscoveryActive => 'LAN Discovery active • No nearby devices';
-
-  @override
-  String nearbyDevicesFound(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count nearby devices found',
-      one: '1 nearby device found',
-    );
-    return '$_temp0';
-  }
-
-  @override
   String get minutes => 'Minutes';
 
   @override
@@ -2207,9 +1474,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get declineAndExit => 'Decline & Exit';
 
   @override
-  String get exitApp => 'Exit App';
-
-  @override
   String get stop => 'Stop';
 
   @override
@@ -2234,12 +1498,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get back => 'Back';
 
   @override
-  String get previousSlide => 'Previous';
-
-  @override
-  String get nextSlide => 'Next';
-
-  @override
   String get radios => 'Radios';
 
   @override
@@ -2250,9 +1508,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noDownloadedAlbumsYet => 'No downloaded albums yet';
-
-  @override
-  String get connectedToWebStream => 'Connected to Web Stream';
 
   @override
   String get allowSelfSignedCertificatesSubtitle =>
@@ -2333,12 +1588,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get renameProfile => 'Rename Profile';
 
   @override
-  String get addWebStream => 'Add Web Stream';
-
-  @override
-  String get addWebStreamSubtitle => 'Instant streaming with no login required';
-
-  @override
   String get recentSearches => 'Recent Searches';
 
   @override
@@ -2365,17 +1614,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get passwordRequired => 'Password *';
-
-  @override
-  String get playingInSync => 'Playing in sync';
-
-  @override
-  String get switchedBackToThisDevice => 'Switched back to this device';
-
-  @override
-  String connectedToDeviceName(String device) {
-    return 'Connected to $device';
-  }
 
   @override
   String get whatDoYouWantToPlay => 'What do you want to play?';
@@ -2656,15 +1894,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get androidAutoEmptyDownloads => 'No downloaded songs';
 
   @override
-  String get androidAutoLoading => 'Loading…';
-
-  @override
-  String get androidAutoOnlineStream => 'Online Stream';
-
-  @override
-  String get androidAutoServerSection => 'Server';
-
-  @override
   String get androidAutoDefaultServer => 'Default Server';
 
   @override
@@ -2689,9 +1918,6 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get pureBlackSubtitle =>
       'Black background in dark mode, saves battery on OLED screens';
-
-  @override
-  String get accentColorOctave => 'Octave night blue';
 
   @override
   String get welcomeTagline => 'Your music, your way.';
@@ -3157,9 +2383,6 @@ class AppLocalizationsZh extends AppLocalizations {
   String get connectionSlow => 'The connection is taking a while…';
 
   @override
-  String get freeOnlineStreaming => 'Free online streaming';
-
-  @override
   String get updateDownloadComplete => 'Download complete';
 
   @override
@@ -3169,70 +2392,6 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get updateDefaultChangelog => 'Improvements and bug fixes.';
-
-  @override
-  String get importEnterLink => 'Enter a playlist link or ID';
-
-  @override
-  String get importStarting => 'Starting import…';
-
-  @override
-  String get importSubtitle => 'Spotify or YouTube Music, no account needed';
-
-  @override
-  String get importLinkHint => 'Paste a Spotify or YouTube Music link…';
-
-  @override
-  String get pasteFromClipboard => 'Paste from clipboard';
-
-  @override
-  String get importLoadPreview => 'Show preview';
-
-  @override
-  String get importPreviewTitle => 'Playlist preview';
-
-  @override
-  String importAuthor(String author) {
-    return 'By $author';
-  }
-
-  @override
-  String importIncludedTracks(int count) {
-    return 'Included songs ($count)';
-  }
-
-  @override
-  String importButton(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'Import $count songs',
-      one: 'Import 1 song',
-    );
-    return '$_temp0';
-  }
-
-  @override
-  String get importInProgress => 'Importing…';
-
-  @override
-  String importTracksProgress(int current, int total) {
-    return 'Songs: $current / $total';
-  }
-
-  @override
-  String get importPreparing => 'Preparing songs…';
-
-  @override
-  String get importSuccess => 'Playlist imported';
-
-  @override
-  String importReady(String name) {
-    return '“$name” is ready to play';
-  }
-
-  @override
-  String get openPlaylist => 'Open playlist';
 
   @override
   String get disconnectConfirm => 'Disconnect from this server?';
