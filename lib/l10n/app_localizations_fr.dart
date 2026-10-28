@@ -2021,6 +2021,51 @@ class AppLocalizationsFr extends AppLocalizations {
   String get setupSkipAll => 'Passer la configuration';
 
   @override
+  String get setupArtistsTitle => 'Tes artistes';
+
+  @override
+  String get setupArtistsBody =>
+      'Choisis ceux que tu aimes. Octo s\'en sert pour tes mix et tes radios.';
+
+  @override
+  String get setupArtistsSearchHint => 'Chercher un artiste';
+
+  @override
+  String setupArtistsPicked(int count) {
+    return 'Tes choix ($count)';
+  }
+
+  @override
+  String get setupArtistsMine => 'Tes plus écoutés';
+
+  @override
+  String get setupArtistsFrance => 'Les plus écoutés en France';
+
+  @override
+  String get setupArtistsWorld => 'Les plus écoutés dans le monde';
+
+  @override
+  String get setupArtistsNoResult => 'Aucun artiste trouvé.';
+
+  @override
+  String get setupArtistsEmpty =>
+      'Pas de suggestions pour l\'instant. Cherche tes artistes ci-dessus.';
+
+  @override
+  String setupArtistsContinue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Continuer avec $count artistes',
+      one: 'Continuer avec $count artiste',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get setupSummaryArtists => 'Artistes';
+
+  @override
   String setupStepOf(int current, int total) {
     return 'Étape $current sur $total';
   }
@@ -2205,7 +2250,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get setupRedoSubtitle =>
-      'Couleur, affichage, qualité et téléchargements';
+      'Couleur, affichage, artistes, qualité et téléchargements';
 
   @override
   String get colorNameOctave => 'Nuit';

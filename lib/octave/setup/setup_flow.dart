@@ -6,22 +6,27 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
+import '../../models/artist.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/offline_service.dart';
 import '../../services/player_ui_settings_service.dart';
 import '../../services/recommendation_service.dart';
+import '../../services/subsonic_service.dart';
 import '../../services/theme_service.dart';
 import '../../services/transcoding_service.dart';
 import '../theme/octave_theme.dart';
+import '../server/taste_artists.dart';
 import '../widgets/appearance_controls.dart';
 import 'setup_progress.dart';
 import 'setup_widgets.dart';
+import 'taste_artists_step.dart';
 
 enum SetupStep {
   hello,
   color,
   mode,
   covers,
+  artists,
   home,
   quality,
   offline,
@@ -44,7 +49,7 @@ class SetupFlow extends StatefulWidget {
 }
 
 class _SetupFlowState extends State<SetupFlow> {
-  late final List<SetupStep> _steps;
+  List<SetupStep> _steps = const [];
   int _index = 0;
   bool _ready = false;
 
@@ -62,6 +67,14 @@ class _SetupFlowState extends State<SetupFlow> {
   int _mobileBitrate = TranscodeBitrate.kbps192;
   bool _autoDownload = true;
 
+  /// Artists to pick, from Octo; null until loaded.
+  TasteArtists? _taste;
+
+  /// Picked artists, by id; [_savedArtistIds] are the ones liked on the
+  /// server, so only the difference is sent.
+  final Map<String, Artist> _pickedArtists = {};
+  final Set<String> _savedArtistIds = {};
+
   PermissionStatus? _notifications;
   PermissionStatus? _battery;
 
@@ -70,14 +83,25 @@ class _SetupFlowState extends State<SetupFlow> {
   @override
   void initState() {
     super.initState();
+    _restore();
+  }
+
+  /// The steps for this account: server steps only with a server, the
+  /// artists only when Octo suggests them, permissions only on Android.
+  Future<List<SetupStep>> _stepsFor() async {
     final auth = Provider.of<AuthProvider>(context, listen: false);
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
     final config = auth.config;
     final serverLibrary = config != null &&
         !config.isLocal &&
         auth.state == AuthState.authenticated;
+    final tasteArtists = serverLibrary &&
+        (await subsonic.openSubsonicExtensions()).contains('octoTasteArtists');
     final isAndroid = !kIsWeb && Platform.isAndroid;
-    _steps = SetupStep.values.where((step) {
+    return SetupStep.values.where((step) {
       switch (step) {
+        case SetupStep.artists:
+          return tasteArtists;
         case SetupStep.quality:
         case SetupStep.offline:
           return serverLibrary;
@@ -87,7 +111,6 @@ class _SetupFlowState extends State<SetupFlow> {
           return true;
       }
     }).toList();
-    _restore();
   }
 
   /// The first time, recommended choices are preselected. A setup closed
@@ -95,6 +118,7 @@ class _SetupFlowState extends State<SetupFlow> {
   /// show what was saved; run again from About, every step starts from
   /// the current settings.
   Future<void> _restore() async {
+    final steps = await _stepsFor();
     final saved = await SetupProgress.savedStep();
     final furthest = await SetupProgress.furthestStep();
     final rerun = await SetupProgress.isDone();
@@ -107,6 +131,7 @@ class _SetupFlowState extends State<SetupFlow> {
     final transcoding =
         Provider.of<TranscodingService>(context, listen: false);
     setState(() {
+      _steps = steps;
       _rerun = rerun;
       final savedIndex =
           rerun ? -1 : _steps.indexWhere((s) => s.name == saved);
@@ -156,9 +181,48 @@ class _SetupFlowState extends State<SetupFlow> {
         : TranscodeBitrate.kbps192;
   }
 
-  /// Loads what a step needs when it is shown.
+  /// Loads what a step needs when it is shown. The summary counts the
+  /// picked artists, also when they were picked before a restart.
   void _prepare(SetupStep step) {
+    final needsArtists = step == SetupStep.artists ||
+        (step == SetupStep.done && _steps.contains(SetupStep.artists));
+    if (needsArtists && _taste == null) _loadTasteArtists();
     if (step == SetupStep.permissions) _checkPermissions();
+  }
+
+  Future<void> _loadTasteArtists() async {
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
+    TasteArtists taste;
+    try {
+      taste = await subsonic.octoGetTasteArtists();
+    } catch (e) {
+      debugPrint('[Setup] Could not load artists: $e');
+      taste = TasteArtists.empty;
+    }
+    if (!mounted) return;
+    setState(() {
+      _taste = taste;
+      // The artists liked last time start picked.
+      for (final artist in taste.chosen) {
+        _savedArtistIds.add(artist.id);
+        _pickedArtists.putIfAbsent(artist.id, () => artist);
+      }
+    });
+  }
+
+  Future<List<Artist>> _searchArtists(String query) async {
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
+    final result = await subsonic.search(query,
+        artistCount: 24, albumCount: 0, songCount: 0);
+    return result.artists;
+  }
+
+  void _toggleArtist(Artist artist) {
+    setState(() {
+      if (_pickedArtists.remove(artist.id) == null) {
+        _pickedArtists[artist.id] = artist;
+      }
+    });
   }
 
   Future<void> _checkPermissions() async {
@@ -216,6 +280,8 @@ class _SetupFlowState extends State<SetupFlow> {
     switch (step) {
       case SetupStep.covers:
         await PlayerUiSettingsService().setArtworkShape(_shape);
+      case SetupStep.artists:
+        await _saveArtists();
       case SetupStep.home:
         await PlayerUiSettingsService()
             .setShowFavoritePlaylistsOnHome(_favoritePlaylistsOnHome);
@@ -229,6 +295,29 @@ class _SetupFlowState extends State<SetupFlow> {
         await OfflineService().setAutoDownloadFavorites(_autoDownload);
       default:
         break;
+    }
+  }
+
+  /// A heart on an artist is Octo's taste signal: it weights the mixes and
+  /// radios, and Octo keeps it itself for an artist outside the library.
+  Future<void> _saveArtists() async {
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
+    final picked = _pickedArtists.keys.toSet();
+    for (final id in picked.difference(_savedArtistIds)) {
+      try {
+        await subsonic.star(artistId: id);
+        _savedArtistIds.add(id);
+      } catch (e) {
+        debugPrint('[Setup] Could not like artist $id: $e');
+      }
+    }
+    for (final id in _savedArtistIds.difference(picked)) {
+      try {
+        await subsonic.unstar(artistId: id);
+        _savedArtistIds.remove(id);
+      } catch (e) {
+        debugPrint('[Setup] Could not unlike artist $id: $e');
+      }
     }
   }
 
@@ -390,6 +479,21 @@ class _SetupFlowState extends State<SetupFlow> {
           ),
         );
 
+      case SetupStep.artists:
+        return page(
+          title: l10n.setupArtistsTitle,
+          body: l10n.setupArtistsBody,
+          primaryLabel: _pickedArtists.isEmpty
+              ? l10n.setupContinue
+              : l10n.setupArtistsContinue(_pickedArtists.length),
+          child: TasteArtistsStep(
+            suggestions: _taste,
+            search: _searchArtists,
+            selected: _pickedArtists,
+            onToggle: _toggleArtist,
+          ),
+        );
+
       case SetupStep.home:
         return page(
           title: l10n.setupHomeTitle,
@@ -518,6 +622,8 @@ class _SetupFlowState extends State<SetupFlow> {
             : _modeName(l10n, theme.themeMode),
       ),
       (l10n.setupSummaryCovers, _shapeName(l10n, _shape)),
+      if (_steps.contains(SetupStep.artists))
+        (l10n.setupSummaryArtists, '${_savedArtistIds.length}'),
       if (_steps.contains(SetupStep.quality)) ...[
         (l10n.setupSummaryWifi, _qualityName(l10n, _wifiBitrate)),
         (l10n.setupSummaryMobile, _qualityName(l10n, _mobileBitrate)),
