@@ -22,6 +22,7 @@ import 'package:musly/screens/media/favorites_screen.dart';
 import 'package:musly/screens/media/radio_screen.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -251,6 +252,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 : hasResults
                     ? _buildSearchResults(hPad, isDark)
                     : _buildBrowseAllSection(hPad, isDark),
+          ),
+          SliverToBoxAdapter(
+            child: SizedBox(height: scrollEndPadding(context)),
           ),
         ],
       ),

@@ -826,54 +826,6 @@ abstract class AppLocalizations {
   /// **'Display volume control in Now Playing screen'**
   String get showVolumeSliderSubtitle;
 
-  /// Show Star Ratings toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Star Ratings'**
-  String get showStarRatings;
-
-  /// Show Star Ratings toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Rate songs and view ratings'**
-  String get showStarRatingsSubtitle;
-
-  /// Show Heart button in mini player toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Heart Button'**
-  String get showMiniPlayerHeart;
-
-  /// Show Heart button in mini player toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Add to favorites from mini player'**
-  String get showMiniPlayerHeartSubtitle;
-
-  /// Show Repeat button in mini player toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Repeat Button'**
-  String get showMiniPlayerRepeat;
-
-  /// Show Repeat button in mini player toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Toggle repeat mode from mini player'**
-  String get showMiniPlayerRepeatSubtitle;
-
-  /// Show Shuffle button in mini player toggle label
-  ///
-  /// In en, this message translates to:
-  /// **'Show Shuffle Button'**
-  String get showMiniPlayerShuffle;
-
-  /// Show Shuffle button in mini player toggle subtitle
-  ///
-  /// In en, this message translates to:
-  /// **'Toggle shuffle from mini player'**
-  String get showMiniPlayerShuffleSubtitle;
-
   /// Enable Recommendations toggle label
   ///
   /// In en, this message translates to:
@@ -1174,24 +1126,6 @@ abstract class AppLocalizations {
   /// **'Browse Categories'**
   String get browseCategories;
 
-  /// No description provided for @liveSearchSection.
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get liveSearchSection;
-
-  /// No description provided for @liveSearch.
-  ///
-  /// In en, this message translates to:
-  /// **'Live Search'**
-  String get liveSearch;
-
-  /// No description provided for @liveSearchSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Update results as you type instead of showing a dropdown'**
-  String get liveSearchSubtitle;
-
   /// No description provided for @homeSection.
   ///
   /// In en, this message translates to:
@@ -1408,12 +1342,6 @@ abstract class AppLocalizations {
   /// **'Unknown'**
   String get unknown;
 
-  /// No description provided for @sectionMusicFolders.
-  ///
-  /// In en, this message translates to:
-  /// **'MUSIC FOLDERS'**
-  String get sectionMusicFolders;
-
   /// No description provided for @musicFolders.
   ///
   /// In en, this message translates to:
@@ -1467,12 +1395,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Are you sure you want to logout? This will also clear all cached data.'**
   String get logoutConfirmation;
-
-  /// Storage settings section header
-  ///
-  /// In en, this message translates to:
-  /// **'CACHE SETTINGS'**
-  String get sectionCacheSettings;
 
   /// No description provided for @imageCache.
   ///
@@ -1558,54 +1480,6 @@ abstract class AppLocalizations {
   /// **'This will download {count} songs to your device. This may take a while and use significant storage space.\n\nContinue?'**
   String downloadLibraryConfirm(int count);
 
-  /// Toggle to keep screen on during library download
-  ///
-  /// In en, this message translates to:
-  /// **'Keep Screen On'**
-  String get keepScreenOnDuringDownload;
-
-  /// Subtitle explaining why to keep screen on during download
-  ///
-  /// In en, this message translates to:
-  /// **'Prevents download from failing when device locks'**
-  String get keepScreenOnDuringDownloadSubtitle;
-
-  /// No description provided for @parallelDownloads.
-  ///
-  /// In en, this message translates to:
-  /// **'Parallel Downloads'**
-  String get parallelDownloads;
-
-  /// No description provided for @parallelDownloadsSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Download multiple songs simultaneously'**
-  String get parallelDownloadsSubtitle;
-
-  /// No description provided for @downloadSingular.
-  ///
-  /// In en, this message translates to:
-  /// **'download'**
-  String get downloadSingular;
-
-  /// No description provided for @downloadPlural.
-  ///
-  /// In en, this message translates to:
-  /// **'downloads'**
-  String get downloadPlural;
-
-  /// No description provided for @slowerButStable.
-  ///
-  /// In en, this message translates to:
-  /// **'Slower but more stable'**
-  String get slowerButStable;
-
-  /// No description provided for @fasterButMoreData.
-  ///
-  /// In en, this message translates to:
-  /// **'Faster but uses more data'**
-  String get fasterButMoreData;
-
   /// No description provided for @libraryDownloadStarted.
   ///
   /// In en, this message translates to:
@@ -1629,36 +1503,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No songs available. Please load your library first.'**
   String get noSongsAvailable;
-
-  /// Storage settings section header for BPM analysis
-  ///
-  /// In en, this message translates to:
-  /// **'BPM ANALYSIS'**
-  String get sectionBpmAnalysis;
-
-  /// No description provided for @cachedBpms.
-  ///
-  /// In en, this message translates to:
-  /// **'Cached BPMs'**
-  String get cachedBpms;
-
-  /// No description provided for @cacheAllBpms.
-  ///
-  /// In en, this message translates to:
-  /// **'Cache All BPMs'**
-  String get cacheAllBpms;
-
-  /// No description provided for @clearBpmCache.
-  ///
-  /// In en, this message translates to:
-  /// **'Clear BPM Cache'**
-  String get clearBpmCache;
-
-  /// No description provided for @bpmCacheCleared.
-  ///
-  /// In en, this message translates to:
-  /// **'BPM cache cleared'**
-  String get bpmCacheCleared;
 
   /// No description provided for @downloadedStats.
   ///
@@ -2614,29 +2458,11 @@ abstract class AppLocalizations {
   /// **'{songCount} songs • {albumCount} albums'**
   String genreTooltip(int songCount, int albumCount);
 
-  /// Section header for the jukebox settings in the Server tab
-  ///
-  /// In en, this message translates to:
-  /// **'JUKEBOX MODE'**
-  String get sectionJukebox;
-
   /// Toggle label for enabling jukebox mode
   ///
   /// In en, this message translates to:
   /// **'Jukebox Mode'**
   String get jukeboxMode;
-
-  /// Subtitle for the jukebox mode toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Play audio through the server instead of this device'**
-  String get jukeboxModeSubtitle;
-
-  /// List tile label to navigate to the jukebox controller screen
-  ///
-  /// In en, this message translates to:
-  /// **'Open Jukebox Controller'**
-  String get openJukeboxController;
 
   /// Action label to clear the jukebox playback queue
   ///
@@ -3094,42 +2920,6 @@ abstract class AppLocalizations {
   /// **'Original'**
   String get transcodingFormatOriginal;
 
-  /// Toggle title for image (album art) cache
-  ///
-  /// In en, this message translates to:
-  /// **'Image Cache'**
-  String get imageCacheTitle;
-
-  /// Subtitle for image cache toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Save album covers locally'**
-  String get imageCacheSubtitle;
-
-  /// Toggle title for music metadata cache
-  ///
-  /// In en, this message translates to:
-  /// **'Music Cache'**
-  String get musicCacheTitle;
-
-  /// Subtitle for music cache toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Save song metadata locally'**
-  String get musicCacheSubtitle;
-
-  /// Toggle title for BPM analysis cache
-  ///
-  /// In en, this message translates to:
-  /// **'BPM Cache'**
-  String get bpmCacheTitle;
-
-  /// Subtitle for BPM cache toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Save BPM analysis locally'**
-  String get bpmCacheSubtitle;
-
   /// About screen section header
   ///
   /// In en, this message translates to:
@@ -3388,18 +3178,6 @@ abstract class AppLocalizations {
   /// **'Your Playlists'**
   String get yourPlaylistsLabel;
 
-  /// Toggle label for enabling LRCLIB lyrics fallback when the Subsonic server has no lyrics
-  ///
-  /// In en, this message translates to:
-  /// **'Fetch lyrics from LRCLIB'**
-  String get enableLrcLibFallback;
-
-  /// Subtitle explaining the LRCLIB fallback toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Automatically search LRCLIB for lyrics when your server does not provide them'**
-  String get lrcLibFallbackSubtitle;
-
   /// Snackbar message after saving a Now Playing theme
   ///
   /// In en, this message translates to:
@@ -3616,77 +3394,11 @@ abstract class AppLocalizations {
   /// **'Play Your Top Songs'**
   String get playYourTopSongs;
 
-  /// Toggle to show live lyrics under album artwork in player
-  ///
-  /// In en, this message translates to:
-  /// **'Live Lyrics Under Artwork'**
-  String get lyricsUnderArtwork;
-
-  /// Subtitle for live lyrics under artwork toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Show currently synced lyric line under the album cover in the full-screen player'**
-  String get lyricsUnderArtworkSubtitle;
-
   /// Section header for lyrics display appearance settings
   ///
   /// In en, this message translates to:
   /// **'LYRICS DISPLAY'**
   String get lyricsDisplaySection;
-
-  /// Toggle to blur past and upcoming lyric lines
-  ///
-  /// In en, this message translates to:
-  /// **'Blur Unfocused Lyrics'**
-  String get lyricsBlurUnfocused;
-
-  /// Subtitle for blur unfocused lyrics toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Add blur effect to past and upcoming lyric lines'**
-  String get lyricsBlurUnfocusedSubtitle;
-
-  /// Label for lyrics alignment setting
-  ///
-  /// In en, this message translates to:
-  /// **'Lyrics Alignment'**
-  String get lyricsAlignment;
-
-  /// Centered lyrics alignment label
-  ///
-  /// In en, this message translates to:
-  /// **'Centered'**
-  String get lyricsAlignmentCentered;
-
-  /// Left aligned lyrics alignment label
-  ///
-  /// In en, this message translates to:
-  /// **'Left aligned'**
-  String get lyricsAlignmentLeft;
-
-  /// Left alignment button
-  ///
-  /// In en, this message translates to:
-  /// **'Left'**
-  String get alignLeft;
-
-  /// Center alignment button
-  ///
-  /// In en, this message translates to:
-  /// **'Center'**
-  String get alignCenter;
-
-  /// Toggle for active lyric line glow effect
-  ///
-  /// In en, this message translates to:
-  /// **'Active Line Glow'**
-  String get lyricsGlowEffect;
-
-  /// Subtitle for active lyric line glow effect toggle
-  ///
-  /// In en, this message translates to:
-  /// **'Subtle glow effect on currently playing lyric line'**
-  String get lyricsGlowEffectSubtitle;
 
   /// Toggle to keep the screen on while viewing lyrics
   ///
@@ -3760,12 +3472,6 @@ abstract class AppLocalizations {
   /// **'Eliminate silence between songs'**
   String get gaplessPlaybackSubtitle;
 
-  /// Playback settings section header for lyrics
-  ///
-  /// In en, this message translates to:
-  /// **'LYRICS'**
-  String get sectionLyrics;
-
   /// Network badge for WiFi connection
   ///
   /// In en, this message translates to:
@@ -3777,18 +3483,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile'**
   String get networkMobile;
-
-  /// Title for custom download folder setting
-  ///
-  /// In en, this message translates to:
-  /// **'Download Folder'**
-  String get downloadFolder;
-
-  /// Subtitle when default download folder is selected
-  ///
-  /// In en, this message translates to:
-  /// **'Default (Internal storage)'**
-  String get downloadFolderDefault;
 
   /// Title for active downloads row
   ///
@@ -3814,53 +3508,11 @@ abstract class AppLocalizations {
   /// **'{count, plural, =1{1 song downloaded} other{{count} songs downloaded}}'**
   String playlistSongsDownloadedCount(int count);
 
-  /// No description provided for @songsStreamCache.
-  ///
-  /// In en, this message translates to:
-  /// **'Songs & Streaming Cache'**
-  String get songsStreamCache;
-
-  /// Title for image/artwork cache row
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork & Images Cache'**
-  String get imageArtworkCache;
-
-  /// Subtitle showing cache disk usage
-  ///
-  /// In en, this message translates to:
-  /// **'{size} used on disk'**
-  String cacheDiskUsage(String size);
-
   /// Subtitle showing total cache disk usage
   ///
   /// In en, this message translates to:
   /// **'Total cache: {size}'**
   String totalCacheDiskUsage(String size);
-
-  /// Tooltip for clear audio cache button
-  ///
-  /// In en, this message translates to:
-  /// **'Clear song cache'**
-  String get clearAudioCacheTooltip;
-
-  /// Tooltip for clear image cache button
-  ///
-  /// In en, this message translates to:
-  /// **'Clear image cache'**
-  String get clearImageCacheTooltip;
-
-  /// Snackbar message when song cache is cleared
-  ///
-  /// In en, this message translates to:
-  /// **'Song cache cleared'**
-  String get audioCacheCleared;
-
-  /// Snackbar message when artwork cache is cleared
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork cache cleared'**
-  String get imageCacheCleared;
 
   /// Snackbar message when a local folder is added
   ///
@@ -5749,37 +5401,37 @@ abstract class AppLocalizations {
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Night blue'**
+  /// **'Night'**
   String get colorNameOctave;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Red'**
+  /// **'Grenadine'**
   String get colorNameRed;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Orange'**
+  /// **'Tangerine'**
   String get colorNameOrange;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Yellow'**
+  /// **'Lemon'**
   String get colorNameYellow;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Green'**
+  /// **'Forest'**
   String get colorNameGreen;
 
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Teal'**
+  /// **'Pool'**
   String get colorNameTeal;
 
   /// App color name
@@ -5797,14 +5449,38 @@ abstract class AppLocalizations {
   /// App color name
   ///
   /// In en, this message translates to:
-  /// **'Purple'**
+  /// **'Lilac'**
   String get colorNamePurple;
 
   /// App color name for Material You
   ///
   /// In en, this message translates to:
-  /// **'Wallpaper colors'**
+  /// **'Wallpaper'**
   String get colorNameDynamic;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Mint'**
+  String get colorNameMint;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Iris'**
+  String get colorNameIris;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Sand'**
+  String get colorNameSand;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Slate'**
+  String get colorNameSlate;
 
   /// Title of the artwork shape step
   ///
@@ -6106,36 +5782,6 @@ abstract class AppLocalizations {
   /// **'Error: {error}'**
   String errorWithDetails(String error);
 
-  /// Settings section
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork'**
-  String get artworkSection;
-
-  /// Settings row
-  ///
-  /// In en, this message translates to:
-  /// **'Artwork resolution'**
-  String get artworkResolution;
-
-  /// Artwork resolution
-  ///
-  /// In en, this message translates to:
-  /// **'Low (300 px)'**
-  String get artworkResLow;
-
-  /// Artwork resolution
-  ///
-  /// In en, this message translates to:
-  /// **'Normal (600 px)'**
-  String get artworkResNormal;
-
-  /// Artwork resolution
-  ///
-  /// In en, this message translates to:
-  /// **'High (original)'**
-  String get artworkResHigh;
-
   /// Storage setting
   ///
   /// In en, this message translates to:
@@ -6393,6 +6039,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Smart mix'**
   String get autoDjSmartMix;
+
+  /// Playlist menu entry opening the cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'Edit cover'**
+  String get coverEdit;
+
+  /// Title of the playlist cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'Cover'**
+  String get coverEditorTitle;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Layout'**
+  String get coverTabTemplate;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get coverTabText;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Colors'**
+  String get coverTabColors;
+
+  /// Cover editor tab
+  ///
+  /// In en, this message translates to:
+  /// **'Picture'**
+  String get coverTabImage;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Gradient'**
+  String get coverTemplateGradient;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Minimal'**
+  String get coverTemplateMinimal;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Big type'**
+  String get coverTemplateBigType;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Band'**
+  String get coverTemplateBand;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Photo'**
+  String get coverTemplatePhoto;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Record'**
+  String get coverTemplateVinyl;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Shapes'**
+  String get coverTemplateShapes;
+
+  /// Cover layout name
+  ///
+  /// In en, this message translates to:
+  /// **'Mosaic'**
+  String get coverTemplateGrid;
+
+  /// Cover title field
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get coverTitleLabel;
+
+  /// Cover subtitle field
+  ///
+  /// In en, this message translates to:
+  /// **'Subtitle'**
+  String get coverSubtitleLabel;
+
+  /// Hint of the cover subtitle field
+  ///
+  /// In en, this message translates to:
+  /// **'For example: for the road'**
+  String get coverSubtitleHint;
+
+  /// Cover font picker
+  ///
+  /// In en, this message translates to:
+  /// **'Font'**
+  String get coverFontLabel;
+
+  /// Cover option
+  ///
+  /// In en, this message translates to:
+  /// **'Capital letters'**
+  String get coverUppercase;
+
+  /// Cover color picker
+  ///
+  /// In en, this message translates to:
+  /// **'Main color'**
+  String get coverMainColor;
+
+  /// Cover color picker
+  ///
+  /// In en, this message translates to:
+  /// **'Second color'**
+  String get coverSecondColor;
+
+  /// Cover color picker section
+  ///
+  /// In en, this message translates to:
+  /// **'The first colors come from the playlist covers.'**
+  String get coverColorsFromCovers;
+
+  /// Cover picture button
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a photo'**
+  String get coverPickPhoto;
+
+  /// Cover picture button
+  ///
+  /// In en, this message translates to:
+  /// **'Use the playlist covers'**
+  String get coverUsePlaylistCovers;
+
+  /// Cover picture tab hint
+  ///
+  /// In en, this message translates to:
+  /// **'The Band and Photo layouts show this picture.'**
+  String get coverImageHint;
+
+  /// Cover editor action
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the automatic cover'**
+  String get coverAutomatic;
+
+  /// Message after saving a cover
+  ///
+  /// In en, this message translates to:
+  /// **'Cover saved'**
+  String get coverSaved;
+
+  /// Message when a cover cannot be saved
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the cover'**
+  String get coverSaveFailed;
+
+  /// Note in the cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'For now, this cover only shows in Octave on this device.'**
+  String get coverThisDeviceOnly;
+
+  /// Dialog when leaving the cover editor
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get coverDiscardTitle;
+
+  /// Button discarding cover changes
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get coverDiscard;
+
+  /// Cover editor button swapping main and second colors
+  ///
+  /// In en, this message translates to:
+  /// **'Swap the colors'**
+  String get coverSwapColors;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'Try turning on \"Allow self-signed certificates\" in the advanced options.'**
+  String get loginHintSelfSigned;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'Check your username and password, then try again.'**
+  String get loginHintCredentials;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'Check the end of the server address (for example /navidrome).'**
+  String get loginHintServerPath;
+
+  /// Login error hint
+  ///
+  /// In en, this message translates to:
+  /// **'The server took too long to answer. Check your connection.'**
+  String get loginHintTimeout;
+
+  /// Login error action on phones
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to allow self-signed certificates'**
+  String get loginTapEnableSelfSigned;
+
+  /// Login error action on computers
+  ///
+  /// In en, this message translates to:
+  /// **'Click to allow self-signed certificates'**
+  String get loginClickEnableSelfSigned;
+
+  /// Status while picking local files
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your music files…'**
+  String get loginSelectMusicFiles;
+
+  /// Message when no local file was picked
+  ///
+  /// In en, this message translates to:
+  /// **'No file chosen. Tap \"Use phone files\" and choose your music.'**
+  String get loginNoFilesSelected;
+
+  /// Local files mode description on the login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Play the audio files of this phone, without a server.'**
+  String get localFilesDescription;
+
+  /// Warning for http:// server addresses
+  ///
+  /// In en, this message translates to:
+  /// **'Unencrypted HTTP connection: passwords and music travel in clear text on public networks. Prefer HTTPS.'**
+  String get loginInsecureHttp;
+
+  /// Hint of the profile name field
+  ///
+  /// In en, this message translates to:
+  /// **'For example: Home, Work'**
+  String get profileNameHint;
+
+  /// Hint of the client certificate password field
+  ///
+  /// In en, this message translates to:
+  /// **'Password of the .p12 or .pfx file'**
+  String get clientCertPasswordHint;
+
+  /// Hint of the server address field
+  ///
+  /// In en, this message translates to:
+  /// **'https://music.example.com'**
+  String get serverUrlHint;
+
+  /// Login link back to the server form
+  ///
+  /// In en, this message translates to:
+  /// **'Connect to a server'**
+  String get loginUseServer;
 }
 
 class _AppLocalizationsDelegate

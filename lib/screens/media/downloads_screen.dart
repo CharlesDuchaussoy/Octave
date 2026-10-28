@@ -7,6 +7,7 @@ import '../../widgets/widgets.dart';
 import '../../l10n/app_localizations.dart';
 import '../detail/album_screen.dart';
 import '../../utils/navigation_helper.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class DownloadsScreen extends StatefulWidget {
   const DownloadsScreen({super.key});
@@ -101,7 +102,7 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
     }
 
     return ListView.builder(
-      padding: const EdgeInsets.only(bottom: 150),
+      padding: EdgeInsets.only(bottom: scrollEndPadding(context)),
       itemExtent: 68.0,
       itemCount: _downloadedSongs.length,
       itemBuilder: (context, index) {

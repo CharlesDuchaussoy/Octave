@@ -18,7 +18,7 @@ class OctavePalette {
   /// Night blue of the Octave logo, the default seed.
   static const Color octaveSeed = Color(0xFF0E2A47);
 
-  static const double defaultIntensity = 0.5;
+  static const double defaultIntensity = 0.6;
 
   static OctaveColors build({
     required Color seed,
@@ -30,21 +30,23 @@ class OctavePalette {
     final hue = hct.hue;
     final seedChroma = hct.chroma;
     final tint = intensity.clamp(0.0, 1.0);
-    final neutral = math.min(seedChroma, 28.0) * tint;
     final accentChroma = math.max(seedChroma, 32.0);
 
     Color c(double tone, double chroma, [double h = -1]) =>
         Color(Hct.from(h < 0 ? hue : h, chroma, tone).toInt());
 
     if (brightness == Brightness.dark) {
-      final background =
-          pureBlack ? const Color(0xFF000000) : c(7, neutral);
+      // Dark tones of a color drift towards wine or ink, so dark
+      // backgrounds stay close to neutral, as in Apple Music and
+      // Spotify: the color shows on the accent, which stays light.
+      final neutral = math.min(seedChroma, 14.0) * tint;
+      final background = pureBlack ? const Color(0xFF000000) : c(7, neutral);
       final surface1 = c(pureBlack ? 6 : 11, neutral);
       final accent = c(80, accentChroma);
       return OctaveColors(
         brightness: Brightness.dark,
         background: background,
-        backgroundTop: c(22, math.min(seedChroma, 36) * math.max(tint, 0.4)),
+        backgroundTop: c(24, math.min(seedChroma, 30.0) * math.max(tint, 0.5)),
         surface1: surface1,
         surface2: c(pureBlack ? 10 : 15, neutral),
         surface3: c(pureBlack ? 15 : 21, neutral),
@@ -54,8 +56,8 @@ class OctavePalette {
         text3: c(54, neutral * 0.5),
         accent: accent,
         onAccent: c(12, math.min(accentChroma, 30)),
-        accentSoft: c(26, math.max(seedChroma * 0.8, 16)),
-        onAccentSoft: c(90, math.max(seedChroma * 0.5, 12)),
+        accentSoft: c(22, math.max(neutral, 6)),
+        onAccentSoft: accent,
         bar: pureBlack ? c(4, neutral) : surface1,
         miniPlayer: c(pureBlack ? 8 : 15, neutral),
         glass: background.withValues(alpha: 0.78),
@@ -67,16 +69,20 @@ class OctavePalette {
       );
     }
 
-    final background = c(97, neutral * 0.5);
-    final accent = c(hct.tone.clamp(16.0, 45.0), math.max(seedChroma, 24.0));
+    // Light tones keep the color clean, so light backgrounds take it
+    // clearly: pale pink, pale blue...
+    final neutral = math.min(seedChroma, 40.0) * tint;
+
+    final background = c(95, neutral * 0.9);
+    final accent = c(hct.tone.clamp(16.0, 48.0), math.max(seedChroma, 24.0));
     return OctaveColors(
       brightness: Brightness.light,
       background: background,
-      backgroundTop: c(88, math.min(seedChroma, 36) * math.max(tint, 0.4)),
+      backgroundTop: c(86, math.min(seedChroma, 48.0) * math.max(tint, 0.5)),
       surface1: const Color(0xFFFFFFFF),
-      surface2: c(94, neutral * 0.6),
-      surface3: c(90, neutral * 0.6),
-      separator: c(87, neutral * 0.5),
+      surface2: c(92, neutral * 0.9),
+      surface3: c(88, neutral * 0.9),
+      separator: c(85, neutral * 0.7),
       text1: c(10, math.min(neutral, 6)),
       text2: c(40, neutral * 0.6),
       text3: c(56, neutral * 0.5),
@@ -88,7 +94,7 @@ class OctavePalette {
       miniPlayer: const Color(0xFFFFFFFF),
       glass: background.withValues(alpha: 0.82),
       progress: accent,
-      progressTrack: c(88, neutral * 0.6),
+      progressTrack: c(87, neutral * 0.8),
       success: c(42, 55, 145),
       warning: c(50, 60, 70),
       danger: c(45, 75, 25),

@@ -6,6 +6,7 @@ import 'package:musly/theme/app_theme.dart';
 import 'package:musly/providers/library_provider.dart';
 import 'package:musly/services/playlist_cover_service.dart';
 import 'album_artwork.dart';
+import 'package:musly/octave/covers/cover_store.dart';
 
 class PlaylistArtwork extends StatelessWidget {
   final Playlist? playlist;
@@ -29,10 +30,24 @@ class PlaylistArtwork extends StatelessWidget {
   Widget build(BuildContext context) {
     final validSize = size.isFinite && !size.isNaN && size > 0 ? size : 150.0;
 
-    return ValueListenableBuilder<int>(
-      valueListenable: PlaylistCoverService().coverUpdates,
-      builder: (context, _, __) {
+    return ListenableBuilder(
+      listenable: Listenable.merge([
+        PlaylistCoverService().coverUpdates,
+        PlaylistCoverStore.instance.updates,
+      ]),
+      builder: (context, _) {
         final playlistId = playlist?.id ?? '';
+
+        // A cover made in the editor comes first.
+        final customCover = PlaylistCoverStore.instance.imagePath(playlistId);
+        if (customCover != null) {
+          return AlbumArtwork(
+            coverArt: customCover,
+            size: validSize,
+            borderRadius: borderRadius,
+            shadow: shadow,
+          );
+        }
 
         var effectiveCoverArt = coverArt ?? playlist?.coverArt;
         if ((effectiveCoverArt == null || effectiveCoverArt.isEmpty) &&

@@ -3,12 +3,13 @@ import '../../theme/app_theme.dart';
 import '../../theme/app_dimensions.dart';
 
 class SettingsSectionCard extends StatelessWidget {
-  final String title;
+  /// Small header above the card; none for a card that stands alone.
+  final String? title;
   final List<Widget> children;
 
   const SettingsSectionCard({
     super.key,
-    required this.title,
+    this.title,
     required this.children,
   });
 
@@ -18,18 +19,19 @@ class SettingsSectionCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: AppDimensions.sectionHeaderPadding,
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w400,
-              color: context.octave.text2,
-              letterSpacing: 0.2,
+        if (title != null)
+          Padding(
+            padding: AppDimensions.sectionHeaderPadding,
+            child: Text(
+              title!,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w400,
+                color: context.octave.text2,
+                letterSpacing: 0.2,
+              ),
             ),
           ),
-        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Material(

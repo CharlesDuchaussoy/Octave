@@ -9,6 +9,7 @@ import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class SettingsAndroidAutoTab extends StatefulWidget {
   const SettingsAndroidAutoTab({super.key});
@@ -73,7 +74,7 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
     }
     
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.server,

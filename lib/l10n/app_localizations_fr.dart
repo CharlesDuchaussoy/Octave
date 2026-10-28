@@ -373,34 +373,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Affiche le réglage du volume dans le lecteur';
 
   @override
-  String get showStarRatings => 'Notes en étoiles';
-
-  @override
-  String get showStarRatingsSubtitle =>
-      'Note les titres et affiche leurs notes';
-
-  @override
-  String get showMiniPlayerHeart => 'Bouton cœur';
-
-  @override
-  String get showMiniPlayerHeartSubtitle =>
-      'Ajoute aux favoris depuis le mini-lecteur';
-
-  @override
-  String get showMiniPlayerRepeat => 'Bouton répéter';
-
-  @override
-  String get showMiniPlayerRepeatSubtitle =>
-      'Change la répétition depuis le mini-lecteur';
-
-  @override
-  String get showMiniPlayerShuffle => 'Bouton aléatoire';
-
-  @override
-  String get showMiniPlayerShuffleSubtitle =>
-      'Active l\'aléatoire depuis le mini-lecteur';
-
-  @override
   String get enableRecommendations => 'Activer les recommandations';
 
   @override
@@ -569,16 +541,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get browseCategories => 'Parcourir';
 
   @override
-  String get liveSearchSection => 'Recherche';
-
-  @override
-  String get liveSearch => 'Résultats pendant la saisie';
-
-  @override
-  String get liveSearchSubtitle =>
-      'Met à jour les résultats à chaque lettre tapée';
-
-  @override
   String get homeSection => 'Accueil';
 
   @override
@@ -696,9 +658,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unknown => 'Inconnu';
 
   @override
-  String get sectionMusicFolders => 'DOSSIERS DE MUSIQUE';
-
-  @override
   String get musicFolders => 'Dossiers de musique';
 
   @override
@@ -727,9 +686,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get logoutConfirmation =>
       'Te déconnecter ? Les données en cache seront aussi effacées.';
-
-  @override
-  String get sectionCacheSettings => 'CACHE';
 
   @override
   String get imageCache => 'Cache des images';
@@ -778,32 +734,6 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get keepScreenOnDuringDownload => 'Garder l\'écran allumé';
-
-  @override
-  String get keepScreenOnDuringDownloadSubtitle =>
-      'Évite que le téléchargement s\'arrête quand le téléphone se verrouille';
-
-  @override
-  String get parallelDownloads => 'Téléchargements simultanés';
-
-  @override
-  String get parallelDownloadsSubtitle =>
-      'Télécharge plusieurs titres à la fois';
-
-  @override
-  String get downloadSingular => 'téléchargement';
-
-  @override
-  String get downloadPlural => 'téléchargements';
-
-  @override
-  String get slowerButStable => 'Plus lent mais plus fiable';
-
-  @override
-  String get fasterButMoreData => 'Plus rapide mais consomme plus';
-
-  @override
   String get libraryDownloadStarted =>
       'Téléchargement de la bibliothèque lancé';
 
@@ -816,21 +746,6 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get noSongsAvailable =>
       'Aucun titre disponible. Charge d\'abord ta bibliothèque.';
-
-  @override
-  String get sectionBpmAnalysis => 'ANALYSE DES BPM';
-
-  @override
-  String get cachedBpms => 'BPM en cache';
-
-  @override
-  String get cacheAllBpms => 'Analyser tous les BPM';
-
-  @override
-  String get clearBpmCache => 'Vider le cache des BPM';
-
-  @override
-  String get bpmCacheCleared => 'Cache des BPM vidé';
 
   @override
   String downloadedStats(int count, String size) {
@@ -1368,17 +1283,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get sectionJukebox => 'MODE JUKEBOX';
-
-  @override
   String get jukeboxMode => 'Mode jukebox';
-
-  @override
-  String get jukeboxModeSubtitle =>
-      'Joue le son sur le serveur plutôt que sur ce téléphone';
-
-  @override
-  String get openJukeboxController => 'Ouvrir la télécommande du jukebox';
 
   @override
   String get jukeboxClearQueue => 'Vider la file d\'attente';
@@ -1632,25 +1537,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get transcodingFormatOriginal => 'D\'origine';
 
   @override
-  String get imageCacheTitle => 'Cache des images';
-
-  @override
-  String get imageCacheSubtitle => 'Garde les pochettes sur le téléphone';
-
-  @override
-  String get musicCacheTitle => 'Cache de la musique';
-
-  @override
-  String get musicCacheSubtitle =>
-      'Garde les infos des titres sur le téléphone';
-
-  @override
-  String get bpmCacheTitle => 'Cache des BPM';
-
-  @override
-  String get bpmCacheSubtitle => 'Garde l\'analyse des BPM sur le téléphone';
-
-  @override
   String get sectionAboutInformation => 'INFORMATIONS';
 
   @override
@@ -1798,13 +1684,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get yourPlaylistsLabel => 'Tes playlists';
 
   @override
-  String get enableLrcLibFallback => 'Chercher les paroles sur LRCLIB';
-
-  @override
-  String get lrcLibFallbackSubtitle =>
-      'Cherche les paroles sur LRCLIB quand le serveur n\'en a pas';
-
-  @override
   String get themeSaved => 'Thème enregistré';
 
   @override
@@ -1923,42 +1802,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get playYourTopSongs => 'Écouter tes titres préférés';
 
   @override
-  String get lyricsUnderArtwork => 'Paroles sous la pochette';
-
-  @override
-  String get lyricsUnderArtworkSubtitle =>
-      'Affiche la ligne en cours des paroles sous la pochette, dans le lecteur';
-
-  @override
   String get lyricsDisplaySection => 'AFFICHAGE DES PAROLES';
-
-  @override
-  String get lyricsBlurUnfocused => 'Flouter les autres lignes';
-
-  @override
-  String get lyricsBlurUnfocusedSubtitle =>
-      'Les lignes passées et à venir sont floutées';
-
-  @override
-  String get lyricsAlignment => 'Alignement des paroles';
-
-  @override
-  String get lyricsAlignmentCentered => 'Centrées';
-
-  @override
-  String get lyricsAlignmentLeft => 'À gauche';
-
-  @override
-  String get alignLeft => 'Gauche';
-
-  @override
-  String get alignCenter => 'Centre';
-
-  @override
-  String get lyricsGlowEffect => 'Ligne en cours lumineuse';
-
-  @override
-  String get lyricsGlowEffectSubtitle => 'Un léger halo sur la ligne chantée';
 
   @override
   String get lyricsKeepScreenOn => 'Garder l\'écran allumé';
@@ -2003,19 +1847,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get gaplessPlaybackSubtitle => 'Enchaîne les titres sans silence';
 
   @override
-  String get sectionLyrics => 'PAROLES';
-
-  @override
   String get networkWifi => 'Wi-Fi';
 
   @override
   String get networkMobile => 'Mobile';
-
-  @override
-  String get downloadFolder => 'Dossier des téléchargements';
-
-  @override
-  String get downloadFolderDefault => 'Par défaut (stockage interne)';
 
   @override
   String get activeDownloads => 'Téléchargements en cours';
@@ -2038,32 +1873,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get songsStreamCache => 'Cache des titres';
-
-  @override
-  String get imageArtworkCache => 'Cache des pochettes';
-
-  @override
-  String cacheDiskUsage(String size) {
-    return '$size utilisés';
-  }
-
-  @override
   String totalCacheDiskUsage(String size) {
     return 'Cache total : $size';
   }
-
-  @override
-  String get clearAudioCacheTooltip => 'Vider le cache des titres';
-
-  @override
-  String get clearImageCacheTooltip => 'Vider le cache des pochettes';
-
-  @override
-  String get audioCacheCleared => 'Cache des titres vidé';
-
-  @override
-  String get imageCacheCleared => 'Cache des pochettes vidé';
 
   @override
   String folderAdded(String path) {
@@ -3126,22 +2938,22 @@ class AppLocalizationsFr extends AppLocalizations {
       'Couleur, affichage, artistes, qualité et téléchargements';
 
   @override
-  String get colorNameOctave => 'Bleu nuit';
+  String get colorNameOctave => 'Nuit';
 
   @override
-  String get colorNameRed => 'Rouge';
+  String get colorNameRed => 'Grenadine';
 
   @override
-  String get colorNameOrange => 'Orange';
+  String get colorNameOrange => 'Mandarine';
 
   @override
-  String get colorNameYellow => 'Jaune';
+  String get colorNameYellow => 'Citron';
 
   @override
-  String get colorNameGreen => 'Vert';
+  String get colorNameGreen => 'Forêt';
 
   @override
-  String get colorNameTeal => 'Bleu canard';
+  String get colorNameTeal => 'Piscine';
 
   @override
   String get colorNameBlue => 'Bleu';
@@ -3150,10 +2962,22 @@ class AppLocalizationsFr extends AppLocalizations {
   String get colorNamePink => 'Rose';
 
   @override
-  String get colorNamePurple => 'Violet';
+  String get colorNamePurple => 'Lilas';
 
   @override
-  String get colorNameDynamic => 'Couleurs du fond d\'écran';
+  String get colorNameDynamic => 'Fond d\'écran';
+
+  @override
+  String get colorNameMint => 'Menthe';
+
+  @override
+  String get colorNameIris => 'Iris';
+
+  @override
+  String get colorNameSand => 'Sable';
+
+  @override
+  String get colorNameSlate => 'Ardoise';
 
   @override
   String get setupStyleTitle => 'Tes pochettes';
@@ -3338,21 +3162,6 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get artworkSection => 'Pochettes';
-
-  @override
-  String get artworkResolution => 'Résolution des pochettes';
-
-  @override
-  String get artworkResLow => 'Basse (300 px)';
-
-  @override
-  String get artworkResNormal => 'Normale (600 px)';
-
-  @override
-  String get artworkResHigh => 'Haute (d\'origine)';
-
-  @override
   String get autoDownloadFavorites => 'Télécharger les titres aimés';
 
   @override
@@ -3513,4 +3322,154 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get autoDjSmartMix => 'Mix intelligent';
+
+  @override
+  String get coverEdit => 'Modifier la pochette';
+
+  @override
+  String get coverEditorTitle => 'Pochette';
+
+  @override
+  String get coverTabTemplate => 'Modèle';
+
+  @override
+  String get coverTabText => 'Texte';
+
+  @override
+  String get coverTabColors => 'Couleurs';
+
+  @override
+  String get coverTabImage => 'Image';
+
+  @override
+  String get coverTemplateGradient => 'Dégradé';
+
+  @override
+  String get coverTemplateMinimal => 'Minimal';
+
+  @override
+  String get coverTemplateBigType => 'Typo géante';
+
+  @override
+  String get coverTemplateBand => 'Bandeau';
+
+  @override
+  String get coverTemplatePhoto => 'Photo';
+
+  @override
+  String get coverTemplateVinyl => 'Vinyle';
+
+  @override
+  String get coverTemplateShapes => 'Formes';
+
+  @override
+  String get coverTemplateGrid => 'Mosaïque';
+
+  @override
+  String get coverTitleLabel => 'Titre';
+
+  @override
+  String get coverSubtitleLabel => 'Sous-titre';
+
+  @override
+  String get coverSubtitleHint => 'Par exemple : pour la route';
+
+  @override
+  String get coverFontLabel => 'Police';
+
+  @override
+  String get coverUppercase => 'Majuscules';
+
+  @override
+  String get coverMainColor => 'Couleur principale';
+
+  @override
+  String get coverSecondColor => 'Seconde couleur';
+
+  @override
+  String get coverColorsFromCovers =>
+      'Les premières couleurs viennent des pochettes de la playlist.';
+
+  @override
+  String get coverPickPhoto => 'Choisir une photo';
+
+  @override
+  String get coverUsePlaylistCovers => 'Utiliser les pochettes de la playlist';
+
+  @override
+  String get coverImageHint =>
+      'Les modèles Bandeau et Photo affichent cette image.';
+
+  @override
+  String get coverAutomatic => 'Revenir à la pochette automatique';
+
+  @override
+  String get coverSaved => 'Pochette enregistrée';
+
+  @override
+  String get coverSaveFailed => 'Impossible d\'enregistrer la pochette';
+
+  @override
+  String get coverThisDeviceOnly =>
+      'Pour l\'instant, cette pochette n\'apparaît que dans Octave, sur cet appareil.';
+
+  @override
+  String get coverDiscardTitle => 'Abandonner les modifications ?';
+
+  @override
+  String get coverDiscard => 'Abandonner';
+
+  @override
+  String get coverSwapColors => 'Inverser les couleurs';
+
+  @override
+  String get loginHintSelfSigned =>
+      'Essaie d\'activer « Accepter les certificats autosignés » dans les options avancées.';
+
+  @override
+  String get loginHintCredentials =>
+      'Vérifie ton nom d\'utilisateur et ton mot de passe, puis réessaie.';
+
+  @override
+  String get loginHintServerPath =>
+      'Vérifie la fin de l\'adresse du serveur (par exemple /navidrome).';
+
+  @override
+  String get loginHintTimeout =>
+      'Le serveur a mis trop de temps à répondre. Vérifie ta connexion.';
+
+  @override
+  String get loginTapEnableSelfSigned =>
+      'Touche pour accepter les certificats autosignés';
+
+  @override
+  String get loginClickEnableSelfSigned =>
+      'Clique pour accepter les certificats autosignés';
+
+  @override
+  String get loginSelectMusicFiles => 'Choisis tes fichiers de musique…';
+
+  @override
+  String get loginNoFilesSelected =>
+      'Aucun fichier choisi. Touche « Utiliser les fichiers du téléphone » et choisis ta musique.';
+
+  @override
+  String get localFilesDescription =>
+      'Écoute les fichiers audio de ce téléphone, sans serveur.';
+
+  @override
+  String get loginInsecureHttp =>
+      'Connexion HTTP non chiffrée : mots de passe et musique circulent en clair sur les réseaux publics. Préfère HTTPS.';
+
+  @override
+  String get profileNameHint => 'Par exemple : Maison, Travail';
+
+  @override
+  String get clientCertPasswordHint => 'Mot de passe du fichier .p12 ou .pfx';
+
+  @override
+  String get serverUrlHint => 'https://musique.exemple.fr';
+
+  @override
+  String get loginUseServer => 'Se connecter à un serveur';
 }

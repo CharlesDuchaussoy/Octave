@@ -2,16 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:musly/octave/theme/octave_palette.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Colors offered to the user, in display order. Saved by [persistKey],
+/// so the order can change freely.
 enum AccentColor {
   octave,
+  pink,
   red,
   orange,
   yellow,
+  mint,
   green,
   teal,
   blue,
-  pink,
+  iris,
   purple,
+  sand,
+  slate,
   dynamicColor,
 }
 
@@ -29,14 +35,22 @@ extension AccentColorExt on AccentColor {
         return const Color(0xFFF2B705);
       case AccentColor.green:
         return const Color(0xFF2E8B57);
+      case AccentColor.mint:
+        return const Color(0xFF3CB98A);
       case AccentColor.teal:
-        return const Color(0xFF0F8B8D);
+        return const Color(0xFF1597B8);
       case AccentColor.blue:
         return const Color(0xFF1F6FEB);
+      case AccentColor.iris:
+        return const Color(0xFF5B5FE0);
       case AccentColor.pink:
         return const Color(0xFFE0457B);
       case AccentColor.purple:
-        return const Color(0xFF7E57C2);
+        return const Color(0xFF9B6FD6);
+      case AccentColor.sand:
+        return const Color(0xFFC2A274);
+      case AccentColor.slate:
+        return const Color(0xFF5B6B7A);
       case AccentColor.dynamicColor:
         return OctavePalette.octaveSeed;
     }
@@ -62,6 +76,14 @@ extension AccentColorExt on AccentColor {
         return 'pink';
       case AccentColor.purple:
         return 'purple';
+      case AccentColor.mint:
+        return 'mint';
+      case AccentColor.iris:
+        return 'iris';
+      case AccentColor.sand:
+        return 'sand';
+      case AccentColor.slate:
+        return 'slate';
       case AccentColor.dynamicColor:
         return 'dynamic';
     }
@@ -86,7 +108,7 @@ class ThemeService extends ChangeNotifier {
 
   ThemeMode _themeMode = ThemeMode.system;
   AccentColor _accentColor = AccentColor.octave;
-  bool _liquidGlass = false;
+  bool _liquidGlass = true;
   bool _pureBlack = false;
   double _intensity = OctavePalette.defaultIntensity;
 
@@ -109,7 +131,7 @@ class ThemeService extends ChangeNotifier {
     final colorKey = prefs.getString(_keyAccentColor) ?? 'octave';
     _accentColor = AccentColorExt.fromKey(colorKey);
 
-    _liquidGlass = prefs.getBool(_keyLiquidGlass) ?? false;
+    _liquidGlass = prefs.getBool(_keyLiquidGlass) ?? true;
     _pureBlack = prefs.getBool(_keyPureBlack) ?? false;
     _intensity =
         prefs.getDouble(_keyIntensity) ?? OctavePalette.defaultIntensity;

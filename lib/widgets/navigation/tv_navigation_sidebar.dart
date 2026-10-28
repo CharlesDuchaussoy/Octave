@@ -6,6 +6,7 @@ import 'package:musly/providers/player_provider.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/screens/player/now_playing_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:musly/widgets/common/album_artwork.dart' show coverImageProvider;
 class TvNavigationSidebar extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
@@ -176,12 +177,7 @@ class _TvSidebarPlayerState extends State<_TvSidebarPlayer> {
     final song = provider.currentSong;
     if (song == null) return;
     final subsonic = Provider.of<SubsonicService>(context, listen: false);
-    final coverUrl = song.coverArt != null
-        ? subsonic.getCoverArtUrl(song.coverArt, size: 800)
-        : null;
-    final imageProvider = (coverUrl != null && coverUrl.isNotEmpty)
-        ? CachedNetworkImageProvider(coverUrl) as ImageProvider
-        : const AssetImage('assets/logo.png') as ImageProvider;
+    final imageProvider = coverImageProvider(subsonic, song.coverArt);
 
     Navigator.of(context).push(
       PageRouteBuilder(

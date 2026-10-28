@@ -9,7 +9,6 @@ import 'package:musly/widgets/common/multi_artist_widget.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/screens/connect/connect_devices_modal.dart';
 import 'package:musly/services/subsonic_service.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:musly/screens/player/now_playing_screen.dart';
 import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/modals/song_options_modal.dart';
@@ -207,12 +206,8 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                       final isTv = Provider.of<TvDetectionService>(context, listen: false).isTvMode;
                       if (isTv) {
                         final subsonic = Provider.of<SubsonicService>(context, listen: false);
-                        final coverUrl = currentSong.coverArt != null
-                            ? subsonic.getCoverArtUrl(currentSong.coverArt, size: 800)
-                            : null;
-                        final imageProvider = (coverUrl != null && coverUrl.isNotEmpty)
-                            ? CachedNetworkImageProvider(coverUrl) as ImageProvider
-                            : const AssetImage('assets/logo.png') as ImageProvider;
+                        final imageProvider =
+                            coverImageProvider(subsonic, currentSong.coverArt);
                         
                         showModalBottomSheet(
                           context: context,

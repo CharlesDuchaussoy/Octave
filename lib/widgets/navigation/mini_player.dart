@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart' hide RepeatMode;
+import 'package:flutter/services.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide RepeatMode;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:musly/models/song.dart';
 import 'package:musly/models/artist_ref.dart';
@@ -10,6 +10,7 @@ import 'package:musly/models/radio_station.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/theme_service.dart';
+import 'package:musly/octave/widgets/glass.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/screen_helper.dart';
 import 'package:musly/services/subsonic_service.dart';
@@ -43,12 +44,8 @@ class MiniPlayer extends StatelessWidget {
           if (currentSong != null) {
             final subsonic =
                 Provider.of<SubsonicService>(context, listen: false);
-            final coverUrl = currentSong.coverArt != null
-                ? subsonic.getCoverArtUrl(currentSong.coverArt, size: 800)
-                : null;
-            final imageProvider = (coverUrl != null && coverUrl.isNotEmpty)
-                ? CachedNetworkImageProvider(coverUrl) as ImageProvider
-                : const AssetImage('assets/logo.png') as ImageProvider;
+            final imageProvider =
+                coverImageProvider(subsonic, currentSong.coverArt);
             final topPadding = MediaQuery.of(context).padding.top;
 
             showModalBottomSheet(
@@ -103,54 +100,41 @@ class MiniPlayer extends StatelessWidget {
 
         final bool isGlass = Provider.of<ThemeService>(context).liquidGlass;
 
-        final Widget row = _MiniPlayerRow(
-          title: title,
-          subtitle: subtitle,
-          coverArt: coverArt,
-          isPlayingRadio: isPlayingRadio,
+        final Widget row = _SwipeToSkip(
+          enabled: !isPlayingRadio,
+          child: _MiniPlayerRow(
+            title: title,
+            subtitle: subtitle,
+            coverArt: coverArt,
+            isPlayingRadio: isPlayingRadio,
+          ),
         );
 
         if (isGlass) {
           return RepaintBoundary(
-            child: Container(
-              margin: const EdgeInsets.fromLTRB(12, 4, 12, 0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.18),
-                    blurRadius: 16,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(12, 6, 12, 0),
               child: GestureDetector(
                 onTap: handleTap,
                 onLongPress: currentSong != null
                     ? () => SongOptionsModal.show(context, currentSong)
                     : null,
-                child: Container(
-                  height: 64,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: context.octave.miniPlayer.withValues(alpha: 0.94),
-                    borderRadius: BorderRadius.circular(22),
-                    border: Border.all(
-                      color: context.octave.separator.withValues(alpha: 0.6),
-                      width: 0.8,
+                child: OctaveGlass(
+                  borderRadius: 20,
+                  child: SizedBox(
+                    height: 64,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(child: row),
+                        const Positioned(
+                          left: 14,
+                          right: 14,
+                          bottom: 0,
+                          child: _MiniPlayerProgressBar(
+                              borderRadius: 2, isGlass: true),
+                        ),
+                      ],
                     ),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned.fill(child: row),
-                      const Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: _MiniPlayerProgressBar(
-                            borderRadius: 22, isGlass: true),
-                      ),
-                    ],
                   ),
                 ),
               ),
@@ -192,6 +176,78 @@ class MiniPlayer extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+/// Swipe the mini player left for the next song and right for the
+/// previous one, as in Spotify. The content follows the finger, then
+/// slides back into place.
+class _SwipeToSkip extends StatefulWidget {
+  const _SwipeToSkip({required this.child, required this.enabled});
+
+  final Widget child;
+  final bool enabled;
+
+  @override
+  State<_SwipeToSkip> createState() => _SwipeToSkipState();
+}
+
+class _SwipeToSkipState extends State<_SwipeToSkip>
+    with SingleTickerProviderStateMixin {
+  static const _distance = 72.0;
+  static const _speed = 700.0;
+
+  late final AnimationController _back = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 180),
+  )..addListener(() {
+      setState(() {
+        _dx = _releasedAt * (1 - Curves.easeOut.transform(_back.value));
+      });
+    });
+
+  double _dx = 0;
+  double _releasedAt = 0;
+
+  @override
+  void dispose() {
+    _back.dispose();
+    super.dispose();
+  }
+
+  void _onEnd(DragEndDetails details) {
+    final velocity = details.primaryVelocity ?? 0;
+    final player = Provider.of<PlayerProvider>(context, listen: false);
+    if (_dx < -_distance || velocity < -_speed) {
+      HapticFeedback.selectionClick();
+      player.skipNext();
+    } else if (_dx > _distance || velocity > _speed) {
+      HapticFeedback.selectionClick();
+      player.skipPrevious();
+    }
+    _releasedAt = _dx;
+    _back.forward(from: 0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!widget.enabled) return widget.child;
+    return GestureDetector(
+      onHorizontalDragStart: (_) => _back.stop(),
+      onHorizontalDragUpdate: (details) => setState(() {
+        _dx = (_dx + details.delta.dx).clamp(-120.0, 120.0);
+      }),
+      onHorizontalDragEnd: _onEnd,
+      child: ClipRect(
+        child: Transform.translate(
+          offset: Offset(_dx, 0),
+          child: Opacity(
+            opacity: (1 - _dx.abs() / 200).clamp(0.4, 1.0),
+            child: widget.child,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -556,6 +556,11 @@ class LocalMusicService extends ChangeNotifier {
       artistMap.putIfAbsent(artistKey, () => []).add(song);
     }
 
+    // Albums and artists take the artwork of their first song that has
+    // one: embedded in the file, or a cover image next to it.
+    String? firstCover(List<Song> songs) =>
+        songs.where((s) => s.coverArt != null).firstOrNull?.coverArt;
+
     for (final entry in albumMap.entries) {
       final songs = entry.value;
       final firstSong = songs.first;
@@ -565,6 +570,7 @@ class LocalMusicService extends ChangeNotifier {
           name: firstSong.album ?? 'Unknown Album',
           artist: firstSong.artist ?? 'Unknown Artist',
           artistId: firstSong.artistId,
+          coverArt: firstCover(songs),
           songCount: songs.length,
           year: firstSong.year,
           isLocal: true,
@@ -580,6 +586,7 @@ class LocalMusicService extends ChangeNotifier {
         Artist(
           id: entry.key,
           name: firstSong.artist ?? 'Unknown Artist',
+          coverArt: firstCover(songs),
           albumCount: uniqueAlbums.length,
           isLocal: true,
         ),

@@ -13,6 +13,7 @@ import 'package:musly/screens/wrapped/wrapped_screen.dart';
 import 'package:musly/services/wrapped_service.dart';
 import 'package:musly/services/update_service.dart';
 import 'package:musly/widgets/dialogs/update_dialog.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class SettingsAboutTab extends StatefulWidget {
   const SettingsAboutTab({super.key});
@@ -32,7 +33,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionAboutInformation,

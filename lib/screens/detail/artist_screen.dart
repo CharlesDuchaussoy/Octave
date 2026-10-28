@@ -8,6 +8,8 @@ import 'package:musly/widgets/widgets.dart';
 import 'album_screen.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/services/offline_service.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
+import 'package:musly/octave/widgets/play_button.dart';
 
 class ArtistScreen extends StatefulWidget {
   final String artistId;
@@ -315,7 +317,8 @@ class _ArtistScreenState extends State<ArtistScreen> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: _PlayButton(
+                      child: OctavePlayButton(
+                        filled: true,
                         icon: CupertinoIcons.play_fill,
                         label: AppLocalizations.of(context)!.play,
                         onTap: () => _playTopSongs(),
@@ -323,7 +326,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _PlayButton(
+                      child: OctavePlayButton(
                         icon: CupertinoIcons.shuffle,
                         label: AppLocalizations.of(context)!.shuffle,
                         onTap: () => _playTopSongs(shuffle: true),
@@ -491,65 +494,12 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 100),
+                  SizedBox(height: scrollEndPadding(context)),
                 ],
               ),
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PlayButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  const _PlayButton({
-    required this.icon,
-    required this.label,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    final accent = Theme.of(context).colorScheme.primary;
-
-    return Material(
-      color: accent.withValues(alpha: isDark ? 0.15 : 0.1),
-      borderRadius: BorderRadius.circular(10),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(10),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, color: accent, size: 20),
-              const SizedBox(width: 6),
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      color: accent,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    maxLines: 1,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

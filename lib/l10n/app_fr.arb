@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Notes en étoiles",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Note les titres et affiche leurs notes",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Activer les recommandations",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Essaie une autre recherche",
   "noSuggestions": "Aucune suggestion",
   "browseCategories": "Parcourir",
-  "liveSearchSection": "Recherche",
-  "liveSearch": "Résultats pendant la saisie",
-  "liveSearchSubtitle": "Met à jour les résultats à chaque lettre tapée",
   "homeSection": "Accueil",
   "showFavoritePlaylistsOnHome": "Playlists favorites sur l'accueil",
   "showFavoritePlaylistsOnHomeSubtitle": "Chaque playlist favorite a sa propre rangée en haut de l'accueil",
@@ -633,13 +622,11 @@
   "serverType": "Type de serveur",
   "notConnected": "Non connecté",
   "unknown": "Inconnu",
-  "sectionMusicFolders": "DOSSIERS DE MUSIQUE",
   "musicFolders": "Dossiers de musique",
   "noMusicFolders": "Aucun dossier de musique",
   "sectionAccount": "COMPTE",
   "logoutConfirmation": "Te déconnecter ? Les données en cache seront aussi effacées.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "CACHE",
   "imageCache": "Cache des images",
   "musicCache": "Cache de la musique",
   "bpmCache": "Cache des BPM",
@@ -675,11 +662,6 @@
   "deleteDownloads": "Supprimer tous les téléchargements",
   "downloadsDeleted": "Téléchargements supprimés",
   "noSongsAvailable": "Aucun titre disponible. Charge d'abord ta bibliothèque.",
-  "sectionBpmAnalysis": "ANALYSE DES BPM",
-  "cachedBpms": "BPM en cache",
-  "cacheAllBpms": "Analyser tous les BPM",
-  "clearBpmCache": "Vider le cache des BPM",
-  "bpmCacheCleared": "Cache des BPM vidé",
   "downloadedStats": "{count} titres • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1335,21 +1317,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "MODE JUKEBOX",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Mode jukebox",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Joue le son sur le serveur plutôt que sur ce téléphone",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Ouvrir la télécommande du jukebox",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Vider la file d'attente",
   "@jukeboxClearQueue": {
@@ -1677,41 +1647,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Cache des images",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Garde les pochettes sur le téléphone",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Cache de la musique",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Garde les infos des titres sur le téléphone",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "Cache des BPM",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Garde l'analyse des BPM sur le téléphone",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"
@@ -1827,16 +1767,20 @@
   "setupNo": "Non",
   "setupRedoTitle": "Refaire la configuration",
   "setupRedoSubtitle": "Couleur, affichage, artistes, qualité et téléchargements",
-  "colorNameOctave": "Bleu nuit",
-  "colorNameRed": "Rouge",
-  "colorNameOrange": "Orange",
-  "colorNameYellow": "Jaune",
-  "colorNameGreen": "Vert",
-  "colorNameTeal": "Bleu canard",
+  "colorNameOctave": "Nuit",
+  "colorNameRed": "Grenadine",
+  "colorNameOrange": "Mandarine",
+  "colorNameYellow": "Citron",
+  "colorNameGreen": "Forêt",
+  "colorNameTeal": "Piscine",
   "colorNameBlue": "Bleu",
   "colorNamePink": "Rose",
-  "colorNamePurple": "Violet",
-  "colorNameDynamic": "Couleurs du fond d'écran",
+  "colorNamePurple": "Lilas",
+  "colorNameDynamic": "Fond d'écran",
+  "colorNameMint": "Menthe",
+  "colorNameIris": "Iris",
+  "colorNameSand": "Sable",
+  "colorNameSlate": "Ardoise",
   "setupStyleTitle": "Tes pochettes",
   "setupStyleBody": "Leur forme dans toute l'app.",
   "setupStyleRounded": "Arrondies",
@@ -1887,11 +1831,6 @@
   "playingOnThisDevice": "Lecture sur cet appareil",
   "connectFailed": "Impossible de se connecter à {name}",
   "errorWithDetails": "Erreur : {error}",
-  "artworkSection": "Pochettes",
-  "artworkResolution": "Résolution des pochettes",
-  "artworkResLow": "Basse (300 px)",
-  "artworkResNormal": "Normale (600 px)",
-  "artworkResHigh": "Haute (d'origine)",
   "autoDownloadFavorites": "Télécharger les titres aimés",
   "autoDownloadFavoritesSubtitle": "Chaque titre aimé est enregistré pour l'écoute hors connexion",
   "castConnectedTooltip": "Cast : connecté",
@@ -1936,12 +1875,6 @@
   "sectionEPs": "EP",
   "sectionSingles": "Singles",
   "years": "Années",
-  "showMiniPlayerHeart": "Bouton cœur",
-  "showMiniPlayerHeartSubtitle": "Ajoute aux favoris depuis le mini-lecteur",
-  "showMiniPlayerRepeat": "Bouton répéter",
-  "showMiniPlayerRepeatSubtitle": "Change la répétition depuis le mini-lecteur",
-  "showMiniPlayerShuffle": "Bouton aléatoire",
-  "showMiniPlayerShuffleSubtitle": "Active l'aléatoire depuis le mini-lecteur",
   "faves": "Favoris",
   "likedAlbums": "Albums aimés",
   "noLikedAlbums": "Aucun album aimé pour l'instant",
@@ -1961,14 +1894,6 @@
   "switchServer": "Changer de serveur",
   "addProfile": "Ajouter un compte",
   "switchProfileConfirmation": "Se connecter à « {profile} » ?",
-  "keepScreenOnDuringDownload": "Garder l'écran allumé",
-  "keepScreenOnDuringDownloadSubtitle": "Évite que le téléchargement s'arrête quand le téléphone se verrouille",
-  "parallelDownloads": "Téléchargements simultanés",
-  "parallelDownloadsSubtitle": "Télécharge plusieurs titres à la fois",
-  "downloadSingular": "téléchargement",
-  "downloadPlural": "téléchargements",
-  "slowerButStable": "Plus lent mais plus fiable",
-  "fasterButMoreData": "Plus rapide mais consomme plus",
   "importPlaylist": "Importer une playlist",
   "importPlaylistSubtitle": "Depuis Spotify ou YouTube Music, sans compte",
   "checkForUpdates": "Rechercher une mise à jour",
@@ -2016,8 +1941,6 @@
   "set": "Valider",
   "addToPlaylistTitle": "Ajouter à une playlist",
   "yourPlaylistsLabel": "Tes playlists",
-  "enableLrcLibFallback": "Chercher les paroles sur LRCLIB",
-  "lrcLibFallbackSubtitle": "Cherche les paroles sur LRCLIB quand le serveur n'en a pas",
   "themeSaved": "Thème enregistré",
   "themeUnsavedChanges": "Modifications non enregistrées",
   "themeUnsavedChangesTitle": "Modifications non enregistrées",
@@ -2053,18 +1976,7 @@
   "muslyWrapped": "Bilan Octave",
   "wrappedSeasonal": "Le bilan arrive en fin d'année",
   "playYourTopSongs": "Écouter tes titres préférés",
-  "lyricsUnderArtwork": "Paroles sous la pochette",
-  "lyricsUnderArtworkSubtitle": "Affiche la ligne en cours des paroles sous la pochette, dans le lecteur",
   "lyricsDisplaySection": "AFFICHAGE DES PAROLES",
-  "lyricsBlurUnfocused": "Flouter les autres lignes",
-  "lyricsBlurUnfocusedSubtitle": "Les lignes passées et à venir sont floutées",
-  "lyricsAlignment": "Alignement des paroles",
-  "lyricsAlignmentCentered": "Centrées",
-  "lyricsAlignmentLeft": "À gauche",
-  "alignLeft": "Gauche",
-  "alignCenter": "Centre",
-  "lyricsGlowEffect": "Ligne en cours lumineuse",
-  "lyricsGlowEffectSubtitle": "Un léger halo sur la ligne chantée",
   "lyricsKeepScreenOn": "Garder l'écran allumé",
   "lyricsKeepScreenOnSubtitle": "L'écran reste allumé pendant que tu lis les paroles",
   "hideWindowTitlebar": "Masquer la barre de titre",
@@ -2077,23 +1989,13 @@
   "sectionGaplessPlayback": "LECTURE SANS BLANC",
   "gaplessPlayback": "Lecture sans blanc",
   "gaplessPlaybackSubtitle": "Enchaîne les titres sans silence",
-  "sectionLyrics": "PAROLES",
   "networkWifi": "Wi-Fi",
   "networkMobile": "Mobile",
-  "downloadFolder": "Dossier des téléchargements",
-  "downloadFolderDefault": "Par défaut (stockage interne)",
   "activeDownloads": "Téléchargements en cours",
   "noDownloadsInProgress": "Aucun téléchargement en cours",
   "playlistDownloads": "Playlists téléchargées",
   "playlistSongsDownloadedCount": "{count, plural, =1{1 titre téléchargé} other{{count} titres téléchargés}}",
-  "songsStreamCache": "Cache des titres",
-  "imageArtworkCache": "Cache des pochettes",
-  "cacheDiskUsage": "{size} utilisés",
   "totalCacheDiskUsage": "Cache total : {size}",
-  "clearAudioCacheTooltip": "Vider le cache des titres",
-  "clearImageCacheTooltip": "Vider le cache des pochettes",
-  "audioCacheCleared": "Cache des titres vidé",
-  "imageCacheCleared": "Cache des pochettes vidé",
   "folderAdded": "Dossier ajouté : {path}",
   "removeFolderTitle": "Retirer le dossier",
   "removeFolderConfirm": "Ne plus analyser « {path} » ?",
@@ -2343,5 +2245,51 @@
   "autoDjSimilarSongs": "Titres similaires",
   "autoDjSameGenre": "Même genre",
   "autoDjSameArtist": "Même artiste",
-  "autoDjSmartMix": "Mix intelligent"
+  "autoDjSmartMix": "Mix intelligent",
+  "coverEdit": "Modifier la pochette",
+  "coverEditorTitle": "Pochette",
+  "coverTabTemplate": "Modèle",
+  "coverTabText": "Texte",
+  "coverTabColors": "Couleurs",
+  "coverTabImage": "Image",
+  "coverTemplateGradient": "Dégradé",
+  "coverTemplateMinimal": "Minimal",
+  "coverTemplateBigType": "Typo géante",
+  "coverTemplateBand": "Bandeau",
+  "coverTemplatePhoto": "Photo",
+  "coverTemplateVinyl": "Vinyle",
+  "coverTemplateShapes": "Formes",
+  "coverTemplateGrid": "Mosaïque",
+  "coverTitleLabel": "Titre",
+  "coverSubtitleLabel": "Sous-titre",
+  "coverSubtitleHint": "Par exemple : pour la route",
+  "coverFontLabel": "Police",
+  "coverUppercase": "Majuscules",
+  "coverMainColor": "Couleur principale",
+  "coverSecondColor": "Seconde couleur",
+  "coverColorsFromCovers": "Les premières couleurs viennent des pochettes de la playlist.",
+  "coverPickPhoto": "Choisir une photo",
+  "coverUsePlaylistCovers": "Utiliser les pochettes de la playlist",
+  "coverImageHint": "Les modèles Bandeau et Photo affichent cette image.",
+  "coverAutomatic": "Revenir à la pochette automatique",
+  "coverSaved": "Pochette enregistrée",
+  "coverSaveFailed": "Impossible d'enregistrer la pochette",
+  "coverThisDeviceOnly": "Pour l'instant, cette pochette n'apparaît que dans Octave, sur cet appareil.",
+  "coverDiscardTitle": "Abandonner les modifications ?",
+  "coverDiscard": "Abandonner",
+  "coverSwapColors": "Inverser les couleurs",
+  "loginHintSelfSigned": "Essaie d'activer « Accepter les certificats autosignés » dans les options avancées.",
+  "loginHintCredentials": "Vérifie ton nom d'utilisateur et ton mot de passe, puis réessaie.",
+  "loginHintServerPath": "Vérifie la fin de l'adresse du serveur (par exemple /navidrome).",
+  "loginHintTimeout": "Le serveur a mis trop de temps à répondre. Vérifie ta connexion.",
+  "loginTapEnableSelfSigned": "Touche pour accepter les certificats autosignés",
+  "loginClickEnableSelfSigned": "Clique pour accepter les certificats autosignés",
+  "loginSelectMusicFiles": "Choisis tes fichiers de musique…",
+  "loginNoFilesSelected": "Aucun fichier choisi. Touche « Utiliser les fichiers du téléphone » et choisis ta musique.",
+  "localFilesDescription": "Écoute les fichiers audio de ce téléphone, sans serveur.",
+  "loginInsecureHttp": "Connexion HTTP non chiffrée : mots de passe et musique circulent en clair sur les réseaux publics. Préfère HTTPS.",
+  "profileNameHint": "Par exemple : Maison, Travail",
+  "clientCertPasswordHint": "Mot de passe du fichier .p12 ou .pfx",
+  "serverUrlHint": "https://musique.exemple.fr",
+  "loginUseServer": "Se connecter à un serveur"
 }

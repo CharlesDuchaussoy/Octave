@@ -39,3 +39,9 @@ Octave n'est ni affilié à Musly ni approuvé par ses auteurs. Le nom « Musly 
 Octave utilise, comme Musly, des bibliothèques Flutter et Dart sous leurs propres licences (MIT, BSD, Apache 2.0…). Leur liste exacte est dans `pubspec.yaml` et `pubspec.lock`, et leurs licences sont affichées dans l'app (Paramètres, À propos, licences).
 
 La police **Inter** (The Inter Project Authors) est intégrée à l'app sous licence SIL Open Font License 1.1, dont le texte est dans `assets/fonts/inter/OFL.txt`.
+
+Les polices des titres de pochettes de playlist sont intégrées sous la même licence SIL Open Font License 1.1, chacune avec son texte de licence dans son dossier :
+- **Bebas Neue** (Dharma Type), `assets/fonts/bebasneue/OFL.txt` ;
+- **DM Serif Display** (Adobe, Google), `assets/fonts/dmserifdisplay/OFL.txt` ;
+- **Space Mono** (The Space Mono Project Authors), `assets/fonts/spacemono/OFL.txt` ;
+- **Pacifico** (The Pacifico Project Authors), `assets/fonts/pacifico/OFL.txt`.

@@ -8,6 +8,7 @@ import '../../utils/screen_helper.dart';
 import '../../widgets/widgets.dart';
 import '../detail/album_screen.dart';
 import '../../utils/navigation_helper.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 enum AlbumCollectionType {
   recent,
@@ -219,7 +220,8 @@ class _AlbumCollectionScreenState extends State<AlbumCollectionScreen> {
                   _buildEmptyState(theme)
                 else
                   _buildAlbumGrid(context),
-                const SliverToBoxAdapter(child: SizedBox(height: 100)),
+                SliverToBoxAdapter(
+                    child: SizedBox(height: scrollEndPadding(context))),
               ],
             ),
           ),

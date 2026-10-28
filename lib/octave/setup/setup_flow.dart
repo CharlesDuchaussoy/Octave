@@ -352,13 +352,8 @@ class _SetupFlowState extends State<SetupFlow> {
               const SizedBox(height: 24),
               OctaveColorSwatches(
                 selected: theme.accentColor,
-                size: 44,
+                size: 40,
                 onChanged: theme.setAccentColor,
-              ),
-              const SizedBox(height: 14),
-              Text(
-                _colorName(l10n, theme.accentColor),
-                style: TextStyle(fontSize: 14, color: context.octave.text2),
               ),
             ],
           ),
@@ -588,7 +583,7 @@ class _SetupFlowState extends State<SetupFlow> {
     final colors = context.octave;
     final theme = Provider.of<ThemeService>(context);
     final rows = <(String, String)>[
-      (l10n.setupSummaryColor, _colorName(l10n, theme.accentColor)),
+      (l10n.setupSummaryColor, accentColorName(l10n, theme.accentColor)),
       (
         l10n.setupSummaryMode,
         theme.pureBlack && theme.themeMode != ThemeMode.light
@@ -696,20 +691,6 @@ class _SetupFlowState extends State<SetupFlow> {
         'square' => l10n.setupStyleSquare,
         'circle' => l10n.setupStyleCircle,
         _ => l10n.setupStyleRounded,
-      };
-
-  static String _colorName(AppLocalizations l10n, AccentColor color) =>
-      switch (color) {
-        AccentColor.octave => l10n.colorNameOctave,
-        AccentColor.red => l10n.colorNameRed,
-        AccentColor.orange => l10n.colorNameOrange,
-        AccentColor.yellow => l10n.colorNameYellow,
-        AccentColor.green => l10n.colorNameGreen,
-        AccentColor.teal => l10n.colorNameTeal,
-        AccentColor.blue => l10n.colorNameBlue,
-        AccentColor.pink => l10n.colorNamePink,
-        AccentColor.purple => l10n.colorNamePurple,
-        AccentColor.dynamicColor => l10n.colorNameDynamic,
       };
 }
 

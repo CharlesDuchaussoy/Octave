@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Shfaq vlerësimet me yje",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Vlerësoni këngët dhe shikoni vlerësimet",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Aktivizo sugjerimet",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Provo nji kërkim tjetër",
   "noSuggestions": "S'ka sugjerime",
   "browseCategories": "Shfleto Kategoritë",
-  "liveSearchSection": "Kërko",
-  "liveSearch": "Kërkim Live",
-  "liveSearchSubtitle": "Përditëso rezultatet n'kohë reale kuer t'shkrush n'vend se me qit nji listë t'poshtme",
   "categoryMadeForYou": "Kriju për ty",
   "categoryNewReleases": "Shtimet e reja",
   "categoryTopRated": "Më të vlerësuarat",
@@ -630,13 +619,11 @@
   "serverType": "Lloji i Serverit",
   "notConnected": "Nuk është lidhur",
   "unknown": "I panjohur",
-  "sectionMusicFolders": "DOSJET E MUZIKËS",
   "musicFolders": "Dosjet e Muzikës",
   "noMusicFolders": "Nuk u gjet asnjë dosje muzike",
   "sectionAccount": "LLOGARIA",
   "logoutConfirmation": "A jeni të sigurt që dëshironi të shkëputeni? Kjo do të fshijë gjithashtu të gjitha të dhënat e ruajtura (cache).",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "PARAMETRAT E CACHE",
   "imageCache": "Cache i imazheve",
   "musicCache": "Cache i muzikës",
   "bpmCache": "Cache i BPM-ve",
@@ -707,9 +694,6 @@
   },
   "@replayGainMode": {
     "description": "Label for the ReplayGain mode selector"
-  },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
   },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"

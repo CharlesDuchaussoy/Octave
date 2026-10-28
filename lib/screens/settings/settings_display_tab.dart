@@ -11,15 +11,14 @@ import 'package:musly/services/locale_service.dart';
 import 'package:musly/providers/player_provider.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/l10n/app_localizations.dart';
-import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/octave/widgets/appearance_controls.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
 import 'package:musly/utils/context_extensions.dart';
 import 'package:musly/services/storage_service.dart';
-import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class SettingsDisplayTab extends StatefulWidget {
   const SettingsDisplayTab({super.key});
@@ -31,19 +30,9 @@ class SettingsDisplayTab extends StatefulWidget {
 class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
   final _playerUiSettings = PlayerUiSettingsService();
   bool _showVolumeSlider = true;
-  bool _showStarRatings = false;
-  bool _showMiniPlayerHeart = false;
-  bool _showMiniPlayerRepeat = false;
-  bool _showMiniPlayerShuffle = false;
-  bool _showLiveLyricUnderArtwork = false;
-  bool _liveSearch = true;
   bool _showFavoritePlaylistsOnHome = false;
-  bool _lyricsBlurUnfocused = false;
-  String _lyricsAlignment = 'left';
-  bool _lyricsGlowEffect = true;
   bool _lyricsKeepScreenOn = true;
   bool _hideWindowTitlebar = false;
-  String _artworkResolution = 'normal';
 
   ThemeMode _themeMode = ThemeMode.system;
   AccentColor _accentColor = AccentColor.octave;
@@ -70,20 +59,9 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
     setState(() {
       _showVolumeSlider = _playerUiSettings.getShowVolumeSlider();
-      _showStarRatings = _playerUiSettings.getShowStarRatings();
-      _showMiniPlayerHeart = _playerUiSettings.getShowMiniPlayerHeart();
-      _showMiniPlayerRepeat = _playerUiSettings.getShowMiniPlayerRepeat();
-      _showMiniPlayerShuffle = _playerUiSettings.getShowMiniPlayerShuffle();
-      _showLiveLyricUnderArtwork =
-          _playerUiSettings.getShowLiveLyricUnderArtwork();
-      _liveSearch = _playerUiSettings.getLiveSearch();
       _showFavoritePlaylistsOnHome =
           _playerUiSettings.getShowFavoritePlaylistsOnHome();
-      _lyricsBlurUnfocused = _playerUiSettings.getLyricsBlurUnfocused();
-      _lyricsAlignment = _playerUiSettings.getLyricsAlignment();
-      _lyricsGlowEffect = _playerUiSettings.getLyricsGlowEffect();
       _lyricsKeepScreenOn = _playerUiSettings.getLyricsKeepScreenOn();
-      _artworkResolution = _playerUiSettings.getArtworkResolution();
       _themeMode = themeService.themeMode;
       _accentColor = themeService.accentColor;
       _liquidGlass = themeService.liquidGlass;
@@ -99,11 +77,8 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   @override
   Widget build(BuildContext context) {
-    final isYoutube =
-        Provider.of<SubsonicService>(context, listen: false).isYoutube;
-
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.appearanceSection.toUpperCase(),
@@ -123,18 +98,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           title: AppLocalizations.of(context)!.playerInterface.toUpperCase(),
           children: [
             _buildVolumeSliderToggle(),
-            if (!isYoutube) ...[
-              const SettingsDivider(),
-              _buildStarRatingsToggle(),
-            ],
-            const SettingsDivider(),
-            _buildLiveLyricUnderArtworkToggle(),
-            const SettingsDivider(),
-            _buildMiniPlayerHeartToggle(),
-            const SettingsDivider(),
-            _buildMiniPlayerRepeatToggle(),
-            const SettingsDivider(),
-            _buildMiniPlayerShuffleToggle(),
             if (_isDesktop) ...[
               const SettingsDivider(),
               _buildDiscordRpcToggle(),
@@ -154,29 +117,9 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         ),
         const SizedBox(height: 24),
         SettingsSectionCard(
-          title: AppLocalizations.of(context)!.liveSearchSection.toUpperCase(),
-          children: [
-            _buildLiveSearchToggle(),
-          ],
-        ),
-        const SizedBox(height: 24),
-        SettingsSectionCard(
-          title: AppLocalizations.of(context)!.artworkSection.toUpperCase(),
-          children: [
-            _buildArtworkResolutionSelector(),
-          ],
-        ),
-        const SizedBox(height: 24),
-        SettingsSectionCard(
           title:
               AppLocalizations.of(context)!.lyricsDisplaySection.toUpperCase(),
           children: [
-            _buildLyricsBlurToggle(),
-            const SettingsDivider(),
-            _buildLyricsAlignmentSelector(),
-            const SettingsDivider(),
-            _buildLyricsGlowToggle(),
-            const SettingsDivider(),
             _buildLyricsKeepScreenOnToggle(),
           ],
         ),
@@ -308,85 +251,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       onChanged: (value) async {
           setState(() => _showVolumeSlider = value);
           await _playerUiSettings.setShowVolumeSlider(value);
-        },
-    );
-  }
-
-  Widget _buildStarRatingsToggle() {
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.star_fill,
-      title: AppLocalizations.of(context)!.showStarRatings,
-      subtitle: AppLocalizations.of(context)!.showStarRatingsSubtitle,
-      value: _showStarRatings,
-      onChanged: (value) async {
-          setState(() => _showStarRatings = value);
-          await _playerUiSettings.setShowStarRatings(value);
-        },
-    );
-  }
-
-  Widget _buildMiniPlayerHeartToggle() {
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.heart_fill,
-      title: AppLocalizations.of(context)!.showMiniPlayerHeart,
-      subtitle: AppLocalizations.of(context)!.showMiniPlayerHeartSubtitle,
-      value: _showMiniPlayerHeart,
-      onChanged: (value) async {
-          setState(() => _showMiniPlayerHeart = value);
-          await _playerUiSettings.setShowMiniPlayerHeart(value);
-        },
-    );
-  }
-
-  Widget _buildMiniPlayerRepeatToggle() {
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.repeat,
-      title: AppLocalizations.of(context)!.showMiniPlayerRepeat,
-      subtitle: AppLocalizations.of(context)!.showMiniPlayerRepeatSubtitle,
-      value: _showMiniPlayerRepeat,
-      onChanged: (value) async {
-          setState(() => _showMiniPlayerRepeat = value);
-          await _playerUiSettings.setShowMiniPlayerRepeat(value);
-        },
-    );
-  }
-
-  Widget _buildMiniPlayerShuffleToggle() {
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.shuffle,
-      title: AppLocalizations.of(context)!.showMiniPlayerShuffle,
-      subtitle: AppLocalizations.of(context)!.showMiniPlayerShuffleSubtitle,
-      value: _showMiniPlayerShuffle,
-      onChanged: (value) async {
-          setState(() => _showMiniPlayerShuffle = value);
-          await _playerUiSettings.setShowMiniPlayerShuffle(value);
-        },
-    );
-  }
-
-  Widget _buildLiveLyricUnderArtworkToggle() {
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.quote_bubble_fill,
-      title: l10n.lyricsUnderArtwork,
-      subtitle: l10n.lyricsUnderArtworkSubtitle,
-      value: _showLiveLyricUnderArtwork,
-      onChanged: (value) async {
-          setState(() => _showLiveLyricUnderArtwork = value);
-          await _playerUiSettings.setShowLiveLyricUnderArtwork(value);
-        },
-    );
-  }
-
-  Widget _buildLiveSearchToggle() {
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.search,
-      title: AppLocalizations.of(context)!.liveSearch,
-      subtitle: AppLocalizations.of(context)!.liveSearchSubtitle,
-      value: _liveSearch,
-      onChanged: (value) async {
-          setState(() => _liveSearch = value);
-          await _playerUiSettings.setLiveSearch(value);
         },
     );
   }
@@ -726,6 +590,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) => Container(
@@ -852,90 +717,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
     return LocaleService.getFlagEmoji(languageCode);
   }
 
-  Widget _buildLyricsBlurToggle() {
-    final l10n = AppLocalizations.of(context)!;
-    return SwitchListTile.adaptive(
-      title: Text(l10n.lyricsBlurUnfocused),
-      subtitle: Text(l10n.lyricsBlurUnfocusedSubtitle),
-      value: _lyricsBlurUnfocused,
-      onChanged: (val) async {
-        await _playerUiSettings.setLyricsBlurUnfocused(val);
-        setState(() => _lyricsBlurUnfocused = val);
-      },
-    );
-  }
-
-  Widget _buildArtworkResolutionSelector() {
-    final options = {
-      'low': AppLocalizations.of(context)!.artworkResLow,
-      'normal': AppLocalizations.of(context)!.artworkResNormal,
-      'high': AppLocalizations.of(context)!.artworkResHigh,
-    };
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      title: Text(AppLocalizations.of(context)!.artworkResolution),
-      trailing: DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          value: _artworkResolution,
-          items: options.entries.map((e) {
-            return DropdownMenuItem(
-              value: e.key,
-              child: Text(e.value),
-            );
-          }).toList(),
-          onChanged: (val) {
-            if (val != null) {
-              setState(() => _artworkResolution = val);
-              _playerUiSettings.setArtworkResolution(val);
-              ImageUrlCache.clear();
-            }
-          },
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLyricsAlignmentSelector() {
-    final l10n = AppLocalizations.of(context)!;
-    return ListTile(
-      title: Text(l10n.lyricsAlignment),
-      subtitle: Text(_lyricsAlignment == 'center'
-          ? l10n.lyricsAlignmentCentered
-          : l10n.lyricsAlignmentLeft),
-      trailing: SegmentedButton<String>(
-        segments: [
-          ButtonSegment(
-              value: 'left',
-              label: Text(l10n.alignLeft),
-              icon: const Icon(Icons.format_align_left, size: 16)),
-          ButtonSegment(
-              value: 'center',
-              label: Text(l10n.alignCenter),
-              icon: const Icon(Icons.format_align_center, size: 16)),
-        ],
-        selected: {_lyricsAlignment},
-        onSelectionChanged: (val) async {
-          final chosen = val.first;
-          await _playerUiSettings.setLyricsAlignment(chosen);
-          setState(() => _lyricsAlignment = chosen);
-        },
-      ),
-    );
-  }
-
-  Widget _buildLyricsGlowToggle() {
-    final l10n = AppLocalizations.of(context)!;
-    return SwitchListTile.adaptive(
-      title: Text(l10n.lyricsGlowEffect),
-      subtitle: Text(l10n.lyricsGlowEffectSubtitle),
-      value: _lyricsGlowEffect,
-      onChanged: (val) async {
-        await _playerUiSettings.setLyricsGlowEffect(val);
-        setState(() => _lyricsGlowEffect = val);
-      },
-    );
-  }
-
   Widget _buildLyricsKeepScreenOnToggle() {
     final l10n = AppLocalizations.of(context)!;
     return SwitchListTile.adaptive(
@@ -1000,7 +781,7 @@ class _ThemeModeSelector extends StatelessWidget {
       ),
     ];
 
-    final accent = Theme.of(context).colorScheme.primary;
+    final colors = context.octave;
 
     return Row(
       children: options.map((opt) {
@@ -1013,11 +794,7 @@ class _ThemeModeSelector extends StatelessWidget {
               margin: const EdgeInsets.only(right: 6),
               padding: const EdgeInsets.symmetric(vertical: 8),
               decoration: BoxDecoration(
-                color: selected
-                    ? accent
-                    : (isDark
-                        ? Colors.white.withValues(alpha: 0.08)
-                        : Colors.black.withValues(alpha: 0.06)),
+                color: selected ? colors.accent : colors.surface2,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Column(
@@ -1026,9 +803,7 @@ class _ThemeModeSelector extends StatelessWidget {
                   Icon(
                     opt.icon,
                     size: 18,
-                    color: selected
-                        ? Colors.white
-                        : (context.octave.text2),
+                    color: selected ? colors.onAccent : colors.text2,
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -1036,9 +811,7 @@ class _ThemeModeSelector extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                      color: selected
-                          ? Colors.white
-                          : (context.octave.text2),
+                      color: selected ? colors.onAccent : colors.text2,
                     ),
                   ),
                 ],

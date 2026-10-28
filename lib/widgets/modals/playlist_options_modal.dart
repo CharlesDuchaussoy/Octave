@@ -13,6 +13,8 @@ import '../../services/playlist_cover_service.dart';
 import '../../services/subsonic_service.dart';
 import '../../theme/app_theme.dart';
 import '../common/playlist_artwork.dart';
+import 'package:musly/octave/covers/cover_editor_screen.dart';
+import 'package:musly/octave/covers/cover_store.dart';
 
 class PlaylistOptionsModal extends StatelessWidget {
   final Playlist playlist;
@@ -23,6 +25,7 @@ class PlaylistOptionsModal extends StatelessWidget {
     HapticFeedback.mediumImpact();
     return showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) => PlaylistOptionsModal(playlist: playlist),
@@ -95,6 +98,7 @@ class PlaylistOptionsModal extends StatelessWidget {
       );
 
       await libraryProvider.deletePlaylist(playlist.id);
+      await PlaylistCoverStore.instance.remove(playlist.id);
     } catch (_) {}
 
     return true;
@@ -267,6 +271,15 @@ class PlaylistOptionsModal extends StatelessWidget {
                             Navigator.pop(context);
                           },
                         );
+                      },
+                    ),
+                    _OptionTile(
+                      icon: CupertinoIcons.paintbrush,
+                      title: l10n.coverEdit,
+                      onTap: () {
+                        final root = Navigator.of(context, rootNavigator: true);
+                        Navigator.pop(context);
+                        root.push(PlaylistCoverEditor.route(playlist));
                       },
                     ),
                     _OptionTile(

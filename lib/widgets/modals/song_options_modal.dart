@@ -23,6 +23,7 @@ class SongOptionsModal extends StatefulWidget {
     HapticFeedback.mediumImpact();
     return showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (context) => SongOptionsModal(song: song),
@@ -41,6 +42,7 @@ class SongOptionsModal extends StatefulWidget {
 
     return showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       builder: (sheetContext) => Container(
@@ -420,8 +422,13 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                       icon: Icons.person_rounded,
                       title: AppLocalizations.of(context)!.goToArtist,
                       onTap: () {
-                        final nav = Navigator.of(context);
-                        nav.pop();
+                        // The sheet sits on the root navigator: open the
+                        // artist in the tab, under the tab bar.
+                        final sheetNav = Navigator.of(context);
+                        final nav =
+                            NavigationHelper.navigatorKey.currentState ??
+                                sheetNav;
+                        sheetNav.pop();
                         _navigateToArtist(nav);
                       },
                     ),
@@ -760,6 +767,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
       if (ctx == null) return;
       showModalBottomSheet(
         context: ctx,
+        useRootNavigator: true,
         backgroundColor: Colors.transparent,
         builder: (sheetCtx) => ArtistsBottomSheet(
           artists: participants,

@@ -6,6 +6,7 @@ import 'package:musly/providers/library_provider.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/screens/detail/genre_screen.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 class GenresScreen extends StatefulWidget {
   const GenresScreen({super.key});
@@ -149,7 +150,8 @@ class _GenresScreenState extends State<GenresScreen> {
                 ),
               ),
             ),
-          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+          SliverToBoxAdapter(
+              child: SizedBox(height: scrollEndPadding(context))),
         ],
       ),
     );

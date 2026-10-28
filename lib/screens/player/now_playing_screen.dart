@@ -22,9 +22,9 @@ import 'package:musly/widgets/common/multi_artist_widget.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/wakelock_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:musly/services/tv_detection_service.dart';
 import 'tv_now_playing_screen.dart';
+import 'package:musly/widgets/common/album_artwork.dart' show coverImageProvider;
 
 class NowPlayingScreen extends StatefulWidget {
   final ImageProvider image;
@@ -90,14 +90,7 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
   Future<void> _updateImageProviderAndColors() async {
     if (_lastSong == null) return;
     final subsonic = Provider.of<SubsonicService>(context, listen: false);
-    final coverUrl = _lastSong!.coverArt != null
-        ? subsonic.getCoverArtUrl(_lastSong!.coverArt, size: 800)
-        : null;
-    if (coverUrl != null && coverUrl.isNotEmpty) {
-      _currentImageProvider = CachedNetworkImageProvider(coverUrl);
-    } else {
-      _currentImageProvider = const AssetImage('assets/logo.png');
-    }
+    _currentImageProvider = coverImageProvider(subsonic, _lastSong!.coverArt);
     _extractColors();
   }
 

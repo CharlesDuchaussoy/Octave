@@ -445,14 +445,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "Visa Stjärnbetyg",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "Betygsätt låtar och visa betyg",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "Aktivera Rekommendationer",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -570,9 +562,6 @@
   "tryDifferentSearch": "Försök söka någonting annat",
   "noSuggestions": "Inga förslag",
   "browseCategories": "Bläddra Kategorier",
-  "liveSearchSection": "Sök",
-  "liveSearch": "Livesökning",
-  "liveSearchSubtitle": "Uppdatera resultat medan du skriver istället för att visa en lista",
   "categoryMadeForYou": "Skapad För Dig",
   "categoryNewReleases": "Nytt Släpp",
   "categoryTopRated": "Högst rankade",
@@ -630,13 +619,11 @@
   "serverType": "Server Typ",
   "notConnected": "Inte ansluten",
   "unknown": "Okänd",
-  "sectionMusicFolders": "MUSIK MAPPAR",
   "musicFolders": "Musik Mappar",
   "noMusicFolders": "Inga musik mappar hittades",
   "sectionAccount": "KONTO",
   "logoutConfirmation": "Är du säker på att du vill logga ut? Detta kommer även rensa all cachelagrad data.",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "CACHE INSTÄLLNINGAR",
   "imageCache": "Bild Cache",
   "musicCache": "Musik Cache",
   "bpmCache": "BPM Cache",
@@ -672,11 +659,6 @@
   "deleteDownloads": "Radera Alla Nedladdningar",
   "downloadsDeleted": "Alla nerladdningar raderades",
   "noSongsAvailable": "Inga låtar tillgängliga. Ladda ditt bibliotek först.",
-  "sectionBpmAnalysis": "BPM ANALYS",
-  "cachedBpms": "Cachade BPM:ar",
-  "cacheAllBpms": "Cacha alla BPM:ar",
-  "clearBpmCache": "Rensa BPM Cache",
-  "bpmCacheCleared": "BPM cache rensad",
   "downloadedStats": "{count} låtar • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1324,21 +1306,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "JUKEBOXLÄGE",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "Jukeboxläge",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "Spela upp ljud genom servern istället för denna enhet",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "Öppna Jukeboxkontroll",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "Rensa Kö",
   "@jukeboxClearQueue": {
@@ -1666,41 +1636,11 @@
   "@transcodingFormatOriginal": {
     "description": "Transcoding format option: original (no conversion)"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "imageCacheTitle": "Bildcache",
-  "@imageCacheTitle": {
-    "description": "Toggle title for image (album art) cache"
-  },
-  "imageCacheSubtitle": "Spara albumomslag lokalt",
-  "@imageCacheSubtitle": {
-    "description": "Subtitle for image cache toggle"
-  },
-  "musicCacheTitle": "Musikcache",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "Spara låt metadata lokalt",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "BPM-cache",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "Spara BPM analys lokalt",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"

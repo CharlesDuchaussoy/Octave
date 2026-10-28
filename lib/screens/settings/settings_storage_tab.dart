@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/providers/library_provider.dart';
 import 'package:musly/services/subsonic_service.dart';
-import 'package:musly/services/bpm_analyzer_service.dart';
 import 'package:musly/services/cache_settings_service.dart';
 import 'package:musly/services/local_music_service.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/screens/media/download_playlist_status_screen.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
+import 'package:musly/octave/widgets/scroll_end_padding.dart';
 
 
 class SettingsStorageTab extends StatefulWidget {
@@ -26,23 +24,12 @@ class SettingsStorageTab extends StatefulWidget {
 }
 
 class _SettingsStorageTabState extends State<SettingsStorageTab> {
-  final _bpmAnalyzer = BpmAnalyzerService();
   final _cacheSettings = CacheSettingsService();
   final _offlineService = OfflineService();
 
-  bool _imageCacheEnabled = true;
-  bool _musicCacheEnabled = true;
-  bool _bpmCacheEnabled = true;
-  final bool _isCaching = false;
-  final int _currentProgress = 0;
-  final int _totalSongs = 0;
   int _downloadedCount = 0;
   String _downloadedSize = '0 B';
-  String _audioCacheSize = '0 B';
-  String _imageCacheSize = '0 B';
   String _totalCacheSize = '0 B';
-  int _parallelDownloads = 3;
-  bool _keepScreenOn = true;
   bool _autoDownloadFavorites = false;
 
   @override
@@ -77,11 +64,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     await _loadCacheInfo();
 
     setState(() {
-      _imageCacheEnabled = _cacheSettings.getImageCacheEnabled();
-      _musicCacheEnabled = _cacheSettings.getMusicCacheEnabled();
-      _bpmCacheEnabled = _cacheSettings.getBpmCacheEnabled();
-      _parallelDownloads = _offlineService.getParallelDownloadsCount();
-      _keepScreenOn = _offlineService.getKeepScreenOn();
       _autoDownloadFavorites = _offlineService.getAutoDownloadFavorites();
     });
   }
@@ -92,8 +74,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     final totalBytes = audioBytes + imageBytes;
     if (mounted) {
       setState(() {
-        _audioCacheSize = _cacheSettings.formatBytes(audioBytes);
-        _imageCacheSize = _cacheSettings.formatBytes(imageBytes);
         _totalCacheSize = _cacheSettings.formatBytes(totalBytes);
       });
     }
@@ -116,44 +96,11 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
         Provider.of<SubsonicService>(context, listen: false).isYoutube;
 
     return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.only(top: 16, bottom: scrollEndPadding(context)),
       children: [
-        SettingsSectionCard(
-          title: AppLocalizations.of(context)!.sectionCacheSettings,
-          children: [
-            _buildCacheToggle(
-              icon: CupertinoIcons.photo,
-              title: AppLocalizations.of(context)!.imageCacheTitle,
-              subtitle: AppLocalizations.of(context)!.imageCacheSubtitle,
-              value: _imageCacheEnabled,
-              onChanged: _toggleImageCache,
-            ),
-            const SettingsDivider(),
-            _buildCacheToggle(
-              icon: CupertinoIcons.music_note,
-              title: AppLocalizations.of(context)!.musicCacheTitle,
-              subtitle: AppLocalizations.of(context)!.musicCacheSubtitle,
-              value: _musicCacheEnabled,
-              onChanged: _toggleMusicCache,
-            ),
-            const SettingsDivider(),
-            _buildCacheToggle(
-              icon: CupertinoIcons.speedometer,
-              title: AppLocalizations.of(context)!.bpmCacheTitle,
-              subtitle: AppLocalizations.of(context)!.bpmCacheSubtitle,
-              value: _bpmCacheEnabled,
-              onChanged: _toggleBpmCache,
-            ),
-          ],
-        ),
-        const SizedBox(height: 24),
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionCacheCleanup,
           children: [
-            _buildAudioCacheRow(),
-            const SettingsDivider(),
-            _buildImageCacheRow(),
-            const SettingsDivider(),
             _buildClearAllCacheButton(),
           ],
         ),
@@ -161,12 +108,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.sectionOfflineDownloads,
           children: [
-            _buildDownloadLocationTile(),
-            const SettingsDivider(),
-            _buildParallelDownloadsTile(),
-            const SettingsDivider(),
-            _buildKeepScreenOnTile(),
-            const SettingsDivider(),
             _buildAutoDownloadFavoritesTile(),
             const SettingsDivider(),
             _buildOfflineInfo(),
@@ -184,52 +125,9 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
         ),
         const SizedBox(height: 24),
         _buildLocalMusicSection(),
-        const SizedBox(height: 24),
-        SettingsSectionCard(
-          title: AppLocalizations.of(context)!.sectionBpmAnalysis,
-          children: [
-            _buildBPMCacheInfo(),
-            if (_isCaching) _buildCachingProgress(),
-            if (!isYoutube) _buildCacheAllButton(),
-            _buildClearCacheButton(),
-          ],
-        ),
         const SizedBox(height: 40),
       ],
     );
-  }
-
-  Widget _buildCacheToggle({
-    required IconData icon,
-    required String title,
-    required String subtitle,
-    required bool value,
-    required Function(bool) onChanged,
-  }) {
-    return SettingsSwitchTile(
-      icon: icon,
-      title: title,
-      subtitle: subtitle,
-      value: value,
-      onChanged: onChanged,
-    );
-  }
-
-  void _toggleImageCache(bool value) async {
-    setState(() => _imageCacheEnabled = value);
-    await _cacheSettings.setImageCacheEnabled(value);
-    if (!value) await DefaultCacheManager().emptyCache();
-  }
-
-  void _toggleMusicCache(bool value) async {
-    setState(() => _musicCacheEnabled = value);
-    await _cacheSettings.setMusicCacheEnabled(value);
-  }
-
-  void _toggleBpmCache(bool value) async {
-    setState(() => _bpmCacheEnabled = value);
-    await _cacheSettings.setBpmCacheEnabled(value);
-    if (!value) await _bpmAnalyzer.clearCache();
   }
 
   Widget _buildLocalMusicSection() {
@@ -346,20 +244,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     );
   }
 
-  Widget _buildKeepScreenOnTile() {
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.bolt_fill,
-      title: l10n.keepScreenOnDuringDownload,
-      subtitle: l10n.keepScreenOnDuringDownloadSubtitle,
-      value: _keepScreenOn,
-      onChanged: (value) async {
-        setState(() => _keepScreenOn = value);
-        await _offlineService.setKeepScreenOn(value);
-      },
-    );
-  }
-
   Widget _buildAutoDownloadFavoritesTile() {
     return SettingsSwitchTile(
       icon: CupertinoIcons.heart_solid,
@@ -368,124 +252,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
       value: _autoDownloadFavorites,
       onChanged: _toggleAutoDownloadFavorites,
     );
-  }
-
-  Widget _buildParallelDownloadsTile() {
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsListTile(
-      icon: CupertinoIcons.arrow_down_to_line,
-      title: l10n.parallelDownloads,
-      subtitle: l10n.parallelDownloadsSubtitle,
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            '$_parallelDownloads',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ),
-          const SizedBox(width: 4),
-          Icon(
-            CupertinoIcons.chevron_right,
-            size: 16,
-            color: context.octave.text2,
-          ),
-        ],
-      ),
-      onTap: _showParallelDownloadsDialog,
-    );
-  }
-
-  Widget _buildDownloadLocationTile() {
-    final customPath = _offlineService.getCustomDownloadPath();
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsListTile(
-      icon: CupertinoIcons.folder_badge_plus,
-      title: l10n.downloadFolder,
-      subtitle: customPath != null && customPath.isNotEmpty
-            ? customPath
-            : l10n.downloadFolderDefault,
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (customPath != null && customPath.isNotEmpty)
-            IconButton(
-              icon: const Icon(CupertinoIcons.clear_circled, size: 20),
-              onPressed: () async {
-                await _offlineService.setCustomDownloadPath(null);
-                if (mounted) setState(() {});
-              },
-            ),
-          Icon(
-            CupertinoIcons.chevron_right,
-            size: 16,
-            color: context.octave.text2,
-          ),
-        ],
-      ),
-      onTap: _pickCustomDownloadDirectory,
-    );
-  }
-
-  Future<void> _pickCustomDownloadDirectory() async {
-    try {
-      final selectedDirectory = await FilePicker.platform.getDirectoryPath();
-      if (selectedDirectory != null && selectedDirectory.isNotEmpty) {
-        await _offlineService.setCustomDownloadPath(selectedDirectory);
-        if (mounted) setState(() {});
-      }
-    } catch (e) {
-      debugPrint('Error picking download folder: $e');
-    }
-  }
-
-  Future<void> _showParallelDownloadsDialog() async {
-    final l10n = AppLocalizations.of(context)!;
-    final selected = await showDialog<int>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.parallelDownloads),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [1, 2, 3, 4, 5].map((count) {
-            final isSelected = count == _parallelDownloads;
-            return ListTile(
-              title: Text(
-                  '$count ${count == 1 ? l10n.downloadSingular : l10n.downloadPlural}'),
-              subtitle: count == 1
-                  ? Text(l10n.slowerButStable)
-                  : count == 5
-                      ? Text(l10n.fasterButMoreData)
-                      : null,
-              leading: Icon(
-                isSelected
-                    ? Icons.radio_button_checked
-                    : Icons.radio_button_unchecked,
-                color:
-                    isSelected ? Theme.of(context).colorScheme.primary : null,
-              ),
-              onTap: () => Navigator.pop(context, count),
-            );
-          }).toList(),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
-          ),
-        ],
-      ),
-    );
-
-    if (selected != null && selected != _parallelDownloads) {
-      await _offlineService.setParallelDownloadsCount(selected);
-      setState(() {
-        _parallelDownloads = selected;
-      });
-    }
   }
 
   Future<void> _rescanLocalMusic(
@@ -506,36 +272,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     await service.scanForMusic();
   }
 
-  Widget _buildAudioCacheRow() {
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsListTile(
-      icon: CupertinoIcons.music_note,
-      title: l10n.songsStreamCache,
-      subtitle: l10n.cacheDiskUsage(_audioCacheSize),
-      trailing: IconButton(
-        icon: Icon(CupertinoIcons.trash,
-            size: 20, color: context.octave.danger),
-        tooltip: l10n.clearAudioCacheTooltip,
-        onPressed: _clearAudioCache,
-      ),
-    );
-  }
-
-  Widget _buildImageCacheRow() {
-    final l10n = AppLocalizations.of(context)!;
-    return SettingsListTile(
-      icon: CupertinoIcons.photo,
-      title: l10n.imageArtworkCache,
-      subtitle: l10n.cacheDiskUsage(_imageCacheSize),
-      trailing: IconButton(
-        icon: Icon(CupertinoIcons.trash,
-            size: 20, color: context.octave.danger),
-        tooltip: l10n.clearImageCacheTooltip,
-        onPressed: _clearImageCache,
-      ),
-    );
-  }
-
   Widget _buildClearAllCacheButton() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsListTile(
@@ -546,31 +282,9 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     );
   }
 
-  void _clearAudioCache() async {
-    await _cacheSettings.clearAudioCache();
-    await _loadCacheInfo();
-    if (mounted) {
-      final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.audioCacheCleared)),
-      );
-    }
-  }
-
   void _toggleAutoDownloadFavorites(bool value) async {
     setState(() => _autoDownloadFavorites = value);
     await _offlineService.setAutoDownloadFavorites(value);
-  }
-
-  void _clearImageCache() async {
-    await _cacheSettings.clearImageCache();
-    await _loadCacheInfo();
-    if (mounted) {
-      final l10n = AppLocalizations.of(context)!;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(l10n.imageCacheCleared)),
-      );
-    }
   }
 
   void _clearAllCache() async {
@@ -809,88 +523,4 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     );
   }
 
-  Widget _buildBPMCacheInfo() {
-    final cachedCount = _bpmAnalyzer.getCachedCount();
-    return SettingsListTile(
-      icon: CupertinoIcons.speedometer,
-      title: AppLocalizations.of(context)!.cachedBpms,
-      trailing: Text(
-        '$cachedCount',
-        style: TextStyle(
-          fontSize: 16,
-          color: context.octave.text2,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCachingProgress() {
-    final progress = _totalSongs > 0 ? _currentProgress / _totalSongs : 0.0;
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: LinearProgressIndicator(
-        value: progress,
-        backgroundColor:
-            context.octave.separator,
-        valueColor: AlwaysStoppedAnimation<Color>(
-          Theme.of(context).colorScheme.primary,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCacheAllButton() {
-    return Column(
-      children: [
-        const SettingsDivider(),
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 4,
-          ),
-          enabled: !_isCaching,
-          title: Text(
-            AppLocalizations.of(context)!.cacheAllBpms,
-            style: TextStyle(
-              fontSize: 16,
-              color: _isCaching ? Colors.grey : null,
-            ),
-          ),
-          trailing: _isCaching
-              ? const CupertinoActivityIndicator()
-              : const Icon(CupertinoIcons.chevron_right, size: 16),
-          onTap: _isCaching ? null : () {},
-        ),
-      ],
-    );
-  }
-
-  Widget _buildClearCacheButton() {
-    return Column(
-      children: [
-        const SettingsDivider(),
-        ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 4,
-          ),
-          title: Text(
-            AppLocalizations.of(context)!.clearBpmCache,
-            style: TextStyle(fontSize: 16, color: context.octave.danger),
-          ),
-          onTap: () async {
-            await _bpmAnalyzer.clearCache();
-            setState(() {});
-            if (mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(AppLocalizations.of(context)!.bpmCacheCleared),
-                ),
-              );
-            }
-          },
-        ),
-      ],
-    );
-  }
 }

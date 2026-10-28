@@ -441,14 +441,6 @@
   "@showVolumeSliderSubtitle": {
     "description": "Show Volume Slider toggle subtitle"
   },
-  "showStarRatings": "显示星级评分",
-  "@showStarRatings": {
-    "description": "Show Star Ratings toggle label"
-  },
-  "showStarRatingsSubtitle": "为歌曲评分并查看评分",
-  "@showStarRatingsSubtitle": {
-    "description": "Show Star Ratings toggle subtitle"
-  },
   "enableRecommendations": "启用推荐",
   "@enableRecommendations": {
     "description": "Enable Recommendations toggle label"
@@ -623,13 +615,11 @@
   "serverType": "服务器类型",
   "notConnected": "未连接",
   "unknown": "未知",
-  "sectionMusicFolders": "音乐文件夹",
   "musicFolders": "音乐文件夹",
   "noMusicFolders": "未找到音乐文件夹",
   "sectionAccount": "账户",
   "logoutConfirmation": "确定要退出登录吗？这也将清除所有缓存数据。",
   "@_SETTINGS_STORAGE": {},
-  "sectionCacheSettings": "缓存设置",
   "imageCache": "图片缓存",
   "musicCache": "音乐缓存",
   "bpmCache": "BPM 缓存",
@@ -665,11 +655,6 @@
   "deleteDownloads": "删除所有下载",
   "downloadsDeleted": "所有下载已删除",
   "noSongsAvailable": "没有可用歌曲。请先加载您的音乐库。",
-  "sectionBpmAnalysis": "BPM 分析",
-  "cachedBpms": "已缓存的 BPM",
-  "cacheAllBpms": "缓存所有 BPM",
-  "clearBpmCache": "清除 BPM 缓存",
-  "bpmCacheCleared": "BPM 缓存已清除",
   "downloadedStats": "{count} 首歌曲 • {size}",
   "@downloadedStats": {
     "placeholders": {
@@ -1305,21 +1290,9 @@
     }
   },
   "@_JUKEBOX": {},
-  "sectionJukebox": "点唱机模式",
-  "@sectionJukebox": {
-    "description": "Section header for the jukebox settings in the Server tab"
-  },
   "jukeboxMode": "点唱机模式",
   "@jukeboxMode": {
     "description": "Toggle label for enabling jukebox mode"
-  },
-  "jukeboxModeSubtitle": "通过服务器而非本设备播放音频",
-  "@jukeboxModeSubtitle": {
-    "description": "Subtitle for the jukebox mode toggle"
-  },
-  "openJukeboxController": "打开点唱机控制器",
-  "@openJukeboxController": {
-    "description": "List tile label to navigate to the jukebox controller screen"
   },
   "jukeboxClearQueue": "清空队列",
   "@jukeboxClearQueue": {
@@ -1467,33 +1440,11 @@
   "@transcodingMobileQualitySubtitleSmart": {
     "description": "Mobile quality subtitle when smart mode is on"
   },
-  "@sectionCacheSettings": {
-    "description": "Storage settings section header"
-  },
   "@sectionCacheCleanup": {
     "description": "Storage settings section header for cache cleanup"
   },
   "@sectionOfflineDownloads": {
     "description": "Storage settings section header for offline downloads"
-  },
-  "@sectionBpmAnalysis": {
-    "description": "Storage settings section header for BPM analysis"
-  },
-  "musicCacheTitle": "音乐缓存",
-  "@musicCacheTitle": {
-    "description": "Toggle title for music metadata cache"
-  },
-  "musicCacheSubtitle": "本地保存歌曲元数据",
-  "@musicCacheSubtitle": {
-    "description": "Subtitle for music cache toggle"
-  },
-  "bpmCacheTitle": "BPM 缓存",
-  "@bpmCacheTitle": {
-    "description": "Toggle title for BPM analysis cache"
-  },
-  "bpmCacheSubtitle": "本地保存 BPM 分析",
-  "@bpmCacheSubtitle": {
-    "description": "Subtitle for BPM cache toggle"
   },
   "@clearAllCache": {
     "description": "Button to clear all cached data"
