@@ -923,6 +923,10 @@
   "@appUpToDate": {
     "description": "Message shown when app is on the latest version"
   },
+  "updateCheckFailed": "Couldn't check for updates. Check your connection and try again.",
+  "@updateCheckFailed": {
+    "description": "Message shown when the update check fails (no network, GitHub unreachable)"
+  },
   "updateAvailable": "Update available",
   "@updateAvailable": {
     "description": "Title when an update is available"

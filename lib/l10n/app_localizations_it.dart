@@ -852,6 +852,10 @@ class AppLocalizationsIt extends AppLocalizations {
   String get appUpToDate => 'Octave è aggiornato';
 
   @override
+  String get updateCheckFailed =>
+      'Couldn\'t check for updates. Check your connection and try again.';
+
+  @override
   String get updateAvailable => 'Aggiornamento disponibile';
 
   @override

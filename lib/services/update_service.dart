@@ -165,7 +165,14 @@ class UpdateService {
     ),
   );
 
-  static Future<ReleaseInfo?> checkForUpdate({bool force = false}) async {
+  /// The newest release when it is newer than this app, else null. A check
+  /// that fails (no network, GitHub unreachable) also gives null, unless
+  /// [rethrowErrors] is set: a check asked by the person must not answer
+  /// "up to date" when it could not look.
+  static Future<ReleaseInfo?> checkForUpdate({
+    bool force = false,
+    bool rethrowErrors = false,
+  }) async {
     try {
       final prefs = await SharedPreferences.getInstance();
 
@@ -190,7 +197,10 @@ class UpdateService {
       }
       return null;
     } catch (e) {
+      // GitHub answers 404 while no release is published: nothing newer.
+      if (e is DioException && e.response?.statusCode == 404) return null;
       debugPrint('UpdateService: check failed – $e');
+      if (rethrowErrors) rethrow;
       return null;
     }
   }

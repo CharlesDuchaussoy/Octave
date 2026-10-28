@@ -127,6 +127,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Sur Android, la mise à jour télécharge l'APK fait pour le processeur du téléphone (arm64-v8a pour presque tous).
 - Chaque mise à jour téléchargée est vérifiée avec son empreinte SHA-256 : un fichier abîmé n'est jamais installé.
 - Les versions Android sont signées avec la clé d'Octave : une mise à jour ne s'installe que si elle vient d'Octave.
+- « Rechercher une mise à jour » dit quand la recherche échoue (pas de réseau) au lieu d'annoncer qu'Octave est à jour.
 
 ### Fichiers du téléphone
 

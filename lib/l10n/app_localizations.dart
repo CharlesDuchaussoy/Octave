@@ -1642,6 +1642,12 @@ abstract class AppLocalizations {
   /// **'Octave is up to date'**
   String get appUpToDate;
 
+  /// Message shown when the update check fails (no network, GitHub unreachable)
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t check for updates. Check your connection and try again.'**
+  String get updateCheckFailed;
+
   /// Title of the update available dialog
   ///
   /// In en, this message translates to:

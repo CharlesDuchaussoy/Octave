@@ -1363,6 +1363,7 @@
   "checkForUpdates": "Rechercher une mise à jour",
   "checkingForUpdates": "Recherche de mise à jour…",
   "appUpToDate": "Octave est à jour",
+  "updateCheckFailed": "Impossible de vérifier les mises à jour. Vérifie ta connexion et réessaie.",
   "updateNow": "Mettre à jour",
   "openOnGitHub": "Ouvrir sur GitHub",
   "skipThisVersion": "Ignorer cette version",
