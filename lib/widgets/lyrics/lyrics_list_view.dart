@@ -1,6 +1,7 @@
 import 'dart:async';
 import '../../l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import '../../models/lyric_line.dart';
 import 'lyrics_line.dart';
@@ -165,15 +166,23 @@ class _LyricsListViewState extends State<LyricsListView> {
       return;
     }
 
-    final key = _keys[_currentIndex];
-    if (key.currentContext != null) {
-      Scrollable.ensureVisible(
-        key.currentContext!,
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeOutCubic,
-        alignment: 0.5,
-      );
-    }
+    // Scrolls the lyrics list only. Scrollable.ensureVisible also moved
+    // every scrollable around it: the pages of the full player, which it
+    // pulled back to the lyrics at each new line, even from the queue.
+    final line = _keys[_currentIndex].currentContext?.findRenderObject();
+    if (line == null || !line.attached) return;
+    final viewport = RenderAbstractViewport.maybeOf(line);
+    if (viewport == null) return;
+    final position = _scrollController.position;
+    final target = viewport
+        .getOffsetToReveal(line, 0.5)
+        .offset
+        .clamp(position.minScrollExtent, position.maxScrollExtent);
+    _scrollController.animateTo(
+      target,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutCubic,
+    );
   }
 
   void _onUserScroll() {

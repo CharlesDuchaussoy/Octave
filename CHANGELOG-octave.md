@@ -102,6 +102,7 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Un titre ne se rejoue plus en double : la fin d'un titre ne lance le suivant qu'une fois, et le cache de lecture de Musly, qui pouvait relancer un titre déjà fini, est retiré.
 - Les titres s'enchaînent toujours sans blanc ; le réglage disparaît.
 - Appuyer sur Lecture après la fin d'un titre passe au suivant au lieu de rejouer le même.
+- Le bouton « File d'attente » du lecteur plein écran ouvrait les paroles : leur défilement automatique faisait aussi défiler les pages du lecteur et y ramenait à chaque nouvelle ligne. Seule la liste des paroles défile désormais.
 - Une lecture reprise à une position (file restaurée, retour d'une enceinte) démarre bien à cette position, et le serveur sait tout de suite ce qui est en cours : le lecteur attendait la pause suivante pour le faire.
 - Quand le serveur convertit le son (qualité réduite), Octave lui demande la taille du fichier : la durée et l'avance dans le titre restent justes.
 
