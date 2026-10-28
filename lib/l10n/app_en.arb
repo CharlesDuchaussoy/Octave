@@ -2506,14 +2506,6 @@
   "@addServerOrService": {
     "description": "Button to add a new server or streaming service"
   },
-  "welcomeTourTitle": "Welcome Tour",
-  "@welcomeTourTitle": {
-    "description": "Title for welcome tour tile in about tab"
-  },
-  "welcomeTourSubtitle": "Replay the introductory onboarding experience",
-  "@welcomeTourSubtitle": {
-    "description": "Subtitle for welcome tour tile"
-  },
   "muslyPlaybackDev": "Octave Playback (Dev Preview)",
   "@muslyPlaybackDev": {
     "description": "Title for developer preview of annual wrapped"
@@ -3128,134 +3120,6 @@
   "@addRadioStationsHint": {
     "description": "Empty state subtitle for radio stations"
   },
-  "onboardingNext": "Next",
-  "@onboardingNext": {
-    "description": "Next button in onboarding"
-  },
-  "onboardingGetStarted": "Get Started",
-  "@onboardingGetStarted": {
-    "description": "Get Started button in onboarding"
-  },
-  "previousSlideTooltip": "Previous (Left Arrow)",
-  "@previousSlideTooltip": {
-    "description": "Previous slide tooltip"
-  },
-  "nextSlideTooltip": "Next (Right Arrow / Space)",
-  "@nextSlideTooltip": {
-    "description": "Next slide tooltip"
-  },
-  "onboardingSlide1TitlePrefix": "Your Music Library,\n",
-  "@onboardingSlide1TitlePrefix": {
-    "description": "Onboarding slide 1 title prefix"
-  },
-  "onboardingSlide1TitleHighlight": "In Your Pocket.",
-  "@onboardingSlide1TitleHighlight": {
-    "description": "Onboarding slide 1 title highlight"
-  },
-  "onboardingSlide1Description": "Connect to Navidrome, Subsonic, Jellyfin, or play local files with bit-perfect lossless quality.",
-  "@onboardingSlide1Description": {
-    "description": "Onboarding slide 1 description"
-  },
-  "onboardingSlide1Feature1Title": "Self-Hosted Freedom",
-  "@onboardingSlide1Feature1Title": {
-    "description": "Onboarding slide 1 feature 1 title"
-  },
-  "onboardingSlide1Feature1Desc": "Full compatibility with Subsonic, Navidrome, and Jellyfin APIs.",
-  "@onboardingSlide1Feature1Desc": {
-    "description": "Onboarding slide 1 feature 1 desc"
-  },
-  "onboardingSlide1Feature2Title": "Local Music Support",
-  "@onboardingSlide1Feature2Title": {
-    "description": "Onboarding slide 1 feature 2 title"
-  },
-  "onboardingSlide1Feature2Desc": "Play your offline collection directly without server setup.",
-  "@onboardingSlide1Feature2Desc": {
-    "description": "Onboarding slide 1 feature 2 desc"
-  },
-  "onboardingSlide1Feature3Title": "Lossless Hi-Res Audio",
-  "@onboardingSlide1Feature3Title": {
-    "description": "Onboarding slide 1 feature 3 title"
-  },
-  "onboardingSlide1Feature3Desc": "Bit-perfect FLAC, ALAC, Opus, and gapless audio playback.",
-  "@onboardingSlide1Feature3Desc": {
-    "description": "Onboarding slide 1 feature 3 desc"
-  },
-  "onboardingSlide2TitlePrefix": "Smart Mixes,\n",
-  "@onboardingSlide2TitlePrefix": {
-    "description": "Onboarding slide 2 title prefix"
-  },
-  "onboardingSlide2TitleHighlight": "Built Around You.",
-  "@onboardingSlide2TitleHighlight": {
-    "description": "Onboarding slide 2 title highlight"
-  },
-  "onboardingSlide2Description": "Octave learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.",
-  "@onboardingSlide2Description": {
-    "description": "Onboarding slide 2 description"
-  },
-  "onboardingSlide2Feature1Title": "Algorithmic Taste Profiling",
-  "@onboardingSlide2Feature1Title": {
-    "description": "Onboarding slide 2 feature 1 title"
-  },
-  "onboardingSlide2Feature1Desc": "Learns play frequencies, skips, and ratings with recency decay.",
-  "@onboardingSlide2Feature1Desc": {
-    "description": "Onboarding slide 2 feature 1 desc"
-  },
-  "onboardingSlide2Feature2Title": "Personalized Daily Mixes",
-  "@onboardingSlide2Feature2Title": {
-    "description": "Onboarding slide 2 feature 2 title"
-  },
-  "onboardingSlide2Feature2Desc": "Automatic Made For You, Listen Again, and Top Hits playlists.",
-  "@onboardingSlide2Feature2Desc": {
-    "description": "Onboarding slide 2 feature 2 desc"
-  },
-  "onboardingSlide2Feature3Title": "100% On-Device Processing",
-  "@onboardingSlide2Feature3Title": {
-    "description": "Onboarding slide 2 feature 3 title"
-  },
-  "onboardingSlide2Feature3Desc": "Your listening profile stays strictly on your hardware.",
-  "@onboardingSlide2Feature3Desc": {
-    "description": "Onboarding slide 2 feature 3 desc"
-  },
-  "onboardingSlide3TitlePrefix": "Completely Private.\n",
-  "@onboardingSlide3TitlePrefix": {
-    "description": "Onboarding slide 3 title prefix"
-  },
-  "onboardingSlide3TitleHighlight": "No Ads, No Tracking.",
-  "@onboardingSlide3TitleHighlight": {
-    "description": "Onboarding slide 3 title highlight"
-  },
-  "onboardingSlide3Description": "Zero analytics, zero telemetry. Enjoy time-synced lyrics, offline downloads, and desktop sync in total privacy.",
-  "@onboardingSlide3Description": {
-    "description": "Onboarding slide 3 description"
-  },
-  "onboardingSlide3Feature1Title": "Zero Telemetry & Tracking",
-  "@onboardingSlide3Feature1Title": {
-    "description": "Onboarding slide 3 feature 1 title"
-  },
-  "onboardingSlide3Feature1Desc": "No third-party SDKs, no trackers, no ads, completely open source.",
-  "@onboardingSlide3Feature1Desc": {
-    "description": "Onboarding slide 3 feature 1 desc"
-  },
-  "onboardingSlide3Feature2Title": "Time-Synced Lyrics",
-  "@onboardingSlide3Feature2Title": {
-    "description": "Onboarding slide 3 feature 2 title"
-  },
-  "onboardingSlide3Feature2Desc": "Real-time synchronized karaoke lyrics with LRCLIB fallback.",
-  "@onboardingSlide3Feature2Desc": {
-    "description": "Onboarding slide 3 feature 2 desc"
-  },
-  "onboardingSlide3Feature3Title": "Offline Download Manager",
-  "@onboardingSlide3Feature3Title": {
-    "description": "Onboarding slide 3 feature 3 title"
-  },
-  "onboardingSlide3Feature3Desc": "Cache full playlists and albums with batch downloading.",
-  "@onboardingSlide3Feature3Desc": {
-    "description": "Onboarding slide 3 feature 3 desc"
-  },
-  "finishTour": "Finish Tour",
-  "@finishTour": {
-    "description": "Finish tour button"
-  },
   "skip": "Skip",
   "@skip": {
     "description": "Skip button"
@@ -3696,5 +3560,327 @@
   "accentColorOctave": "Octave night blue",
   "@accentColorOctave": {
     "description": "Name of the default app color, from the logo"
+  },
+  "welcomeTagline": "Your music, your way.",
+  "@welcomeTagline": {
+    "description": "Tagline on the first screen"
+  },
+  "welcomeStart": "Get started",
+  "@welcomeStart": {
+    "description": "Button on the first screen"
+  },
+  "setupSkip": "Skip",
+  "@setupSkip": {
+    "description": "Skip the current setup step"
+  },
+  "setupBack": "Back",
+  "@setupBack": {
+    "description": "Go back to the previous setup step"
+  },
+  "setupContinue": "Continue",
+  "@setupContinue": {
+    "description": "Go to the next setup step"
+  },
+  "setupRecommended": "Recommended",
+  "@setupRecommended": {
+    "description": "Label next to the recommended choice"
+  },
+  "setupHelloTitle": "Hello {name}",
+  "@setupHelloTitle": {
+    "description": "Greeting with the account name",
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "setupHelloBody": "A few questions to set Octave up the way you like. It takes about two minutes, and everything can be changed later in Settings.",
+  "@setupHelloBody": {
+    "description": "Introduction of the guided setup"
+  },
+  "setupHelloStart": "Start",
+  "@setupHelloStart": {
+    "description": "Start the guided setup"
+  },
+  "setupLater": "Later",
+  "@setupLater": {
+    "description": "Skip the whole guided setup"
+  },
+  "setupColorTitle": "Your color",
+  "@setupColorTitle": {
+    "description": "Title of the color step"
+  },
+  "setupColorBody": "It tints the whole app. Night blue is the color of the logo.",
+  "@setupColorBody": {
+    "description": "Text of the color step"
+  },
+  "setupModeTitle": "Light or dark",
+  "@setupModeTitle": {
+    "description": "Title of the display mode step"
+  },
+  "setupModeBody": "Automatic follows your phone's setting.",
+  "@setupModeBody": {
+    "description": "Text of the display mode step"
+  },
+  "setupModeAuto": "Automatic",
+  "@setupModeAuto": {
+    "description": "Display mode following the system"
+  },
+  "setupModeLight": "Light",
+  "@setupModeLight": {
+    "description": "Light display mode"
+  },
+  "setupModeDark": "Dark",
+  "@setupModeDark": {
+    "description": "Dark display mode"
+  },
+  "setupArtistsTitle": "Your artists",
+  "@setupArtistsTitle": {
+    "description": "Title of the artists step"
+  },
+  "setupArtistsBody": "Pick the ones you listen to most. They become favorites and shape your mixes.",
+  "@setupArtistsBody": {
+    "description": "Text of the artists step"
+  },
+  "setupArtistsEmpty": "No artists in your library yet.",
+  "@setupArtistsEmpty": {
+    "description": "Shown when the library has no artists"
+  },
+  "setupArtistsContinue": "{count, plural, =1{Continue with 1 artist} other{Continue with {count} artists}}",
+  "@setupArtistsContinue": {
+    "description": "Continue button with the number of selected artists",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "setupHomeTitle": "Your home screen",
+  "@setupHomeTitle": {
+    "description": "Title of the home step"
+  },
+  "setupHomeBody": "Choose what appears on the home screen.",
+  "@setupHomeBody": {
+    "description": "Text of the home step"
+  },
+  "setupHomeFavoritePlaylists": "Favorite playlists",
+  "@setupHomeFavoritePlaylists": {
+    "description": "Home section toggle"
+  },
+  "setupHomeFavoritePlaylistsDesc": "Playlists you marked as favorite, at the top.",
+  "@setupHomeFavoritePlaylistsDesc": {
+    "description": "Home section toggle description"
+  },
+  "setupHomeRecommendations": "Mixes for you",
+  "@setupHomeRecommendations": {
+    "description": "Home section toggle"
+  },
+  "setupHomeRecommendationsDesc": "Suggestions based on what you listen to.",
+  "@setupHomeRecommendationsDesc": {
+    "description": "Home section toggle description"
+  },
+  "setupQualityTitle": "Sound quality",
+  "@setupQualityTitle": {
+    "description": "Title of the quality step"
+  },
+  "setupQualityBody": "Higher quality uses more data. Octave picks the format for you.",
+  "@setupQualityBody": {
+    "description": "Text of the quality step"
+  },
+  "setupQualityWifi": "On Wi-Fi",
+  "@setupQualityWifi": {
+    "description": "Quality group for Wi-Fi"
+  },
+  "setupQualityMobile": "On mobile data",
+  "@setupQualityMobile": {
+    "description": "Quality group for mobile data"
+  },
+  "setupQualityBest": "Best quality",
+  "@setupQualityBest": {
+    "description": "Quality choice"
+  },
+  "setupQualityBestDesc": "Original file, lossless when available",
+  "@setupQualityBestDesc": {
+    "description": "Quality choice description"
+  },
+  "setupQualityBalanced": "Balanced",
+  "@setupQualityBalanced": {
+    "description": "Quality choice"
+  },
+  "setupQualityBalancedDesc": "About 85 MB per hour",
+  "@setupQualityBalancedDesc": {
+    "description": "Quality choice description"
+  },
+  "setupQualitySaver": "Data saver",
+  "@setupQualitySaver": {
+    "description": "Quality choice"
+  },
+  "setupQualitySaverDesc": "About 60 MB per hour",
+  "@setupQualitySaverDesc": {
+    "description": "Quality choice description"
+  },
+  "setupOfflineTitle": "Offline listening",
+  "@setupOfflineTitle": {
+    "description": "Title of the offline step"
+  },
+  "setupOfflineBody": "Songs you like can download by themselves, to play them without a network.",
+  "@setupOfflineBody": {
+    "description": "Text of the offline step"
+  },
+  "setupOfflineYes": "Download my liked songs",
+  "@setupOfflineYes": {
+    "description": "Offline choice"
+  },
+  "setupOfflineYesDesc": "Each song you like is saved on the phone.",
+  "@setupOfflineYesDesc": {
+    "description": "Offline choice description"
+  },
+  "setupOfflineNo": "I'll choose myself",
+  "@setupOfflineNo": {
+    "description": "Offline choice"
+  },
+  "setupOfflineNoDesc": "Download albums and playlists from their menu.",
+  "@setupOfflineNoDesc": {
+    "description": "Offline choice description"
+  },
+  "setupPermissionsTitle": "Permissions",
+  "@setupPermissionsTitle": {
+    "description": "Title of the permissions step"
+  },
+  "setupPermissionsBody": "Two permissions keep the music playing when the screen is off.",
+  "@setupPermissionsBody": {
+    "description": "Text of the permissions step"
+  },
+  "setupPermNotifications": "Notifications",
+  "@setupPermNotifications": {
+    "description": "Permission name"
+  },
+  "setupPermNotificationsDesc": "Shows the player on the lock screen.",
+  "@setupPermNotificationsDesc": {
+    "description": "Why the notification permission is needed"
+  },
+  "setupPermBattery": "Battery",
+  "@setupPermBattery": {
+    "description": "Permission name"
+  },
+  "setupPermBatteryDesc": "Without it, some phones stop the music when the screen is off.",
+  "@setupPermBatteryDesc": {
+    "description": "Why the battery permission is needed"
+  },
+  "setupPermAllow": "Allow",
+  "@setupPermAllow": {
+    "description": "Button requesting a permission"
+  },
+  "setupPermGranted": "Allowed",
+  "@setupPermGranted": {
+    "description": "Permission already granted"
+  },
+  "setupDoneTitle": "All set",
+  "@setupDoneTitle": {
+    "description": "Title of the last setup step"
+  },
+  "setupDoneBody": "Everything can be changed in Settings. You can also run this setup again from About.",
+  "@setupDoneBody": {
+    "description": "Text of the last setup step"
+  },
+  "setupDoneStart": "Start listening",
+  "@setupDoneStart": {
+    "description": "Button closing the setup"
+  },
+  "setupSummaryColor": "Color",
+  "@setupSummaryColor": {
+    "description": "Summary row"
+  },
+  "setupSummaryMode": "Display",
+  "@setupSummaryMode": {
+    "description": "Summary row"
+  },
+  "setupSummaryArtists": "Favorite artists",
+  "@setupSummaryArtists": {
+    "description": "Summary row"
+  },
+  "setupSummaryWifi": "Quality on Wi-Fi",
+  "@setupSummaryWifi": {
+    "description": "Summary row"
+  },
+  "setupSummaryMobile": "Quality on mobile data",
+  "@setupSummaryMobile": {
+    "description": "Summary row"
+  },
+  "setupSummaryOffline": "Automatic downloads",
+  "@setupSummaryOffline": {
+    "description": "Summary row"
+  },
+  "setupYes": "Yes",
+  "@setupYes": {
+    "description": "Summary value"
+  },
+  "setupNo": "No",
+  "@setupNo": {
+    "description": "Summary value"
+  },
+  "setupRedoTitle": "Run setup again",
+  "@setupRedoTitle": {
+    "description": "About tile reopening the guided setup"
+  },
+  "setupRedoSubtitle": "Color, display, artists, quality and downloads",
+  "@setupRedoSubtitle": {
+    "description": "About tile description"
+  },
+  "colorNameOctave": "Night blue",
+  "@colorNameOctave": {
+    "description": "App color name"
+  },
+  "colorNameRed": "Red",
+  "@colorNameRed": {
+    "description": "App color name"
+  },
+  "colorNameOrange": "Orange",
+  "@colorNameOrange": {
+    "description": "App color name"
+  },
+  "colorNameYellow": "Yellow",
+  "@colorNameYellow": {
+    "description": "App color name"
+  },
+  "colorNameGreen": "Green",
+  "@colorNameGreen": {
+    "description": "App color name"
+  },
+  "colorNameTeal": "Teal",
+  "@colorNameTeal": {
+    "description": "App color name"
+  },
+  "colorNameBlue": "Blue",
+  "@colorNameBlue": {
+    "description": "App color name"
+  },
+  "colorNamePink": "Pink",
+  "@colorNamePink": {
+    "description": "App color name"
+  },
+  "colorNamePurple": "Purple",
+  "@colorNamePurple": {
+    "description": "App color name"
+  },
+  "colorNameDynamic": "Wallpaper colors",
+  "@colorNameDynamic": {
+    "description": "App color name for Material You"
+  },
+  "setupStyleTitle": "Your covers",
+  "@setupStyleTitle": {
+    "description": "Title of the artwork shape step"
+  },
+  "setupStyleBody": "Their shape across the whole app.",
+  "@setupStyleBody": {
+    "description": "Text of the artwork shape step"
+  },
+  "setupStyleRounded": "Rounded",
+  "@setupStyleRounded": {
+    "description": "Artwork shape"
+  },
+  "setupStyleSquare": "Square",
+  "@setupStyleSquare": {
+    "description": "Artwork shape"
+  },
+  "setupStyleCircle": "Round",
+  "@setupStyleCircle": {
+    "description": "Artwork shape"
+  },
+  "setupSummaryCovers": "Covers",
+  "@setupSummaryCovers": {
+    "description": "Summary row"
   }
 }

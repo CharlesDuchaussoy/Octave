@@ -20,6 +20,13 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Les liens « GitHub », « Nouveautés », « Signaler un problème », traductions et politique de confidentialité mènent à Octave. Le crédit à dddevid, auteur de Musly, reste dans l'écran « À propos ».
 - Politique de confidentialité adaptée à Octave.
 
+### Première installation
+
+- Un écran d'accueil sobre avant la connexion, à la place des trois pages de présentation de Musly.
+- Une configuration guidée après la connexion, une question par écran, avec un choix conseillé déjà sélectionné : couleur et mode d'affichage (avec un aperçu en direct), forme des pochettes, artistes favoris, rubriques de l'accueil, qualité du son en Wi-Fi et en données mobiles, téléchargement automatique des titres aimés, autorisations (notifications et batterie), puis un résumé.
+- Chaque étape peut être passée, et l'app reprend à la même étape si elle est fermée en cours de route.
+- La configuration se refait depuis Réglages, À propos.
+
 ### Design
 
 - Nouveau design aux couleurs du logo : fonds bleu nuit et accent bleu ciel en mode sombre, accent bleu nuit en mode clair.

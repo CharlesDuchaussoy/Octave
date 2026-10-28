@@ -3952,18 +3952,6 @@ abstract class AppLocalizations {
   /// **'Add Server / Service'**
   String get addServerOrService;
 
-  /// Title for welcome tour tile in about tab
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome Tour'**
-  String get welcomeTourTitle;
-
-  /// Subtitle for welcome tour tile
-  ///
-  /// In en, this message translates to:
-  /// **'Replay the introductory onboarding experience'**
-  String get welcomeTourSubtitle;
-
   /// Playback preview in debug mode
   ///
   /// In en, this message translates to:
@@ -4720,198 +4708,6 @@ abstract class AppLocalizations {
   /// **'Add radio stations in your server settings to see them here.'**
   String get addRadioStationsHint;
 
-  /// Next button in onboarding
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get onboardingNext;
-
-  /// Get Started button in onboarding
-  ///
-  /// In en, this message translates to:
-  /// **'Get Started'**
-  String get onboardingGetStarted;
-
-  /// Previous slide tooltip
-  ///
-  /// In en, this message translates to:
-  /// **'Previous (Left Arrow)'**
-  String get previousSlideTooltip;
-
-  /// Next slide tooltip
-  ///
-  /// In en, this message translates to:
-  /// **'Next (Right Arrow / Space)'**
-  String get nextSlideTooltip;
-
-  /// Onboarding slide 1 title prefix
-  ///
-  /// In en, this message translates to:
-  /// **'Your Music Library,\n'**
-  String get onboardingSlide1TitlePrefix;
-
-  /// Onboarding slide 1 title highlight
-  ///
-  /// In en, this message translates to:
-  /// **'In Your Pocket.'**
-  String get onboardingSlide1TitleHighlight;
-
-  /// Onboarding slide 1 description
-  ///
-  /// In en, this message translates to:
-  /// **'Connect to Navidrome, Subsonic, Jellyfin, or play local files with bit-perfect lossless quality.'**
-  String get onboardingSlide1Description;
-
-  /// Onboarding slide 1 feature 1 title
-  ///
-  /// In en, this message translates to:
-  /// **'Self-Hosted Freedom'**
-  String get onboardingSlide1Feature1Title;
-
-  /// Onboarding slide 1 feature 1 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Full compatibility with Subsonic, Navidrome, and Jellyfin APIs.'**
-  String get onboardingSlide1Feature1Desc;
-
-  /// Onboarding slide 1 feature 2 title
-  ///
-  /// In en, this message translates to:
-  /// **'Local Music Support'**
-  String get onboardingSlide1Feature2Title;
-
-  /// Onboarding slide 1 feature 2 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Play your offline collection directly without server setup.'**
-  String get onboardingSlide1Feature2Desc;
-
-  /// Onboarding slide 1 feature 3 title
-  ///
-  /// In en, this message translates to:
-  /// **'Lossless Hi-Res Audio'**
-  String get onboardingSlide1Feature3Title;
-
-  /// Onboarding slide 1 feature 3 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Bit-perfect FLAC, ALAC, Opus, and gapless audio playback.'**
-  String get onboardingSlide1Feature3Desc;
-
-  /// Onboarding slide 2 title prefix
-  ///
-  /// In en, this message translates to:
-  /// **'Smart Mixes,\n'**
-  String get onboardingSlide2TitlePrefix;
-
-  /// Onboarding slide 2 title highlight
-  ///
-  /// In en, this message translates to:
-  /// **'Built Around You.'**
-  String get onboardingSlide2TitleHighlight;
-
-  /// Onboarding slide 2 description
-  ///
-  /// In en, this message translates to:
-  /// **'Octave learns your listening habits on-device to craft dynamic daily mixes and surface forgotten favorites.'**
-  String get onboardingSlide2Description;
-
-  /// Onboarding slide 2 feature 1 title
-  ///
-  /// In en, this message translates to:
-  /// **'Algorithmic Taste Profiling'**
-  String get onboardingSlide2Feature1Title;
-
-  /// Onboarding slide 2 feature 1 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Learns play frequencies, skips, and ratings with recency decay.'**
-  String get onboardingSlide2Feature1Desc;
-
-  /// Onboarding slide 2 feature 2 title
-  ///
-  /// In en, this message translates to:
-  /// **'Personalized Daily Mixes'**
-  String get onboardingSlide2Feature2Title;
-
-  /// Onboarding slide 2 feature 2 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Automatic Made For You, Listen Again, and Top Hits playlists.'**
-  String get onboardingSlide2Feature2Desc;
-
-  /// Onboarding slide 2 feature 3 title
-  ///
-  /// In en, this message translates to:
-  /// **'100% On-Device Processing'**
-  String get onboardingSlide2Feature3Title;
-
-  /// Onboarding slide 2 feature 3 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Your listening profile stays strictly on your hardware.'**
-  String get onboardingSlide2Feature3Desc;
-
-  /// Onboarding slide 3 title prefix
-  ///
-  /// In en, this message translates to:
-  /// **'Completely Private.\n'**
-  String get onboardingSlide3TitlePrefix;
-
-  /// Onboarding slide 3 title highlight
-  ///
-  /// In en, this message translates to:
-  /// **'No Ads, No Tracking.'**
-  String get onboardingSlide3TitleHighlight;
-
-  /// Onboarding slide 3 description
-  ///
-  /// In en, this message translates to:
-  /// **'Zero analytics, zero telemetry. Enjoy time-synced lyrics, offline downloads, and desktop sync in total privacy.'**
-  String get onboardingSlide3Description;
-
-  /// Onboarding slide 3 feature 1 title
-  ///
-  /// In en, this message translates to:
-  /// **'Zero Telemetry & Tracking'**
-  String get onboardingSlide3Feature1Title;
-
-  /// Onboarding slide 3 feature 1 desc
-  ///
-  /// In en, this message translates to:
-  /// **'No third-party SDKs, no trackers, no ads, completely open source.'**
-  String get onboardingSlide3Feature1Desc;
-
-  /// Onboarding slide 3 feature 2 title
-  ///
-  /// In en, this message translates to:
-  /// **'Time-Synced Lyrics'**
-  String get onboardingSlide3Feature2Title;
-
-  /// Onboarding slide 3 feature 2 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Real-time synchronized karaoke lyrics with LRCLIB fallback.'**
-  String get onboardingSlide3Feature2Desc;
-
-  /// Onboarding slide 3 feature 3 title
-  ///
-  /// In en, this message translates to:
-  /// **'Offline Download Manager'**
-  String get onboardingSlide3Feature3Title;
-
-  /// Onboarding slide 3 feature 3 desc
-  ///
-  /// In en, this message translates to:
-  /// **'Cache full playlists and albums with batch downloading.'**
-  String get onboardingSlide3Feature3Desc;
-
-  /// Finish tour button
-  ///
-  /// In en, this message translates to:
-  /// **'Finish Tour'**
-  String get finishTour;
-
   /// Skip button
   ///
   /// In en, this message translates to:
@@ -5565,6 +5361,486 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Octave night blue'**
   String get accentColorOctave;
+
+  /// Tagline on the first screen
+  ///
+  /// In en, this message translates to:
+  /// **'Your music, your way.'**
+  String get welcomeTagline;
+
+  /// Button on the first screen
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get welcomeStart;
+
+  /// Skip the current setup step
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get setupSkip;
+
+  /// Go back to the previous setup step
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get setupBack;
+
+  /// Go to the next setup step
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get setupContinue;
+
+  /// Label next to the recommended choice
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get setupRecommended;
+
+  /// Greeting with the account name
+  ///
+  /// In en, this message translates to:
+  /// **'Hello {name}'**
+  String setupHelloTitle(String name);
+
+  /// Introduction of the guided setup
+  ///
+  /// In en, this message translates to:
+  /// **'A few questions to set Octave up the way you like. It takes about two minutes, and everything can be changed later in Settings.'**
+  String get setupHelloBody;
+
+  /// Start the guided setup
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get setupHelloStart;
+
+  /// Skip the whole guided setup
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get setupLater;
+
+  /// Title of the color step
+  ///
+  /// In en, this message translates to:
+  /// **'Your color'**
+  String get setupColorTitle;
+
+  /// Text of the color step
+  ///
+  /// In en, this message translates to:
+  /// **'It tints the whole app. Night blue is the color of the logo.'**
+  String get setupColorBody;
+
+  /// Title of the display mode step
+  ///
+  /// In en, this message translates to:
+  /// **'Light or dark'**
+  String get setupModeTitle;
+
+  /// Text of the display mode step
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic follows your phone\'s setting.'**
+  String get setupModeBody;
+
+  /// Display mode following the system
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get setupModeAuto;
+
+  /// Light display mode
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get setupModeLight;
+
+  /// Dark display mode
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get setupModeDark;
+
+  /// Title of the artists step
+  ///
+  /// In en, this message translates to:
+  /// **'Your artists'**
+  String get setupArtistsTitle;
+
+  /// Text of the artists step
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the ones you listen to most. They become favorites and shape your mixes.'**
+  String get setupArtistsBody;
+
+  /// Shown when the library has no artists
+  ///
+  /// In en, this message translates to:
+  /// **'No artists in your library yet.'**
+  String get setupArtistsEmpty;
+
+  /// Continue button with the number of selected artists
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Continue with 1 artist} other{Continue with {count} artists}}'**
+  String setupArtistsContinue(int count);
+
+  /// Title of the home step
+  ///
+  /// In en, this message translates to:
+  /// **'Your home screen'**
+  String get setupHomeTitle;
+
+  /// Text of the home step
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what appears on the home screen.'**
+  String get setupHomeBody;
+
+  /// Home section toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite playlists'**
+  String get setupHomeFavoritePlaylists;
+
+  /// Home section toggle description
+  ///
+  /// In en, this message translates to:
+  /// **'Playlists you marked as favorite, at the top.'**
+  String get setupHomeFavoritePlaylistsDesc;
+
+  /// Home section toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Mixes for you'**
+  String get setupHomeRecommendations;
+
+  /// Home section toggle description
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions based on what you listen to.'**
+  String get setupHomeRecommendationsDesc;
+
+  /// Title of the quality step
+  ///
+  /// In en, this message translates to:
+  /// **'Sound quality'**
+  String get setupQualityTitle;
+
+  /// Text of the quality step
+  ///
+  /// In en, this message translates to:
+  /// **'Higher quality uses more data. Octave picks the format for you.'**
+  String get setupQualityBody;
+
+  /// Quality group for Wi-Fi
+  ///
+  /// In en, this message translates to:
+  /// **'On Wi-Fi'**
+  String get setupQualityWifi;
+
+  /// Quality group for mobile data
+  ///
+  /// In en, this message translates to:
+  /// **'On mobile data'**
+  String get setupQualityMobile;
+
+  /// Quality choice
+  ///
+  /// In en, this message translates to:
+  /// **'Best quality'**
+  String get setupQualityBest;
+
+  /// Quality choice description
+  ///
+  /// In en, this message translates to:
+  /// **'Original file, lossless when available'**
+  String get setupQualityBestDesc;
+
+  /// Quality choice
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced'**
+  String get setupQualityBalanced;
+
+  /// Quality choice description
+  ///
+  /// In en, this message translates to:
+  /// **'About 85 MB per hour'**
+  String get setupQualityBalancedDesc;
+
+  /// Quality choice
+  ///
+  /// In en, this message translates to:
+  /// **'Data saver'**
+  String get setupQualitySaver;
+
+  /// Quality choice description
+  ///
+  /// In en, this message translates to:
+  /// **'About 60 MB per hour'**
+  String get setupQualitySaverDesc;
+
+  /// Title of the offline step
+  ///
+  /// In en, this message translates to:
+  /// **'Offline listening'**
+  String get setupOfflineTitle;
+
+  /// Text of the offline step
+  ///
+  /// In en, this message translates to:
+  /// **'Songs you like can download by themselves, to play them without a network.'**
+  String get setupOfflineBody;
+
+  /// Offline choice
+  ///
+  /// In en, this message translates to:
+  /// **'Download my liked songs'**
+  String get setupOfflineYes;
+
+  /// Offline choice description
+  ///
+  /// In en, this message translates to:
+  /// **'Each song you like is saved on the phone.'**
+  String get setupOfflineYesDesc;
+
+  /// Offline choice
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll choose myself'**
+  String get setupOfflineNo;
+
+  /// Offline choice description
+  ///
+  /// In en, this message translates to:
+  /// **'Download albums and playlists from their menu.'**
+  String get setupOfflineNoDesc;
+
+  /// Title of the permissions step
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions'**
+  String get setupPermissionsTitle;
+
+  /// Text of the permissions step
+  ///
+  /// In en, this message translates to:
+  /// **'Two permissions keep the music playing when the screen is off.'**
+  String get setupPermissionsBody;
+
+  /// Permission name
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get setupPermNotifications;
+
+  /// Why the notification permission is needed
+  ///
+  /// In en, this message translates to:
+  /// **'Shows the player on the lock screen.'**
+  String get setupPermNotificationsDesc;
+
+  /// Permission name
+  ///
+  /// In en, this message translates to:
+  /// **'Battery'**
+  String get setupPermBattery;
+
+  /// Why the battery permission is needed
+  ///
+  /// In en, this message translates to:
+  /// **'Without it, some phones stop the music when the screen is off.'**
+  String get setupPermBatteryDesc;
+
+  /// Button requesting a permission
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get setupPermAllow;
+
+  /// Permission already granted
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed'**
+  String get setupPermGranted;
+
+  /// Title of the last setup step
+  ///
+  /// In en, this message translates to:
+  /// **'All set'**
+  String get setupDoneTitle;
+
+  /// Text of the last setup step
+  ///
+  /// In en, this message translates to:
+  /// **'Everything can be changed in Settings. You can also run this setup again from About.'**
+  String get setupDoneBody;
+
+  /// Button closing the setup
+  ///
+  /// In en, this message translates to:
+  /// **'Start listening'**
+  String get setupDoneStart;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get setupSummaryColor;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get setupSummaryMode;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite artists'**
+  String get setupSummaryArtists;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Quality on Wi-Fi'**
+  String get setupSummaryWifi;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Quality on mobile data'**
+  String get setupSummaryMobile;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic downloads'**
+  String get setupSummaryOffline;
+
+  /// Summary value
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get setupYes;
+
+  /// Summary value
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get setupNo;
+
+  /// About tile reopening the guided setup
+  ///
+  /// In en, this message translates to:
+  /// **'Run setup again'**
+  String get setupRedoTitle;
+
+  /// About tile description
+  ///
+  /// In en, this message translates to:
+  /// **'Color, display, artists, quality and downloads'**
+  String get setupRedoSubtitle;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Night blue'**
+  String get colorNameOctave;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get colorNameRed;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get colorNameOrange;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow'**
+  String get colorNameYellow;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get colorNameGreen;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Teal'**
+  String get colorNameTeal;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get colorNameBlue;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get colorNamePink;
+
+  /// App color name
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get colorNamePurple;
+
+  /// App color name for Material You
+  ///
+  /// In en, this message translates to:
+  /// **'Wallpaper colors'**
+  String get colorNameDynamic;
+
+  /// Title of the artwork shape step
+  ///
+  /// In en, this message translates to:
+  /// **'Your covers'**
+  String get setupStyleTitle;
+
+  /// Text of the artwork shape step
+  ///
+  /// In en, this message translates to:
+  /// **'Their shape across the whole app.'**
+  String get setupStyleBody;
+
+  /// Artwork shape
+  ///
+  /// In en, this message translates to:
+  /// **'Rounded'**
+  String get setupStyleRounded;
+
+  /// Artwork shape
+  ///
+  /// In en, this message translates to:
+  /// **'Square'**
+  String get setupStyleSquare;
+
+  /// Artwork shape
+  ///
+  /// In en, this message translates to:
+  /// **'Round'**
+  String get setupStyleCircle;
+
+  /// Summary row
+  ///
+  /// In en, this message translates to:
+  /// **'Covers'**
+  String get setupSummaryCovers;
 }
 
 class _AppLocalizationsDelegate
