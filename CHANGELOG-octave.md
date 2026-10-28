@@ -56,6 +56,10 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 
 - Octave envoie aux enceintes un format qu'elles savent lire : le fichier d'origine quand c'est possible (MP3, FLAC jusqu'à 96 kHz, Opus, AAC, WAV), sinon du MP3 à 320 kb/s, toujours avec le bon type annoncé. Musly envoyait le fichier tel quel, parfois transcodé par le serveur sans le dire, ce que les enceintes refusent.
 - La fenêtre « Écouter sur un appareil » indique qu'elle cherche, puis rappelle que le téléphone et l'enceinte doivent être sur le même Wi-Fi.
+- L'enceinte reçoit le titre en cours et les 20 suivants, et les joue d'elle-même : la musique continue quand le téléphone se met en veille ou qu'Octave est fermé. Octave suit l'enceinte et complète sa liste au fur et à mesure, y compris avec les titres ajoutés à la file.
+- Les titres s'enchaînent sans blanc : l'enceinte prépare le suivant 20 secondes avant la fin.
+- En se reconnectant à une enceinte qui joue encore sa file, Octave reprend là où elle en est au lieu de revenir au titre d'avant.
+- Un titre que l'enceinte ne peut pas lire est passé, au lieu d'arrêter la musique (trois fois de suite au plus).
 
 ### Réglages plus simples
 
