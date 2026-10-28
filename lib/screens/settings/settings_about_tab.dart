@@ -340,7 +340,8 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
     );
 
     try {
-      final release = await UpdateService.checkForUpdate(force: true);
+      final release = await UpdateService.checkForUpdate(
+          force: true, rethrowErrors: true);
       if (!mounted) return;
 
       if (release != null) {
@@ -359,7 +360,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.errorWithDetails('$e')),
+            content: Text(l10n.updateCheckFailed),
             behavior: SnackBarBehavior.floating,
           ),
         );
