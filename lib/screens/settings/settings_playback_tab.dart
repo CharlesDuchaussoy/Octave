@@ -14,7 +14,6 @@ import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
-import 'package:musly/utils/context_extensions.dart';
 
 import 'package:musly/services/crossfade_service.dart';
 
@@ -119,7 +118,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
 
   Widget _buildAutoDjModeSelector() {
     return SettingsListTile(
-      gradientColors: const [Color(0xFFFF2D55), Color(0xFFFF6B6B)],
       icon: CupertinoIcons.wand_stars,
       title: AppLocalizations.of(context)!.autoDjMode,
       trailing: DropdownButton<AutoDjMode>(
@@ -157,7 +155,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       leading: SettingsIconBadge(
-        gradientColors: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
         icon: CupertinoIcons.music_note_list,
       ),
       title: Text(
@@ -185,7 +182,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
 
   Widget _buildReplayGainModeSelector() {
     return SettingsListTile(
-      gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
       icon: CupertinoIcons.speaker_2,
       title: AppLocalizations.of(context)!.replayGainMode,
       trailing: DropdownButton<ReplayGainMode>(
@@ -273,13 +269,11 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
   }
 
   Widget _buildLrcLibSection() {
-    final accent = Theme.of(context).colorScheme.primary;
     final l10n = AppLocalizations.of(context)!;
     return SettingsSectionCard(
       title: l10n.sectionLyrics,
       children: [
         SettingsSwitchTile(
-          gradientColors: [accent, accent.withValues(alpha: 0.6)],
           icon: CupertinoIcons.text_quote,
           title: AppLocalizations.of(context)!.enableLrcLibFallback,
           subtitle: AppLocalizations.of(context)!.lrcLibFallbackSubtitle,
@@ -296,7 +290,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
 
   Widget _buildCrossfadeSection() {
     final accent = Theme.of(context).colorScheme.primary;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final crossfadeSec = _crossfadeService.getCrossfadeSeconds();
 
@@ -304,7 +297,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
       title: l10n.sectionSmartCrossfade,
       children: [
         SettingsListTile(
-          gradientColors: [accent, accent.withValues(alpha: 0.6)],
           icon: CupertinoIcons.slider_horizontal_below_rectangle,
           title: l10n.trackCrossfade,
           subtitle: crossfadeSec == 0
@@ -341,15 +333,15 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
                   Text(l10n.replayGainModeOff,
                       style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white38 : Colors.black38)),
+                          color: context.octave.text3)),
                   Text(l10n.crossfadeDurationBadge(6),
                       style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white38 : Colors.black38)),
+                          color: context.octave.text3)),
                   Text(l10n.crossfadeDurationBadge(12),
                       style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white38 : Colors.black38)),
+                          color: context.octave.text3)),
                 ],
               ),
             ],
@@ -362,13 +354,11 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
   Widget _buildGaplessSection() {
     return Consumer<PlayerProvider>(
       builder: (context, player, _) {
-        final accent = Theme.of(context).colorScheme.primary;
         final l10n = AppLocalizations.of(context)!;
         return SettingsSectionCard(
           title: l10n.sectionGaplessPlayback,
           children: [
             SettingsSwitchTile(
-              gradientColors: [accent, accent.withValues(alpha: 0.6)],
               icon: CupertinoIcons.link,
               title: l10n.gaplessPlayback,
               subtitle: l10n.gaplessPlaybackSubtitle,
@@ -387,10 +377,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
       title: l10n.sectionFadeInOut,
       children: [
         SettingsSwitchTile(
-          gradientColors: [
-            Theme.of(context).colorScheme.primary,
-            Theme.of(context).colorScheme.primary.withValues(alpha: 0.6),
-          ],
           icon: CupertinoIcons.waveform,
           title: l10n.fadeInOutEnable,
           subtitle: l10n.fadeInOutSubtitle,
@@ -432,10 +418,7 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
   Widget _buildTranscodingSection() {
     return Consumer<TranscodingService>(
       builder: (context, ts, _) {
-        final accent = Theme.of(context).colorScheme.primary;
-        final secondaryText = context.isDark
-            ? AppTheme.darkSecondaryText
-            : AppTheme.lightSecondaryText;
+        final secondaryText = context.octave.text2;
 
         Widget connectionBadge() {
           final isWifi = ts.currentConnectionType == ConnectionType.wifi;
@@ -443,7 +426,7 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: (isWifi ? Colors.green : Colors.orange)
+              color: (isWifi ? context.octave.success : context.octave.warning)
                   .withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(20),
             ),
@@ -453,7 +436,7 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
                 Icon(
                   isWifi ? Icons.wifi_rounded : Icons.signal_cellular_alt,
                   size: 12,
-                  color: isWifi ? Colors.green : Colors.orange,
+                  color: isWifi ? context.octave.success : context.octave.warning,
                 ),
                 const SizedBox(width: 4),
                 Text(
@@ -461,7 +444,7 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: isWifi ? Colors.green : Colors.orange,
+                    color: isWifi ? context.octave.success : context.octave.warning,
                   ),
                 ),
               ],
@@ -473,7 +456,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
           title: AppLocalizations.of(context)!.sectionStreamingQuality,
           children: [
             SettingsSwitchTile(
-              gradientColors: const [Color(0xFFFF9500), Color(0xFFFF3B30)],
               icon: CupertinoIcons.waveform,
               title: AppLocalizations.of(context)!.transcodingEnable,
               subtitle: AppLocalizations.of(context)!.transcodingEnableSubtitle,
@@ -483,7 +465,6 @@ class _SettingsPlaybackTabState extends State<SettingsPlaybackTab> {
             if (ts.enabled) ...[
               const SettingsDivider(),
               SettingsSwitchTile(
-                gradientColors: [accent, accent.withValues(alpha: 0.6)],
                 icon: Icons.auto_fix_high_rounded,
                 title: AppLocalizations.of(context)!.smartTranscoding,
                 subtitle: AppLocalizations.of(context)!.smartTranscodingSubtitle,

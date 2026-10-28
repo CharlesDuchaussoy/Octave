@@ -279,16 +279,16 @@ class _MainScreenState extends State<MainScreen> {
           },
           child: TvRemoteScope(
             child: Scaffold(
-            backgroundColor: Theme.of(context).brightness == Brightness.dark
-                ? AppTheme.darkBackground
-                : AppTheme.lightBackground,
+            backgroundColor: context.octave.background,
             resizeToAvoidBottomInset: false,
             body: Column(
               children: [
                 if (widget.isOfflineMode || isLocalMode)
                   Container(
                     width: double.infinity,
-                    color: isLocalMode ? Colors.indigo : Colors.orange,
+                    color: isLocalMode
+                        ? context.octave.accentSoft
+                        : context.octave.warning,
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
                       horizontal: 16,
@@ -301,7 +301,9 @@ class _MainScreenState extends State<MainScreen> {
                             isLocalMode
                                 ? CupertinoIcons.folder_fill
                                 : CupertinoIcons.wifi_slash,
-                            color: Colors.white,
+                            color: isLocalMode
+                                ? context.octave.onAccentSoft
+                                : context.octave.background,
                             size: 18,
                           ),
                           const SizedBox(width: 8),
@@ -316,8 +318,10 @@ class _MainScreenState extends State<MainScreen> {
                                       context,
                                     )!
                                       .offlineModeBanner,
-                              style: const TextStyle(
-                                color: Colors.white,
+                              style: TextStyle(
+                                color: isLocalMode
+                                    ? context.octave.onAccentSoft
+                                    : context.octave.background,
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -426,7 +430,6 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildGlassBottomNav(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final accent = theme.colorScheme.primary;
     final safeBottom = MediaQuery.of(context).padding.bottom;
     final l10n = AppLocalizations.of(context)!;
@@ -454,12 +457,10 @@ class _MainScreenState extends State<MainScreen> {
       child: Container(
         height: 62,
         decoration: BoxDecoration(
-          color: isDark ? const Color(0xF018181A) : const Color(0xF5FFFFFF),
+          color: context.octave.bar.withValues(alpha: 0.94),
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: isDark
-                ? Colors.white.withValues(alpha: 0.12)
-                : Colors.black.withValues(alpha: 0.08),
+            color: context.octave.separator.withValues(alpha: 0.6),
             width: 0.8,
           ),
           boxShadow: [
@@ -514,7 +515,7 @@ class _MainScreenState extends State<MainScreen> {
                         key: ValueKey(isSelected),
                         color: isSelected
                             ? accent
-                            : (isDark ? Colors.white54 : Colors.black38),
+                            : (context.octave.text3),
                         size: 22,
                       ),
                     ),
@@ -527,7 +528,7 @@ class _MainScreenState extends State<MainScreen> {
                             isSelected ? FontWeight.w600 : FontWeight.w400,
                         color: isSelected
                             ? accent
-                            : (isDark ? Colors.white54 : Colors.black38),
+                            : (context.octave.text3),
                       ),
                     ),
                   ],
@@ -541,16 +542,14 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildBottomNav(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? const Color(0xFF1C1C1E) : Colors.white,
+        color: context.octave.surface1,
         border: Border(
           top: BorderSide(
-            color: isDark ? const Color(0xFF38383A) : const Color(0xFFE5E5EA),
+            color: context.octave.separator,
             width: 0.5,
           ),
         ),

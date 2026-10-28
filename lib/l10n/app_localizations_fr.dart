@@ -1500,7 +1500,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get themeLabel => 'Thème';
 
   @override
-  String get accentColorLabel => 'Couleur d\'accentuation';
+  String get accentColorLabel => 'Couleur de l\'app';
 
   @override
   String get circularDesignLabel => 'Design circulaire';
@@ -3010,4 +3010,23 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Use app\'s active server';
+
+  @override
+  String get colorIntensityLabel => 'Intensité des couleurs';
+
+  @override
+  String get colorIntensityNeutral => 'Neutre';
+
+  @override
+  String get colorIntensityVivid => 'Coloré';
+
+  @override
+  String get pureBlackLabel => 'Noir pur';
+
+  @override
+  String get pureBlackSubtitle =>
+      'Fond noir en mode sombre, économise la batterie des écrans OLED';
+
+  @override
+  String get accentColorOctave => 'Bleu nuit Octave';
 }

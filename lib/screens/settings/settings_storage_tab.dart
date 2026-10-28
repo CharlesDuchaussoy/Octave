@@ -17,7 +17,6 @@ import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
 
-import 'package:musly/utils/context_extensions.dart';
 
 class SettingsStorageTab extends StatefulWidget {
   const SettingsStorageTab({super.key});
@@ -124,7 +123,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           children: [
             _buildCacheToggle(
               icon: CupertinoIcons.photo,
-              iconGradient: const [Color(0xFFFF3B30), Color(0xFFFF453A)],
               title: AppLocalizations.of(context)!.imageCacheTitle,
               subtitle: AppLocalizations.of(context)!.imageCacheSubtitle,
               value: _imageCacheEnabled,
@@ -133,7 +131,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             const SettingsDivider(),
             _buildCacheToggle(
               icon: CupertinoIcons.music_note,
-              iconGradient: const [Color(0xFF34C759), Color(0xFF30D158)],
               title: AppLocalizations.of(context)!.musicCacheTitle,
               subtitle: AppLocalizations.of(context)!.musicCacheSubtitle,
               value: _musicCacheEnabled,
@@ -142,7 +139,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             const SettingsDivider(),
             _buildCacheToggle(
               icon: CupertinoIcons.speedometer,
-              iconGradient: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
               title: AppLocalizations.of(context)!.bpmCacheTitle,
               subtitle: AppLocalizations.of(context)!.bpmCacheSubtitle,
               value: _bpmCacheEnabled,
@@ -205,14 +201,12 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
 
   Widget _buildCacheToggle({
     required IconData icon,
-    required List<Color> iconGradient,
     required String title,
     required String subtitle,
     required bool value,
     required Function(bool) onChanged,
   }) {
     return SettingsSwitchTile(
-      gradientColors: iconGradient,
       icon: icon,
       title: title,
       subtitle: subtitle,
@@ -248,7 +242,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           title: l10n.localMusicLibrary,
           children: [
             SettingsSwitchTile(
-              gradientColors: const [Color(0xFF8B5CF6), Color(0xFFA78BFA)],
               icon: CupertinoIcons.music_albums,
               title: l10n.mergeLocalLibrary,
               subtitle: l10n.mergeLocalLibrarySubtitle,
@@ -265,7 +258,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             ),
             const SettingsDivider(),
             SettingsListTile(
-              gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
               icon: CupertinoIcons.music_note,
               title: l10n.localMusicStats,
               subtitle: localMusic.isScanning ? localMusic.scanStatus : null,
@@ -273,15 +265,12 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
                 '${localMusic.songCount} ${l10n.songs.toLowerCase()}',
                 style: TextStyle(
                   fontSize: 14,
-                  color: context.isDark
-                      ? AppTheme.darkSecondaryText
-                      : AppTheme.lightSecondaryText,
+                  color: context.octave.text2,
                 ),
               ),
             ),
             const SettingsDivider(),
             SettingsListTile(
-              gradientColors: const [Color(0xFF007AFF), Color(0xFF5AC8FA)],
               icon: CupertinoIcons.plus,
               title: l10n.addMusicFolder,
               onTap: () => _addMusicFolder(context, localMusic),
@@ -289,13 +278,12 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             if (customPaths.isNotEmpty) ...[
               const SettingsDivider(),
               ...customPaths.map((path) => SettingsListTile(
-                    gradientColors: const [Color(0xFFFF9500), Color(0xFFFFB340)],
                     icon: CupertinoIcons.folder_fill,
                     title: p.basename(path),
                     subtitle: path,
                     trailing: IconButton(
-                      icon: const Icon(CupertinoIcons.delete,
-                          color: Colors.red, size: 20),
+                      icon: Icon(CupertinoIcons.delete,
+                          color: context.octave.danger, size: 20),
                       onPressed: () =>
                           _removeMusicFolder(context, localMusic, path),
                     ),
@@ -303,7 +291,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             ],
             const SettingsDivider(),
             SettingsListTile(
-              gradientColors: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
               icon: CupertinoIcons.refresh,
               title: l10n.rescanLocalMusic,
               onTap: localMusic.isScanning ? null : () => _rescanLocalMusic(context, localMusic),
@@ -345,7 +332,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
+            child: Text(l10n.remove, style: TextStyle(color: context.octave.danger)),
           ),
         ],
       ),
@@ -362,7 +349,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildKeepScreenOnTile() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFFF9500), Color(0xFFFFCC00)],
       icon: CupertinoIcons.bolt_fill,
       title: l10n.keepScreenOnDuringDownload,
       subtitle: l10n.keepScreenOnDuringDownloadSubtitle,
@@ -376,7 +362,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
 
   Widget _buildAutoDownloadFavoritesTile() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFE91E63), Color(0xFFF06292)],
       icon: CupertinoIcons.heart_solid,
       title: 'Auto Download Favorites',
       subtitle: 'Automatically download songs when added to favorites',
@@ -388,7 +373,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildParallelDownloadsTile() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsListTile(
-      gradientColors: const [Color(0xFF007AFF), Color(0xFF5AC8FA)],
       icon: CupertinoIcons.arrow_down_to_line,
       title: l10n.parallelDownloads,
       subtitle: l10n.parallelDownloadsSubtitle,
@@ -407,9 +391,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           Icon(
             CupertinoIcons.chevron_right,
             size: 16,
-            color: context.isDark
-                ? AppTheme.darkSecondaryText
-                : AppTheme.lightSecondaryText,
+            color: context.octave.text2,
           ),
         ],
       ),
@@ -421,7 +403,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
     final customPath = _offlineService.getCustomDownloadPath();
     final l10n = AppLocalizations.of(context)!;
     return SettingsListTile(
-      gradientColors: const [Color(0xFF007AFF), Color(0xFF00C6FF)],
       icon: CupertinoIcons.folder_badge_plus,
       title: l10n.downloadFolder,
       subtitle: customPath != null && customPath.isNotEmpty
@@ -441,9 +422,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           Icon(
             CupertinoIcons.chevron_right,
             size: 16,
-            color: context.isDark
-                ? AppTheme.darkSecondaryText
-                : AppTheme.lightSecondaryText,
+            color: context.octave.text2,
           ),
         ],
       ),
@@ -530,13 +509,12 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildAudioCacheRow() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsListTile(
-      gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
       icon: CupertinoIcons.music_note,
       title: l10n.songsStreamCache,
       subtitle: l10n.cacheDiskUsage(_audioCacheSize),
       trailing: IconButton(
-        icon: const Icon(CupertinoIcons.trash,
-            size: 20, color: Color(0xFFFF3B30)),
+        icon: Icon(CupertinoIcons.trash,
+            size: 20, color: context.octave.danger),
         tooltip: l10n.clearAudioCacheTooltip,
         onPressed: _clearAudioCache,
       ),
@@ -546,13 +524,12 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildImageCacheRow() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsListTile(
-      gradientColors: const [Color(0xFFFF9500), Color(0xFFFFCC00)],
       icon: CupertinoIcons.photo,
       title: l10n.imageArtworkCache,
       subtitle: l10n.cacheDiskUsage(_imageCacheSize),
       trailing: IconButton(
-        icon: const Icon(CupertinoIcons.trash,
-            size: 20, color: Color(0xFFFF3B30)),
+        icon: Icon(CupertinoIcons.trash,
+            size: 20, color: context.octave.danger),
         tooltip: l10n.clearImageCacheTooltip,
         onPressed: _clearImageCache,
       ),
@@ -562,7 +539,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildClearAllCacheButton() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsListTile(
-      gradientColors: const [Color(0xFFFF3B30), Color(0xFFFF453A)],
       icon: CupertinoIcons.trash_fill,
       title: l10n.clearAllCache,
       subtitle: l10n.totalCacheDiskUsage(_totalCacheSize),
@@ -609,7 +585,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
 
   Widget _buildOfflineInfo() {
     return SettingsListTile(
-      gradientColors: const [Color(0xFF007AFF), Color(0xFF5AC8FA)],
       icon: CupertinoIcons.arrow_down_circle,
       title: AppLocalizations.of(context)!.downloadedSongs,
       trailing: Text(
@@ -619,9 +594,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             .downloadedStats(_downloadedCount, _downloadedSize),
         style: TextStyle(
           fontSize: 14,
-          color: context.isDark
-              ? AppTheme.darkSecondaryText
-              : AppTheme.lightSecondaryText,
+          color: context.octave.text2,
         ),
       ),
     );
@@ -638,9 +611,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
                 ? '${state.currentProgress}/${state.totalCount}'
                 : l10n.noDownloadsInProgress;
         return SettingsListTile(
-          gradientColors: state.isDownloading
-              ? const [Color(0xFF34C759), Color(0xFF30D158)]
-              : const [Color(0xFF8E8E93), Color(0xFFAEAEB2)],
           icon: state.isDownloading
               ? CupertinoIcons.arrow_down_circle_fill
               : CupertinoIcons.arrow_down_circle,
@@ -658,7 +628,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
       valueListenable: _offlineService.downloadedSongIds,
       builder: (context, ids, _) {
         return SettingsListTile(
-          gradientColors: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
           icon: CupertinoIcons.music_note_list,
           title: l10n.playlistDownloads,
           subtitle: l10n.playlistSongsDownloadedCount(ids.length),
@@ -686,7 +655,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           return Column(
             children: [
               SettingsListTile(
-                gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
                 icon: CupertinoIcons.arrow_down_circle_fill,
                 title: AppLocalizations.of(context)!.downloadingLibrary(
                     downloadState.currentProgress,
@@ -703,11 +671,9 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
                 child: LinearProgressIndicator(
                   value: progress,
-                  backgroundColor: context.isDark
-                      ? AppTheme.darkCard
-                      : AppTheme.lightDivider,
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    Color(0xFF34C759),
+                  backgroundColor: context.octave.separator,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    context.octave.success,
                   ),
                 ),
               ),
@@ -716,7 +682,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
         }
 
         return SettingsListTile(
-          gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
           icon: CupertinoIcons.cloud_download,
           title: AppLocalizations.of(context)!.downloadAllLibrary,
           onTap: _downloadAllLibrary,
@@ -819,7 +784,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
             content: Text(
               AppLocalizations.of(context)!.errorStartingDownload(e),
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: context.octave.danger,
           ),
         );
       }
@@ -828,7 +793,6 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
 
   Widget _buildDeleteDownloadsButton() {
     return SettingsListTile(
-      gradientColors: const [Color(0xFFFF3B30), Color(0xFFFF453A)],
       icon: CupertinoIcons.trash_fill,
       title: AppLocalizations.of(context)!.deleteDownloads,
       onTap: () async {
@@ -848,16 +812,13 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildBPMCacheInfo() {
     final cachedCount = _bpmAnalyzer.getCachedCount();
     return SettingsListTile(
-      gradientColors: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
       icon: CupertinoIcons.speedometer,
       title: AppLocalizations.of(context)!.cachedBpms,
       trailing: Text(
         '$cachedCount',
         style: TextStyle(
           fontSize: 16,
-          color: context.isDark
-              ? AppTheme.darkSecondaryText
-              : AppTheme.lightSecondaryText,
+          color: context.octave.text2,
         ),
       ),
     );
@@ -870,7 +831,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
       child: LinearProgressIndicator(
         value: progress,
         backgroundColor:
-            context.isDark ? AppTheme.darkCard : AppTheme.lightDivider,
+            context.octave.separator,
         valueColor: AlwaysStoppedAnimation<Color>(
           Theme.of(context).colorScheme.primary,
         ),
@@ -915,7 +876,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
           ),
           title: Text(
             AppLocalizations.of(context)!.clearBpmCache,
-            style: const TextStyle(fontSize: 16, color: Color(0xFFFF3B30)),
+            style: TextStyle(fontSize: 16, color: context.octave.danger),
           ),
           onTap: () async {
             await _bpmAnalyzer.clearCache();

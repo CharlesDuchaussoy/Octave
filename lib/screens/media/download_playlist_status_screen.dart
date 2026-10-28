@@ -5,6 +5,7 @@ import 'package:musly/providers/library_provider.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/widgets/widgets.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class DownloadPlaylistStatusScreen extends StatelessWidget {
   const DownloadPlaylistStatusScreen({super.key});
@@ -80,9 +81,9 @@ class DownloadPlaylistStatusScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 14,
                               color: allDownloaded
-                                  ? Colors.green
+                                  ? context.octave.success
                                   : downloaded > 0
-                                      ? Colors.orange
+                                      ? context.octave.warning
                                       : Theme.of(context)
                                           .colorScheme
                                           .onSurface
@@ -94,8 +95,8 @@ class DownloadPlaylistStatusScreen extends StatelessWidget {
                           ),
                           if (allDownloaded) ...[
                             const SizedBox(width: 6),
-                            const Icon(Icons.check_circle,
-                                color: Colors.green, size: 18),
+                            Icon(Icons.check_circle,
+                                color: context.octave.success, size: 18),
                           ],
                         ],
                       )

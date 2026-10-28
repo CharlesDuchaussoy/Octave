@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
-import '../../utils/context_extensions.dart';
 import 'settings_icon_badge.dart';
 
 class SettingsListTile extends StatelessWidget {
@@ -10,7 +9,6 @@ class SettingsListTile extends StatelessWidget {
   final Widget? leading;
   final VoidCallback? onTap;
   final IconData? icon;
-  final List<Color>? gradientColors;
   final Color? titleColor;
 
   const SettingsListTile({
@@ -21,13 +19,12 @@ class SettingsListTile extends StatelessWidget {
     this.leading,
     this.onTap,
     this.icon,
-    this.gradientColors,
     this.titleColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final hasLeading = leading != null || (icon != null && gradientColors != null);
+    final hasLeading = leading != null || icon != null;
     
     return InkWell(
       onTap: onTap,
@@ -37,7 +34,7 @@ class SettingsListTile extends StatelessWidget {
         child: Row(
           children: [
             if (hasLeading) ...[
-              leading ?? SettingsIconBadge(gradientColors: gradientColors!, icon: icon!),
+              leading ?? SettingsIconBadge(icon: icon!),
               const SizedBox(width: 16),
             ],
             Expanded(
@@ -49,7 +46,7 @@ class SettingsListTile extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontSize: 16,
-                      color: titleColor ?? (context.isDark ? Colors.white : Colors.black),
+                      color: titleColor ?? (context.octave.text1),
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -59,9 +56,7 @@ class SettingsListTile extends StatelessWidget {
                       subtitle!,
                       style: TextStyle(
                         fontSize: 13,
-                        color: context.isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                       ),
                     ),
                   ],
@@ -74,7 +69,7 @@ class SettingsListTile extends StatelessWidget {
                 child: DefaultTextStyle(
                   style: TextStyle(
                     fontSize: 16,
-                    color: context.isDark ? AppTheme.darkSecondaryText : AppTheme.lightSecondaryText,
+                    color: context.octave.text2,
                   ),
                   child: trailing!,
                 ),

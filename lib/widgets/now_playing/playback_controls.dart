@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide RepeatMode;
 import 'package:flutter/services.dart';
 import '../../providers/player_provider.dart' show RepeatMode;
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class PlaybackControls extends StatelessWidget {
   final bool isPlaying;
@@ -47,7 +48,7 @@ class PlaybackControls extends StatelessWidget {
     final themePrimary = Theme.of(context).colorScheme.primary;
     final effectiveActiveColor = (accentColor == Colors.white ||
             accentColor.computeLuminance() > 0.85)
-        ? (themePrimary != Colors.white ? themePrimary : const Color(0xFFFA243C))
+        ? (themePrimary != Colors.white ? themePrimary : context.octave.accent)
         : accentColor;
 
     return Row(

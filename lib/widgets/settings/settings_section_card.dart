@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/app_dimensions.dart';
-import '../../utils/context_extensions.dart';
 
 class SettingsSectionCard extends StatelessWidget {
   final String title;
@@ -15,7 +14,6 @@ class SettingsSectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = context.isDark;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,9 +25,7 @@ class SettingsSectionCard extends StatelessWidget {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w400,
-              color: isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
               letterSpacing: 0.2,
             ),
           ),
@@ -37,7 +33,7 @@ class SettingsSectionCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Material(
-            color: isDark ? AppTheme.darkSurface : Colors.white,
+            color: context.octave.surface1,
             borderRadius:
                 BorderRadius.circular(AppDimensions.sectionCardRadius),
             clipBehavior: Clip.antiAlias,
@@ -58,7 +54,7 @@ class SettingsDivider extends StatelessWidget {
       padding: const EdgeInsets.only(left: AppDimensions.dividerIndent),
       child: Container(
         height: AppDimensions.dividerHeight,
-        color: context.isDark ? AppTheme.darkDivider : AppTheme.lightDivider,
+        color: context.octave.separator,
       ),
     );
   }

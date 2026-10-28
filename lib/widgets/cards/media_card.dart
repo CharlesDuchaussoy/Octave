@@ -37,7 +37,6 @@ class _MediaCardState extends State<MediaCard> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     bool isTv = false;
     try {
       isTv = Provider.of<TvDetectionService>(context).isTvMode;
@@ -73,7 +72,7 @@ class _MediaCardState extends State<MediaCard> {
               width: widget.size,
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isDark ? AppTheme.darkCard : AppTheme.lightCard,
+                color: context.octave.surface1,
                 borderRadius: BorderRadius.circular(8),
                 border: isTv && _isFocused
                     ? Border.all(color: Colors.white, width: 3.0)
@@ -142,9 +141,7 @@ class _MediaCardState extends State<MediaCard> {
                   Text(
                     widget.subtitle!,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -210,7 +207,7 @@ class _PlayButtonState extends State<_PlayButton>
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: AppTheme.brandGreen,
+            color: context.octave.accent,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(

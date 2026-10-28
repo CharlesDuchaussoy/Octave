@@ -6,7 +6,6 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
-import 'package:musly/utils/context_extensions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:musly/screens/onboarding/onboarding_screen.dart';
@@ -41,7 +40,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
             _buildInfoTile(
               context,
               icon: CupertinoIcons.info,
-              iconColor: Theme.of(context).colorScheme.primary,
               title: AppLocalizations.of(context)!.aboutVersion,
               subtitle: UpdateService.currentVersion,
               onTap: _onVersionTapped,
@@ -50,7 +48,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
             _buildInfoTile(
               context,
               icon: CupertinoIcons.device_phone_portrait,
-              iconColor: const Color(0xFF007AFF),
               title: AppLocalizations.of(context)!.aboutPlatform,
               subtitle: Theme.of(context).platform.name.toUpperCase(),
             ),
@@ -58,7 +55,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
             _buildActionTile(
               context,
               icon: CupertinoIcons.arrow_2_circlepath,
-              iconColor: const Color(0xFF34C759),
               title: AppLocalizations.of(context)!.checkForUpdates,
               subtitle: _isCheckingUpdates
                   ? AppLocalizations.of(context)!.checkingForUpdates
@@ -108,7 +104,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
             _buildActionTile(
               context,
               icon: CupertinoIcons.sparkles,
-              iconColor: const Color(0xFF6366F1),
               title: AppLocalizations.of(context)!.welcomeTourTitle,
               subtitle: AppLocalizations.of(context)!.welcomeTourSubtitle,
               onTap: () {
@@ -126,7 +121,6 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               _buildActionTile(
                 context,
                 icon: CupertinoIcons.gift_fill,
-                iconColor: const Color(0xFFFA243C),
                 title: kDebugMode && !WrappedService.isWrappedSeason()
                     ? AppLocalizations.of(context)!.muslyPlaybackDev
                     : AppLocalizations.of(context)!.muslyPlaybackAnnual,
@@ -156,7 +150,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
       padding: const EdgeInsets.only(left: 56),
       child: Container(
         height: 0.5,
-        color: context.isDark ? AppTheme.darkDivider : AppTheme.lightDivider,
+        color: context.octave.separator,
       ),
     );
   }
@@ -164,29 +158,18 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
   Widget _buildInfoTile(
     BuildContext context, {
     required IconData icon,
-    required Color iconColor,
     required String title,
     required String subtitle,
     VoidCallback? onTap,
   }) {
     return SettingsListTile(
-      leading: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: iconColor.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Icon(icon, color: iconColor, size: 18),
-      ),
+      icon: icon,
       title: title,
       trailing: Text(
         subtitle,
         style: TextStyle(
           fontSize: 16,
-          color: context.isDark
-              ? AppTheme.darkSecondaryText
-              : AppTheme.lightSecondaryText,
+          color: context.octave.text2,
         ),
       ),
       onTap: onTap,
@@ -229,7 +212,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               Text(l10n.devPlaybackUnlocked),
             ],
           ),
-          backgroundColor: const Color(0xFFFA243C),
+          backgroundColor: context.octave.accent,
           duration: const Duration(seconds: 3),
           behavior: SnackBarBehavior.floating,
         ),
@@ -243,8 +226,8 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF5856D6), Color(0xFFAF52DE)],
+          gradient: LinearGradient(
+            colors: [context.octave.accent, context.octave.accent],
           ),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -265,27 +248,13 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
     required String url,
   }) {
     return SettingsListTile(
-      leading: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.15),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Icon(
-          icon,
-          color: Theme.of(context).colorScheme.primary,
-          size: 18,
-        ),
-      ),
+      icon: icon,
       title: title,
       subtitle: subtitle,
       trailing: Icon(
         Icons.open_in_new_rounded,
         size: 18,
-        color: context.isDark
-            ? AppTheme.darkSecondaryText
-            : AppTheme.lightSecondaryText,
+        color: context.octave.text2,
       ),
       onTap: () => _openUrl(url),
     );
@@ -305,24 +274,13 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
   Widget _buildActionTile(
     BuildContext context, {
     required IconData icon,
-    required Color iconColor,
     required String title,
     String? subtitle,
     Widget? trailing,
     VoidCallback? onTap,
   }) {
     return SettingsListTile(
-      leading: Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [iconColor, iconColor.withValues(alpha: 0.7)],
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Icon(icon, color: Colors.white, size: 18),
-      ),
+      icon: icon,
       title: title,
       subtitle: subtitle,
       trailing: trailing ??
@@ -330,9 +288,7 @@ class _SettingsAboutTabState extends State<SettingsAboutTab> {
               ? Icon(
                   CupertinoIcons.chevron_forward,
                   size: 18,
-                  color: context.isDark
-                      ? AppTheme.darkSecondaryText
-                      : AppTheme.lightSecondaryText,
+                  color: context.octave.text2,
                 )
               : null),
       onTap: onTap,

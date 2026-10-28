@@ -1637,7 +1637,7 @@
   "@themeLabel": {
     "description": "Label for the theme mode selector (System / Light / Dark)"
   },
-  "accentColorLabel": "Accent color",
+  "accentColorLabel": "App color",
   "@accentColorLabel": {
     "description": "Label for the accent color picker"
   },
@@ -3672,5 +3672,29 @@
   "androidAutoServerSection": "Server",
   "androidAutoDefaultServer": "Default Server",
   "androidAutoDefaultServerDesc": "Select which server to use when you start Android Auto",
-  "androidAutoUseActiveServer": "Use app's active server"
+  "androidAutoUseActiveServer": "Use app's active server",
+  "colorIntensityLabel": "Color intensity",
+  "@colorIntensityLabel": {
+    "description": "Label of the slider setting how much the app color tints backgrounds"
+  },
+  "colorIntensityNeutral": "Neutral",
+  "@colorIntensityNeutral": {
+    "description": "Low end of the color intensity slider"
+  },
+  "colorIntensityVivid": "Colorful",
+  "@colorIntensityVivid": {
+    "description": "High end of the color intensity slider"
+  },
+  "pureBlackLabel": "Pure black",
+  "@pureBlackLabel": {
+    "description": "Toggle for a pure black dark mode"
+  },
+  "pureBlackSubtitle": "Black background in dark mode, saves battery on OLED screens",
+  "@pureBlackSubtitle": {
+    "description": "Subtitle of the pure black toggle"
+  },
+  "accentColorOctave": "Octave night blue",
+  "@accentColorOctave": {
+    "description": "Name of the default app color, from the logo"
+  }
 }

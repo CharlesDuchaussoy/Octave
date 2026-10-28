@@ -7,6 +7,7 @@ import '../../services/subsonic_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/offline_service.dart' as musly_offline_service;
 import '../../providers/library_provider.dart' as musly_library_provider;
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class AddToMenu extends StatelessWidget {
   final Song song;
@@ -21,12 +22,10 @@ class AddToMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isStarred = song.starred ?? false;
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[900] : Colors.white,
+        color: context.octave.surface1,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       padding: const EdgeInsets.only(bottom: 32, top: 16),
@@ -77,7 +76,7 @@ class AddToMenu extends StatelessWidget {
                             AppLocalizations.of(context)!.unknownArtist,
                         style: TextStyle(
                           fontSize: 14,
-                          color: isDark ? Colors.white70 : Colors.black54,
+                          color: context.octave.text2,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -213,12 +212,10 @@ class _PlaylistSelectionBottomSheetState
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[900] : Colors.white,
+        color: context.octave.surface1,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       padding: const EdgeInsets.only(bottom: 32, top: 16),

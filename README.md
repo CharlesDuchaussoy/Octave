@@ -64,7 +64,7 @@ Héritées de Musly :
 - 📡 **Diffusion** vers Google Cast, UPnP et DLNA
 - 🚗 **Android Auto**
 - 📻 **Radios en ligne** et fichiers audio du téléphone
-- 🌙 **Thème clair ou sombre**, couleurs Material You
+- 🌙 **Bleu nuit d'Octave**, en clair, en sombre ou en noir pur, avec d'autres couleurs au choix et Material You
 - 📱 **Interface adaptée** aux téléphones, tablettes et ordinateurs
 
 ## Plateformes

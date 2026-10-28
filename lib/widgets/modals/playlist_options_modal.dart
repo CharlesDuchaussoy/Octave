@@ -52,7 +52,7 @@ class PlaylistOptionsModal extends StatelessWidget {
             onPressed: () => Navigator.pop(ctx, true),
             child: Text(
               l10n.delete,
-              style: const TextStyle(color: Colors.red),
+              style: TextStyle(color: context.octave.danger),
             ),
           ),
         ],
@@ -123,13 +123,12 @@ class PlaylistOptionsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
     final favoriteService = FavoritePlaylistsService();
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSurface : theme.scaffoldBackgroundColor,
+        color: context.octave.surface1,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Material(
@@ -174,9 +173,7 @@ class PlaylistOptionsModal extends StatelessWidget {
                         Text(
                           l10n.songsCount(playlist.songCount ?? 0),
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: isDark
-                                ? AppTheme.darkSecondaryText
-                                : AppTheme.lightSecondaryText,
+                            color: context.octave.text2,
                           ),
                         ),
                       ],
@@ -264,7 +261,7 @@ class PlaylistOptionsModal extends StatelessWidget {
                           title: isFavorite
                               ? l10n.removeFromFavorites
                               : l10n.addToFavorites,
-                          iconColor: isFavorite ? Colors.red : null,
+                          iconColor: isFavorite ? context.octave.accent : null,
                           onTap: () {
                             favoriteService.toggleFavorite(playlist.id);
                             Navigator.pop(context);
@@ -275,8 +272,8 @@ class PlaylistOptionsModal extends StatelessWidget {
                     _OptionTile(
                       icon: CupertinoIcons.trash,
                       title: l10n.deletePlaylist,
-                      iconColor: Colors.red,
-                      titleColor: Colors.red,
+                      iconColor: context.octave.danger,
+                      titleColor: context.octave.danger,
                       onTap: () async {
                         final navigator = Navigator.of(context);
                         final deleted =

@@ -10,7 +10,7 @@ class UiFeedback {
       context,
       message: message,
       icon: Icons.check_circle_rounded,
-      backgroundColor: const Color(0xFF1DB954),
+      backgroundColor: context.octave.success,
       textColor: Colors.black,
       iconColor: Colors.black,
     );
@@ -21,21 +21,20 @@ class UiFeedback {
       context,
       message: message,
       icon: Icons.error_rounded,
-      backgroundColor: const Color(0xFFE53935),
+      backgroundColor: context.octave.danger,
       textColor: Colors.white,
       iconColor: Colors.white,
     );
   }
 
   static void showInfo(BuildContext context, String message) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     _showSnackBar(
       context,
       message: message,
       icon: Icons.info_outline_rounded,
-      backgroundColor: isDark ? AppTheme.darkSurface : Colors.grey[900]!,
+      backgroundColor: context.octave.surface1,
       textColor: Colors.white,
-      iconColor: AppTheme.brandGreen,
+      iconColor: AppTheme.brandSky,
     );
   }
 

@@ -117,7 +117,6 @@ class _PlaylistCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return GestureDetector(
       onTap: onTap,
@@ -145,10 +144,10 @@ class _PlaylistCard extends StatelessWidget {
                       color: Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: const Icon(
+                    child: Icon(
                       CupertinoIcons.heart_fill,
                       size: 14,
-                      color: Colors.red,
+                      color: context.octave.accent,
                     ),
                   ),
                 ),
@@ -167,9 +166,7 @@ class _PlaylistCard extends StatelessWidget {
               Text(
                 '${playlist.songCount} ${playlist.songCount == 1 ? 'song' : 'songs'}',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: isDark
-                      ? AppTheme.darkSecondaryText
-                      : AppTheme.lightSecondaryText,
+                  color: context.octave.text2,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,

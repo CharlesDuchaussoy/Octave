@@ -279,7 +279,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
+            child: Text(l10n.remove, style: TextStyle(color: context.octave.danger)),
           ),
         ],
       ),
@@ -410,7 +410,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               child: Text(l10n.cancel)),
           TextButton(
             onPressed: () => Navigator.pop(ctx, true),
-            child: Text(l10n.remove, style: const TextStyle(color: Colors.red)),
+            child: Text(l10n.remove, style: TextStyle(color: context.octave.danger)),
           ),
         ],
       ),
@@ -427,7 +427,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
       return IconButton(
         tooltip: l10n.downloadedTapToRemove,
         onPressed: _removeDownloads,
-        icon: const Icon(Icons.cloud_done, color: Colors.green),
+        icon: Icon(Icons.cloud_done, color: context.octave.success),
       );
     }
     if (_isQueued) {
@@ -518,9 +518,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                                   color: Colors.white,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.check_circle,
-                                  color: Colors.green,
+                                  color: context.octave.success,
                                   size: 24,
                                 ),
                               ),
@@ -582,9 +582,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       index: index,
                       child: Icon(
                         CupertinoIcons.line_horizontal_3,
-                        color: isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                       ),
                     ),
                     title: Text(
@@ -623,7 +621,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 ),
                 child: Icon(
                   CupertinoIcons.back,
-                  color: isDark ? Colors.white : Colors.black,
+                  color: context.octave.text1,
                 ),
               ),
               onPressed: () => Navigator.pop(context),
@@ -702,7 +700,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                 IconButton(
                   tooltip: AppLocalizations.of(context)!.removeSelected,
                   icon: const Icon(CupertinoIcons.trash),
-                  color: _selectedIndices.isNotEmpty ? Colors.red : null,
+                  color: _selectedIndices.isNotEmpty ? context.octave.danger : null,
                   onPressed:
                       _selectedIndices.isNotEmpty ? _removeSelected : null,
                 ),
@@ -746,7 +744,10 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                         children: [
                           const Icon(CupertinoIcons.text_badge_plus, size: 18),
                           const SizedBox(width: 12),
-                          Text(AppLocalizations.of(context)!.addAllToQueue),
+                          Flexible(
+                            child: Text(
+                                AppLocalizations.of(context)!.addAllToQueue),
+                          ),
                         ],
                       ),
                     ),
@@ -754,12 +755,14 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       value: 'delete_playlist',
                       child: Row(
                         children: [
-                          const Icon(CupertinoIcons.trash,
-                              size: 18, color: Colors.red),
+                          Icon(CupertinoIcons.trash,
+                              size: 18, color: context.octave.danger),
                           const SizedBox(width: 12),
-                          Text(
-                            AppLocalizations.of(context)!.deletePlaylist,
-                            style: const TextStyle(color: Colors.red),
+                          Flexible(
+                            child: Text(
+                              AppLocalizations.of(context)!.deletePlaylist,
+                              style: TextStyle(color: context.octave.danger),
+                            ),
                           ),
                         ],
                       ),
@@ -779,7 +782,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                         isFavorite
                             ? CupertinoIcons.heart_fill
                             : CupertinoIcons.heart,
-                        color: isFavorite ? Colors.red : null,
+                        color: isFavorite ? context.octave.accent : null,
                       ),
                       onPressed: _toggleFavorite,
                     );
@@ -848,7 +851,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                     CupertinoSearchTextField(
                       placeholder: AppLocalizations.of(context)!.filterSongs,
                       style: TextStyle(
-                          color: isDark ? Colors.white : Colors.black),
+                          color: context.octave.text1),
                       onChanged: (val) {
                         setState(() {
                           _searchQuery = val.trim().toLowerCase();
@@ -870,7 +873,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                   child: Text(
                     'No songs in this playlist',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                 ),
@@ -904,7 +907,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                     ),
                     secondary: IconButton(
                       icon: const Icon(CupertinoIcons.trash, size: 20),
-                      color: Colors.red,
+                      color: context.octave.danger,
                       tooltip: AppLocalizations.of(context)!.removeFromPlaylist,
                       onPressed: () async {
                         setState(() => _selectedIndices.remove(index));
@@ -946,7 +949,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                         background: Container(
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.only(right: 20),
-                          color: Colors.red,
+                          color: context.octave.danger,
                           child: const Icon(
                             CupertinoIcons.trash,
                             color: Colors.white,

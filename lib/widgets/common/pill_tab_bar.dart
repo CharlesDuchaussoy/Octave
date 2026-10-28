@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class PillTabBar extends StatelessWidget {
   final List<String> tabs;
@@ -68,8 +69,8 @@ class PillTabBar extends StatelessWidget {
                           fontWeight:
                               isSelected ? FontWeight.w600 : FontWeight.normal,
                           color: isSelected
-                              ? (isDark ? Colors.white : Colors.black)
-                              : (isDark ? Colors.white70 : Colors.black54),
+                              ? (context.octave.text1)
+                              : (context.octave.text2),
                         ),
                       ),
                     ),

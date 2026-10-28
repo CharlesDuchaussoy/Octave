@@ -43,13 +43,7 @@ class _TopResultCardState extends State<TopResultCard> {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: isDark
-                ? (_isHovered
-                    ? const Color(0xFF282828)
-                    : const Color(0xFF1E1E1E))
-                : (_isHovered
-                    ? const Color(0xFFF3F4F6)
-                    : const Color(0xFFF9FAFB)),
+            color: _isHovered ? context.octave.surface2 : context.octave.surface1,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isDark
@@ -73,7 +67,7 @@ class _TopResultCardState extends State<TopResultCard> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: isDark ? Colors.white : Colors.black,
+                      color: context.octave.text1,
                       letterSpacing: -0.3,
                     ),
                     maxLines: 1,
@@ -95,7 +89,7 @@ class _TopResultCardState extends State<TopResultCard> {
                             fontSize: 10,
                             fontWeight: FontWeight.w800,
                             letterSpacing: 0.5,
-                            color: isDark ? Colors.white70 : Colors.black87,
+                            color: context.octave.text2,
                           ),
                         ),
                       ),
@@ -105,9 +99,7 @@ class _TopResultCardState extends State<TopResultCard> {
                           widget.subtitle,
                           style: TextStyle(
                             fontSize: 13,
-                            color: isDark
-                                ? AppTheme.darkSecondaryText
-                                : AppTheme.lightSecondaryText,
+                            color: context.octave.text2,
                           ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,

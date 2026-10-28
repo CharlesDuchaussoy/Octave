@@ -8,6 +8,7 @@ import 'package:musly/services/lrc_ttml_parser.dart';
 import 'package:musly/services/services.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/utils/navigation_helper.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class DesktopLyricsPanel extends StatefulWidget {
   final VoidCallback? onClose;
@@ -229,10 +230,10 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
 
     return Container(
       width: 380,
-      decoration: const BoxDecoration(
-        color: Color(0xFF080808),
+      decoration: BoxDecoration(
+        color: context.octave.background,
         border: Border(
-          left: BorderSide(color: Color(0xFF282828), width: 1),
+          left: BorderSide(color: context.octave.separator, width: 1),
         ),
       ),
       child: Stack(
@@ -264,11 +265,11 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
             height: 90,
             child: IgnorePointer(
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFF080808), Colors.transparent],
+                    colors: [context.octave.background, Colors.transparent],
                   ),
                 ),
               ),
@@ -328,11 +329,11 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
             height: 90,
             child: IgnorePointer(
               child: Container(
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Color(0xFF080808)],
+                    colors: [Colors.transparent, context.octave.background],
                   ),
                 ),
               ),
@@ -348,7 +349,7 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF080808).withValues(alpha: 0.95),
+                  color: context.octave.background.withValues(alpha: 0.95),
                   border: Border(
                     top: BorderSide(
                       color: Colors.white.withValues(alpha: 0.06),
@@ -398,15 +399,15 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
                             horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color:
-                              const Color(0xFFFA243C).withValues(alpha: 0.18),
+                              context.octave.accent.withValues(alpha: 0.18),
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: const Text(
+                        child: Text(
                           'SYNC',
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w800,
-                            color: Color(0xFFFA243C),
+                            color: context.octave.accent,
                             letterSpacing: 0.8,
                           ),
                         ),

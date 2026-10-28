@@ -1,40 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../theme/app_dimensions.dart';
+import '../../theme/app_theme.dart';
 
 class SettingsIconBadge extends StatelessWidget {
   final IconData icon;
-  final List<Color> gradientColors;
 
   const SettingsIconBadge({
     super.key,
     required this.icon,
-    required this.gradientColors,
   });
 
   @override
   Widget build(BuildContext context) {
-    final baseColor = gradientColors.first;
+    final colors = context.octave;
     return Container(
       width: AppDimensions.iconBadgeSize,
       height: AppDimensions.iconBadgeSize,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: gradientColors,
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: colors.accentSoft,
         borderRadius: BorderRadius.circular(AppDimensions.iconBadgeRadius),
-        boxShadow: [
-          BoxShadow(
-            color: baseColor.withValues(alpha: 0.25),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
-          ),
-        ],
       ),
       child: Icon(
         icon,
-        color: Colors.white,
+        color: colors.isDark ? colors.accent : colors.onAccentSoft,
         size: AppDimensions.iconSize,
       ),
     );

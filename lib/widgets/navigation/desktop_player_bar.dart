@@ -14,6 +14,7 @@ import 'package:musly/screens/player/now_playing_screen.dart';
 import 'package:musly/services/tv_detection_service.dart';
 import 'package:musly/widgets/modals/song_options_modal.dart';
 import 'tv_remote_scope.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class DesktopPlayerBar extends StatefulWidget {
   final GlobalKey<NavigatorState>? navigatorKey;
@@ -48,9 +49,9 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
     return Container(
       height: 90,
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      decoration: const BoxDecoration(
-        color: Color(0xFF181818),
-        border: Border(top: BorderSide(color: Color(0xFF282828), width: 1)),
+      decoration: BoxDecoration(
+        color: context.octave.surface1,
+        border: Border(top: BorderSide(color: context.octave.separator, width: 1)),
       ),
       child: Row(
         children: [
@@ -104,11 +105,11 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                                     width: 7,
                                     height: 7,
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFFFA243C),
+                                      color: context.octave.accent,
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: const Color(0xFFFA243C)
+                                          color: context.octave.accent
                                               .withValues(alpha: 0.5),
                                           blurRadius: 4,
                                         )
@@ -116,10 +117,10 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                                     ),
                                   ),
                                   const SizedBox(width: 6),
-                                  const Text(
+                                  Text(
                                     'LIVE',
                                     style: TextStyle(
-                                      color: Color(0xFFB3B3B3),
+                                      color: context.octave.text2,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
                                       letterSpacing: 1.0,
@@ -152,10 +153,10 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                       onTap: provider.stop,
                       borderRadius: BorderRadius.circular(20),
                       padding: const EdgeInsets.all(8),
-                      child: const Icon(
+                      child: Icon(
                         Icons.stop_rounded,
                         size: 22,
-                        color: Color(0xFFB3B3B3),
+                        color: context.octave.text2,
                       ),
                     ),
                   ],
@@ -185,10 +186,10 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
       height: 90,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark ? const Color(0xFF181818) : Colors.white,
+        color: context.octave.surface1,
         border: Border(
           top: BorderSide(
-            color: Theme.of(context).brightness == Brightness.dark ? const Color(0xFF282828) : const Color(0xFFE5E5EA),
+            color: context.octave.surface3,
             width: 1,
           ),
         ),
@@ -253,7 +254,7 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black,
+                                  color: context.octave.text1,
                                 ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -265,9 +266,9 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                                   artists: currentSong.artistParticipants,
                                   artistFallback: currentSong.artist,
                                   artistIdFallback: currentSong.artistId,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 12,
-                                    color: Color(0xFFB3B3B3),
+                                    color: context.octave.text2,
                                   ),
                                 ),
                             ],
@@ -287,8 +288,8 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                             : Icons.favorite_border_rounded,
                         size: 18,
                         color: isStarred
-                            ? const Color(0xFFFA243C)
-                            : const Color(0xFF6B7280),
+                            ? context.octave.accent
+                            : context.octave.text3,
                       ),
                       onPressed: () {
                         Provider.of<PlayerProvider>(context, listen: false)
@@ -305,10 +306,10 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.playlist_add_rounded,
                     size: 20,
-                    color: Color(0xFF6B7280),
+                    color: context.octave.text3,
                   ),
                   onPressed: () {
                     SongOptionsModal.showPlaylistPicker(context, currentSong);
@@ -320,10 +321,10 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                   hoverColor: Colors.white.withValues(alpha: 0.1),
                 ),
                 IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.more_horiz,
                     size: 18,
-                    color: Color(0xFF6B7280),
+                    color: context.octave.text3,
                   ),
                   onPressed: () {
                     SongOptionsModal.show(context, currentSong);
@@ -365,8 +366,8 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                           Icons.mic_rounded,
                           size: 18,
                           color: isLyricsOpen
-                              ? const Color(0xFFFA243C)
-                              : const Color(0xFF6B7280),
+                              ? context.octave.accent
+                              : context.octave.text3,
                         ),
                         tooltip: 'Lyrics',
                         visualDensity: VisualDensity.compact,
@@ -386,8 +387,8 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                           Icons.queue_music_rounded,
                           size: 18,
                           color: isQueueOpen
-                              ? const Color(0xFFFA243C)
-                              : const Color(0xFF6B7280),
+                              ? context.octave.accent
+                              : context.octave.text3,
                         ),
                         tooltip: isQueueOpen ? 'Hide Queue' : 'Queue',
                         visualDensity: VisualDensity.compact,
@@ -400,10 +401,10 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                   ),
                   const SizedBox(width: 4),
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.devices_other_rounded,
                       size: 18,
-                      color: Color(0xFF6B7280),
+                      color: context.octave.text3,
                     ),
                     tooltip: AppLocalizations.of(context)!.connectToDevice,
                     visualDensity: VisualDensity.compact,
@@ -496,8 +497,8 @@ class _PlayerControls extends StatelessWidget {
                 Icons.shuffle_rounded,
                 size: 18,
                 color: shuffleEnabled
-                    ? const Color(0xFFFA243C)
-                    : const Color(0xFFB3B3B3),
+                    ? context.octave.accent
+                    : context.octave.text2,
               ),
             ),
             const SizedBox(width: 8),
@@ -542,8 +543,8 @@ class _PlayerControls extends StatelessWidget {
                     : Icons.repeat_rounded,
                 size: 18,
                 color: repeatMode != RepeatMode.off
-                    ? const Color(0xFFFA243C)
-                    : const Color(0xFFB3B3B3),
+                    ? context.octave.accent
+                    : context.octave.text2,
               ),
             ),
           ],
@@ -564,9 +565,9 @@ class _ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const timeStyle = TextStyle(
+    final timeStyle = TextStyle(
       fontSize: 11,
-      color: Color(0xFFB3B3B3),
+      color: context.octave.text2,
       fontFamily: 'Inter',
     );
 
@@ -602,7 +603,7 @@ class _ProgressBar extends StatelessWidget {
                         overlayRadius: 12,
                       ),
                       activeTrackColor: Colors.white,
-                      inactiveTrackColor: const Color(0xFF4A4A4A),
+                      inactiveTrackColor: context.octave.progressTrack,
                       thumbColor: Colors.white,
                       overlayColor: Colors.white.withValues(alpha: 0.15),
                     ),
@@ -659,7 +660,7 @@ class _VolumeControl extends StatelessWidget {
                         ? Icons.volume_down_rounded
                         : Icons.volume_up_rounded,
                 size: 18,
-                color: const Color(0xFF6B7280),
+                color: context.octave.text3,
               ),
               onPressed: provider.toggleMute,
               tooltip: isMuted ? 'Unmute' : 'Mute',
@@ -681,7 +682,7 @@ class _VolumeControl extends StatelessWidget {
                     overlayRadius: 10,
                   ),
                   activeTrackColor: Colors.white,
-                  inactiveTrackColor: const Color(0xFF4A4A4A),
+                  inactiveTrackColor: context.octave.progressTrack,
                   thumbColor: Colors.white,
                   overlayColor: Colors.white.withValues(alpha: 0.15),
                 ),

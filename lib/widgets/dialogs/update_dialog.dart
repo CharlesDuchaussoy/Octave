@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
 import '../../services/update_service.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class UpdateDialog extends StatefulWidget {
   final ReleaseInfo release;
@@ -165,7 +166,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
     final asset = widget.release.targetAsset;
 
     return Dialog(
-      backgroundColor: isDark ? const Color(0xFF1E1E22) : Colors.white,
+      backgroundColor: context.octave.surface1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
       child: ConstrainedBox(
@@ -210,7 +211,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                               style: TextStyle(
                                 fontSize: 13,
                                 color:
-                                    isDark ? Colors.white54 : Colors.black45,
+                                    context.octave.text3,
                               ),
                             ),
                             const SizedBox(width: 6),
@@ -224,15 +225,15 @@ class _UpdateDialogState extends State<UpdateDialog> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 2),
                               decoration: BoxDecoration(
-                                color: Colors.green.withValues(alpha: 0.15),
+                                color: context.octave.success.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(6),
                               ),
                               child: Text(
                                 'v${widget.release.version}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.green,
+                                  color: context.octave.success,
                                 ),
                               ),
                             ),
@@ -272,7 +273,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 12,
-                            color: isDark ? Colors.white70 : Colors.black87,
+                            color: context.octave.text2,
                           ),
                         ),
                       ),
@@ -281,7 +282,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
-                          color: isDark ? Colors.white60 : Colors.black54,
+                          color: context.octave.text2,
                         ),
                       ),
                     ],
@@ -294,7 +295,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
-                  color: isDark ? Colors.white70 : Colors.black87,
+                  color: context.octave.text2,
                 ),
               ),
               const SizedBox(height: 8),
@@ -320,7 +321,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                       style: TextStyle(
                         fontSize: 13,
                         height: 1.45,
-                        color: isDark ? Colors.white70 : Colors.black87,
+                        color: context.octave.text2,
                       ),
                     ),
                   ),
@@ -334,7 +335,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     value: _downloadProgress > 0 ? _downloadProgress : null,
                     minHeight: 8,
                     backgroundColor:
-                        isDark ? Colors.white12 : Colors.black12,
+                        context.octave.separator,
                     valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                   ),
                 ),
@@ -346,7 +347,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                       _downloadStatusText,
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark ? Colors.white60 : Colors.black54,
+                        color: context.octave.text2,
                       ),
                     ),
                     TextButton(
@@ -360,7 +361,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 const SizedBox(height: 10),
                 Text(
                   _errorMessage!,
-                  style: const TextStyle(color: Colors.redAccent, fontSize: 13),
+                  style: TextStyle(color: context.octave.danger, fontSize: 13),
                 ),
               ],
               const SizedBox(height: 16),
@@ -409,7 +410,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                         l10n.skipThisVersion,
                         style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white38 : Colors.black38,
+                          color: context.octave.text3,
                         ),
                       ),
                     ),
@@ -419,7 +420,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                         'Più tardi',
                         style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.white60 : Colors.black54,
+                          color: context.octave.text2,
                         ),
                       ),
                     ),

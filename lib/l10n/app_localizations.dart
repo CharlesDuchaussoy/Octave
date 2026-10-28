@@ -2857,7 +2857,7 @@ abstract class AppLocalizations {
   /// Label for the accent color picker
   ///
   /// In en, this message translates to:
-  /// **'Accent color'**
+  /// **'App color'**
   String get accentColorLabel;
 
   /// Label for the Circular Design (glass-blur UI) toggle
@@ -5529,6 +5529,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use app\'s active server'**
   String get androidAutoUseActiveServer;
+
+  /// Label of the slider setting how much the app color tints backgrounds
+  ///
+  /// In en, this message translates to:
+  /// **'Color intensity'**
+  String get colorIntensityLabel;
+
+  /// Low end of the color intensity slider
+  ///
+  /// In en, this message translates to:
+  /// **'Neutral'**
+  String get colorIntensityNeutral;
+
+  /// High end of the color intensity slider
+  ///
+  /// In en, this message translates to:
+  /// **'Colorful'**
+  String get colorIntensityVivid;
+
+  /// Toggle for a pure black dark mode
+  ///
+  /// In en, this message translates to:
+  /// **'Pure black'**
+  String get pureBlackLabel;
+
+  /// Subtitle of the pure black toggle
+  ///
+  /// In en, this message translates to:
+  /// **'Black background in dark mode, saves battery on OLED screens'**
+  String get pureBlackSubtitle;
+
+  /// Name of the default app color, from the logo
+  ///
+  /// In en, this message translates to:
+  /// **'Octave night blue'**
+  String get accentColorOctave;
 }
 
 class _AppLocalizationsDelegate

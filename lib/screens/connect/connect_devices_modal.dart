@@ -10,6 +10,7 @@ import '../../providers/player_provider.dart';
 
 import '../../services/cast_service.dart';
 import '../../services/upnp_service.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class ConnectDevicesModal extends StatefulWidget {
   final bool isDesktopDialog;
@@ -88,7 +89,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final surfaceColor = isDark ? const Color(0xFF14151B) : Colors.white;
+    final surfaceColor = context.octave.surface1;
     final dividerColor = isDark
         ? Colors.white.withValues(alpha: 0.06)
         : Colors.black.withValues(alpha: 0.06);
@@ -131,7 +132,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                       width: 32,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: isDark ? Colors.white24 : Colors.black12,
+                        color: context.octave.separator,
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
@@ -157,7 +158,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                           'Select where audio should play',
                           style: TextStyle(
                             fontSize: 12,
-                            color: isDark ? Colors.white54 : Colors.black45,
+                            color: context.octave.text3,
                           ),
                         ),
                       ],
@@ -165,7 +166,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                     IconButton(
                       icon: const Icon(CupertinoIcons.xmark_circle_fill,
                           size: 22),
-                      color: isDark ? Colors.white30 : Colors.black26,
+                      color: context.octave.text3,
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(),
                       onPressed: () => Navigator.of(context).pop(),
@@ -290,7 +291,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
 
   Widget _buildCastRow(BuildContext context, GoogleCastDevice castDevice,
       CastService cast, bool isDark) {
-    final tileBg = isDark ? const Color(0xFF1A1B24) : const Color(0xFFF3F4F7);
+    final tileBg = context.octave.surface2;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 6),
@@ -330,7 +331,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
 
   Widget _buildUpnpRow(BuildContext context, UpnpDevice upnpDevice,
       UpnpService upnp, bool isDark) {
-    final tileBg = isDark ? const Color(0xFF1A1B24) : const Color(0xFFF3F4F7);
+    final tileBg = context.octave.surface2;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 6),

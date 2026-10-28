@@ -19,7 +19,9 @@ void main() {
       expect(AccentColorExt.fromKey('green'), AccentColor.green);
       expect(AccentColorExt.fromKey('blue'), AccentColor.blue);
       expect(AccentColorExt.fromKey('purple'), AccentColor.purple);
-      expect(AccentColorExt.fromKey('unknown'), AccentColor.red);
+      expect(AccentColorExt.fromKey('octave'), AccentColor.octave);
+      expect(AccentColorExt.fromKey('teal'), AccentColor.teal);
+      expect(AccentColorExt.fromKey('unknown'), AccentColor.octave);
     });
 
     test('ThemeService initializes and persists dynamicColor', () async {

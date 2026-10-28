@@ -40,7 +40,6 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
@@ -69,7 +68,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                     Icon(
                       CupertinoIcons.exclamationmark_triangle,
                       size: 56,
-                      color: Colors.orange,
+                      color: context.octave.warning,
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -99,9 +98,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                     Icon(
                       CupertinoIcons.wifi_slash,
                       size: 56,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -150,9 +147,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                       Text(
                         song!.artist!,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: isDark
-                                  ? AppTheme.darkSecondaryText
-                                  : AppTheme.lightSecondaryText,
+                              color: context.octave.text2,
                             ),
                         textAlign: TextAlign.center,
                       ),
@@ -206,9 +201,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                         Icon(
                           CupertinoIcons.volume_mute,
                           size: 18,
-                          color: isDark
-                              ? AppTheme.darkSecondaryText
-                              : AppTheme.lightSecondaryText,
+                          color: context.octave.text2,
                         ),
                         Expanded(
                           child: Slider(
@@ -223,9 +216,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                         Icon(
                           CupertinoIcons.volume_up,
                           size: 18,
-                          color: isDark
-                              ? AppTheme.darkSecondaryText
-                              : AppTheme.lightSecondaryText,
+                          color: context.octave.text2,
                         ),
                       ],
                     ),
@@ -254,7 +245,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                           icon: const Icon(CupertinoIcons.trash),
                           label: Text(l10n.jukeboxClearQueue),
                           style: TextButton.styleFrom(
-                            foregroundColor: Colors.red,
+                            foregroundColor: context.octave.danger,
                           ),
                         ),
                       ],
@@ -302,9 +293,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                             : Text(
                                 '${index + 1}',
                                 style: TextStyle(
-                                  color: isDark
-                                      ? AppTheme.darkSecondaryText
-                                      : AppTheme.lightSecondaryText,
+                                  color: context.octave.text2,
                                 ),
                               ),
                         title: Text(
@@ -347,9 +336,7 @@ class _JukeboxScreenState extends State<JukeboxScreen> {
                     child: Text(
                       l10n.jukeboxQueueEmpty,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: isDark
-                                ? AppTheme.darkSecondaryText
-                                : AppTheme.lightSecondaryText,
+                            color: context.octave.text2,
                           ),
                     ),
                   ),
@@ -401,9 +388,7 @@ class _ControlButton extends StatelessWidget {
       icon: Icon(icon),
       onPressed: onPressed,
       iconSize: size * 0.7,
-      color: Theme.of(context).brightness == Brightness.dark
-          ? Colors.white
-          : Colors.black,
+      color: context.octave.text1,
     );
   }
 }

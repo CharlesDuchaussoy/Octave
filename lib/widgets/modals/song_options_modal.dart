@@ -106,6 +106,7 @@ class SongOptionsModal extends StatefulWidget {
                           );
                           final l10n = AppLocalizations.of(context)!;
                           final messenger = ScaffoldMessenger.of(context);
+                          final colors = context.octave;
 
                           bool isDuplicate = false;
                           try {
@@ -189,7 +190,7 @@ class SongOptionsModal extends StatefulWidget {
                                   ],
                                 ),
                                 duration: const Duration(seconds: 2),
-                                backgroundColor: Colors.green,
+                                backgroundColor: colors.success,
                               ),
                             );
                           } catch (e) {
@@ -208,7 +209,7 @@ class SongOptionsModal extends StatefulWidget {
                                   ],
                                 ),
                                 duration: const Duration(seconds: 3),
-                                backgroundColor: Colors.red,
+                                backgroundColor: colors.danger,
                               ),
                             );
                           }
@@ -256,12 +257,11 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
     final playerProvider = Provider.of<PlayerProvider>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSurface : Colors.white,
+        color: context.octave.surface1,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: Material(
@@ -275,7 +275,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
               width: 36,
               height: 5,
               decoration: BoxDecoration(
-                color: isDark ? AppTheme.darkDivider : AppTheme.lightDivider,
+                color: context.octave.separator,
                 borderRadius: BorderRadius.circular(2.5),
               ),
             ),
@@ -467,7 +467,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
       return _OptionTile(
         icon: Icons.download_done_rounded,
         title: AppLocalizations.of(context)!.downloaded,
-        iconColor: Colors.green,
+        iconColor: context.octave.success,
         onTap: () async {
           final l10n = AppLocalizations.of(context)!;
           final messenger = ScaffoldMessenger.of(context);
@@ -588,7 +588,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
       title: rating > 0
           ? 'Rate Song ($rating ${rating == 1 ? "star" : "stars"})'
           : 'Rate Song',
-      iconColor: rating > 0 ? Colors.amber : null,
+      iconColor: rating > 0 ? context.octave.warning : null,
       onTap: () => _showRatingDialog(context),
     );
   }
@@ -620,7 +620,7 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                       starValue <= currentRating
                           ? Icons.star_rounded
                           : Icons.star_border_rounded,
-                      color: Colors.amber,
+                      color: context.octave.warning,
                       size: 32,
                     ),
                     onPressed: () async {

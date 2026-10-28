@@ -6,6 +6,7 @@ import 'package:musly/services/services.dart';
 import 'package:musly/services/audio_handler.dart';
 import 'package:musly/services/transcoding_service.dart';
 import 'package:musly/services/tv_detection_service.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class FakeCastService extends CastService {
   bool _mockConnected = false;
@@ -122,6 +123,10 @@ Widget createTestApp({
           value: TvDetectionService()),
     ],
     child: MaterialApp(
+      theme: OctaveTheme.build(OctavePalette.build(
+        seed: OctavePalette.octaveSeed,
+        brightness: Brightness.light,
+      )),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: Scaffold(body: child),

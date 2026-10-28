@@ -198,11 +198,10 @@ class ArtistsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSurface : Colors.white,
+        color: context.octave.surface1,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       ),
       child: SafeArea(
@@ -214,7 +213,7 @@ class ArtistsBottomSheet extends StatelessWidget {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: isDark ? AppTheme.darkDivider : AppTheme.lightDivider,
+                color: context.octave.separator,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),

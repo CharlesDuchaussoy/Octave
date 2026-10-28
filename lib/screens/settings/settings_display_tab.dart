@@ -14,6 +14,7 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/subsonic_service.dart';
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
+import 'package:musly/octave/widgets/appearance_controls.dart';
 import 'package:musly/widgets/settings/settings_icon_badge.dart';
 import 'package:musly/utils/context_extensions.dart';
 import 'package:musly/services/storage_service.dart';
@@ -45,8 +46,10 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
   String _artworkResolution = 'normal';
 
   ThemeMode _themeMode = ThemeMode.system;
-  AccentColor _accentColor = AccentColor.red;
+  AccentColor _accentColor = AccentColor.octave;
   bool _liquidGlass = false;
+  bool _pureBlack = false;
+  double _intensity = OctavePalette.defaultIntensity;
 
   bool get _isDesktop {
     if (kIsWeb) return false;
@@ -84,6 +87,8 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       _themeMode = themeService.themeMode;
       _accentColor = themeService.accentColor;
       _liquidGlass = themeService.liquidGlass;
+      _pureBlack = themeService.pureBlack;
+      _intensity = themeService.intensity;
     });
 
     if (_isDesktop) {
@@ -206,7 +211,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         children: [
           _buildEditorRow(
             icon: CupertinoIcons.moon_stars_fill,
-            iconColor: const Color(0xFF5856D6),
             label: AppLocalizations.of(context)!.themeLabel,
             child: _ThemeModeSelector(
               value: _themeMode,
@@ -220,9 +224,8 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           const SizedBox(height: 20),
           _buildEditorRow(
             icon: Icons.palette_rounded,
-            iconColor: const Color(0xFFFF9500),
             label: AppLocalizations.of(context)!.accentColorLabel,
-            child: _AccentColorPicker(
+            child: OctaveColorSwatches(
               selected: _accentColor,
               onChanged: (color) async {
                 setState(() => _accentColor = color);
@@ -230,11 +233,38 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
               },
             ),
           ),
+          const SizedBox(height: 20),
+          _buildEditorRow(
+            icon: CupertinoIcons.slider_horizontal_3,
+            label: AppLocalizations.of(context)!.colorIntensityLabel,
+            child: OctaveIntensitySlider(
+              value: _intensity,
+              onChanged: (value) {
+                setState(() => _intensity = value);
+                themeService.setIntensity(value);
+              },
+            ),
+          ),
+          const SizedBox(height: 12),
+          _buildEditorRow(
+            icon: CupertinoIcons.circle_fill,
+            label: AppLocalizations.of(context)!.pureBlackLabel,
+            trailing: Switch(
+              value: _pureBlack,
+              onChanged: (value) async {
+                setState(() => _pureBlack = value);
+                await themeService.setPureBlack(value);
+              },
+            ),
+            child: Text(
+              AppLocalizations.of(context)!.pureBlackSubtitle,
+              style: TextStyle(fontSize: 12, color: context.octave.text2),
+            ),
+          ),
           if (!_isDesktop) ...[
             const SizedBox(height: 20),
             _buildEditorRow(
               icon: CupertinoIcons.sparkles,
-              iconColor: const Color(0xFF64D2FF),
               label: AppLocalizations.of(context)!.circularDesignLabel,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,9 +273,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                     AppLocalizations.of(context)!.circularDesignSubtitle,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -254,7 +282,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                       const Spacer(),
                       CupertinoSwitch(
                         value: _liquidGlass,
-                        activeTrackColor: const Color(0xFF64D2FF),
+                        activeTrackColor: context.octave.accent,
                         onChanged: (value) async {
                           setState(() => _liquidGlass = value);
                           await themeService.setLiquidGlass(value);
@@ -273,7 +301,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildVolumeSliderToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFF007AFF), Color(0xFF5AC8FA)],
       icon: CupertinoIcons.speaker_2,
       title: AppLocalizations.of(context)!.showVolumeSlider,
       subtitle: AppLocalizations.of(context)!.showVolumeSliderSubtitle,
@@ -287,7 +314,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildStarRatingsToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFFFD700), Color(0xFFFFA500)],
       icon: CupertinoIcons.star_fill,
       title: AppLocalizations.of(context)!.showStarRatings,
       subtitle: AppLocalizations.of(context)!.showStarRatingsSubtitle,
@@ -301,7 +327,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildMiniPlayerHeartToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFFF2D55), Color(0xFFFF6B6B)],
       icon: CupertinoIcons.heart_fill,
       title: AppLocalizations.of(context)!.showMiniPlayerHeart,
       subtitle: AppLocalizations.of(context)!.showMiniPlayerHeartSubtitle,
@@ -315,7 +340,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildMiniPlayerRepeatToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
       icon: CupertinoIcons.repeat,
       title: AppLocalizations.of(context)!.showMiniPlayerRepeat,
       subtitle: AppLocalizations.of(context)!.showMiniPlayerRepeatSubtitle,
@@ -329,7 +353,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildMiniPlayerShuffleToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
       icon: CupertinoIcons.shuffle,
       title: AppLocalizations.of(context)!.showMiniPlayerShuffle,
       subtitle: AppLocalizations.of(context)!.showMiniPlayerShuffleSubtitle,
@@ -344,7 +367,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
   Widget _buildLiveLyricUnderArtworkToggle() {
     final l10n = AppLocalizations.of(context)!;
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFF5856D6), Color(0xFFAF52DE)],
       icon: CupertinoIcons.quote_bubble_fill,
       title: l10n.lyricsUnderArtwork,
       subtitle: l10n.lyricsUnderArtworkSubtitle,
@@ -358,7 +380,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildLiveSearchToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFFF9500), Color(0xFFFFCC00)],
       icon: CupertinoIcons.search,
       title: AppLocalizations.of(context)!.liveSearch,
       subtitle: AppLocalizations.of(context)!.liveSearchSubtitle,
@@ -372,7 +393,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildFavoritePlaylistsOnHomeToggle() {
     return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFFA243C), Color(0xFFFF2D55)],
       icon: CupertinoIcons.heart_fill,
       title: AppLocalizations.of(context)!.showFavoritePlaylistsOnHome,
       subtitle: AppLocalizations.of(context)!.showFavoritePlaylistsOnHomeSubtitle,
@@ -386,7 +406,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildEditorRow({
     required IconData icon,
-    required Color iconColor,
     required String label,
     required Widget child,
     Widget? trailing,
@@ -396,15 +415,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       children: [
         Row(
           children: [
-            Container(
-              width: 28,
-              height: 28,
-              decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Icon(icon, color: iconColor, size: 16),
-            ),
+            SettingsIconBadge(icon: icon),
             const SizedBox(width: 10),
             Flexible(
               child: Text(
@@ -428,7 +439,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
     return Consumer<RecommendationService>(
       builder: (context, service, _) {
         return SettingsSwitchTile(
-      gradientColors: const [Color(0xFFFF2D55), Color(0xFFFF6B6B)],
       icon: CupertinoIcons.sparkles,
       title: AppLocalizations.of(context)!.enableRecommendations,
       subtitle: AppLocalizations.of(context)!.enableRecommendationsSubtitle,
@@ -458,18 +468,14 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             AppLocalizations.of(context)!.totalPlays(totalPlays),
             style: TextStyle(
               fontSize: 13,
-              color: context.isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           trailing: Text(
             AppLocalizations.of(context)!.songsCount(uniqueSongs),
             style: TextStyle(
               fontSize: 14,
-              color: context.isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
         );
@@ -482,7 +488,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       title: Text(
         AppLocalizations.of(context)!.clearListeningHistory,
-        style: const TextStyle(fontSize: 16, color: Color(0xFFFF3B30)),
+        style: TextStyle(fontSize: 16, color: context.octave.danger),
       ),
       onTap: () {
         showDialog(
@@ -512,7 +518,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.delete,
-                  style: const TextStyle(color: Color(0xFFFF3B30)),
+                  style: TextStyle(color: context.octave.danger),
                 ),
               ),
             ],
@@ -551,9 +557,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             AppLocalizations.of(context)!.discordStatusSubtitle,
             style: TextStyle(
               fontSize: 13,
-              color: context.isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           trailing: CupertinoSwitch(
@@ -603,9 +607,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             l10n.discordStatusTextSubtitle,
             style: TextStyle(
               fontSize: 13,
-              color: context.isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           trailing: DropdownButton<String>(
@@ -655,7 +657,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             vertical: 4,
           ),
           leading: SettingsIconBadge(
-            gradientColors: const [Color(0xFF34C759), Color(0xFF30D158)],
             icon: CupertinoIcons.globe,
           ),
           title: Text(
@@ -666,9 +667,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
             currentLanguageName,
             style: TextStyle(
               fontSize: 13,
-              color: context.isDark
-                  ? AppTheme.darkSecondaryText
-                  : AppTheme.lightSecondaryText,
+              color: context.octave.text2,
             ),
           ),
           trailing: const Icon(Icons.chevron_right, size: 20),
@@ -685,12 +684,12 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         width: 32,
         height: 32,
         decoration: BoxDecoration(
-          color: const Color(0xFF5AC8FA).withValues(alpha: 0.2),
+          color: context.octave.accent.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Icon(
+        child: Icon(
           CupertinoIcons.heart_fill,
-          color: Color(0xFFFF3B30),
+          color: context.octave.accent,
           size: 18,
         ),
       ),
@@ -702,9 +701,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         AppLocalizations.of(context)!.communityTranslationsSubtitle,
         style: TextStyle(
           fontSize: 13,
-          color: context.isDark
-              ? AppTheme.darkSecondaryText
-              : AppTheme.lightSecondaryText,
+          color: context.octave.text2,
         ),
       ),
       trailing: const Icon(Icons.open_in_new_rounded, size: 18),
@@ -734,7 +731,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
       builder: (context) => Container(
         height: MediaQuery.of(context).size.height * 0.75,
         decoration: BoxDecoration(
-          color: context.isDark ? AppTheme.darkSurface : Colors.white,
+          color: context.octave.surface1,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
         ),
         child: Column(
@@ -744,7 +741,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
               width: 40,
               height: 4,
               decoration: BoxDecoration(
-                color: context.isDark ? Colors.grey[600] : Colors.grey[300],
+                color: context.octave.text3,
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -772,9 +769,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                               'Translations are provided by the community on Crowdin',
                           style: TextStyle(
                             fontSize: 12,
-                            color: context.isDark
-                                ? AppTheme.darkSecondaryText
-                                : AppTheme.lightSecondaryText,
+                            color: context.octave.text2,
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -797,9 +792,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                 '$systemLangName • $systemPercentage%',
                 style: TextStyle(
                   fontSize: 12,
-                  color: context.isDark
-                      ? AppTheme.darkSecondaryText
-                      : AppTheme.lightSecondaryText,
+                  color: context.octave.text2,
                 ),
               ),
               trailing: localeService.currentLocale == null
@@ -831,12 +824,10 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
                         color: percentage >= 80
-                            ? const Color(0xFF34C759)
+                            ? context.octave.accent
                             : (percentage >= 40
-                                ? const Color(0xFFFF9500)
-                                : (context.isDark
-                                    ? AppTheme.darkSecondaryText
-                                    : AppTheme.lightSecondaryText)),
+                                ? context.octave.accent
+                                : (context.octave.text2)),
                       ),
                     ),
                     trailing: isSelected
@@ -1037,7 +1028,7 @@ class _ThemeModeSelector extends StatelessWidget {
                     size: 18,
                     color: selected
                         ? Colors.white
-                        : (isDark ? Colors.white70 : Colors.black54),
+                        : (context.octave.text2),
                   ),
                   const SizedBox(height: 4),
                   Text(
@@ -1047,101 +1038,11 @@ class _ThemeModeSelector extends StatelessWidget {
                       fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
                       color: selected
                           ? Colors.white
-                          : (isDark ? Colors.white70 : Colors.black54),
+                          : (context.octave.text2),
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-}
-
-class _AccentColorPicker extends StatelessWidget {
-  const _AccentColorPicker({
-    required this.selected,
-    required this.onChanged,
-  });
-
-  final AccentColor selected;
-  final ValueChanged<AccentColor> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Wrap(
-      spacing: 10,
-      runSpacing: 10,
-      children: AccentColor.values.map((color) {
-        final isSelected = selected == color;
-        final isDynamic = color.isDynamic;
-
-        final decoration = isDynamic
-            ? BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: const SweepGradient(
-                  colors: [
-                    Color(0xFF6750A4),
-                    Color(0xFF006C50),
-                    Color(0xFF7D5260),
-                    Color(0xFF00639B),
-                    Color(0xFF6750A4),
-                  ],
-                ),
-                border: Border.all(
-                  color: isSelected ? Colors.white : Colors.transparent,
-                  width: 2.5,
-                ),
-                boxShadow: isSelected
-                    ? [
-                        BoxShadow(
-                          color:
-                              theme.colorScheme.primary.withValues(alpha: 0.6),
-                          blurRadius: 8,
-                          spreadRadius: 1,
-                        ),
-                      ]
-                    : null,
-              )
-            : BoxDecoration(
-                color: color.color,
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isSelected ? Colors.white : Colors.transparent,
-                  width: 2.5,
-                ),
-                boxShadow: isSelected
-                    ? [
-                        BoxShadow(
-                          color: color.color.withValues(alpha: 0.6),
-                          blurRadius: 8,
-                          spreadRadius: 1,
-                        ),
-                      ]
-                    : null,
-              );
-
-        final l10n = AppLocalizations.of(context);
-        return Tooltip(
-          message: isDynamic
-              ? (l10n?.dynamicColor ?? 'Material You (Dynamic Color)')
-              : '',
-          child: GestureDetector(
-            onTap: () => onChanged(color),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 160),
-              width: 32,
-              height: 32,
-              decoration: decoration,
-              child: isSelected
-                  ? const Icon(Icons.check, color: Colors.white, size: 16)
-                  : (isDynamic
-                      ? const Icon(Icons.auto_awesome,
-                          color: Colors.white, size: 14)
-                      : null),
             ),
           ),
         );

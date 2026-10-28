@@ -1501,7 +1501,7 @@
   "@themeLabel": {
     "description": "Label for the theme mode selector (System / Light / Dark)"
   },
-  "accentColorLabel": "Couleur d'accentuation",
+  "accentColorLabel": "Couleur de l'app",
   "@accentColorLabel": {
     "description": "Label for the accent color picker"
   },
@@ -1756,5 +1756,11 @@
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
   },
-  "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio"
+  "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio",
+  "colorIntensityLabel": "Intensité des couleurs",
+  "colorIntensityNeutral": "Neutre",
+  "colorIntensityVivid": "Coloré",
+  "pureBlackLabel": "Noir pur",
+  "pureBlackSubtitle": "Fond noir en mode sombre, économise la batterie des écrans OLED",
+  "accentColorOctave": "Bleu nuit Octave"
 }

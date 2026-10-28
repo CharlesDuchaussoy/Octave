@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class QuickAccessTile extends StatefulWidget {
   final String title;
@@ -26,8 +27,6 @@ class _QuickAccessTileState extends State<QuickAccessTile> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
@@ -38,13 +37,7 @@ class _QuickAccessTileState extends State<QuickAccessTile> {
         child: Container(
           height: 56,
           decoration: BoxDecoration(
-            color: isDark
-                ? (_isHovered
-                    ? const Color(0xFF383838)
-                    : const Color(0xFF282828))
-                : (_isHovered
-                    ? const Color(0xFFE5E7EB)
-                    : const Color(0xFFF3F4F6)),
+            color: _isHovered ? context.octave.surface3 : context.octave.surface2,
             borderRadius: BorderRadius.circular(6),
             boxShadow: _isHovered
                 ? [
@@ -80,7 +73,7 @@ class _QuickAccessTileState extends State<QuickAccessTile> {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
-                      color: isDark ? Colors.white : Colors.black87,
+                      color: context.octave.text1,
                       height: 1.2,
                     ),
                     maxLines: 2,

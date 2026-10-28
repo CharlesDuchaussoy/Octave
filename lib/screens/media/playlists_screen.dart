@@ -43,7 +43,7 @@ class PlaylistsScreen extends StatelessWidget {
                   Icon(
                     CupertinoIcons.music_note_list,
                     size: 64,
-                    color: AppTheme.lightSecondaryText,
+                    color: context.octave.text2,
                   ),
                   const SizedBox(height: 16),
                   Text(l10n.noPlaylists, style: theme.textTheme.headlineMedium),
@@ -51,7 +51,7 @@ class PlaylistsScreen extends StatelessWidget {
                   Text(
                     l10n.createPlaylistToGetStarted,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                   const SizedBox(height: 24),
@@ -197,17 +197,17 @@ class _PlaylistTile extends StatelessWidget {
                 valueListenable: OfflineService().queuedPlaylistIds,
                 builder: (context, queued, _) {
                   if (downloaded.contains(playlist.id)) {
-                    return const Padding(
+                    return Padding(
                       padding: EdgeInsets.only(right: 4),
                       child: Icon(Icons.check_circle,
-                          size: 20, color: Colors.green),
+                          size: 20, color: context.octave.success),
                     );
                   }
                   if (queued.contains(playlist.id)) {
-                    return const Padding(
+                    return Padding(
                       padding: EdgeInsets.only(right: 4),
                       child: Icon(Icons.check_circle_outline,
-                          size: 20, color: Colors.green),
+                          size: 20, color: context.octave.success),
                     );
                   }
                   return const SizedBox.shrink();

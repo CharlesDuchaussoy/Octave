@@ -159,8 +159,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
           SnackBar(
             content: Row(
               children: [
-                const Icon(CupertinoIcons.checkmark_circle_fill,
-                    color: Color(0xFF34C759), size: 18),
+                Icon(CupertinoIcons.checkmark_circle_fill,
+                    color: context.octave.success, size: 18),
                 const SizedBox(width: 10),
                 Text(l10n.connectedToWebStream,
                     style: const TextStyle(fontWeight: FontWeight.w500)),
@@ -237,8 +237,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
           SnackBar(
             content: Row(
               children: [
-                const Icon(CupertinoIcons.checkmark_circle_fill,
-                    color: Color(0xFF34C759), size: 18),
+                Icon(CupertinoIcons.checkmark_circle_fill,
+                    color: context.octave.success, size: 18),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Text(
@@ -277,16 +277,16 @@ class _AddServerScreenState extends State<AddServerScreen> {
 
     return Scaffold(
       backgroundColor:
-          isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+          context.octave.background,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor:
-            isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
+            context.octave.background,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             CupertinoIcons.chevron_back,
-            color: isDark ? Colors.white : Colors.black87,
+            color: context.octave.text1,
             size: 26,
           ),
           onPressed: () => Navigator.of(context).pop(),
@@ -296,7 +296,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: isDark ? Colors.white : Colors.black87,
+            color: context.octave.text1,
           ),
         ),
         centerTitle: true,
@@ -317,9 +317,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: isDark
-                        ? AppTheme.darkSecondaryText
-                        : AppTheme.lightSecondaryText,
+                    color: context.octave.text2,
                     letterSpacing: 0.5,
                   ),
                 ),
@@ -329,7 +327,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                   title: 'Navidrome / Subsonic',
                   subtitle: 'Connect to your self-hosted music library',
                   icon: CupertinoIcons.music_note_2,
-                  gradient: const [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+                  gradient: [context.octave.accent, context.octave.accent],
                   badge: 'Self-Hosted',
                   isSelected: _selectedFamily == 'subsonic',
                   isDisabled: false,
@@ -354,7 +352,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                         ? 'Already configured in your music sources'
                         : 'Stream music online without account setup',
                     icon: CupertinoIcons.play_rectangle_fill,
-                    gradient: const [Color(0xFFFF3B30), Color(0xFFFF453A)],
+                    gradient: [context.octave.danger, context.octave.danger],
                     badge: hasYtStream ? 'ALREADY ADDED' : 'No Account Needed',
                     isSelected: _selectedFamily == 'youtube',
                     isDisabled: hasYtStream,
@@ -367,7 +365,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                     title: 'Local Files',
                     subtitle: 'Play audio files stored directly on this device',
                     icon: CupertinoIcons.folder_fill,
-                    gradient: const [Color(0xFF34C759), Color(0xFF30B0C7)],
+                    gradient: [context.octave.success, Color(0xFF30B0C7)],
                     badge: 'Offline',
                     isSelected: _selectedFamily == 'local',
                     isDisabled: false,
@@ -418,9 +416,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: isDark
-              ? (isSelected ? const Color(0xFF282828) : AppTheme.darkSurface)
-              : (isSelected ? Colors.white : const Color(0xFFF9FAFB)),
+          color: isSelected ? context.octave.surface2 : context.octave.surface1,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: isSelected
@@ -472,7 +468,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                             horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: isDisabled
-                              ? const Color(0xFF34C759).withValues(alpha: 0.15)
+                              ? context.octave.success.withValues(alpha: 0.15)
                               : (isDark
                                   ? Colors.white12
                                   : Colors.black.withValues(alpha: 0.06)),
@@ -484,8 +480,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
                             fontSize: 9,
                             fontWeight: FontWeight.bold,
                             color: isDisabled
-                                ? const Color(0xFF34C759)
-                                : (isDark ? Colors.white70 : Colors.black54),
+                                ? context.octave.success
+                                : (context.octave.text2),
                           ),
                         ),
                       ),
@@ -496,9 +492,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                     subtitle,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isDark
-                          ? AppTheme.darkSecondaryText
-                          : AppTheme.lightSecondaryText,
+                      color: context.octave.text2,
                     ),
                   ),
                 ],
@@ -512,7 +506,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 border: Border.all(
                   color: isSelected
                       ? primaryColor
-                      : (isDark ? Colors.white24 : Colors.black26),
+                      : (context.octave.separator),
                   width: 2,
                 ),
                 color: isSelected ? primaryColor : Colors.transparent,
@@ -532,23 +526,23 @@ class _AddServerScreenState extends State<AddServerScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.12),
+        color: context.octave.danger.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
+        border: Border.all(color: context.octave.danger.withValues(alpha: 0.3)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.error_outline, color: Colors.red, size: 20),
+          Icon(Icons.error_outline, color: context.octave.danger, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Connection Error',
                   style: TextStyle(
-                      color: Colors.red,
+                      color: context.octave.danger,
                       fontWeight: FontWeight.bold,
                       fontSize: 13),
                 ),
@@ -556,7 +550,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 Text(
                   _errorMessage!,
                   style: TextStyle(
-                    color: isDark ? Colors.red[200] : Colors.red[900],
+                    color: context.octave.danger,
                     fontSize: 12,
                   ),
                 ),
@@ -572,7 +566,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSurface : Colors.white,
+        color: context.octave.surface1,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
           color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
@@ -587,11 +581,11 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFF3B30).withValues(alpha: 0.15),
+                  color: context.octave.danger.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(CupertinoIcons.sparkles,
-                    color: Color(0xFFFF3B30), size: 18),
+                child: Icon(CupertinoIcons.sparkles,
+                    color: context.octave.danger, size: 18),
               ),
               const SizedBox(width: 12),
               const Expanded(
@@ -645,9 +639,9 @@ class _AddServerScreenState extends State<AddServerScreen> {
             child: FilledButton(
               onPressed: hasYtStream || _isConnecting ? null : _connectYtStream,
               style: FilledButton.styleFrom(
-                backgroundColor: const Color(0xFFFF3B30),
+                backgroundColor: context.octave.danger,
                 disabledBackgroundColor: hasYtStream
-                    ? const Color(0xFF34C759).withValues(alpha: 0.3)
+                    ? context.octave.success.withValues(alpha: 0.3)
                     : Colors.grey.withValues(alpha: 0.3),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14)),
@@ -682,7 +676,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: const Color(0xFFFF3B30)),
+        Icon(icon, size: 18, color: context.octave.danger),
         const SizedBox(width: 10),
         Expanded(
           child: Column(
@@ -696,9 +690,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 subtitle,
                 style: TextStyle(
                   fontSize: 12,
-                  color: isDark
-                      ? AppTheme.darkSecondaryText
-                      : AppTheme.lightSecondaryText,
+                  color: context.octave.text2,
                 ),
               ),
             ],
@@ -712,7 +704,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
     return Container(
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSurface : Colors.white,
+        color: context.octave.surface1,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
@@ -727,8 +719,8 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 width: 44,
                 height: 44,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF34C759), Color(0xFF30B0C7)],
+                  gradient: LinearGradient(
+                    colors: [context.octave.success, Color(0xFF30B0C7)],
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -750,9 +742,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                       'Play local audio files stored on device',
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                       ),
                     ),
                   ],
@@ -772,7 +762,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF34C759),
+                backgroundColor: context.octave.success,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12)),
@@ -830,7 +820,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: isDark ? AppTheme.darkSurface : Colors.white,
+          color: context.octave.surface1,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
             color:
@@ -856,7 +846,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 prefixIcon: const Icon(CupertinoIcons.tag),
                 filled: true,
                 fillColor:
-                    isDark ? const Color(0xFF222222) : const Color(0xFFF3F4F6),
+                    context.octave.surface2,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -881,7 +871,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 prefixIcon: const Icon(CupertinoIcons.link),
                 filled: true,
                 fillColor:
-                    isDark ? const Color(0xFF222222) : const Color(0xFFF3F4F6),
+                    context.octave.surface2,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -894,22 +884,22 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.amber.withValues(alpha: 0.12),
+                  color: context.octave.warning.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(8),
                   border:
-                      Border.all(color: Colors.amber.withValues(alpha: 0.3)),
+                      Border.all(color: context.octave.warning.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
-                    const Icon(CupertinoIcons.exclamationmark_shield_fill,
-                        size: 16, color: Colors.amber),
+                    Icon(CupertinoIcons.exclamationmark_shield_fill,
+                        size: 16, color: context.octave.warning),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         'Insecure HTTP: Passwords and streaming traffic are not encrypted over public networks. HTTPS is recommended.',
                         style: TextStyle(
                           fontSize: 12,
-                          color: isDark ? Colors.amber[200] : Colors.amber[900],
+                          color: context.octave.warning,
                         ),
                       ),
                     ),
@@ -927,7 +917,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 prefixIcon: const Icon(CupertinoIcons.wifi),
                 filled: true,
                 fillColor:
-                    isDark ? const Color(0xFF222222) : const Color(0xFFF3F4F6),
+                    context.octave.surface2,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -948,7 +938,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 prefixIcon: const Icon(CupertinoIcons.person),
                 filled: true,
                 fillColor:
-                    isDark ? const Color(0xFF222222) : const Color(0xFFF3F4F6),
+                    context.octave.surface2,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -980,7 +970,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 ),
                 filled: true,
                 fillColor:
-                    isDark ? const Color(0xFF222222) : const Color(0xFFF3F4F6),
+                    context.octave.surface2,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
@@ -1020,9 +1010,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: isDark
-                      ? const Color(0xFF222222)
-                      : const Color(0xFFF3F4F6),
+                  color: context.octave.surface2,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(

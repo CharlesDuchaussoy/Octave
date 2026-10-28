@@ -79,18 +79,18 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
     final (IconData icon, List<Color> gradient, String serviceLabel) = isYoutube
         ? (
             CupertinoIcons.play_rectangle_fill,
-            const [Color(0xFFFF3B30), Color(0xFFFF453A)],
+            [context.octave.danger, context.octave.danger],
             'Web Stream'
           )
         : config?.isJellyfin == true
             ? (
                 CupertinoIcons.tv_fill,
-                const [Color(0xFF00A4DC), Color(0xFF0077A3)],
+                [Color(0xFF00A4DC), context.octave.accent],
                 'Jellyfin'
               )
             : (
                 CupertinoIcons.music_note_2,
-                const [Color(0xFF6366F1), Color(0xFF8B5CF6)],
+                [context.octave.accent, context.octave.accent],
                 config?.serverType ?? 'Navidrome / Subsonic'
               );
 
@@ -105,7 +105,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: isDark ? AppTheme.darkSurface : Colors.white,
+        color: context.octave.surface1,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
@@ -161,8 +161,8 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                                 horizontal: 6, vertical: 2),
                             decoration: BoxDecoration(
                               color: (isConnected
-                                      ? const Color(0xFF34C759)
-                                      : Colors.orange)
+                                      ? context.octave.accent
+                                      : context.octave.warning)
                                   .withValues(alpha: 0.15),
                               borderRadius: BorderRadius.circular(6),
                             ),
@@ -173,8 +173,8 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                                   CupertinoIcons.circle_fill,
                                   size: 6,
                                   color: isConnected
-                                      ? const Color(0xFF34C759)
-                                      : Colors.orange,
+                                      ? context.octave.accent
+                                      : context.octave.warning,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
@@ -187,8 +187,8 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                                     fontSize: 9,
                                     fontWeight: FontWeight.bold,
                                     color: isConnected
-                                        ? const Color(0xFF34C759)
-                                        : Colors.orange,
+                                        ? context.octave.accent
+                                        : context.octave.warning,
                                     letterSpacing: 0.3,
                                   ),
                                 ),
@@ -205,9 +205,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                               displayUrl,
                               style: TextStyle(
                                 fontSize: 13,
-                                color: isDark
-                                    ? AppTheme.darkSecondaryText
-                                    : AppTheme.lightSecondaryText,
+                                color: context.octave.text2,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -236,34 +234,34 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
           if (!isYoutube && config != null) ...[
             Divider(
                 height: 1,
-                color: isDark ? AppTheme.darkDivider : AppTheme.lightDivider),
+                color: context.octave.separator),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 children: [
                   Icon(CupertinoIcons.person_fill,
                       size: 14,
-                      color: isDark ? Colors.white54 : Colors.black45),
+                      color: context.octave.text3),
                   const SizedBox(width: 6),
                   Text(
                     config.username,
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: isDark ? Colors.white70 : Colors.black87,
+                      color: context.octave.text2,
                     ),
                   ),
                   if (config.lanUrl != null && config.lanUrl!.isNotEmpty) ...[
                     const Spacer(),
                     Icon(CupertinoIcons.wifi,
                         size: 14,
-                        color: isDark ? Colors.white54 : Colors.black45),
+                        color: context.octave.text3),
                     const SizedBox(width: 4),
                     Text(
                       'LAN: ${config.lanUrl}',
                       style: TextStyle(
                         fontSize: 11,
-                        color: isDark ? Colors.white54 : Colors.black45,
+                        color: context.octave.text3,
                       ),
                     ),
                   ],
@@ -272,13 +270,13 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                     const Spacer(),
                     Icon(CupertinoIcons.info_circle,
                         size: 14,
-                        color: isDark ? Colors.white54 : Colors.black45),
+                        color: context.octave.text3),
                     const SizedBox(width: 6),
                     Text(
                       'v${config.serverVersion}',
                       style: TextStyle(
                         fontSize: 12,
-                        color: isDark ? Colors.white54 : Colors.black45,
+                        color: context.octave.text3,
                       ),
                     ),
                   ],
@@ -325,9 +323,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: isDark
-                            ? AppTheme.darkSecondaryText
-                            : AppTheme.lightSecondaryText,
+                        color: context.octave.text2,
                         letterSpacing: 0.5,
                       ),
                       maxLines: 1,
@@ -357,7 +353,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Material(
-                color: isDark ? AppTheme.darkSurface : Colors.white,
+                color: context.octave.surface1,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                   side: BorderSide(
@@ -382,16 +378,16 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                       ) = profile.isYoutube
                           ? (
                               CupertinoIcons.play_rectangle_fill,
-                              const [Color(0xFFFF3B30), Color(0xFFFF453A)]
+                              [context.octave.danger, context.octave.danger]
                             )
                           : profile.isJellyfin
                               ? (
                                   CupertinoIcons.tv_fill,
-                                  const [Color(0xFF00A4DC), Color(0xFF0077A3)]
+                                  [Color(0xFF00A4DC), context.octave.accent]
                                 )
                               : (
                                   CupertinoIcons.music_note_2,
-                                  const [Color(0xFF6366F1), Color(0xFF8B5CF6)]
+                                  [context.octave.accent, context.octave.accent]
                                 );
 
                       return Column(
@@ -422,9 +418,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                               profile.displayUrl,
                               style: TextStyle(
                                 fontSize: 12,
-                                color: isDark
-                                    ? AppTheme.darkSecondaryText
-                                    : AppTheme.lightSecondaryText,
+                                color: context.octave.text2,
                               ),
                             ),
                             trailing: isActive
@@ -432,25 +426,23 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8, vertical: 3),
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF34C759)
+                                      color: context.octave.accent
                                           .withValues(alpha: 0.15),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Text(
                                       l10n.serverActiveBadge,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 10,
                                         fontWeight: FontWeight.bold,
-                                        color: Color(0xFF34C759),
+                                        color: context.octave.accent,
                                       ),
                                     ),
                                   )
                                 : Icon(
                                     CupertinoIcons.arrow_2_squarepath,
                                     size: 16,
-                                    color: isDark
-                                        ? Colors.white38
-                                        : Colors.black38,
+                                    color: context.octave.text3,
                                   ),
                             onTap: isActive
                                 ? null
@@ -469,17 +461,13 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                           if (profile != profiles.last)
                             Divider(
                                 height: 1,
-                                color: isDark
-                                    ? AppTheme.darkDivider
-                                    : AppTheme.lightDivider),
+                                color: context.octave.separator),
                         ],
                       );
                     }),
                     Divider(
                         height: 1,
-                        color: isDark
-                            ? AppTheme.darkDivider
-                            : AppTheme.lightDivider),
+                        color: context.octave.separator),
                     ListTile(
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 14, vertical: 2),
@@ -514,15 +502,12 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
 
   Widget _buildMusicFoldersButton() {
     return SettingsListTile(
-      gradientColors: const [Color(0xFF5856D6), Color(0xFF7B68EE)],
       icon: CupertinoIcons.folder,
       title: AppLocalizations.of(context)!.musicFolders,
       trailing: Icon(
         CupertinoIcons.chevron_right,
         size: 16,
-        color: context.isDark
-            ? AppTheme.darkSecondaryText
-            : AppTheme.lightSecondaryText,
+        color: context.octave.text2,
       ),
       onTap: _showMusicFoldersDialog,
     );
@@ -561,7 +546,6 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SettingsSwitchTile(
-            gradientColors: const [Color(0xFFFF9500), Color(0xFFFF6000)],
             icon: CupertinoIcons.speaker_2,
             title: l10n.jukeboxMode,
             subtitle: l10n.jukeboxModeSubtitle,
@@ -573,9 +557,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
               padding: const EdgeInsets.only(left: 56),
               child: Container(
                 height: 0.5,
-                color: context.isDark
-                    ? AppTheme.darkDivider
-                    : AppTheme.lightDivider,
+                color: context.octave.separator,
               ),
             ),
             ListTile(
@@ -591,9 +573,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
               trailing: Icon(
                 CupertinoIcons.chevron_right,
                 size: 16,
-                color: context.isDark
-                    ? AppTheme.darkSecondaryText
-                    : AppTheme.lightSecondaryText,
+                color: context.octave.text2,
               ),
               onTap: () =>
                   NavigationHelper.push(context, const JukeboxScreen()),
@@ -606,10 +586,9 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
 
   Widget _buildLogoutButton() {
     return SettingsListTile(
-      gradientColors: const [Color(0xFFFF3B30), Color(0xFFFF453A)],
       icon: CupertinoIcons.square_arrow_right,
       title: AppLocalizations.of(context)!.logout,
-      titleColor: const Color(0xFFFF3B30),
+      titleColor: context.octave.danger,
       onTap: () {
         final playerProvider =
             Provider.of<PlayerProvider>(context, listen: false);
@@ -632,7 +611,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                 },
                 child: Text(
                   AppLocalizations.of(context)!.logout,
-                  style: const TextStyle(color: Color(0xFFFF3B30)),
+                  style: TextStyle(color: context.octave.danger),
                 ),
               ),
             ],
