@@ -13,6 +13,7 @@ import 'package:musly/widgets/navigation/tv_remote_scope.dart';
 import 'swipeable_song_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class SongTile extends StatelessWidget {
   final Song song;
@@ -104,7 +105,7 @@ class SongTile extends StatelessWidget {
                       const SizedBox(width: 10),
                       Expanded(
                         child: Text(
-                          '"${song.title}" added to queue',
+                          AppLocalizations.of(context)!.songAddedToQueue(song.title),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),

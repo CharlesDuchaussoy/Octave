@@ -5,6 +5,7 @@ import 'package:musly/providers/player_provider.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class RightSidebar extends StatelessWidget {
   final VoidCallback? onClose;
@@ -35,8 +36,8 @@ class RightSidebar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  'Queue',
+                Text(
+                  AppLocalizations.of(context)!.queue,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -53,7 +54,7 @@ class RightSidebar extends StatelessWidget {
                     onClose?.call();
                     NavigationHelper.isDesktopQueueOpen.value = false;
                   },
-                  tooltip: 'Close Queue',
+                  tooltip: AppLocalizations.of(context)!.closeQueue,
                   splashRadius: 18,
                   hoverColor: Colors.white.withValues(alpha: 0.1),
                 ),
@@ -79,7 +80,7 @@ class RightSidebar extends StatelessWidget {
                         ),
                         SizedBox(height: 12),
                         Text(
-                          'Queue is empty',
+                          AppLocalizations.of(context)!.queueEmpty,
                           style: TextStyle(
                             color: context.octave.text3,
                             fontSize: 14,
@@ -101,7 +102,7 @@ class RightSidebar extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.fromLTRB(8, 4, 8, 8),
                         child: Text(
-                          'NOW PLAYING',
+                          AppLocalizations.of(context)!.nowPlaying.toUpperCase(),
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -165,7 +166,7 @@ class RightSidebar extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(8, 8, 8, 8),
                         child: Text(
-                          'NEXT UP · $upcomingCount songs',
+                          AppLocalizations.of(context)!.nextUpCount(upcomingCount).toUpperCase(),
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w700,
@@ -270,7 +271,7 @@ class _UpcomingSongTileState extends State<_UpcomingSongTile> {
                   color: context.octave.text2,
                 ),
                 onPressed: widget.onPlay,
-                tooltip: 'Play',
+                tooltip: AppLocalizations.of(context)!.play,
                 constraints: const BoxConstraints(),
                 padding: const EdgeInsets.all(4),
                 hoverColor: Colors.white.withValues(alpha: 0.1),
@@ -283,7 +284,7 @@ class _UpcomingSongTileState extends State<_UpcomingSongTile> {
                   color: context.octave.text2,
                 ),
                 onPressed: widget.onRemove,
-                tooltip: 'Remove',
+                tooltip: AppLocalizations.of(context)!.remove,
                 constraints: const BoxConstraints(),
                 padding: const EdgeInsets.all(4),
                 hoverColor: context.octave.danger.withValues(alpha: 0.2),

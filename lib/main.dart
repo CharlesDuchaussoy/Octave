@@ -652,7 +652,7 @@ class _AuthenticatingScreenState extends State<_AuthenticatingScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Text(
-                  'La connessione ci sta mettendo un po\'...',
+                  AppLocalizations.of(context)!.connectionSlow,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: Colors.grey,
                   ),

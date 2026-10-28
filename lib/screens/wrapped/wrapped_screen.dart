@@ -497,14 +497,14 @@ class _WrappedScreenState extends State<WrappedScreen>
                         padding: const EdgeInsets.symmetric(
                             horizontal: 14, vertical: 6),
                         color: Colors.black45,
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(CupertinoIcons.pause_fill,
                                 color: Colors.white70, size: 12),
                             SizedBox(width: 6),
                             Text(
-                              'PAUSED',
+                              AppLocalizations.of(context)!.pausedBadge.toUpperCase(),
                               style: TextStyle(
                                 color: Colors.white70,
                                 fontSize: 11,
@@ -762,7 +762,7 @@ class _WrappedScreenState extends State<WrappedScreen>
                             color: Color(0xFFFA243C), size: 12),
                         const SizedBox(width: 6),
                         Text(
-                          'PLAYBACK ${_data!.year}',
+                          AppLocalizations.of(context)!.playbackYear(_data!.year).toUpperCase(),
                           style: const TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w900,

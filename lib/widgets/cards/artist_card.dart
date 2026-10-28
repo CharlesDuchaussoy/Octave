@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:musly/models/artist.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class ArtistCard extends StatefulWidget {
   final Artist artist;
@@ -138,7 +139,7 @@ class _ArtistCardState extends State<ArtistCard> {
                 ),
                 if (widget.artist.albumCount != null)
                   Text(
-                    '${widget.artist.albumCount} albums',
+                    AppLocalizations.of(context)!.albumsCount(widget.artist.albumCount!),
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: context.octave.text2,
                     ),

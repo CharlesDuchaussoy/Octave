@@ -112,7 +112,7 @@ class _RadioScreenState extends State<RadioScreen> {
                 ListTile(
                   leading: const Icon(CupertinoIcons.globe),
                   title: Text(
-                    'Homepage',
+                    AppLocalizations.of(context)!.radioHomepage,
                     style:
                         TextStyle(color: context.octave.text1),
                   ),
@@ -351,7 +351,7 @@ class _RadioStationTile extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'LIVE',
+                        AppLocalizations.of(context)!.liveLabel,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontSize: 12,

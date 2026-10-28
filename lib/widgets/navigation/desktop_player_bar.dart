@@ -118,7 +118,7 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                                   ),
                                   const SizedBox(width: 6),
                                   Text(
-                                    'LIVE',
+                                    AppLocalizations.of(context)!.liveLabel,
                                     style: TextStyle(
                                       color: context.octave.text2,
                                       fontSize: 10,
@@ -369,7 +369,7 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                               ? context.octave.accent
                               : context.octave.text3,
                         ),
-                        tooltip: 'Lyrics',
+                        tooltip: AppLocalizations.of(context)!.lyrics,
                         visualDensity: VisualDensity.compact,
                         padding: const EdgeInsets.all(6),
                         constraints: const BoxConstraints(),
@@ -390,7 +390,9 @@ class _DesktopPlayerBarState extends State<DesktopPlayerBar> {
                               ? context.octave.accent
                               : context.octave.text3,
                         ),
-                        tooltip: isQueueOpen ? 'Hide Queue' : 'Queue',
+                        tooltip: isQueueOpen
+                            ? AppLocalizations.of(context)!.hideQueue
+                            : AppLocalizations.of(context)!.queue,
                         visualDensity: VisualDensity.compact,
                         padding: const EdgeInsets.all(6),
                         constraints: const BoxConstraints(),
@@ -663,7 +665,7 @@ class _VolumeControl extends StatelessWidget {
                 color: context.octave.text3,
               ),
               onPressed: provider.toggleMute,
-              tooltip: isMuted ? 'Unmute' : 'Mute',
+              tooltip: isMuted ? AppLocalizations.of(context)!.unmute : AppLocalizations.of(context)!.mute,
               visualDensity: VisualDensity.compact,
               padding: const EdgeInsets.all(6),
               constraints: const BoxConstraints(),

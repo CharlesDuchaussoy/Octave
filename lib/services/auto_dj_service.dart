@@ -339,40 +339,6 @@ class AutoDjService extends ChangeNotifier {
     _recentlyAddedIds.clear();
   }
 
-  static String getModeDisplayName(AutoDjMode mode) {
-    switch (mode) {
-      case AutoDjMode.off:
-        return 'Off';
-      case AutoDjMode.shuffleLibrary:
-        return 'Shuffle Library';
-      case AutoDjMode.similarSongs:
-        return 'Similar Songs';
-      case AutoDjMode.sameGenre:
-        return 'Same Genre';
-      case AutoDjMode.sameArtist:
-        return 'Same Artist';
-      case AutoDjMode.smartMix:
-        return 'Smart Mix';
-    }
-  }
-
-  static String getModeDescription(AutoDjMode mode) {
-    switch (mode) {
-      case AutoDjMode.off:
-        return 'Playback stops when queue ends';
-      case AutoDjMode.shuffleLibrary:
-        return 'Add random songs from your library';
-      case AutoDjMode.similarSongs:
-        return 'Add songs similar to what\'s playing';
-      case AutoDjMode.sameGenre:
-        return 'Add songs from the same genre';
-      case AutoDjMode.sameArtist:
-        return 'Add more songs by the same artist';
-      case AutoDjMode.smartMix:
-        return 'Intelligent mix based on tempo, genre, and listening habits';
-    }
-  }
-
   void setProgressCallback(VoidCallback? callback) {
     _onProgressUpdate = callback;
   }

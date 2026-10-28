@@ -46,7 +46,8 @@ class _ArtistScreenState extends State<ArtistScreen> {
       if (libraryProvider.isLocalOnlyMode) {
         artist = libraryProvider.artists.firstWhere(
           (a) => a.id == widget.artistId,
-          orElse: () => Artist(id: widget.artistId, name: 'Unknown Artist'),
+          orElse: () => Artist(
+              id: widget.artistId, name: AppLocalizations.of(context)!.unknownArtist),
         );
         albums = await libraryProvider.getArtistAlbums(widget.artistId);
 
@@ -473,7 +474,7 @@ class _ArtistScreenState extends State<ArtistScreen> {
                               _artistInfo!.biography!.isNotEmpty) ...[
                             const SizedBox(height: 32),
                             Text(
-                              'About ${_artist!.name}',
+                              AppLocalizations.of(context)!.aboutArtist(_artist!.name),
                               style: theme.textTheme.headlineSmall,
                             ),
                             const SizedBox(height: 12),

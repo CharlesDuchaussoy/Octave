@@ -172,7 +172,7 @@ class _AlbumCollectionScreenState extends State<AlbumCollectionScreen> {
       case AlbumCollectionType.recent:
         return l10n?.albums ?? 'Albums';
       case AlbumCollectionType.custom:
-        return 'Albums';
+        return l10n?.albums ?? 'Albums';
     }
   }
 

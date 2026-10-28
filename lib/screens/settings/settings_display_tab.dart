@@ -161,7 +161,7 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         ),
         const SizedBox(height: 24),
         SettingsSectionCard(
-          title: 'ARTWORK',
+          title: AppLocalizations.of(context)!.artworkSection.toUpperCase(),
           children: [
             _buildArtworkResolutionSelector(),
           ],
@@ -867,13 +867,13 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
   Widget _buildArtworkResolutionSelector() {
     final options = {
-      'low': 'Low (300px)',
-      'normal': 'Normal (600px)',
-      'high': 'High (Original)',
+      'low': AppLocalizations.of(context)!.artworkResLow,
+      'normal': AppLocalizations.of(context)!.artworkResNormal,
+      'high': AppLocalizations.of(context)!.artworkResHigh,
     };
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      title: const Text('Artwork Resolution'),
+      title: Text(AppLocalizations.of(context)!.artworkResolution),
       trailing: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: _artworkResolution,

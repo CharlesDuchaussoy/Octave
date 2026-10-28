@@ -184,7 +184,7 @@ class _PlaylistTile extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        '${playlist.songCount ?? 0} songs',
+        AppLocalizations.of(context)!.songsCount(playlist.songCount ?? 0),
         style: theme.textTheme.bodySmall,
       ),
       trailing: Row(

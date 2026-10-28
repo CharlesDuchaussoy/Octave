@@ -76,7 +76,7 @@ class _SettingsAndroidAutoTabState extends State<SettingsAndroidAutoTab> {
       padding: const EdgeInsets.symmetric(vertical: 16),
       children: [
         SettingsSectionCard(
-          title: 'Server',
+          title: AppLocalizations.of(context)!.server,
           children: [
             SettingsListTile(
               title: l10n.androidAutoDefaultServer,

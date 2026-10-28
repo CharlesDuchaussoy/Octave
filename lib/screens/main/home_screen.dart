@@ -163,14 +163,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     physics: const BouncingScrollPhysics(),
                     child: Row(
                       children: [
-                        _buildCategoryChip('All', 'All', isDark),
+                        _buildCategoryChip('All', AppLocalizations.of(context)!.filterAll, isDark),
                         const SizedBox(width: 8),
-                        _buildCategoryChip('Music', 'Music', isDark),
+                        _buildCategoryChip('Music', AppLocalizations.of(context)!.filterMusic, isDark),
                         const SizedBox(width: 8),
                         _buildCategoryChip(
-                            'MadeForYou', 'Made For You', isDark),
+                            'MadeForYou', AppLocalizations.of(context)!.madeForYou, isDark),
                         const SizedBox(width: 8),
-                        _buildCategoryChip('Playlists', 'Playlists', isDark),
+                        _buildCategoryChip('Playlists', AppLocalizations.of(context)!.filterPlaylists, isDark),
                       ],
                     ),
                   ),
@@ -310,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _selectedCategory == 'Music') &&
                             recentAlbums.isNotEmpty) ...[
                           HorizontalScrollSection(
-                            title: 'Jump back in',
+                            title: AppLocalizations.of(context)!.homeJumpBackIn,
                             padding: EdgeInsets.symmetric(horizontal: hPad),
                             cardSize: isDesktop ? 180 : 155,
                             children: recentAlbums.take(12).map((album) {
@@ -333,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             personalizedFeed.isNotEmpty) ...[
                           _buildMixSection(
                             context: context,
-                            title: 'Made For You',
+                            title: AppLocalizations.of(context)!.madeForYou,
                             icon: Icons.auto_awesome,
                             songs: personalizedFeed,
                             isDesktop: isDesktop,
@@ -346,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             listenAgain.isNotEmpty) ...[
                           _buildMixSection(
                             context: context,
-                            title: 'Listen Again',
+                            title: AppLocalizations.of(context)!.homeListenAgain,
                             icon: Icons.history_rounded,
                             songs: listenAgain,
                             isDesktop: isDesktop,
@@ -359,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             topHits.isNotEmpty) ...[
                           _buildMixSection(
                             context: context,
-                            title: 'Your Top Hits',
+                            title: AppLocalizations.of(context)!.homeTopHits,
                             icon: Icons.favorite_rounded,
                             songs: topHits,
                             isDesktop: isDesktop,
@@ -371,14 +371,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _selectedCategory == 'Playlists') &&
                             playlists.isNotEmpty) ...[
                           HorizontalScrollSection(
-                            title: 'Your Playlists',
+                            title: AppLocalizations.of(context)!.yourPlaylists,
                             padding: EdgeInsets.symmetric(horizontal: hPad),
                             cardSize: isDesktop ? 180 : 155,
                             children: playlists.take(12).map((playlist) {
                               final cardSize = isDesktop ? 180.0 : 155.0;
                               return MediaCard(
                                 title: playlist.name,
-                                subtitle: 'Playlist • Octave',
+                                subtitle: AppLocalizations.of(context)!.playlist,
                                 coverArt: playlist.coverArt,
                                 artwork: PlaylistArtwork(
                                   playlist: playlist,
@@ -411,7 +411,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 _selectedCategory == 'Music') &&
                             artists.isNotEmpty) ...[
                           HorizontalScrollSection(
-                            title: 'Artists You Love',
+                            title: AppLocalizations.of(context)!.homeArtistsYouLove,
                             padding: EdgeInsets.symmetric(horizontal: hPad),
                             cardSize: isDesktop ? 160 : 140,
                             children: artists.take(10).map((artist) {
@@ -422,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       : null);
                               return MediaCard(
                                 title: artist.name,
-                                subtitle: 'Artist',
+                                subtitle: AppLocalizations.of(context)!.artistSingular,
                                 coverArt: coverArt,
                                 isRound: true,
                                 size: isDesktop ? 160 : 140,
@@ -503,7 +503,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 width: cardWidth,
                 child: QuickAccessTile(
-                  title: 'Liked Songs',
+                  title: AppLocalizations.of(context)!.likedSongs,
                   customArtwork: const OctaveIconArt(
                     icon: CupertinoIcons.heart_fill,
                     iconSize: 22,

@@ -363,8 +363,8 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
   Widget _buildAutoDownloadFavoritesTile() {
     return SettingsSwitchTile(
       icon: CupertinoIcons.heart_solid,
-      title: 'Auto Download Favorites',
-      subtitle: 'Automatically download songs when added to favorites',
+      title: AppLocalizations.of(context)!.autoDownloadFavorites,
+      subtitle: AppLocalizations.of(context)!.autoDownloadFavoritesSubtitle,
       value: _autoDownloadFavorites,
       onChanged: _toggleAutoDownloadFavorites,
     );

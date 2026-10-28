@@ -89,9 +89,10 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: context.octave.surface3,
-        title: const Text('Disconnect', style: TextStyle(color: Colors.white)),
+        title: Text(AppLocalizations.of(context)!.disconnect,
+            style: const TextStyle(color: Colors.white)),
         content: Text(
-          'Are you sure you want to disconnect from this server?',
+          AppLocalizations.of(context)!.disconnectConfirm,
           style: TextStyle(color: context.octave.text2),
         ),
         actions: [
@@ -106,7 +107,7 @@ class _DesktopNavigationSidebarState extends State<DesktopNavigationSidebar> {
               foregroundColor: Colors.white,
             ),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Disconnect'),
+            child: Text(AppLocalizations.of(context)!.disconnect),
           ),
         ],
       ),
@@ -387,7 +388,7 @@ class _LibrarySection extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'YOUR LIBRARY',
+                      AppLocalizations.of(context)!.yourLibrary.toUpperCase(),
                       style: TextStyle(
                         color: context.octave.text3,
                         fontSize: 11,
@@ -397,7 +398,7 @@ class _LibrarySection extends StatelessWidget {
                     ),
                   ),
                   Tooltip(
-                    message: 'Import playlist',
+                    message: AppLocalizations.of(context)!.importPlaylist,
                     child: InkWell(
                       onTap: () => ImportPlaylistDialog.show(context),
                       borderRadius: BorderRadius.circular(50),
@@ -414,7 +415,7 @@ class _LibrarySection extends StatelessWidget {
                   ),
                   const SizedBox(width: 4),
                   Tooltip(
-                    message: 'Create playlist',
+                    message: AppLocalizations.of(context)!.createPlaylist,
                     child: InkWell(
                       onTap: () => _showCreatePlaylist(context),
                       borderRadius: BorderRadius.circular(50),
@@ -435,7 +436,7 @@ class _LibrarySection extends StatelessWidget {
           _NavItem(
             icon: Icons.queue_music_rounded,
             activeIcon: Icons.queue_music_rounded,
-            label: 'Playlists',
+            label: AppLocalizations.of(context)!.playlists,
             isSelected: false,
             isCollapsed: isCollapsed,
             onTap: onPlaylistsTap,
@@ -443,7 +444,7 @@ class _LibrarySection extends StatelessWidget {
           _NavItem(
             icon: Icons.favorite_rounded,
             activeIcon: Icons.favorite_rounded,
-            label: 'Liked Songs',
+            label: AppLocalizations.of(context)!.likedSongs,
             isSelected: false,
             isCollapsed: isCollapsed,
             onTap: onFavoritesTap,
@@ -647,7 +648,7 @@ class _PlaylistTileState extends State<_PlaylistTile> {
                     ),
                     if (widget.playlist.songCount != null)
                       Text(
-                        '${widget.playlist.songCount} songs',
+                        AppLocalizations.of(context)!.songsCount(widget.playlist.songCount ?? 0),
                         style: TextStyle(
                           color: context.octave.text3,
                           fontSize: 11,
@@ -666,7 +667,7 @@ class _PlaylistTileState extends State<_PlaylistTile> {
                   constraints:
                       const BoxConstraints(minWidth: 24, minHeight: 24),
                   tooltip: AppLocalizations.of(context)?.moreOptions ??
-                      'Options',
+                      AppLocalizations.of(context)!.options,
                   onPressed: () =>
                       PlaylistOptionsModal.show(context, widget.playlist),
                 ),
@@ -701,7 +702,7 @@ class _DisconnectButtonState extends State<_DisconnectButton> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Tooltip(
-        message: widget.isCollapsed ? 'Disconnect' : '',
+        message: widget.isCollapsed ? AppLocalizations.of(context)!.disconnect : '',
         child: InkWell(
           onTap: widget.onTap,
           borderRadius: BorderRadius.circular(8),
@@ -728,7 +729,7 @@ class _DisconnectButtonState extends State<_DisconnectButton> {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        'Disconnect',
+                        AppLocalizations.of(context)!.disconnect,
                         style: TextStyle(
                           color: _isHovered ? hoverColor : defaultColor,
                           fontSize: 14,

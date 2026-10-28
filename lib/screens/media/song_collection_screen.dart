@@ -229,11 +229,11 @@ class _SongCollectionScreenState extends State<SongCollectionScreen> {
       case SongCollectionType.allSongs:
         return l10n?.songs ?? 'All Songs';
       case SongCollectionType.madeForYou:
-        return 'Made For You';
+        return l10n?.madeForYou ?? 'Made For You';
       case SongCollectionType.history:
-        return 'Listening History';
+        return l10n?.listeningHistory ?? 'Listening History';
       case SongCollectionType.custom:
-        return 'Songs';
+        return l10n?.songs ?? 'Songs';
     }
   }
 

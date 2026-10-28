@@ -516,7 +516,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                                     size: 6, color: context.octave.accent),
                                 SizedBox(width: 4),
                                 Text(
-                                  'ACTIVE',
+                                  AppLocalizations.of(context)!.serverActiveBadge.toUpperCase(),
                                   style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,
@@ -533,7 +533,7 @@ class _ServerSwitcherSheetState extends State<ServerSwitcherSheet> {
                     const SizedBox(height: 3),
                     Text(
                       profile.isYoutube
-                          ? 'Free Online Streaming'
+                          ? AppLocalizations.of(context)!.freeOnlineStreaming
                           : '${profile.username} • ${profile.displayUrl}',
                       style: TextStyle(
                         fontSize: 12,

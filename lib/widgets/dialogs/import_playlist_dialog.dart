@@ -9,6 +9,7 @@ import '../../services/playlist_import_service.dart';
 import '../../screens/detail/playlist_screen.dart';
 import '../../utils/navigation_helper.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class ImportPlaylistDialog extends StatefulWidget {
   const ImportPlaylistDialog({super.key});
@@ -74,7 +75,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
     final text = _urlController.text.trim();
     if (text.isEmpty) {
       setState(() {
-        _errorMessage = 'Inserisci un link o ID playlist';
+        _errorMessage = AppLocalizations.of(context)!.importEnterLink;
       });
       return;
     }
@@ -109,7 +110,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
       _currentStep = _ImportStep.importing;
       _progressCurrent = 0;
       _progressTotal = _preview!.totalTracks;
-      _progressStatus = 'Avvio importazione...';
+      _progressStatus = AppLocalizations.of(context)!.importStarting;
       _errorMessage = null;
     });
 
@@ -228,8 +229,8 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Importa Playlist',
+                  Text(
+                    AppLocalizations.of(context)!.importPlaylist,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -237,7 +238,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    'Spotify o YouTube Music (senza login)',
+                    AppLocalizations.of(context)!.importSubtitle,
                     style: TextStyle(
                       fontSize: 13,
                       color: context.octave.text2,
@@ -249,7 +250,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
             IconButton(
               icon: const Icon(Icons.close),
               onPressed: () => Navigator.of(context).pop(),
-              tooltip: 'Chiudi',
+              tooltip: AppLocalizations.of(context)!.close,
             ),
           ],
         ),
@@ -276,7 +277,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           controller: _urlController,
           autofocus: true,
           decoration: InputDecoration(
-            hintText: 'Incolla link Spotify o YouTube Music...',
+            hintText: AppLocalizations.of(context)!.importLinkHint,
             hintStyle: TextStyle(
               fontSize: 14,
               color: context.octave.text3,
@@ -304,7 +305,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                   ),
                 IconButton(
                   icon: const Icon(Icons.content_paste_rounded, size: 20),
-                  tooltip: 'Incolla dagli appunti',
+                  tooltip: AppLocalizations.of(context)!.pasteFromClipboard,
                   onPressed: _pasteClipboard,
                 ),
               ],
@@ -333,7 +334,9 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                   ),
                 )
               : const Icon(CupertinoIcons.arrow_right_circle),
-          label: Text(_isLoadingPreview ? 'Caricamento...' : 'Carica Anteprima'),
+          label: Text(_isLoadingPreview
+              ? AppLocalizations.of(context)!.loading
+              : AppLocalizations.of(context)!.importLoadPreview),
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
             foregroundColor: Colors.white,
@@ -398,19 +401,19 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
             IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () => setState(() => _currentStep = _ImportStep.input),
-              tooltip: 'Indietro',
+              tooltip: AppLocalizations.of(context)!.back,
             ),
             const SizedBox(width: 6),
-            const Expanded(
+            Expanded(
               child: Text(
-                'Anteprima Playlist',
+                AppLocalizations.of(context)!.importPreviewTitle,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             IconButton(
               icon: const Icon(Icons.close),
               onPressed: () => Navigator.of(context).pop(),
-              tooltip: 'Chiudi',
+              tooltip: AppLocalizations.of(context)!.close,
             ),
           ],
         ),
@@ -468,7 +471,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '${p.totalTracks} brani',
+                          AppLocalizations.of(context)!.songsCount(p.totalTracks),
                           style: TextStyle(
                             fontSize: 12,
                             color: context.octave.text2,
@@ -481,18 +484,18 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                       controller: _nameController,
                       style: const TextStyle(
                           fontSize: 15, fontWeight: FontWeight.bold),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(vertical: 4),
                         border: UnderlineInputBorder(),
-                        labelText: 'Nome playlist',
+                        labelText: AppLocalizations.of(context)!.playlistName,
                         labelStyle: TextStyle(fontSize: 12),
                       ),
                     ),
                     if (p.author != null && p.author!.isNotEmpty) ...[
                       const SizedBox(height: 4),
                       Text(
-                        'Autore: ${p.author}',
+                        AppLocalizations.of(context)!.importAuthor(p.author!),
                         style: TextStyle(
                           fontSize: 11,
                           color: context.octave.text3,
@@ -507,7 +510,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
         ),
         const SizedBox(height: 12),
         Text(
-          'Brani inclusi (${p.totalTracks}):',
+          AppLocalizations.of(context)!.importIncludedTracks(p.totalTracks),
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w600,
@@ -581,7 +584,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
         ElevatedButton.icon(
           onPressed: _startImport,
           icon: const Icon(CupertinoIcons.cloud_download),
-          label: Text('Importa ${p.totalTracks} brani in Web Stream'),
+          label: Text(AppLocalizations.of(context)!.importButton(p.totalTracks)),
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryColor,
             foregroundColor: Colors.white,
@@ -626,15 +629,15 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           ),
         ),
         const SizedBox(height: 20),
-        const Text(
-          'Importazione in corso...',
+        Text(
+          AppLocalizations.of(context)!.importInProgress,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
           _progressTotal > 0
-              ? 'Tracce: $_progressCurrent / $_progressTotal'
-              : 'Preparazione brani...',
+              ? AppLocalizations.of(context)!.importTracksProgress(_progressCurrent, _progressTotal)
+              : AppLocalizations.of(context)!.importPreparing,
           style: TextStyle(
             fontSize: 14,
             color: context.octave.text2,
@@ -692,14 +695,14 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
           ),
         ),
         const SizedBox(height: 18),
-        const Text(
-          'Playlist importata con successo!',
+        Text(
+          AppLocalizations.of(context)!.importSuccess,
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 6),
         Text(
-          '"${p?.name ?? 'Playlist'}" è pronta per l\'ascolto in Web Stream',
+          AppLocalizations.of(context)!.importReady(p?.name ?? AppLocalizations.of(context)!.playlist),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 13,
@@ -718,7 +721,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text('Chiudi'),
+                child: Text(AppLocalizations.of(context)!.close),
               ),
             ),
             const SizedBox(width: 12),
@@ -726,7 +729,7 @@ class _ImportPlaylistDialogState extends State<ImportPlaylistDialog> {
               child: ElevatedButton.icon(
                 onPressed: _openImportedPlaylist,
                 icon: const Icon(CupertinoIcons.play_circle_fill),
-                label: const Text('Apri Playlist'),
+                label: Text(AppLocalizations.of(context)!.openPlaylist),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   foregroundColor: Colors.white,

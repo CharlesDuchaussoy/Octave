@@ -42,7 +42,7 @@ class FormatUtils {
     final minutes = duration.inMinutes.remainder(60);
 
     if (hours > 0) {
-      return minutes > 0 ? '$hours hr $minutes min' : '$hours hr';
+      return minutes > 0 ? '$hours h $minutes min' : '$hours h';
     }
 
     return '$minutes min';

@@ -12,75 +12,74 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appName => 'Octave';
 
   @override
-  String get emulatorDetected => 'Emulator Detected';
+  String get emulatorDetected => 'Émulateur détecté';
 
   @override
   String get emulatorNotAllowed =>
-      'This app cannot run on an emulator.\\nPlease use a physical device.';
+      'Cette app ne fonctionne pas sur un émulateur.\nUtilise un vrai téléphone.';
 
   @override
   String get goodMorning => 'Bonjour';
 
   @override
-  String get goodAfternoon => 'Bonjour';
+  String get goodAfternoon => 'Bon après-midi';
 
   @override
   String get goodEvening => 'Bonsoir';
 
   @override
-  String get forYou => 'Pour vous';
+  String get forYou => 'Pour toi';
 
   @override
   String get quickPicks => 'Sélection rapide';
 
   @override
-  String get discoverMix => 'Mix Découverte';
+  String get discoverMix => 'Mix découverte';
 
   @override
-  String get recentlyPlayed => 'Lus récemment';
+  String get recentlyPlayed => 'Écouté récemment';
 
   @override
-  String get yourPlaylists => 'Vos playlists';
+  String get yourPlaylists => 'Tes playlists';
 
   @override
-  String get favoritePlaylists => 'Favorite Playlists';
+  String get favoritePlaylists => 'Playlists favorites';
 
   @override
   String get sectionAlbums => 'Albums';
 
   @override
-  String get sectionEPs => 'EPs';
+  String get sectionEPs => 'EP';
 
   @override
   String get sectionSingles => 'Singles';
 
   @override
-  String get madeForYou => 'Fait pour vous';
+  String get madeForYou => 'Pour toi';
 
   @override
   String get topRated => 'Les mieux notés';
 
   @override
-  String get noContentAvailable => 'Aucun contenu disponible';
+  String get noContentAvailable => 'Rien à afficher pour l\'instant';
 
   @override
-  String get tryRefreshing =>
-      'Actualisez ou vérifiez votre connexion au serveur';
+  String get tryRefreshing => 'Actualise ou vérifie la connexion au serveur';
 
   @override
   String get refresh => 'Actualiser';
 
   @override
-  String get errorLoadingSongs => 'Erreur lors du chargement des titres';
+  String get errorLoadingSongs => 'Impossible de charger les titres';
 
   @override
-  String get noSongsInGenre => 'Pas de titre de ce genre';
+  String get noSongsInGenre => 'Aucun titre dans ce genre';
 
   @override
-  String get errorLoadingAlbums => 'Erreur lors du chargement des albums';
+  String get errorLoadingAlbums => 'Impossible de charger les albums';
 
   @override
-  String get noTopRatedAlbums => 'Aucun album le mieux noté';
+  String get noTopRatedAlbums => 'Aucun album noté pour l\'instant';
 
   @override
   String get login => 'Connexion';
@@ -95,11 +94,11 @@ class AppLocalizationsFr extends AppLocalizations {
   String get password => 'Mot de passe';
 
   @override
-  String get selectCertificate => 'Sélectionnez le certificat TLS/SSL';
+  String get selectCertificate => 'Choisir un certificat TLS/SSL';
 
   @override
   String failedToSelectCertificate(String error) {
-    return 'Impossible de sélectionner le certificat : $error';
+    return 'Impossible de choisir le certificat : $error';
   }
 
   @override
@@ -107,7 +106,7 @@ class AppLocalizationsFr extends AppLocalizations {
       'L\'adresse du serveur doit commencer par http:// ou https://';
 
   @override
-  String get failedToConnect => 'Échec de la connexion';
+  String get failedToConnect => 'Connexion impossible';
 
   @override
   String get library => 'Bibliothèque';
@@ -116,7 +115,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get search => 'Rechercher';
 
   @override
-  String get settings => 'Paramètres';
+  String get settings => 'Réglages';
 
   @override
   String get albums => 'Albums';
@@ -134,13 +133,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get genres => 'Genres';
 
   @override
-  String get years => 'Years';
+  String get years => 'Années';
 
   @override
   String get favorites => 'Favoris';
 
   @override
-  String get nowPlaying => 'En cours de lecture';
+  String get nowPlaying => 'À l\'écoute';
 
   @override
   String get queue => 'File d\'attente';
@@ -164,16 +163,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get shuffle => 'Aléatoire';
 
   @override
-  String get repeat => 'Lecture en boucle';
+  String get repeat => 'Répéter';
 
   @override
-  String get repeatOne => 'Boucler sur un titre';
+  String get repeatOne => 'Répéter le titre';
 
   @override
-  String get repeatOff => 'Lecture en boucle désactivée';
+  String get repeatOff => 'Ne pas répéter';
 
   @override
-  String get addToPlaylist => 'Ajouter à la playlist';
+  String get addToPlaylist => 'Ajouter à une playlist';
 
   @override
   String get removeFromPlaylist => 'Retirer de la playlist';
@@ -194,7 +193,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get cancel => 'Annuler';
 
   @override
-  String get ok => 'Ok';
+  String get ok => 'OK';
 
   @override
   String get save => 'Enregistrer';
@@ -227,7 +226,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get version => 'Version';
 
   @override
-  String get madeBy => 'Développé par dddevid';
+  String get madeBy => 'Créé par dddevid';
 
   @override
   String get githubRepository => 'Dépôt GitHub';
@@ -248,7 +247,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get playAll => 'Tout lire';
 
   @override
-  String get shuffleAll => 'Lecture aléatoire de tous les titres';
+  String get shuffleAll => 'Tout en aléatoire';
 
   @override
   String get sortBy => 'Trier par';
@@ -275,10 +274,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get descending => 'Décroissant';
 
   @override
-  String get noLyricsAvailable => 'Paroles non disponibles';
+  String get noLyricsAvailable => 'Pas de paroles pour ce titre';
 
   @override
-  String get loading => 'Chargement...';
+  String get loading => 'Chargement…';
 
   @override
   String get error => 'Erreur';
@@ -290,7 +289,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noResults => 'Aucun résultat';
 
   @override
-  String get searchHint => 'Rechercher des titres, des albums, des artistes...';
+  String get searchHint => 'Titres, albums, artistes…';
 
   @override
   String get allSongs => 'Tous les titres';
@@ -303,7 +302,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String trackNumber(int number) {
-    return 'Piste n°$number';
+    return 'Piste $number';
   }
 
   @override
@@ -331,10 +330,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get logout => 'Déconnexion';
+  String get logout => 'Se déconnecter';
 
   @override
-  String get confirmLogout => 'Êtes-vous sûr de vouloir vous déconnecter ?';
+  String get confirmLogout => 'Te déconnecter ?';
 
   @override
   String get yes => 'Oui';
@@ -343,13 +342,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get no => 'Non';
 
   @override
-  String get offlineMode => 'Mode hors-connexion';
+  String get offlineMode => 'Mode hors connexion';
 
   @override
   String get radio => 'Radio';
 
   @override
-  String get changelog => 'Journal des changements';
+  String get changelog => 'Nouveautés';
 
   @override
   String get platform => 'Plateforme';
@@ -361,96 +360,99 @@ class AppLocalizationsFr extends AppLocalizations {
   String get display => 'Affichage';
 
   @override
-  String get playerInterface => 'Interface du lecteur';
+  String get playerInterface => 'Lecteur';
 
   @override
-  String get smartRecommendations => 'Recommandations personnalisées';
+  String get smartRecommendations => 'Recommandations';
 
   @override
-  String get showVolumeSlider => 'Afficher le curseur du volume';
+  String get showVolumeSlider => 'Curseur de volume';
 
   @override
   String get showVolumeSliderSubtitle =>
-      'Afficher le contrôle du volume dans l\'écran de lecture en cours';
+      'Affiche le réglage du volume dans le lecteur';
 
   @override
-  String get showStarRatings => 'Afficher les notes';
+  String get showStarRatings => 'Notes en étoiles';
 
   @override
-  String get showStarRatingsSubtitle => 'Noter les pistes et voir les notes';
+  String get showStarRatingsSubtitle =>
+      'Note les titres et affiche leurs notes';
 
   @override
-  String get showMiniPlayerHeart => 'Show Heart Button';
+  String get showMiniPlayerHeart => 'Bouton cœur';
 
   @override
-  String get showMiniPlayerHeartSubtitle => 'Add to favorites from mini player';
+  String get showMiniPlayerHeartSubtitle =>
+      'Ajoute aux favoris depuis le mini-lecteur';
 
   @override
-  String get showMiniPlayerRepeat => 'Show Repeat Button';
+  String get showMiniPlayerRepeat => 'Bouton répéter';
 
   @override
   String get showMiniPlayerRepeatSubtitle =>
-      'Toggle repeat mode from mini player';
+      'Change la répétition depuis le mini-lecteur';
 
   @override
-  String get showMiniPlayerShuffle => 'Show Shuffle Button';
+  String get showMiniPlayerShuffle => 'Bouton aléatoire';
 
   @override
-  String get showMiniPlayerShuffleSubtitle => 'Toggle shuffle from mini player';
+  String get showMiniPlayerShuffleSubtitle =>
+      'Active l\'aléatoire depuis le mini-lecteur';
 
   @override
-  String get enableRecommendations => 'Activer les Recommandations';
+  String get enableRecommendations => 'Activer les recommandations';
 
   @override
   String get enableRecommendationsSubtitle =>
-      'Recevez des suggestions musicales personnalisées';
+      'Des suggestions selon ce que tu écoutes';
 
   @override
   String get listeningData => 'Données d\'écoute';
 
   @override
   String totalPlays(int count) {
-    return 'Lectures au total : $count';
+    return '$count écoutes au total';
   }
 
   @override
-  String get clearListeningHistory => 'Effacer l\'historique des écoutes';
+  String get clearListeningHistory => 'Effacer l\'historique d\'écoute';
 
   @override
   String get confirmClearHistory =>
-      'Cela réinitialisera toutes vos données d\'écoute et recommandations. Êtes-vous sûr(e) ?';
+      'Toutes tes données d\'écoute et tes recommandations seront effacées. Continuer ?';
 
   @override
-  String get historyCleared => 'Historique d\'écoutes effacé';
+  String get historyCleared => 'Historique d\'écoute effacé';
 
   @override
   String get discordStatus => 'Statut Discord';
 
   @override
   String get discordStatusSubtitle =>
-      'Afficher la chanson en cours de lecture sur le profil Discord';
+      'Affiche le titre en cours sur ton profil Discord';
 
   @override
-  String get selectLanguage => 'Sélectionner la langue';
+  String get selectLanguage => 'Choisir la langue';
 
   @override
-  String get systemDefault => 'Système par défaut';
+  String get systemDefault => 'Langue du téléphone';
 
   @override
-  String get communityTranslations => 'Traduction par la communauté';
+  String get communityTranslations => 'Traductions';
 
   @override
   String get communityTranslationsSubtitle =>
-      'Aidez-nous à traduire Octave sur GitHub';
+      'Aide à traduire Octave sur GitHub';
 
   @override
-  String get yourLibrary => 'Ma Bibliothèque';
+  String get yourLibrary => 'Bibliothèque';
 
   @override
   String get filterAll => 'Tout';
 
   @override
-  String get faves => 'Faves';
+  String get faves => 'Favoris';
 
   @override
   String get filterPlaylists => 'Playlists';
@@ -462,119 +464,119 @@ class AppLocalizationsFr extends AppLocalizations {
   String get filterArtists => 'Artistes';
 
   @override
-  String get likedSongs => 'Titres \"J\'aime\"';
+  String get likedSongs => 'Titres aimés';
 
   @override
-  String get likedAlbums => 'Liked Albums';
+  String get likedAlbums => 'Albums aimés';
 
   @override
-  String get noLikedAlbums => 'No liked albums yet';
+  String get noLikedAlbums => 'Aucun album aimé pour l\'instant';
 
   @override
-  String get localMusicLibrary => 'Local Music Library';
+  String get localMusicLibrary => 'Musique du téléphone';
 
   @override
-  String get mergeLocalLibrary => 'Merge with Server Library';
+  String get mergeLocalLibrary => 'Fusionner avec le serveur';
 
   @override
   String get mergeLocalLibrarySubtitle =>
-      'Show local music alongside your server library';
+      'Affiche la musique du téléphone avec celle du serveur';
 
   @override
-  String get localMusicStats => 'Local Music Files';
+  String get localMusicStats => 'Fichiers du téléphone';
 
   @override
-  String get addMusicFolder => 'Add Music Folder';
+  String get addMusicFolder => 'Ajouter un dossier';
 
   @override
-  String get rescanLocalMusic => 'Rescan Local Music';
+  String get rescanLocalMusic => 'Analyser à nouveau';
 
   @override
-  String get localLibraryEmpty => 'Your library is empty';
+  String get localLibraryEmpty => 'Ta bibliothèque est vide';
 
   @override
   String get localLibraryEmptySubtitle =>
-      'No local music files were found. Tap the button below to scan again.';
+      'Aucun fichier audio trouvé. Touche le bouton ci-dessous pour relancer l\'analyse.';
 
   @override
-  String get libraryEmpty => 'Your library is empty';
+  String get libraryEmpty => 'Ta bibliothèque est vide';
 
   @override
-  String get libraryEmptySubtitle => 'Add some songs to get started.';
+  String get libraryEmptySubtitle => 'Ajoute des titres pour commencer.';
 
   @override
-  String get scanForMusic => 'Scan for Music';
+  String get scanForMusic => 'Chercher de la musique';
 
   @override
-  String get radioStations => 'Stations radio';
+  String get radioStations => 'Radios';
 
   @override
   String get playlist => 'Playlist';
 
   @override
-  String get internetRadio => 'Radio Internet';
+  String get internetRadio => 'Radio en ligne';
 
   @override
-  String get newPlaylist => 'Nouvelle Playlist';
+  String get newPlaylist => 'Nouvelle playlist';
 
   @override
-  String get playlistName => 'Nom de la liste de lecture';
+  String get playlistName => 'Nom de la playlist';
 
   @override
   String get create => 'Créer';
 
   @override
-  String get deletePlaylist => 'Supprimer la Playlist';
+  String get deletePlaylist => 'Supprimer la playlist';
 
   @override
   String deletePlaylistConfirmation(String name) {
-    return 'Êtes-vous sûr de vouloir supprimer la playlist \"$name \" ?';
+    return 'Supprimer la playlist « $name » ?';
   }
 
   @override
   String playlistDeleted(String name) {
-    return 'Playlist \"$name\" supprimée';
+    return 'Playlist « $name » supprimée';
   }
 
   @override
   String errorCreatingPlaylist(Object error) {
-    return 'Erreur lors de la création de la playlist : $error';
+    return 'Impossible de créer la playlist : $error';
   }
 
   @override
   String errorDeletingPlaylist(Object error) {
-    return 'Erreur lors de la suppression de la playlist : $error';
+    return 'Impossible de supprimer la playlist : $error';
   }
 
   @override
   String playlistCreated(String name) {
-    return 'Playlist \"$name\" créée';
+    return 'Playlist « $name » créée';
   }
 
   @override
   String get searchTitle => 'Rechercher';
 
   @override
-  String get searchPlaceholder => 'Artistes, chansons, albums';
+  String get searchPlaceholder => 'Artistes, titres, albums';
 
   @override
-  String get tryDifferentSearch => 'Essayez une recherche différente';
+  String get tryDifferentSearch => 'Essaie une autre recherche';
 
   @override
   String get noSuggestions => 'Aucune suggestion';
 
   @override
-  String get browseCategories => 'Parcourir les catégories';
+  String get browseCategories => 'Parcourir';
 
   @override
-  String get liveSearchSection => 'Rechercher';
+  String get liveSearchSection => 'Recherche';
 
   @override
-  String get liveSearch => 'Recherche en direct';
+  String get liveSearch => 'Résultats pendant la saisie';
 
   @override
   String get liveSearchSubtitle =>
-      'Mettre à jour les résultats lorsque vous écrivez au lieu d\'afficher une liste déroulante';
+      'Met à jour les résultats à chaque lettre tapée';
 
   @override
   String get homeSection => 'Accueil';
@@ -585,13 +587,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get showFavoritePlaylistsOnHomeSubtitle =>
-      'Afficher chaque playlist favorite sur sa propre ligne en haut de l\'écran d\'accueil';
+      'Chaque playlist favorite a sa propre rangée en haut de l\'accueil';
 
   @override
-  String get categoryMadeForYou => 'Fait pour vous';
+  String get categoryMadeForYou => 'Pour toi';
 
   @override
-  String get categoryNewReleases => 'Nouvelles sorties';
+  String get categoryNewReleases => 'Nouveautés';
 
   @override
   String get categoryTopRated => 'Les mieux notés';
@@ -606,7 +608,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get categoryRadio => 'Radio';
 
   @override
-  String get settingsTitle => 'Paramètres';
+  String get settingsTitle => 'Réglages';
 
   @override
   String get tabPlayback => 'Lecture';
@@ -624,65 +626,65 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tabAbout => 'À propos';
 
   @override
-  String get sectionAutoDj => 'DJ AUTO';
+  String get sectionAutoDj => 'DJ AUTOMATIQUE';
 
   @override
-  String get autoDjMode => 'Mode DJ Auto';
+  String get autoDjMode => 'Mode DJ automatique';
 
   @override
   String songsToAdd(int count) {
-    return 'Pistes à ajouter : $count';
+    return 'Titres à ajouter : $count';
   }
 
   @override
-  String get sectionReplayGain => 'NORMALISATION DE VOLUME (REPLAYGAIN)';
+  String get sectionReplayGain => 'VOLUME ÉGALISÉ (REPLAYGAIN)';
 
   @override
   String get replayGainMode => 'Mode';
 
   @override
   String preamp(String value) {
-    return 'Pré-ampli : $value dB';
+    return 'Préampli : $value dB';
   }
 
   @override
-  String get preventClipping => 'Empêcher le découpage audio';
+  String get preventClipping => 'Éviter la saturation';
 
   @override
   String fallbackGain(String value) {
-    return 'Gain de repli : $value dB';
+    return 'Gain par défaut : $value dB';
   }
 
   @override
-  String get sectionStreamingQuality => 'QUALITÉ DE STREAMING';
+  String get sectionStreamingQuality => 'QUALITÉ DE LECTURE';
 
   @override
-  String get enableTranscoding => 'Activer le transcodage';
+  String get enableTranscoding => 'Convertir les fichiers';
 
   @override
-  String get qualityWifi => 'Qualité sur réseau Wi-Fi';
+  String get qualityWifi => 'Qualité en Wi-Fi';
 
   @override
-  String get qualityMobile => 'Qualité sur réseau mobile';
+  String get qualityMobile => 'Qualité en données mobiles';
 
   @override
   String get format => 'Format';
 
   @override
   String get transcodingSubtitle =>
-      'Réduire la consommation de données avec une qualité inférieure';
+      'Consomme moins de données, avec une qualité plus basse';
 
   @override
   String get modeOff => 'Désactivé';
 
   @override
-  String get modeTrack => 'Piste';
+  String get modeTrack => 'Titre';
 
   @override
   String get modeAlbum => 'Album';
 
   @override
-  String get sectionServerConnection => 'CONNEXION DU SERVEUR';
+  String get sectionServerConnection => 'CONNEXION AU SERVEUR';
 
   @override
   String get serverType => 'Type de serveur';
@@ -694,29 +696,29 @@ class AppLocalizationsFr extends AppLocalizations {
   String get unknown => 'Inconnu';
 
   @override
-  String get sectionMusicFolders => 'RÉPERTOIRES DE MUSIQUE';
+  String get sectionMusicFolders => 'DOSSIERS DE MUSIQUE';
 
   @override
-  String get musicFolders => 'Dossiers musicaux';
+  String get musicFolders => 'Dossiers de musique';
 
   @override
-  String get noMusicFolders => 'Aucun dossier de musique trouvé';
+  String get noMusicFolders => 'Aucun dossier de musique';
 
   @override
-  String get sectionSavedProfiles => 'SAVED PROFILES';
+  String get sectionSavedProfiles => 'COMPTES ENREGISTRÉS';
 
   @override
-  String get switchProfile => 'Switch Profile';
+  String get switchProfile => 'Changer de compte';
 
   @override
-  String get switchServer => 'Switch Server';
+  String get switchServer => 'Changer de serveur';
 
   @override
-  String get addProfile => 'Add Profile';
+  String get addProfile => 'Ajouter un compte';
 
   @override
   String switchProfileConfirmation(String profile) {
-    return 'Connect to \"$profile\"?';
+    return 'Se connecter à « $profile » ?';
   }
 
   @override
@@ -724,48 +726,47 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get logoutConfirmation =>
-      'Êtes-vous sûr de vouloir vous déconnecter ? Cela effacera également toutes les données mises en cache.';
+      'Te déconnecter ? Les données en cache seront aussi effacées.';
 
   @override
-  String get sectionCacheSettings => 'PARAMÈTRES DU CACHE';
+  String get sectionCacheSettings => 'CACHE';
 
   @override
-  String get imageCache => 'Cache d\'images';
+  String get imageCache => 'Cache des images';
 
   @override
-  String get musicCache => 'Cache de musiques';
+  String get musicCache => 'Cache de la musique';
 
   @override
-  String get bpmCache => 'Cache BPM';
+  String get bpmCache => 'Cache des BPM';
 
   @override
-  String get saveAlbumCovers => 'Enregistrer les pochettes d\'album en local';
+  String get saveAlbumCovers => 'Garder les pochettes sur le téléphone';
 
   @override
-  String get saveSongMetadata =>
-      'Enregistrer les métadonnées de la piste en local';
+  String get saveSongMetadata => 'Garder les infos des titres sur le téléphone';
 
   @override
-  String get saveBpmAnalysis => 'Enregistrer les analyses BPM en local';
+  String get saveBpmAnalysis => 'Garder l\'analyse des BPM sur le téléphone';
 
   @override
-  String get sectionCacheCleanup => 'SUPPRESSION DE CACHE';
+  String get sectionCacheCleanup => 'NETTOYAGE';
 
   @override
   String get clearAllCache => 'Vider tout le cache';
 
   @override
-  String get allCacheCleared => 'Tout le cache a été effacé';
+  String get allCacheCleared => 'Cache vidé';
 
   @override
-  String get sectionOfflineDownloads => 'TÉLÉCHARGEMENT HORS LIGNE';
+  String get sectionOfflineDownloads => 'TÉLÉCHARGEMENTS';
 
   @override
-  String get downloadedSongs => 'Pistes téléchargées';
+  String get downloadedSongs => 'Titres téléchargés';
 
   @override
   String downloadingLibrary(int progress, int total) {
-    return 'Téléchargement de la bibliothèque... $progress/$total';
+    return 'Téléchargement de la bibliothèque… $progress/$total';
   }
 
   @override
@@ -773,74 +774,74 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String downloadLibraryConfirm(int count) {
-    return 'Cette action va télécharger $count pistes sur votre appareil. Cela peut prendre un certain temps et utiliser un espace de stockage significatif.\n\nVoulez-vous continuer ?';
+    return '$count titres vont être téléchargés sur ce téléphone. Cela peut prendre du temps et beaucoup de place.\n\nContinuer ?';
   }
 
   @override
-  String get keepScreenOnDuringDownload => 'Keep Screen On';
+  String get keepScreenOnDuringDownload => 'Garder l\'écran allumé';
 
   @override
   String get keepScreenOnDuringDownloadSubtitle =>
-      'Prevents download from failing when device locks';
+      'Évite que le téléchargement s\'arrête quand le téléphone se verrouille';
 
   @override
-  String get parallelDownloads => 'Parallel Downloads';
+  String get parallelDownloads => 'Téléchargements simultanés';
 
   @override
   String get parallelDownloadsSubtitle =>
-      'Download multiple songs simultaneously';
+      'Télécharge plusieurs titres à la fois';
 
   @override
-  String get downloadSingular => 'download';
+  String get downloadSingular => 'téléchargement';
 
   @override
-  String get downloadPlural => 'downloads';
+  String get downloadPlural => 'téléchargements';
 
   @override
-  String get slowerButStable => 'Slower but more stable';
+  String get slowerButStable => 'Plus lent mais plus fiable';
 
   @override
-  String get fasterButMoreData => 'Faster but uses more data';
+  String get fasterButMoreData => 'Plus rapide mais consomme plus';
 
   @override
   String get libraryDownloadStarted =>
-      'Le téléchargement de la bibliothèque a démarré';
+      'Téléchargement de la bibliothèque lancé';
 
   @override
   String get deleteDownloads => 'Supprimer tous les téléchargements';
 
   @override
-  String get downloadsDeleted => 'Tous les téléchargements ont été supprimés';
+  String get downloadsDeleted => 'Téléchargements supprimés';
 
   @override
   String get noSongsAvailable =>
-      'Aucune musique disponible. Veuillez d\'abord charger votre bibliothèque.';
+      'Aucun titre disponible. Charge d\'abord ta bibliothèque.';
 
   @override
-  String get sectionBpmAnalysis => 'ANALYSE BPM';
+  String get sectionBpmAnalysis => 'ANALYSE DES BPM';
 
   @override
-  String get cachedBpms => 'BPMs en cache';
+  String get cachedBpms => 'BPM en cache';
 
   @override
-  String get cacheAllBpms => 'Mettre en cache tous les BPMs';
+  String get cacheAllBpms => 'Analyser tous les BPM';
 
   @override
-  String get clearBpmCache => 'Vider le cache BPM';
+  String get clearBpmCache => 'Vider le cache des BPM';
 
   @override
-  String get bpmCacheCleared => 'Cache BPM effacé';
+  String get bpmCacheCleared => 'Cache des BPM vidé';
 
   @override
   String downloadedStats(int count, String size) {
-    return 'Chansons $count • $size';
+    return '$count titres • $size';
   }
 
   @override
   String get sectionInformation => 'INFORMATIONS';
 
   @override
-  String get sectionDeveloper => 'DÉVELOPPEURS';
+  String get sectionDeveloper => 'DÉVELOPPEUR';
 
   @override
   String get sectionLinks => 'LIENS';
@@ -855,73 +856,72 @@ class AppLocalizationsFr extends AppLocalizations {
   String get live => 'EN DIRECT';
 
   @override
-  String get streamingLive => 'Diffusion en direct';
+  String get streamingLive => 'En direct';
 
   @override
   String get stopRadio => 'Arrêter la radio';
 
   @override
-  String get removeFromLiked => 'Supprimer des titres favoris';
+  String get removeFromLiked => 'Retirer des titres aimés';
 
   @override
-  String get addToLiked => 'Ajouter aux pistes \"J\'aime\"';
+  String get addToLiked => 'Ajouter aux titres aimés';
 
   @override
-  String get playNext => 'Lecture suivante';
+  String get playNext => 'Lire ensuite';
 
   @override
-  String get addToQueue => 'Ajouter à la liste';
+  String get addToQueue => 'Ajouter à la file d\'attente';
 
   @override
-  String get goToAlbum => 'Aller à l’album';
+  String get goToAlbum => 'Voir l\'album';
 
   @override
-  String get goToArtist => 'Aller à l\'artiste';
+  String get goToArtist => 'Voir l\'artiste';
 
   @override
-  String get rateSong => 'Noter la chanson';
+  String get rateSong => 'Noter le titre';
 
   @override
   String rateSongValue(int rating, String stars) {
-    return 'Noter la chanson ($rating $stars)';
+    return 'Noter le titre ($rating $stars)';
   }
 
   @override
-  String get ratingRemoved => 'Note effacée';
+  String get ratingRemoved => 'Note retirée';
 
   @override
   String rated(int rating, String stars) {
-    return 'Notée $rating $stars';
+    return 'Noté $rating $stars';
   }
 
   @override
-  String get removeRating => 'Supprimer la note';
+  String get removeRating => 'Retirer la note';
 
   @override
   String get downloaded => 'Téléchargé';
 
   @override
   String downloading(int percent) {
-    return 'Téléchargement... $percent%';
+    return 'Téléchargement… $percent %';
   }
 
   @override
   String get removeDownload => 'Supprimer le téléchargement';
 
   @override
-  String get removeDownloadConfirm =>
-      'Supprimer cette chanson du stockage hors-ligne ?';
+  String get removeDownloadConfirm => 'Retirer ce titre du téléphone ?';
 
   @override
   String get downloadRemoved => 'Téléchargement supprimé';
 
   @override
   String downloadedTitle(String title) {
-    return 'Téléchargé \"$title\"';
+    return '« $title » téléchargé';
   }
 
   @override
-  String get downloadFailed => 'Echec du téléchargement';
+  String get downloadFailed => 'Le téléchargement a échoué';
 
   @override
   String downloadError(Object error) {
@@ -930,32 +930,32 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String addedToPlaylist(String title, String playlist) {
-    return 'Ajout de «$title» à $playlist';
+    return '« $title » ajouté à $playlist';
   }
 
   @override
   String errorAddingToPlaylist(Object error) {
-    return 'Erreur lors de l\'ajout à la playlist : $error';
+    return 'Impossible d\'ajouter à la playlist : $error';
   }
 
   @override
-  String get noPlaylists => 'Aucune playlist disponible';
+  String get noPlaylists => 'Aucune playlist';
 
   @override
-  String get createNewPlaylist => 'Créer une nouvelle playlist';
+  String get createNewPlaylist => 'Nouvelle playlist';
 
   @override
   String artistNotFound(String name) {
-    return 'Artiste «$name» introuvable';
+    return 'Artiste « $name » introuvable';
   }
 
   @override
   String errorSearchingArtist(Object error) {
-    return 'Erreur lors de la recherche de l\'artiste: $error';
+    return 'Impossible de chercher l\'artiste : $error';
   }
 
   @override
-  String get selectArtist => 'Sélectionner un artiste';
+  String get selectArtist => 'Choisir un artiste';
 
   @override
   String get removedFromFavorites => 'Retiré des favoris';
@@ -974,7 +974,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String durationHoursMinutes(int hours, int minutes) {
-    return '$hours HR $minutes MIN';
+    return '$hours H $minutes MIN';
   }
 
   @override
@@ -983,57 +983,57 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get topSongs => 'Top Chansons';
+  String get topSongs => 'Titres populaires';
 
   @override
   String get connected => 'Connecté';
 
   @override
-  String get noSongPlaying => 'Aucun morceau en cours de lecture';
+  String get noSongPlaying => 'Aucun titre en lecture';
 
   @override
-  String get internetRadioUppercase => 'RADIO INTERNET';
+  String get internetRadioUppercase => 'RADIO EN LIGNE';
 
   @override
-  String get playingNext => 'Lecture suivante';
+  String get playingNext => 'À suivre';
 
   @override
-  String get createPlaylistTitle => 'Créer une liste de lecture';
+  String get createPlaylistTitle => 'Nouvelle playlist';
 
   @override
-  String get playlistNameHint => 'Nom de la liste de lecture';
+  String get playlistNameHint => 'Nom de la playlist';
 
   @override
   String playlistCreatedWithSong(String name) {
-    return 'Liste de lecture «$name» créée avec cette piste';
+    return 'Playlist « $name » créée avec ce titre';
   }
 
   @override
   String errorLoadingPlaylists(Object error) {
-    return 'Erreur lors du chargement des listes de lecture : $error';
+    return 'Impossible de charger les playlists : $error';
   }
 
   @override
-  String get playlistNotFound => 'Liste de lecture introuvable';
+  String get playlistNotFound => 'Playlist introuvable';
 
   @override
-  String get noSongsInPlaylist => 'Aucune piste dans cette liste de lecture';
+  String get noSongsInPlaylist => 'Cette playlist est vide';
 
   @override
-  String get noFavoriteSongsYet => 'Aucune piste favorite pour le moment';
+  String get noFavoriteSongsYet => 'Aucun titre aimé pour l\'instant';
 
   @override
-  String get noFavoriteAlbumsYet => 'Aucun album favori pour le moment';
+  String get noFavoriteAlbumsYet => 'Aucun album aimé pour l\'instant';
 
   @override
   String get listeningHistory => 'Historique d\'écoute';
 
   @override
-  String get noListeningHistory => 'Pas d\'historique d\'écoute';
+  String get noListeningHistory => 'Pas encore d\'historique';
 
   @override
   String get songsWillAppearHere =>
-      'Les pistes que vous jouez apparaîtront ici';
+      'Les titres que tu écoutes apparaîtront ici';
 
   @override
   String get sortByTitleAZ => 'Titre (A-Z)';
@@ -1054,241 +1054,236 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sortByAlbumZA => 'Album (Z-A)';
 
   @override
-  String get recentlyAdded => 'Récemment Ajouté';
+  String get recentlyAdded => 'Ajouts récents';
 
   @override
-  String get noSongsFound => 'Aucune piste trouvée';
+  String get noSongsFound => 'Aucun titre';
 
   @override
-  String get noAlbumsFound => 'Aucun album trouvé';
+  String get noAlbumsFound => 'Aucun album';
 
   @override
-  String get noHomepageUrl => 'Aucune URL de page d\'accueil disponible';
+  String get noHomepageUrl => 'Cette radio n\'a pas de site web';
 
   @override
-  String get playStation => 'Lancer la station';
+  String get playStation => 'Écouter la radio';
 
   @override
-  String get openHomepage => 'Ouvrir la page d\'accueil';
+  String get openHomepage => 'Ouvrir le site web';
 
   @override
-  String get copyStreamUrl => 'Copier l\'URL du flux';
+  String get copyStreamUrl => 'Copier l\'adresse du flux';
 
   @override
-  String get failedToLoadRadioStations =>
-      'Impossible de charger les stations radio';
+  String get failedToLoadRadioStations => 'Impossible de charger les radios';
 
   @override
-  String get noRadioStations => 'Aucune station radio';
+  String get noRadioStations => 'Aucune radio';
 
   @override
   String get noRadioStationsHint =>
-      'Ajoutez des stations radio dans les paramètres de votre serveur Navidrome pour les voir ici.';
+      'Les radios ajoutées sur le serveur Navidrome apparaîtront ici.';
 
   @override
-  String get connectToServerSubtitle =>
-      'Connectez-vous à votre serveur Subsonic';
+  String get connectToServerSubtitle => 'Connecte-toi à ton serveur de musique';
 
   @override
-  String get pleaseEnterServerUrl => 'Veuillez entrer l\'URL du serveur';
+  String get pleaseEnterServerUrl => 'Saisis l\'adresse du serveur';
 
   @override
   String get invalidUrlFormat =>
-      'L\'URL doit commencer par http:// ou https://';
+      'L\'adresse doit commencer par http:// ou https://';
 
   @override
-  String get pleaseEnterUsername => 'Veuillez entrer le nom d\'utilisateur';
+  String get pleaseEnterUsername => 'Saisis ton nom d\'utilisateur';
 
   @override
-  String get pleaseEnterPassword => 'Veuillez saisir votre mot de passe';
+  String get pleaseEnterPassword => 'Saisis ton mot de passe';
 
   @override
-  String get legacyAuthentication => 'Authentification héritée';
+  String get legacyAuthentication => 'Ancienne authentification';
 
   @override
-  String get legacyAuthSubtitle =>
-      'Utiliser pour les anciens serveurs Subsonic';
+  String get legacyAuthSubtitle => 'Pour les anciens serveurs Subsonic';
 
   @override
-  String get allowSelfSignedCerts => 'Autoriser les certificats autosignés';
+  String get allowSelfSignedCerts => 'Accepter les certificats autosignés';
 
   @override
   String get allowSelfSignedSubtitle =>
-      'Pour les serveurs avec des certificats TLS/SSL personnalisés';
+      'Pour les serveurs avec un certificat TLS/SSL personnel';
 
   @override
   String get advancedOptions => 'Options avancées';
 
   @override
-  String get customTlsCertificate => 'Certificat TLS/SSL personnalisé';
+  String get customTlsCertificate => 'Certificat TLS/SSL personnel';
 
   @override
   String get customCertificateSubtitle =>
-      'Télécharger un certificat personnalisé pour les serveurs avec une AC non standard';
+      'Importe le certificat d\'un serveur dont l\'autorité n\'est pas reconnue';
 
   @override
-  String get selectCertificateFile => 'Sélectionner un fichier de certificat';
+  String get selectCertificateFile => 'Choisir un fichier de certificat';
 
   @override
   String get clientCertificate => 'Certificat client (mTLS)';
 
   @override
   String get clientCertificateSubtitle =>
-      'Authentifier ce client en utilisant un certificat (nécessite le serveur mTLS)';
+      'Identifie cet appareil par un certificat (le serveur doit accepter le mTLS)';
 
   @override
-  String get selectClientCertificate => 'Sélectionnez le certificat client';
+  String get selectClientCertificate => 'Choisir le certificat client';
 
   @override
   String get clientCertPassword => 'Mot de passe du certificat (facultatif)';
 
   @override
   String failedToSelectClientCert(String error) {
-    return 'Impossible de sélectionner le certificat client : $error';
+    return 'Impossible de choisir le certificat client : $error';
   }
 
   @override
-  String get connect => 'Connexion';
+  String get connect => 'Se connecter';
 
   @override
   String get or => 'OU';
 
   @override
-  String get useLocalFiles => 'Utiliser les fichiers locaux';
+  String get useLocalFiles => 'Utiliser les fichiers du téléphone';
 
   @override
-  String get startingScan => 'Démarrage de l\'analyse...';
+  String get startingScan => 'Analyse en cours…';
 
   @override
   String get storagePermissionRequired =>
-      'Autorisation d\'accès au stockage requise pour scanner les fichiers locaux';
+      'Autorise l\'accès au stockage pour trouver la musique';
 
   @override
-  String get noMusicFilesFound =>
-      'Aucun fichier de musique trouvé sur votre appareil';
+  String get noMusicFilesFound => 'Aucun fichier audio trouvé sur ce téléphone';
 
   @override
   String get remove => 'Retirer';
 
   @override
   String failedToSetRating(Object error) {
-    return 'Impossible de définir la note : $error';
+    return 'Impossible d\'enregistrer la note : $error';
   }
 
   @override
   String get home => 'Accueil';
 
   @override
-  String get playlistsSection => 'LISTES DE LECTURE';
+  String get playlistsSection => 'PLAYLISTS';
 
   @override
   String get collapse => 'Réduire';
 
   @override
-  String get expand => 'Étendre';
+  String get expand => 'Agrandir';
 
   @override
-  String get createPlaylist => 'Créer une liste de lecture';
+  String get createPlaylist => 'Nouvelle playlist';
 
   @override
-  String get importPlaylist => 'Import Playlist';
+  String get importPlaylist => 'Importer une playlist';
 
   @override
   String get importPlaylistSubtitle =>
-      'Import from Spotify or YouTube Music (no login)';
+      'Depuis Spotify ou YouTube Music, sans compte';
 
   @override
-  String get checkForUpdates => 'Check for updates';
+  String get checkForUpdates => 'Rechercher une mise à jour';
 
   @override
-  String get checkingForUpdates => 'Checking for updates...';
+  String get checkingForUpdates => 'Recherche de mise à jour…';
 
   @override
-  String get appUpToDate => 'Octave is up to date';
+  String get appUpToDate => 'Octave est à jour';
 
   @override
   String get updateAvailable => 'Mise à jour disponible';
 
   @override
-  String get updateNow => 'Update now';
+  String get updateNow => 'Mettre à jour';
 
   @override
-  String get downloadingUpdate => 'Downloading update...';
+  String get downloadingUpdate => 'Téléchargement de la mise à jour…';
 
   @override
-  String get openOnGitHub => 'Open on GitHub';
+  String get openOnGitHub => 'Ouvrir sur GitHub';
 
   @override
-  String get skipThisVersion => 'Skip this version';
+  String get skipThisVersion => 'Ignorer cette version';
 
   @override
-  String get updateDownloaded => 'Download complete. Starting installation...';
+  String get updateDownloaded => 'Téléchargement terminé. Installation…';
 
   @override
-  String get likedSongsSidebar => 'Pistes \"J\'aime\"';
+  String get likedSongsSidebar => 'Titres aimés';
 
   @override
   String playlistSongsCount(int count) {
-    return 'Liste de lecture • $count pistes';
+    return 'Playlist • $count titres';
   }
 
   @override
   String get failedToLoadLyrics => 'Impossible de charger les paroles';
 
   @override
-  String get lyricsNotFoundSubtitle =>
-      'Les paroles de cette piste n\'ont pas pu être trouvées';
+  String get lyricsNotFoundSubtitle => 'Aucune parole trouvée pour ce titre';
 
   @override
-  String get backToCurrent => 'Revenir à l\'actuel';
+  String get backToCurrent => 'Revenir à la ligne en cours';
 
   @override
-  String get exitFullscreen => 'Quitter le mode plein écran';
+  String get exitFullscreen => 'Quitter le plein écran';
 
   @override
   String get fullscreen => 'Plein écran';
 
   @override
-  String get noLyrics => 'Aucune parole';
+  String get noLyrics => 'Pas de paroles';
 
   @override
-  String get internetRadioMiniPlayer => 'Radio Internet';
+  String get internetRadioMiniPlayer => 'Radio en ligne';
 
   @override
   String get liveBadge => 'EN DIRECT';
 
   @override
-  String get localFilesModeBanner => 'Mode fichiers locaux';
+  String get localFilesModeBanner => 'Mode fichiers du téléphone';
 
   @override
   String get offlineModeBanner =>
-      'Mode hors-ligne – Lecture de la musique téléchargée uniquement';
+      'Hors connexion – musique téléchargée uniquement';
 
   @override
   String get updateAvailableSubtitle =>
-      'Une nouvelle version de Octave est disponible !';
+      'Une nouvelle version d\'Octave est disponible';
 
   @override
   String updateCurrentVersion(String version) {
-    return 'Version actuelle : v$version';
+    return 'Installée : v$version';
   }
 
   @override
   String updateLatestVersion(String version) {
-    return 'Dernière version : v$version';
+    return 'Nouvelle : v$version';
   }
 
   @override
-  String get whatsNew => 'Quoi de neuf';
+  String get whatsNew => 'Nouveautés';
 
   @override
   String get downloadUpdate => 'Télécharger';
 
   @override
-  String get remindLater => 'Me rappeler plus tard';
+  String get remindLater => 'Plus tard';
 
   @override
-  String get seeAll => 'Tout Afficher';
+  String get seeAll => 'Tout afficher';
 
   @override
   String get artistDataNotFound => 'Artiste introuvable';
@@ -1298,7 +1293,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get addedArtistToQueueError =>
-      'Échec de l\'ajout de l\'artiste à la file d\'attente';
+      'Impossible d\'ajouter l\'artiste à la file d\'attente';
 
   @override
   String get casting => 'Diffusion';
@@ -1307,7 +1302,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dlna => 'DLNA';
 
   @override
-  String get castDlnaBeta => 'Diffusion / DLNA (Bêta)';
+  String get castDlnaBeta => 'Cast / DLNA (bêta)';
 
   @override
   String get chromecast => 'Chromecast';
@@ -1316,14 +1311,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get dlnaUpnp => 'DLNA / UPnP';
 
   @override
-  String get disconnect => 'Déconnexion';
+  String get disconnect => 'Se déconnecter';
 
   @override
-  String get searchingDevices => 'Recherche de périphériques';
+  String get searchingDevices => 'Recherche d\'appareils';
 
   @override
   String get castWifiHint =>
-      'Assurez-vous que votre appareil Cast / DLNA\nest sur le même réseau Wi-Fi';
+      'Vérifie que ton appareil Cast / DLNA\nest sur le même réseau Wi-Fi';
 
   @override
   String connectedToDevice(String name) {
@@ -1336,54 +1331,54 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get removedFromLikedSongs => 'Retiré des pistes \"J\'aime\"';
+  String get removedFromLikedSongs => 'Retiré des titres aimés';
 
   @override
-  String get addedToLikedSongs => 'Ajouté aux pistes \"J\'aime\"';
+  String get addedToLikedSongs => 'Ajouté aux titres aimés';
 
   @override
-  String get enableShuffle => 'Activer la lecture aléatoire';
+  String get enableShuffle => 'Activer l\'aléatoire';
 
   @override
   String get enableRepeat => 'Activer la répétition';
 
   @override
-  String get connecting => 'Connexion en cours';
+  String get connecting => 'Connexion…';
 
   @override
-  String get closeLyrics => 'Désactiver les paroles';
+  String get closeLyrics => 'Fermer les paroles';
 
   @override
   String errorStartingDownload(Object error) {
-    return 'Erreur lors du démarrage du téléchargement : $error';
+    return 'Impossible de lancer le téléchargement : $error';
   }
 
   @override
-  String get errorLoadingGenres => 'Erreur lors du chargement des genres';
+  String get errorLoadingGenres => 'Impossible de charger les genres';
 
   @override
-  String get noGenresFound => 'Aucun genre trouvé';
+  String get noGenresFound => 'Aucun genre';
 
   @override
   String get noAlbumsInGenre => 'Aucun album dans ce genre';
 
   @override
   String genreTooltip(int songCount, int albumCount) {
-    return '$songCount pistes • $albumCount albums';
+    return '$songCount titres • $albumCount albums';
   }
 
   @override
   String get sectionJukebox => 'MODE JUKEBOX';
 
   @override
-  String get jukeboxMode => 'Mode Jukebox';
+  String get jukeboxMode => 'Mode jukebox';
 
   @override
   String get jukeboxModeSubtitle =>
-      'Jouer l\'audio via le serveur au lieu de cet appareil';
+      'Joue le son sur le serveur plutôt que sur ce téléphone';
 
   @override
-  String get openJukeboxController => 'Ouvrir le contrôleur du Jukebox';
+  String get openJukeboxController => 'Ouvrir la télécommande du jukebox';
 
   @override
   String get jukeboxClearQueue => 'Vider la file d\'attente';
@@ -1392,10 +1387,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get jukeboxShuffleQueue => 'Mélanger la file d\'attente';
 
   @override
-  String get jukeboxQueueEmpty => 'Aucune piste dans la file d\'attente';
+  String get jukeboxQueueEmpty => 'La file d\'attente est vide';
 
   @override
-  String get jukeboxNowPlaying => 'En cours de lecture';
+  String get jukeboxNowPlaying => 'À l\'écoute';
 
   @override
   String get jukeboxQueue => 'File d\'attente';
@@ -1404,34 +1399,34 @@ class AppLocalizationsFr extends AppLocalizations {
   String get jukeboxVolume => 'Volume';
 
   @override
-  String get playOnJukebox => 'Jouer sur le Jukebox';
+  String get playOnJukebox => 'Lire sur le jukebox';
 
   @override
-  String get addToJukeboxQueue => 'Ajouter à la file d\'attente du Jukebox';
+  String get addToJukeboxQueue => 'Ajouter à la file du jukebox';
 
   @override
   String get jukeboxNotSupported =>
-      'Le mode Jukebox n\'est pas pris en charge par ce serveur. Activez-le dans la configuration de votre serveur (par exemple EnableJukebox = true dans Navidrome).';
+      'Ce serveur ne gère pas le mode jukebox. Active-le dans sa configuration (par exemple EnableJukebox = true dans Navidrome).';
 
   @override
-  String get musicFoldersDialogTitle => 'Sélectionner les dossiers de musique';
+  String get musicFoldersDialogTitle => 'Choisir les dossiers de musique';
 
   @override
   String get musicFoldersHint =>
-      'Laisser tout activer pour utiliser tous les dossiers (par défaut).';
+      'Laisse tout coché pour utiliser tous les dossiers.';
 
   @override
-  String get musicFoldersSaved => 'Sélection de dossier de musique enregistrée';
+  String get musicFoldersSaved => 'Dossiers de musique enregistrés';
 
   @override
-  String get artworkStyleSection => 'Style d’illustration';
+  String get artworkStyleSection => 'Style des pochettes';
 
   @override
   String get artworkCornerRadius => 'Arrondi des coins';
 
   @override
   String get artworkCornerRadiusSubtitle =>
-      'Ajuster l\'apparence des angles des pochettes d\'album';
+      'Règle l\'arrondi des coins des pochettes';
 
   @override
   String get artworkCornerRadiusNone => 'Aucun';
@@ -1440,58 +1435,58 @@ class AppLocalizationsFr extends AppLocalizations {
   String get artworkShape => 'Forme';
 
   @override
-  String get artworkShapeRounded => 'Arrondi';
+  String get artworkShapeRounded => 'Arrondie';
 
   @override
-  String get artworkShapeCircle => 'Cercle';
+  String get artworkShapeCircle => 'Ronde';
 
   @override
-  String get artworkShapeSquare => 'Carré';
+  String get artworkShapeSquare => 'Carrée';
 
   @override
   String get artworkShadow => 'Ombre';
 
   @override
-  String get artworkShadowNone => 'Aucun';
+  String get artworkShadowNone => 'Aucune';
 
   @override
-  String get artworkShadowSoft => 'Faible';
+  String get artworkShadowSoft => 'Légère';
 
   @override
-  String get artworkShadowMedium => 'Moyen';
+  String get artworkShadowMedium => 'Moyenne';
 
   @override
-  String get artworkShadowStrong => 'Fort';
+  String get artworkShadowStrong => 'Marquée';
 
   @override
-  String get artworkShadowColor => 'Couleur d\'ombre';
+  String get artworkShadowColor => 'Couleur de l\'ombre';
 
   @override
   String get artworkShadowColorBlack => 'Noir';
 
   @override
-  String get artworkShadowColorAccent => 'Accentuation';
+  String get artworkShadowColorAccent => 'Couleur de l\'app';
 
   @override
   String get artworkPreview => 'Aperçu';
 
   @override
   String artworkCornerRadiusLabel(int value) {
-    return '$value pixels';
+    return '$value px';
   }
 
   @override
-  String get noArtwork => 'Pas de pochette d\'album';
+  String get noArtwork => 'Pas de pochette';
 
   @override
-  String get serverUnreachableTitle => 'Impossible d\'atteindre le serveur';
+  String get serverUnreachableTitle => 'Serveur injoignable';
 
   @override
   String get serverUnreachableSubtitle =>
-      'Vérifier votre connexion ou vos paramètres de serveur.';
+      'Vérifie ta connexion ou les réglages du serveur.';
 
   @override
-  String get openOfflineMode => 'Ouvrir en mode hors connexion';
+  String get openOfflineMode => 'Ouvrir hors connexion';
 
   @override
   String get appearanceSection => 'Apparence';
@@ -1503,14 +1498,14 @@ class AppLocalizationsFr extends AppLocalizations {
   String get accentColorLabel => 'Couleur de l\'app';
 
   @override
-  String get circularDesignLabel => 'Design circulaire';
+  String get circularDesignLabel => 'Barres flottantes';
 
   @override
   String get circularDesignSubtitle =>
-      'Interface utilisateur flottante, arrondie avec des panneaux translucides et un effet \"verre flou\" sur le lecteur et la barre de navigation.';
+      'Barre d\'onglets et mini-lecteur flottants, arrondis et translucides.';
 
   @override
-  String get themeModeSystem => 'Système';
+  String get themeModeSystem => 'Auto';
 
   @override
   String get themeModeLight => 'Clair';
@@ -1522,140 +1517,138 @@ class AppLocalizationsFr extends AppLocalizations {
   String get liveLabel => 'EN DIRECT';
 
   @override
-  String get discordStatusText => 'Texte de statut Discord';
+  String get discordStatusText => 'Texte du statut Discord';
 
   @override
   String get discordStatusTextSubtitle =>
-      'Deuxième ligne affichée dans l\'activité Discord';
+      'Deuxième ligne de ton activité Discord';
 
   @override
   String get discordRpcStyleArtist => 'Nom de l\'artiste';
 
   @override
-  String get discordRpcStyleSong => 'Titre de la piste';
+  String get discordRpcStyleSong => 'Titre du morceau';
 
   @override
-  String get discordRpcStyleApp => 'Nom de l\'application (Octave)';
+  String get discordRpcStyleApp => 'Nom de l\'app (Octave)';
 
   @override
-  String get sectionVolumeNormalization =>
-      'NORMALISATION DU VOLUME (REPLAYGAIN)';
+  String get sectionVolumeNormalization => 'VOLUME ÉGALISÉ (REPLAYGAIN)';
 
   @override
-  String get sectionFadeInOut => 'FADE IN/OUT';
+  String get sectionFadeInOut => 'FONDU';
 
   @override
-  String get fadeInOutEnable => 'Enable Fade In/Out';
+  String get fadeInOutEnable => 'Fondu à la lecture et à la pause';
 
   @override
-  String get fadeInOutSubtitle => 'Smoothly fade audio when playing or pausing';
+  String get fadeInOutSubtitle => 'Le son monte et descend en douceur';
 
   @override
   String fadeDuration(int duration) {
-    return 'Fade Duration: ${duration}ms';
+    return 'Durée du fondu : $duration ms';
   }
 
   @override
   String get replayGainModeOff => 'Désactivé';
 
   @override
-  String get replayGainModeTrack => 'Piste';
+  String get replayGainModeTrack => 'Par titre';
 
   @override
-  String get replayGainModeAlbum => 'Album';
+  String get replayGainModeAlbum => 'Par album';
 
   @override
   String replayGainPreamp(String value) {
-    return 'Pré-ampli : $value dB';
+    return 'Préampli : $value dB';
   }
 
   @override
-  String get replayGainPreventClipping => 'Empêcher le découpage audio';
+  String get replayGainPreventClipping => 'Éviter la saturation';
 
   @override
   String replayGainFallbackGain(String value) {
-    return 'Gain de repli : $value dB';
+    return 'Gain par défaut : $value dB';
   }
 
   @override
   String autoDjSongsToAdd(int count) {
-    return 'Pistes à ajouter : $count';
+    return 'Titres à ajouter : $count';
   }
 
   @override
-  String get transcodingEnable => 'Activer le transcodage';
+  String get transcodingEnable => 'Convertir les fichiers';
 
   @override
   String get transcodingEnableSubtitle =>
-      'Réduire la consommation de données avec une qualité inférieure';
+      'Consomme moins de données, avec une qualité plus basse';
 
   @override
-  String get smartTranscoding => 'Transcodage intelligent';
+  String get smartTranscoding => 'Qualité selon le réseau';
 
   @override
   String get smartTranscodingSubtitle =>
-      'Ajuste automatiquement la qualité en fonction de votre connexion (Wi-Fi vs données mobiles)';
+      'Adapte la qualité au réseau (Wi-Fi ou données mobiles)';
 
   @override
   String get smartTranscodingDetectedNetwork => 'Réseau détecté : ';
 
   @override
   String smartTranscodingActiveBitrate(String bitrate) {
-    return 'Débit actif : $bitrate';
+    return 'Débit utilisé : $bitrate';
   }
 
   @override
-  String get transcodingWifiQuality => 'Qualité sur réseau Wi-Fi';
+  String get transcodingWifiQuality => 'Qualité en Wi-Fi';
 
   @override
   String get transcodingWifiQualitySubtitleSmart =>
-      'Utilisé automatiquement en Wi-Fi';
+      'Utilisée automatiquement en Wi-Fi';
 
   @override
-  String get transcodingWifiQualitySubtitle => 'Débit binaire en Wi-Fi';
+  String get transcodingWifiQualitySubtitle => 'Débit en Wi-Fi';
 
   @override
-  String get transcodingMobileQuality => 'Qualité sur réseau mobile';
+  String get transcodingMobileQuality => 'Qualité en données mobiles';
 
   @override
   String get transcodingMobileQualitySubtitleSmart =>
-      'Utilisé automatiquement sur les données mobiles';
+      'Utilisée automatiquement en données mobiles';
 
   @override
-  String get transcodingMobileQualitySubtitle => 'Débit sur données mobiles';
+  String get transcodingMobileQualitySubtitle => 'Débit en données mobiles';
 
   @override
   String get transcodingFormat => 'Format';
 
   @override
   String get transcodingFormatSubtitle =>
-      'Codec audio utilisé pour la diffusion';
+      'Format audio utilisé pour la lecture';
 
   @override
-  String get transcodingBitrateOriginal => 'Original (sans transcodage)';
+  String get transcodingBitrateOriginal => 'D\'origine (sans conversion)';
 
   @override
-  String get transcodingFormatOriginal => 'Original';
+  String get transcodingFormatOriginal => 'D\'origine';
 
   @override
-  String get imageCacheTitle => 'Cache d\'images';
+  String get imageCacheTitle => 'Cache des images';
 
   @override
-  String get imageCacheSubtitle =>
-      'Enregistrer les pochettes d\'album en local';
+  String get imageCacheSubtitle => 'Garde les pochettes sur le téléphone';
 
   @override
-  String get musicCacheTitle => 'Cache de musiques';
+  String get musicCacheTitle => 'Cache de la musique';
 
   @override
   String get musicCacheSubtitle =>
-      'Enregistrer les métadonnées de la piste en local';
+      'Garde les infos des titres sur le téléphone';
 
   @override
-  String get bpmCacheTitle => 'Cache BPM';
+  String get bpmCacheTitle => 'Cache des BPM';
 
   @override
-  String get bpmCacheSubtitle => 'Enregistrer les analyses BPM en local';
+  String get bpmCacheSubtitle => 'Garde l\'analyse des BPM sur le téléphone';
 
   @override
   String get sectionAboutInformation => 'INFORMATIONS';
@@ -1673,7 +1666,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aboutPlatform => 'Plateforme';
 
   @override
-  String get aboutMadeBy => 'Développé par dddevid';
+  String get aboutMadeBy => 'Basé sur Musly, créé par dddevid';
 
   @override
   String get aboutGitHub => 'github.com/dddevid';
@@ -1682,93 +1675,94 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aboutLinkGitHub => 'Dépôt GitHub';
 
   @override
-  String get aboutLinkChangelog => 'Journal des modifications';
+  String get aboutLinkChangelog => 'Nouveautés';
 
   @override
   String get aboutLinkReportIssue => 'Signaler un problème';
 
   @override
-  String get sectionAnalyticsPrivacy => 'Analytics & Privacy';
+  String get sectionAnalyticsPrivacy => 'Statistiques et vie privée';
 
   @override
-  String get anonymousAnalytics => 'Anonymous Analytics';
+  String get anonymousAnalytics => 'Statistiques anonymes';
 
   @override
   String get anonymousAnalyticsSubtitle =>
-      'Help improve Octave with anonymous crash reports and usage stats';
+      'Aide à améliorer Octave avec des rapports anonymes';
 
   @override
-  String get deviceId => 'Device ID';
+  String get deviceId => 'Identifiant de l\'appareil';
 
   @override
   String deviceIdAnonymous(String id) {
-    return 'Anonymous ID: $id';
+    return 'Identifiant anonyme : $id';
   }
 
   @override
   String get deviceIdDisabled =>
-      'Enable analytics to see your anonymous device ID';
+      'Active les statistiques pour voir l\'identifiant anonyme';
 
   @override
-  String get aboutDeviceId => 'About Device ID';
+  String get aboutDeviceId => 'À propos de l\'identifiant';
 
   @override
   String get aboutDeviceIdSubtitle =>
-      'This is an anonymous identifier generated by the app. It cannot be linked to your personal identity and is used only for analytics.';
+      'Cet identifiant anonyme est créé par l\'app. Il ne permet pas de savoir qui tu es et ne sert qu\'aux statistiques.';
 
   @override
-  String get supportWayRate => 'Leave a rating on the app store';
+  String get supportWayRate => 'Laisser une note';
 
   @override
-  String get supportMadeWithLove => 'Crafted with passion in Italy';
+  String get supportMadeWithLove => 'Créé avec passion en Italie';
 
   @override
-  String get playbackSpeed => 'Playback Speed';
+  String get playbackSpeed => 'Vitesse de lecture';
 
   @override
-  String get normalSpeed => 'Normal (1×)';
+  String get normalSpeed => 'Normale (1×)';
 
   @override
-  String get preservePitch => 'Preserve pitch';
+  String get preservePitch => 'Garder la hauteur du son';
 
   @override
-  String get preservePitchSubtitle => 'Keep original pitch when changing speed';
+  String get preservePitchSubtitle =>
+      'Garde la hauteur d\'origine quand la vitesse change';
 
   @override
-  String get pitch => 'Pitch';
+  String get pitch => 'Hauteur';
 
   @override
-  String get pitchPreserved => 'pitch preserved';
+  String get pitchPreserved => 'hauteur conservée';
 
   @override
   String speedTooltipWithPitch(String speed, String pitch) {
-    return 'Speed $speed · pitch $pitch×';
+    return 'Vitesse $speed · hauteur $pitch×';
   }
 
   @override
   String speedTooltipPitchPreserved(String speed) {
-    return 'Speed $speed · pitch preserved';
+    return 'Vitesse $speed · hauteur conservée';
   }
 
   @override
-  String get sleepTimer => 'Sleep Timer';
+  String get sleepTimer => 'Minuteur de sommeil';
 
   @override
-  String get sleepTimerActive => 'Sleep timer active';
+  String get sleepTimerActive => 'Minuteur en cours';
 
   @override
-  String get fadeOut => 'Fade out';
+  String get fadeOut => 'Baisser le son à la fin';
 
   @override
   String fadeOutSubtitle(int seconds) {
-    return 'Gradually lower volume in the last $seconds s';
+    return 'Le volume baisse peu à peu pendant les $seconds dernières secondes';
   }
 
   @override
-  String get finishCurrentSong => 'Finish current song';
+  String get finishCurrentSong => 'Finir le titre en cours';
 
   @override
-  String get finishCurrentSongSubtitle => 'Stop after the current track ends';
+  String get finishCurrentSongSubtitle => 'S\'arrête à la fin du titre';
 
   @override
   String sleepTimerMinutes(int count) {
@@ -1777,74 +1771,73 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String sleepTimerHours(int count) {
-    return '$count hour';
+    return '$count h';
   }
 
   @override
   String sleepTimerSetFor(String duration) {
-    return 'Sleep timer set for $duration';
+    return 'Arrêt dans $duration';
   }
 
   @override
-  String get customDuration => 'Custom duration…';
+  String get customDuration => 'Autre durée…';
 
   @override
-  String get cancelTimer => 'Cancel timer';
+  String get cancelTimer => 'Annuler le minuteur';
 
   @override
-  String get customSleepTimer => 'Custom Sleep Timer';
+  String get customSleepTimer => 'Durée du minuteur';
 
   @override
-  String get set => 'Set';
+  String get set => 'Valider';
 
   @override
-  String get addToPlaylistTitle => 'Add to Playlist';
+  String get addToPlaylistTitle => 'Ajouter à une playlist';
 
   @override
-  String get yourPlaylistsLabel => 'Your Playlists';
+  String get yourPlaylistsLabel => 'Tes playlists';
 
   @override
-  String get enableLrcLibFallback => 'Fetch lyrics from LRCLIB';
+  String get enableLrcLibFallback => 'Chercher les paroles sur LRCLIB';
 
   @override
   String get lrcLibFallbackSubtitle =>
-      'Automatically search LRCLIB for lyrics when your server does not provide them';
+      'Cherche les paroles sur LRCLIB quand le serveur n\'en a pas';
 
   @override
-  String get themeSaved => 'Theme saved';
+  String get themeSaved => 'Thème enregistré';
 
   @override
-  String get themeUnsavedChanges => 'Unsaved changes';
+  String get themeUnsavedChanges => 'Modifications non enregistrées';
 
   @override
-  String get themeUnsavedChangesTitle => 'Unsaved Changes';
+  String get themeUnsavedChangesTitle => 'Modifications non enregistrées';
 
   @override
-  String get themeUnsavedChangesBody =>
-      'You have unsaved changes. Do you want to save before leaving?';
+  String get themeUnsavedChangesBody => 'Enregistrer avant de quitter ?';
 
   @override
-  String get discard => 'Discard';
+  String get discard => 'Ne pas enregistrer';
 
   @override
-  String get done => 'Done';
+  String get done => 'OK';
 
   @override
   String pickColor(String label) {
-    return 'Pick $label';
+    return 'Choisir : $label';
   }
 
   @override
-  String get titleStyle => 'Title Style';
+  String get titleStyle => 'Style du titre';
 
   @override
-  String get artistStyle => 'Artist Style';
+  String get artistStyle => 'Style de l\'artiste';
 
   @override
-  String get themeActive => 'ACTIVE';
+  String get themeActive => 'ACTIF';
 
   @override
-  String get themeSafeMode => 'SAFE';
+  String get themeSafeMode => 'SÛR';
 
   @override
   String get themeCodeMode => 'CODE';
@@ -1854,44 +1847,44 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String themeAuthor(String author) {
-    return 'by $author';
+    return 'par $author';
   }
 
   @override
   String get audioFocusDenied =>
-      'Impossible de démarrer la lecture — une autre application utilise le focus audio';
+      'Lecture impossible : une autre app utilise le son';
 
   @override
-  String get addToLibrary => 'Add to Library';
+  String get addToLibrary => 'Ajouter à la bibliothèque';
 
   @override
-  String get alreadyInLibrary => 'Song already in server library';
+  String get alreadyInLibrary => 'Ce titre est déjà dans ta bibliothèque';
 
   @override
-  String get selectPlaylist => 'Select Playlist';
+  String get selectPlaylist => 'Choisir une playlist';
 
   @override
-  String get endOfSong => 'End of Song';
+  String get endOfSong => 'Fin du titre';
 
   @override
   String get muslyConnect => 'Octave Connect';
 
   @override
-  String get connectToDevice => 'Connect to a Device';
+  String get connectToDevice => 'Écouter sur un appareil';
 
   @override
-  String get currentlyPlayingOn => 'Currently Playing On';
+  String get currentlyPlayingOn => 'Lecture en cours sur';
 
   @override
   String get noDevicesFound =>
-      'No other Octave devices found on your Wi-Fi network.';
+      'Aucun autre appareil Octave sur ce réseau Wi-Fi.';
 
   @override
-  String get transferPlaybackHere => 'Transfer playback here';
+  String get transferPlaybackHere => 'Continuer la lecture ici';
 
   @override
   String playbackTransferredTo(String device) {
-    return 'Playback transferred to $device';
+    return 'Lecture transférée sur $device';
   }
 
   @override
@@ -1899,485 +1892,485 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get beatSyncSubtitle =>
-      'Synchronize multiple phones & computers over Wi-Fi as surround party speakers with millisecond precision.';
+      'Synchronise plusieurs téléphones et ordinateurs en Wi-Fi pour jouer ensemble, à la milliseconde près.';
 
   @override
-  String get hostParty => 'Host Party';
+  String get hostParty => 'Lancer une soirée';
 
   @override
-  String get joinParty => 'Join Party';
+  String get joinParty => 'Rejoindre une soirée';
 
   @override
-  String get leaveParty => 'Leave Party';
+  String get leaveParty => 'Quitter la soirée';
 
   @override
-  String get audioPhaseCalibration => 'Audio Phase Calibration';
+  String get audioPhaseCalibration => 'Réglage du décalage';
 
   @override
   String get phaseCalibrationSubtitle =>
-      'Adjust if using Bluetooth headphones or external speaker latency.';
+      'À ajuster avec un casque Bluetooth ou une enceinte qui a du retard.';
 
   @override
-  String get partySpeakers => 'Party Speakers';
+  String get partySpeakers => 'Appareils de la soirée';
 
   @override
-  String get muslyWrapped => 'Octave Wrapped';
+  String get muslyWrapped => 'Bilan Octave';
 
   @override
-  String get wrappedSeasonal => 'Octave Playback is Seasonal';
+  String get wrappedSeasonal => 'Le bilan arrive en fin d\'année';
 
   @override
-  String get playYourTopSongs => 'Play Your Top Songs';
+  String get playYourTopSongs => 'Écouter tes titres préférés';
 
   @override
-  String get lyricsUnderArtwork => 'Live Lyrics Under Artwork';
+  String get lyricsUnderArtwork => 'Paroles sous la pochette';
 
   @override
   String get lyricsUnderArtworkSubtitle =>
-      'Show currently synced lyric line under the album cover in the full-screen player';
+      'Affiche la ligne en cours des paroles sous la pochette, dans le lecteur';
 
   @override
-  String get lyricsDisplaySection => 'LYRICS DISPLAY';
+  String get lyricsDisplaySection => 'AFFICHAGE DES PAROLES';
 
   @override
-  String get lyricsBlurUnfocused => 'Blur Unfocused Lyrics';
+  String get lyricsBlurUnfocused => 'Flouter les autres lignes';
 
   @override
   String get lyricsBlurUnfocusedSubtitle =>
-      'Add blur effect to past and upcoming lyric lines';
+      'Les lignes passées et à venir sont floutées';
 
   @override
-  String get lyricsAlignment => 'Lyrics Alignment';
+  String get lyricsAlignment => 'Alignement des paroles';
 
   @override
-  String get lyricsAlignmentCentered => 'Centered';
+  String get lyricsAlignmentCentered => 'Centrées';
 
   @override
-  String get lyricsAlignmentLeft => 'Left aligned';
+  String get lyricsAlignmentLeft => 'À gauche';
 
   @override
-  String get alignLeft => 'Left';
+  String get alignLeft => 'Gauche';
 
   @override
-  String get alignCenter => 'Center';
+  String get alignCenter => 'Centre';
 
   @override
-  String get lyricsGlowEffect => 'Active Line Glow';
+  String get lyricsGlowEffect => 'Ligne en cours lumineuse';
 
   @override
-  String get lyricsGlowEffectSubtitle =>
-      'Subtle glow effect on currently playing lyric line';
+  String get lyricsGlowEffectSubtitle => 'Un léger halo sur la ligne chantée';
 
   @override
-  String get lyricsKeepScreenOn => 'Keep Screen On';
+  String get lyricsKeepScreenOn => 'Garder l\'écran allumé';
 
   @override
   String get lyricsKeepScreenOnSubtitle =>
-      'Prevent the screen from turning off while reading lyrics';
+      'L\'écran reste allumé pendant que tu lis les paroles';
 
   @override
-  String get hideWindowTitlebar => 'Hide Window Titlebar / Decorations';
+  String get hideWindowTitlebar => 'Masquer la barre de titre';
 
   @override
   String get hideWindowTitlebarSubtitle =>
-      'Hides native titlebar (useful for Linux Wayland & tiling window managers)';
+      'Masque la barre de titre de la fenêtre (utile sous Linux Wayland)';
 
   @override
-  String get sectionSmartCrossfade => 'SMART CROSSFADE';
+  String get sectionSmartCrossfade => 'FONDU ENCHAÎNÉ';
 
   @override
-  String get trackCrossfade => 'Track Crossfade';
+  String get trackCrossfade => 'Fondu enchaîné';
 
   @override
-  String get crossfadeOffSubtitle => 'Off (Instant transition)';
+  String get crossfadeOffSubtitle => 'Désactivé (passage direct)';
 
   @override
   String crossfadeDurationSubtitle(int seconds) {
-    return '$seconds seconds crossfade between songs';
+    return '$seconds secondes de fondu entre les titres';
   }
 
   @override
   String crossfadeDurationBadge(int seconds) {
-    return '${seconds}s';
+    return '$seconds s';
   }
 
   @override
-  String get sectionGaplessPlayback => 'GAPLESS PLAYBACK';
+  String get sectionGaplessPlayback => 'LECTURE SANS BLANC';
 
   @override
-  String get gaplessPlayback => 'Gapless Playback';
+  String get gaplessPlayback => 'Lecture sans blanc';
 
   @override
-  String get gaplessPlaybackSubtitle => 'Eliminate silence between songs';
+  String get gaplessPlaybackSubtitle => 'Enchaîne les titres sans silence';
 
   @override
-  String get sectionLyrics => 'LYRICS';
+  String get sectionLyrics => 'PAROLES';
 
   @override
-  String get networkWifi => 'WiFi';
+  String get networkWifi => 'Wi-Fi';
 
   @override
   String get networkMobile => 'Mobile';
 
   @override
-  String get downloadFolder => 'Download Folder';
+  String get downloadFolder => 'Dossier des téléchargements';
 
   @override
-  String get downloadFolderDefault => 'Default (Internal storage)';
+  String get downloadFolderDefault => 'Par défaut (stockage interne)';
 
   @override
-  String get activeDownloads => 'Active Downloads';
+  String get activeDownloads => 'Téléchargements en cours';
 
   @override
-  String get noDownloadsInProgress => 'No downloads in progress';
+  String get noDownloadsInProgress => 'Aucun téléchargement en cours';
 
   @override
-  String get playlistDownloads => 'Playlist Downloads';
+  String get playlistDownloads => 'Playlists téléchargées';
 
   @override
   String playlistSongsDownloadedCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count songs downloaded',
-      one: '1 song downloaded',
+      other: '$count titres téléchargés',
+      one: '1 titre téléchargé',
     );
     return '$_temp0';
   }
 
   @override
-  String get songsStreamCache => 'Songs & Streaming Cache';
+  String get songsStreamCache => 'Cache des titres';
 
   @override
-  String get imageArtworkCache => 'Artwork & Images Cache';
+  String get imageArtworkCache => 'Cache des pochettes';
 
   @override
   String cacheDiskUsage(String size) {
-    return '$size used on disk';
+    return '$size utilisés';
   }
 
   @override
   String totalCacheDiskUsage(String size) {
-    return 'Total cache: $size';
+    return 'Cache total : $size';
   }
 
   @override
-  String get clearAudioCacheTooltip => 'Clear song cache';
+  String get clearAudioCacheTooltip => 'Vider le cache des titres';
 
   @override
-  String get clearImageCacheTooltip => 'Clear image cache';
+  String get clearImageCacheTooltip => 'Vider le cache des pochettes';
 
   @override
-  String get audioCacheCleared => 'Song cache cleared';
+  String get audioCacheCleared => 'Cache des titres vidé';
 
   @override
-  String get imageCacheCleared => 'Artwork cache cleared';
+  String get imageCacheCleared => 'Cache des pochettes vidé';
 
   @override
   String folderAdded(String path) {
-    return 'Added folder: $path';
+    return 'Dossier ajouté : $path';
   }
 
   @override
-  String get removeFolderTitle => 'Remove Folder';
+  String get removeFolderTitle => 'Retirer le dossier';
 
   @override
   String removeFolderConfirm(String path) {
-    return 'Remove \"$path\" from scan paths?';
+    return 'Ne plus analyser « $path » ?';
   }
 
   @override
-  String get folderRemoved => 'Folder removed';
+  String get folderRemoved => 'Dossier retiré';
 
   @override
-  String get loadingLibrary => 'Loading library...';
+  String get loadingLibrary => 'Chargement de la bibliothèque…';
 
   @override
   String get libraryEmptyError =>
-      'Library appears to be empty or failed to load. Make sure your server supports full library scanning.';
+      'La bibliothèque semble vide ou n\'a pas pu être chargée. Vérifie que le serveur permet de la parcourir en entier.';
 
   @override
-  String get serverStatusConnected => 'CONNECTED';
+  String get serverStatusConnected => 'CONNECTÉ';
 
   @override
-  String get serverStatusConnecting => 'CONNECTING';
+  String get serverStatusConnecting => 'CONNEXION';
 
   @override
-  String get serverStatusOffline => 'OFFLINE';
+  String get serverStatusOffline => 'HORS LIGNE';
 
   @override
-  String get serverStatusNotConnected => 'Not Connected';
+  String get serverStatusNotConnected => 'Non connecté';
 
   @override
-  String get switchServerButton => 'Switch';
+  String get switchServerButton => 'Changer';
 
   @override
-  String get savedServersSection => 'SAVED SERVERS & SERVICES';
+  String get savedServersSection => 'SERVEURS ENREGISTRÉS';
 
   @override
-  String get manage => 'Manage';
+  String get manage => 'Gérer';
 
   @override
-  String get serverActiveBadge => 'ACTIVE';
+  String get serverActiveBadge => 'Actif';
 
   @override
-  String get addServerOrService => 'Add Server / Service';
+  String get addServerOrService => 'Ajouter un serveur';
 
   @override
-  String get muslyPlaybackDev => 'Playback Preview (Test Mode)';
+  String get muslyPlaybackDev => 'Aperçu du bilan (test)';
 
   @override
   String get muslyPlaybackDevSubtitle =>
-      'Explore your Year-in-Review preview directly without waiting for November';
+      'Voir l\'aperçu du bilan de l\'année sans attendre novembre';
 
   @override
-  String get muslyPlaybackAnnual => 'Octave Playback';
+  String get muslyPlaybackAnnual => 'Bilan de l\'année';
 
   @override
   String get muslyPlaybackAnnualSubtitle =>
-      'Your annual Year-in-Review unlocks automatically every year between late November and mid-January.\n\nKeep listening to music to expand your sonic universe!';
+      'Ton bilan de l\'année s\'ouvre tout seul chaque année, de fin novembre à mi-janvier.\n\nContinue d\'écouter ta musique d\'ici là !';
 
   @override
-  String get submit => 'Submit';
+  String get submit => 'Envoyer';
 
   @override
   String devPlaybackTapsAway(int count) {
-    return '$count taps away from Developer Playback Preview';
+    return 'Encore $count appuis pour l\'aperçu du bilan';
   }
 
   @override
-  String get devPlaybackUnlocked => 'Developer Playback Preview unlocked!';
+  String get devPlaybackUnlocked => 'Aperçu du bilan débloqué';
 
   @override
-  String get switchServerTitle => 'Switch Server';
+  String get switchServerTitle => 'Changer de serveur';
 
   @override
-  String get switchServerSubtitle =>
-      'Select an active server or streaming source';
+  String get switchServerSubtitle => 'Choisis le serveur à utiliser';
 
   @override
-  String get addServerButton => 'Add Server';
+  String get addServerButton => 'Ajouter un serveur';
 
   @override
-  String get noServersSavedYet => 'No servers saved yet';
+  String get noServersSavedYet => 'Aucun serveur enregistré';
 
   @override
   String connectedTo(String name) {
-    return 'Connected to $name';
+    return 'Connecté à $name';
   }
 
   @override
   String errorConnectingServer(String error) {
-    return 'Error connecting to server: $error';
+    return 'Connexion au serveur impossible : $error';
   }
 
   @override
-  String get renameServerProfile => 'Rename Server Profile';
+  String get renameServerProfile => 'Renommer le serveur';
 
   @override
-  String get profileNameLabel => 'Profile Name';
+  String get profileNameLabel => 'Nom';
 
   @override
-  String get enterNewNameHint => 'Enter new name';
+  String get enterNewNameHint => 'Nouveau nom';
 
   @override
-  String get removeServerTitle => 'Remove Server';
+  String get removeServerTitle => 'Retirer le serveur';
 
   @override
   String removeServerConfirm(String name) {
-    return 'Are you sure you want to remove \"$name\" from your saved servers?';
+    return 'Retirer « $name » des serveurs enregistrés ?';
   }
 
   @override
-  String get noPlaylistsFound => 'No playlists found';
+  String get noPlaylistsFound => 'Aucune playlist';
 
   @override
-  String get addAllToQueue => 'Add all to queue';
+  String get addAllToQueue => 'Tout ajouter à la file d\'attente';
 
   @override
   String songsAddedToQueue(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count songs added to queue',
-      one: '1 song added to queue',
+      other: '$count titres ajoutés à la file d\'attente',
+      one: '1 titre ajouté à la file d\'attente',
     );
     return '$_temp0';
   }
 
   @override
-  String get searchInAlbum => 'Search in album';
+  String get searchInAlbum => 'Rechercher dans l\'album';
 
   @override
-  String get searchInPlaylist => 'Search in playlist';
+  String get searchInPlaylist => 'Rechercher dans la playlist';
 
   @override
-  String get filterTracks => 'Filter tracks...';
+  String get filterTracks => 'Filtrer les titres…';
 
   @override
-  String get filterSongs => 'Filter songs...';
+  String get filterSongs => 'Filtrer les titres…';
 
   @override
-  String get noSongsInQueue => 'No songs in queue';
+  String get noSongsInQueue => 'La file d\'attente est vide';
 
   @override
-  String get moreOptions => 'More options';
+  String get moreOptions => 'Plus d\'options';
 
   @override
-  String get upNext => 'Up Next';
+  String get upNext => 'À suivre';
 
   @override
-  String get removeSelected => 'Remove selected';
+  String get removeSelected => 'Retirer la sélection';
 
   @override
-  String get reorderSongs => 'Reorder songs';
+  String get reorderSongs => 'Réorganiser';
 
   @override
-  String get selectSongs => 'Select songs';
+  String get selectSongs => 'Sélectionner';
 
   @override
-  String get doneReordering => 'Done reordering';
+  String get doneReordering => 'Terminer';
 
   @override
-  String get downloadAlbum => 'Download album';
+  String get downloadAlbum => 'Télécharger l\'album';
 
   @override
-  String get downloadPlaylist => 'Download playlist';
+  String get downloadPlaylist => 'Télécharger la playlist';
 
   @override
-  String get downloadedTapToRemove => 'Downloaded — tap to remove';
+  String get downloadedTapToRemove => 'Téléchargé, touche pour retirer';
 
   @override
-  String get downloadingTapToCancel => 'Downloading — tap to cancel';
+  String get downloadingTapToCancel =>
+      'Téléchargement en cours, touche pour annuler';
 
   @override
-  String get removeDownloadsTitle => 'Remove downloads?';
+  String get removeDownloadsTitle => 'Retirer les téléchargements ?';
 
   @override
   String removeAlbumDownloadsConfirm(int count, String name) {
-    return 'Remove all $count downloaded songs from \"$name\"?';
+    return 'Retirer les $count titres téléchargés de « $name » ?';
   }
 
   @override
   String removePlaylistDownloadsConfirm(int count, String name) {
-    return 'Remove all $count downloaded songs from \"$name\"?';
+    return 'Retirer les $count titres téléchargés de « $name » ?';
   }
 
   @override
   String queuedSongsForDownload(int count) {
-    return 'Queued $count songs for download…';
+    return '$count titres en attente de téléchargement…';
   }
 
   @override
-  String get songRemovedFromPlaylist => 'Song removed from playlist';
+  String get songRemovedFromPlaylist => 'Titre retiré de la playlist';
 
   @override
   String errorRemovingSong(String error) {
-    return 'Error removing song: $error';
+    return 'Impossible de retirer le titre : $error';
   }
 
   @override
   String errorReorderingSong(String error) {
-    return 'Error reordering song: $error';
+    return 'Impossible de déplacer le titre : $error';
   }
 
   @override
-  String get removeSongsTitle => 'Remove songs';
+  String get removeSongsTitle => 'Retirer des titres';
 
   @override
   String removePlaylistSongsConfirm(int count, String name) {
-    return 'Remove $count song(s) from \"$name\"?';
+    return 'Retirer $count titre(s) de « $name » ?';
   }
 
   @override
   String removedSongsFromPlaylist(int count) {
-    return 'Removed $count song(s) from playlist';
+    return '$count titre(s) retiré(s) de la playlist';
   }
 
   @override
-  String get alreadyInPlaylist => 'Already in playlist';
+  String get alreadyInPlaylist => 'Déjà dans la playlist';
 
   @override
   String alreadyInPlaylistConfirm(String title, String playlist) {
-    return '\"$title\" is already in \"$playlist\". Do you still want to add it?';
+    return '« $title » est déjà dans « $playlist ». L\'ajouter quand même ?';
   }
 
   @override
-  String get addAnyway => 'Add anyway';
+  String get addAnyway => 'Ajouter quand même';
 
   @override
-  String get offlineModeQuestion => 'Offline mode?';
+  String get offlineModeQuestion => 'Passer hors connexion ?';
 
   @override
-  String get drumroll => 'DRUMROLL...';
+  String get drumroll => 'ROULEMENT DE TAMBOUR…';
 
   @override
-  String get readyToDiscoverTopSong => 'Ready to discover\nyour #1 song?';
+  String get readyToDiscoverTopSong => 'Prêt à découvrir\nton titre n° 1 ?';
 
   @override
-  String get tapToBegin => 'Tap to begin';
+  String get tapToBegin => 'Touche pour commencer';
 
   @override
-  String get minutesListened => 'MINUTES LISTENED';
+  String get minutesListened => 'MINUTES D\'ÉCOUTE';
 
   @override
-  String get totalHours => 'Total hours';
+  String get totalHours => 'Heures au total';
 
   @override
-  String get uniqueTracks => 'Unique tracks';
+  String get uniqueTracks => 'Titres différents';
 
   @override
-  String get topSongsHeader => 'TOP SONGS';
+  String get topSongsHeader => 'TITRES PRÉFÉRÉS';
 
   @override
-  String get yourMostListenedSongs => 'Your most listened songs';
+  String get yourMostListenedSongs => 'Tes titres les plus écoutés';
 
   @override
-  String get topArtistsHeader => 'TOP ARTISTS';
+  String get topArtistsHeader => 'ARTISTES PRÉFÉRÉS';
 
   @override
   String playsCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count plays',
-      one: '1 play',
+      other: '$count écoutes',
+      one: '1 écoute',
     );
     return '$_temp0';
   }
 
   @override
-  String get topSongBadge => 'Song #1';
+  String get topSongBadge => 'Titre n° 1';
 
   @override
-  String get topArtistMetric => 'Top Artist';
+  String get topArtistMetric => 'Artiste n° 1';
 
   @override
   String get genreMetric => 'Genre';
 
   @override
-  String get muslyPlaybackHeader => 'OCTAVE PLAYBACK';
+  String get muslyPlaybackHeader => 'BILAN OCTAVE';
 
   @override
-  String get enableMuslyConnect => 'Enable Octave Connect';
+  String get enableMuslyConnect => 'Activer Octave Connect';
 
   @override
   String get enableMuslyConnectSubtitle =>
-      'Discover nearby devices over Wi-Fi for remote control and listening sessions';
+      'Trouve les appareils proches en Wi-Fi pour les piloter et écouter ensemble';
 
   @override
-  String get availableDevices => 'Available Devices';
+  String get availableDevices => 'Appareils disponibles';
 
   @override
-  String get lanDiscoveryActive => 'LAN Discovery active • No nearby devices';
+  String get lanDiscoveryActive =>
+      'Recherche sur le réseau • aucun appareil proche';
 
   @override
   String nearbyDevicesFound(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '$count nearby devices found',
-      one: '1 nearby device found',
+      other: '$count appareils trouvés à proximité',
+      one: '1 appareil trouvé à proximité',
     );
     return '$_temp0';
   }
@@ -2386,469 +2379,467 @@ class AppLocalizationsFr extends AppLocalizations {
   String get minutes => 'Minutes';
 
   @override
-  String get nowPlayingHeader => 'NOW PLAYING';
+  String get nowPlayingHeader => 'À L\'ÉCOUTE';
 
   @override
-  String get privacyFirstTitle => 'Privacy First';
+  String get privacyFirstTitle => 'Ta vie privée d\'abord';
 
   @override
-  String get privacyFirstSubtitle => 'Your data stays with you. Always.';
+  String get privacyFirstSubtitle => 'Tes données restent chez toi.';
 
   @override
-  String get noDataSellingTitle => 'No Data Selling';
+  String get noDataSellingTitle => 'Aucune revente';
 
   @override
   String get noDataSellingDescription =>
-      'We never sell, share, or transfer your personal data to third parties.';
+      'Tes données ne sont jamais vendues, partagées ni transmises à qui que ce soit.';
 
   @override
-  String get localFirstStorageTitle => 'Local-First Storage';
+  String get localFirstStorageTitle => 'Tout reste sur ton téléphone';
 
   @override
   String get localFirstStorageDescription =>
-      'Your music library and credentials stay on your device.';
+      'Ta bibliothèque et tes identifiants restent sur ton appareil.';
 
   @override
-  String get privateOpenTitle => '100% Private & Open';
+  String get privateOpenTitle => 'Privé et libre';
 
   @override
   String get privateOpenDescription =>
-      'Octave is completely telemetry-free. No personal identifiers, usage tracking, or analytics are collected.';
+      'Octave n\'envoie aucune statistique : ni identifiant personnel, ni suivi d\'utilisation.';
 
   @override
-  String get readFullPrivacyPolicy => 'Read Full Privacy Policy';
+  String get readFullPrivacyPolicy => 'Lire la politique de confidentialité';
 
   @override
-  String get viewCompleteDetailsWebsite =>
-      'View complete details on our website';
+  String get viewCompleteDetailsWebsite => 'Le détail complet est sur GitHub';
 
   @override
-  String get understandAndContinue => 'I Understand & Continue';
+  String get understandAndContinue => 'J\'ai compris';
 
   @override
-  String get declineAndExit => 'Decline & Exit';
+  String get declineAndExit => 'Refuser et quitter';
 
   @override
-  String get exitApp => 'Exit App';
+  String get exitApp => 'Quitter l\'app';
 
   @override
-  String get stop => 'Stop';
+  String get stop => 'Arrêter';
 
   @override
-  String get closeQueue => 'Close Queue';
+  String get closeQueue => 'Fermer la file d\'attente';
 
   @override
-  String get timerOff => 'Off';
+  String get timerOff => 'Désactivé';
 
   @override
-  String get history => 'History';
+  String get history => 'Historique';
 
   @override
-  String get searchInLibrary => 'Search in Library';
+  String get searchInLibrary => 'Rechercher dans la bibliothèque';
 
   @override
-  String get add => 'Add';
+  String get add => 'Ajouter';
 
   @override
-  String get clear => 'Clear';
+  String get clear => 'Effacer';
 
   @override
-  String get back => 'Back';
+  String get back => 'Retour';
 
   @override
-  String get previousSlide => 'Previous';
+  String get previousSlide => 'Précédent';
 
   @override
-  String get nextSlide => 'Next';
+  String get nextSlide => 'Suivant';
 
   @override
   String get radios => 'Radios';
 
   @override
-  String get downloads => 'Downloads';
+  String get downloads => 'Téléchargements';
 
   @override
-  String get noDownloadedSongsYet => 'No downloaded songs yet';
+  String get noDownloadedSongsYet => 'Aucun titre téléchargé pour l\'instant';
 
   @override
-  String get noDownloadedAlbumsYet => 'No downloaded albums yet';
+  String get noDownloadedAlbumsYet => 'Aucun album téléchargé pour l\'instant';
 
   @override
-  String get connectedToWebStream => 'Connected to Web Stream';
+  String get connectedToWebStream => 'Connecté à Web Stream';
 
   @override
   String get allowSelfSignedCertificatesSubtitle =>
-      'Useful for internal LAN or custom self-signed SSL';
+      'Utile sur un réseau local ou avec un certificat personnel';
 
   @override
   String get legacyAuthenticationSubtitle =>
-      'Required for older Subsonic API implementations';
+      'Nécessaire pour les anciens serveurs Subsonic';
 
   @override
-  String get certificateFileSubtitle => '.crt, .pem or .cer file';
+  String get certificateFileSubtitle => 'Fichier .crt, .pem ou .cer';
 
   @override
-  String get clientIdentityFileSubtitle => '.p12 or .pfx client identity file';
+  String get clientIdentityFileSubtitle => 'Fichier d\'identité .p12 ou .pfx';
 
   @override
-  String get copyError => 'Copy error';
+  String get copyError => 'Copier l\'erreur';
 
   @override
-  String get errorCopiedToClipboard => 'Error copied to clipboard';
+  String get errorCopiedToClipboard => 'Erreur copiée';
 
   @override
-  String get failedToUpdateFavorite => 'Failed to update liked status';
+  String get failedToUpdateFavorite => 'Impossible de mettre à jour le favori';
 
   @override
   String queuedSongsFromAlbumsForDownload(int songCount, int albumCount) {
-    return 'Queued $songCount songs from $albumCount albums for download…';
+    return '$songCount titres de $albumCount albums en attente de téléchargement…';
   }
 
   @override
-  String get downloadAllAlbums => 'Download All Albums';
+  String get downloadAllAlbums => 'Télécharger tous les albums';
 
   @override
-  String get downloadAllFavorites => 'Download All Favorites';
+  String get downloadAllFavorites => 'Télécharger tous les favoris';
 
   @override
-  String get downloadAll => 'Download All';
+  String get downloadAll => 'Tout télécharger';
 
   @override
   String get createPlaylistSubtitle =>
-      'Build a custom playlist with your favorite tracks';
+      'Rassemble tes titres préférés dans une playlist';
 
   @override
-  String get addMusicSource => 'Add Music Source';
+  String get addMusicSource => 'Ajouter une source';
 
   @override
-  String get addMusicSourceSubtitle =>
-      'Connect Navidrome, Jellyfin, or Web Stream';
+  String get addMusicSourceSubtitle => 'Navidrome, Jellyfin ou Web Stream';
 
   @override
-  String get removeFromFavoritesTitle => 'Remove from Favorites?';
+  String get removeFromFavoritesTitle => 'Retirer des favoris ?';
 
   @override
   String removeFromFavoritesConfirm(String title) {
-    return 'Do you want to remove \"$title\" from favorites?';
+    return 'Retirer « $title » des favoris ?';
   }
 
   @override
   String failedToRemove(String error) {
-    return 'Failed to remove: $error';
+    return 'Impossible de retirer : $error';
   }
 
   @override
   String streamUrlLabel(String url) {
-    return 'Stream URL: $url';
+    return 'Adresse du flux : $url';
   }
 
   @override
-  String get shuffleNewSelection => 'Shuffle New Selection';
+  String get shuffleNewSelection => 'Nouvelle sélection aléatoire';
 
   @override
-  String get sortDurationLongest => 'Duration (Longest first)';
+  String get sortDurationLongest => 'Durée (plus longs d\'abord)';
 
   @override
-  String get connectToServer => 'Connect to Server';
+  String get connectToServer => 'Se connecter au serveur';
 
   @override
-  String get renameProfile => 'Rename Profile';
+  String get renameProfile => 'Renommer';
 
   @override
-  String get addWebStream => 'Add Web Stream';
+  String get addWebStream => 'Ajouter Web Stream';
 
   @override
-  String get addWebStreamSubtitle => 'Instant streaming with no login required';
+  String get addWebStreamSubtitle => 'Écoute en ligne, sans compte';
 
   @override
-  String get recentSearches => 'Recent Searches';
+  String get recentSearches => 'Recherches récentes';
 
   @override
-  String get createPlaylistToGetStarted => 'Create a playlist to get started';
+  String get createPlaylistToGetStarted => 'Crée une playlist pour commencer';
 
   @override
   String get addRadioStationsHint =>
-      'Add radio stations in your server settings to see them here.';
+      'Les radios ajoutées dans les réglages du serveur apparaîtront ici.';
 
   @override
-  String get skip => 'Skip';
+  String get skip => 'Passer';
 
   @override
-  String get profileNameOptional => 'Profile Name (Optional)';
+  String get profileNameOptional => 'Nom du compte (facultatif)';
 
   @override
-  String get serverUrlRequired => 'Server URL *';
+  String get serverUrlRequired => 'Adresse du serveur *';
 
   @override
-  String get lanServerUrlOptional => 'LAN Server URL (Optional)';
+  String get lanServerUrlOptional => 'Adresse sur le réseau local (facultatif)';
 
   @override
-  String get usernameRequired => 'Username *';
+  String get usernameRequired => 'Nom d\'utilisateur *';
 
   @override
-  String get passwordRequired => 'Password *';
+  String get passwordRequired => 'Mot de passe *';
 
   @override
-  String get playingInSync => 'Playing in sync';
+  String get playingInSync => 'Lecture synchronisée';
 
   @override
-  String get switchedBackToThisDevice => 'Switched back to this device';
+  String get switchedBackToThisDevice => 'Lecture revenue sur cet appareil';
 
   @override
   String connectedToDeviceName(String device) {
-    return 'Connected to $device';
+    return 'Connecté à $device';
   }
 
   @override
-  String get whatDoYouWantToPlay => 'What do you want to play?';
+  String get whatDoYouWantToPlay => 'Que veux-tu écouter ?';
 
   @override
-  String get noLyricsFound => 'No lyrics available';
+  String get noLyricsFound => 'Pas de paroles pour ce titre';
 
   @override
-  String get dynamicColor => 'Material You (Dynamic Color)';
+  String get dynamicColor => 'Couleurs du fond d\'écran (Material You)';
 
   @override
-  String get muslyPlayback => 'Octave Playback';
+  String get muslyPlayback => 'Bilan Octave';
 
   @override
-  String get synthesizingUniverse => 'Synthesizing your listening universe';
+  String get synthesizingUniverse => 'Préparation de ton bilan';
 
   @override
-  String get getReadyForBeatDrop => 'Get ready for the beat drop...';
+  String get getReadyForBeatDrop => 'Prépare-toi…';
 
   @override
   String yourYearInSound(int year) {
-    return 'Your $year\nin Sound';
+    return 'Ton année $year\nen musique';
   }
 
   @override
   String get yourYearInSoundSubtitle =>
-      'You explored sonic depths, relived moments, and built memories through music.';
+      'Des découvertes, des titres réécoutés, des souvenirs en musique.';
 
   @override
-  String get yourMusicalChronotype => 'YOUR MUSICAL CHRONOTYPE';
+  String get yourMusicalChronotype => 'TON RYTHME D\'ÉCOUTE';
 
   @override
-  String get genreGalaxy => 'GENRE GALAXY';
+  String get genreGalaxy => 'TES GENRES';
 
   @override
-  String get soundsThatGuidedYou => 'The sounds that guided you';
+  String get soundsThatGuidedYou => 'Les sons qui t\'ont accompagné';
 
   @override
-  String get yourMusicalAnchors => 'Your musical anchors';
+  String get yourMusicalAnchors => 'Tes artistes de l\'année';
 
   @override
-  String get yourListeningPersonality => 'YOUR LISTENING PERSONALITY';
+  String get yourListeningPersonality => 'TON PROFIL D\'ÉCOUTE';
 
   @override
-  String get yourYearInReviewIsReady => 'Your Year in Review is ready!';
+  String get yourYearInReviewIsReady => 'Ton bilan de l\'année est prêt !';
 
   @override
-  String get chronotypeMidnightWanderer => 'Midnight Wanderer 🌙';
+  String get chronotypeMidnightWanderer => 'Oiseau de nuit 🌙';
 
   @override
   String get chronotypeMidnightWandererDesc =>
-      'Your deepest music moments unfold late at night when the world is quiet.';
+      'Tes plus beaux moments de musique arrivent tard le soir, quand tout est calme.';
 
   @override
-  String get chronotypeSunriseHarmonizer => 'Sunrise Harmonizer ☀️';
+  String get chronotypeSunriseHarmonizer => 'Lève-tôt en musique ☀️';
 
   @override
   String get chronotypeSunriseHarmonizerDesc =>
-      'You kickstart every morning with rhythm, setting the soundtrack for the entire day.';
+      'Tu lances chaque matin en rythme, avec la bande-son de ta journée.';
 
   @override
-  String get chronotypeAfternoonFlow => 'Afternoon Flow ⚡';
+  String get chronotypeAfternoonFlow => 'Énergie de l\'après-midi ⚡';
 
   @override
   String get chronotypeAfternoonFlowDesc =>
-      'Midday is your prime listening peak, powering through your momentum with high-energy sound.';
+      'L\'après-midi, c\'est ton pic d\'écoute : de quoi garder la pêche.';
 
   @override
-  String get chronotypeTwilightLounger => 'Twilight Lounger 🌆';
+  String get chronotypeTwilightLounger => 'Écoute du soir 🌆';
 
   @override
   String get chronotypeTwilightLoungerDesc =>
-      'Evenings are made for unwinding and losing yourself in immersive album journeys.';
+      'Le soir, tu te poses et tu te laisses porter par des albums entiers.';
 
   @override
-  String get archetypeLuminary => 'The Luminary';
+  String get archetypeLuminary => 'L\'explorateur';
 
   @override
-  String get archetypeLuminaryBadge => 'SONIC EXPLORER';
+  String get archetypeLuminaryBadge => 'EXPLORATEUR DU SON';
 
   @override
   String get archetypeLuminaryDesc =>
-      'You shine light on diverse genres and constantly seek out fresh musical horizons.';
+      'Tu passes d\'un genre à l\'autre et tu cherches sans cesse de nouveaux horizons.';
 
   @override
-  String get archetypeLuminaryTrait1 => 'Eclectic Taste';
+  String get archetypeLuminaryTrait1 => 'Goûts variés';
 
   @override
-  String get archetypeLuminaryTrait2 => 'Genre Fluid';
+  String get archetypeLuminaryTrait2 => 'Tous les genres';
 
   @override
-  String get archetypeLuminaryTrait3 => 'High Discovery';
+  String get archetypeLuminaryTrait3 => 'Grand découvreur';
 
   @override
-  String get archetypeDevotee => 'The Devotee';
+  String get archetypeDevotee => 'Le fidèle';
 
   @override
   String get archetypeDevoteeBadge => 'SUPERFAN';
 
   @override
   String get archetypeDevoteeDesc =>
-      'When you love an artist or album, you listen on repeat with unmatched dedication.';
+      'Quand tu aimes un artiste ou un album, tu l\'écoutes en boucle sans te lasser.';
 
   @override
-  String get archetypeDevoteeTrait1 => 'Deep Loyalty';
+  String get archetypeDevoteeTrait1 => 'Grande fidélité';
 
   @override
-  String get archetypeDevoteeTrait2 => 'Album Listener';
+  String get archetypeDevoteeTrait2 => 'Écoute par albums';
 
   @override
-  String get archetypeDevoteeTrait3 => 'Emotional Bond';
+  String get archetypeDevoteeTrait3 => 'Lien fort';
 
   @override
-  String get archetypeNightOwl => 'The Night Owl';
+  String get archetypeNightOwl => 'Le noctambule';
 
   @override
-  String get archetypeNightOwlBadge => 'NOCTURNAL VIBES';
+  String get archetypeNightOwlBadge => 'AMBIANCE DE NUIT';
 
   @override
   String get archetypeNightOwlDesc =>
-      'Your soul belongs to midnight soundscapes, atmospheric chords, and starry listening sessions.';
+      'Tu vibres sur des sons nocturnes, des ambiances planantes et des écoutes sous les étoiles.';
 
   @override
-  String get archetypeNightOwlTrait1 => 'Atmospheric';
+  String get archetypeNightOwlTrait1 => 'Planant';
 
   @override
-  String get archetypeNightOwlTrait2 => 'Introspective';
+  String get archetypeNightOwlTrait2 => 'Introspectif';
 
   @override
-  String get archetypeNightOwlTrait3 => 'Late-Night Flow';
+  String get archetypeNightOwlTrait3 => 'Couche-tard';
 
   @override
-  String get archetypeSunrise => 'The Sunrise Harmonizer';
+  String get archetypeSunrise => 'Le matinal';
 
   @override
-  String get archetypeSunriseBadge => 'ENERGY CATALYST';
+  String get archetypeSunriseBadge => 'PLEIN D\'ÉNERGIE';
 
   @override
   String get archetypeSunriseDesc =>
-      'You wake up the world with high vibrations and let optimistic melodies spark your day.';
+      'Tu réveilles le monde avec des mélodies positives qui lancent ta journée.';
 
   @override
-  String get archetypeSunriseTrait1 => 'Uplifting';
+  String get archetypeSunriseTrait1 => 'Entraînant';
 
   @override
-  String get archetypeSunriseTrait2 => 'Morning Energy';
+  String get archetypeSunriseTrait2 => 'Énergie du matin';
 
   @override
-  String get archetypeSunriseTrait3 => 'Rhythmic Drive';
+  String get archetypeSunriseTrait3 => 'Rythmé';
 
   @override
-  String get archetypeAlchemist => 'The Sonic Alchemist';
+  String get archetypeAlchemist => 'Le créateur d\'ambiances';
 
   @override
-  String get archetypeAlchemistBadge => 'VIBE CURATOR';
+  String get archetypeAlchemistBadge => 'CURATEUR';
 
   @override
   String get archetypeAlchemistDesc =>
-      'You transmute everyday moments into cinematic experiences with perfectly curated soundtracks.';
+      'Tu transformes chaque moment en scène de film grâce à une bande-son parfaitement choisie.';
 
   @override
-  String get archetypeAlchemistTrait1 => 'Curator Instinct';
+  String get archetypeAlchemistTrait1 => 'Sens du choix';
 
   @override
-  String get archetypeAlchemistTrait2 => 'Cinematic Vibe';
+  String get archetypeAlchemistTrait2 => 'Ambiance cinéma';
 
   @override
-  String get archetypeAlchemistTrait3 => 'Mood Master';
+  String get archetypeAlchemistTrait3 => 'Maître des humeurs';
 
   @override
-  String get percentileTop05 => 'Top 0.5% Global Listener';
+  String get percentileTop05 => 'Dans les 0,5 % qui écoutent le plus';
 
   @override
-  String get percentileTop1 => 'Top 1% Global Listener';
+  String get percentileTop1 => 'Dans les 1 % qui écoutent le plus';
 
   @override
-  String get percentileTop5 => 'Top 5% Global Listener';
+  String get percentileTop5 => 'Dans les 5 % qui écoutent le plus';
 
   @override
-  String get percentileTop10 => 'Top 10% Global Listener';
+  String get percentileTop10 => 'Dans les 10 % qui écoutent le plus';
 
   @override
-  String get percentileTopAficionado => 'Top Music Aficionado';
+  String get percentileTopAficionado => 'Grand passionné de musique';
 
   @override
-  String get superfanBadge01 => 'Top 0.1% Superfan';
+  String get superfanBadge01 => 'Superfan (top 0,1 %)';
 
   @override
-  String get superfanBadge1 => 'Top 1% Fan';
+  String get superfanBadge1 => 'Grand fan (top 1 %)';
 
   @override
-  String get superfanBadge5 => 'Top 5% Fan';
+  String get superfanBadge5 => 'Fan (top 5 %)';
 
   @override
   String get tabAndroidAuto => 'Android Auto';
 
   @override
   String get androidAutoNotSupported =>
-      'Android Auto is not supported on this device.';
+      'Android Auto n\'est pas disponible sur cet appareil.';
 
   @override
-  String get androidAutoCategories => 'Categories';
+  String get androidAutoCategories => 'Rubriques';
 
   @override
-  String get androidAutoPerformance => 'Performance';
+  String get androidAutoPerformance => 'Performances';
 
   @override
-  String get androidAutoShowRecent => 'Show Recent';
+  String get androidAutoShowRecent => 'Écouté récemment';
 
   @override
-  String get androidAutoShowFavorites => 'Show Favorites';
+  String get androidAutoShowFavorites => 'Favoris';
 
   @override
-  String get androidAutoShowAlbums => 'Show Albums';
+  String get androidAutoShowAlbums => 'Albums';
 
   @override
-  String get androidAutoShowArtists => 'Show Artists';
+  String get androidAutoShowArtists => 'Artistes';
 
   @override
-  String get androidAutoShowPlaylists => 'Show Playlists';
+  String get androidAutoShowPlaylists => 'Playlists';
 
   @override
-  String get androidAutoShowGenres => 'Show Genres';
+  String get androidAutoShowGenres => 'Genres';
 
   @override
-  String get androidAutoShowRadio => 'Show Radio';
+  String get androidAutoShowRadio => 'Radio';
 
   @override
-  String get androidAutoShowDownloads => 'Show Downloads';
+  String get androidAutoShowDownloads => 'Téléchargements';
 
   @override
-  String get androidAutoMaxItems => 'Item Limit';
+  String get androidAutoMaxItems => 'Nombre d\'éléments';
 
   @override
   String get androidAutoMaxItemsDesc =>
-      'Maximum number of items to load per category';
+      'Nombre maximum d\'éléments chargés par rubrique';
 
   @override
-  String get androidAutoNowPlaying => 'Now Playing';
+  String get androidAutoNowPlaying => 'À l\'écoute';
 
   @override
-  String get androidAutoRecent => 'Recent';
+  String get androidAutoRecent => 'Récents';
 
   @override
-  String get androidAutoFavorites => 'Favorites';
+  String get androidAutoFavorites => 'Favoris';
 
   @override
   String get androidAutoAlbums => 'Albums';
 
   @override
-  String get androidAutoArtists => 'Artists';
+  String get androidAutoArtists => 'Artistes';
 
   @override
   String get androidAutoPlaylists => 'Playlists';
@@ -2860,41 +2851,41 @@ class AppLocalizationsFr extends AppLocalizations {
   String get androidAutoRadio => 'Radio';
 
   @override
-  String get androidAutoDownloads => 'Downloads';
+  String get androidAutoDownloads => 'Téléchargements';
 
   @override
-  String get androidAutoShuffle => 'Shuffle';
+  String get androidAutoShuffle => 'Aléatoire';
 
   @override
-  String get androidAutoQueue => 'Queue';
+  String get androidAutoQueue => 'File d\'attente';
 
   @override
-  String get androidAutoEmptyFavorites => 'No favorite songs';
+  String get androidAutoEmptyFavorites => 'Aucun titre aimé';
 
   @override
-  String get androidAutoEmptyRadio => 'No radio stations configured';
+  String get androidAutoEmptyRadio => 'Aucune radio';
 
   @override
-  String get androidAutoEmptyDownloads => 'No downloaded songs';
+  String get androidAutoEmptyDownloads => 'Aucun titre téléchargé';
 
   @override
-  String get androidAutoLoading => 'Loading…';
+  String get androidAutoLoading => 'Chargement…';
 
   @override
-  String get androidAutoOnlineStream => 'Online Stream';
+  String get androidAutoOnlineStream => 'Flux en ligne';
 
   @override
-  String get androidAutoServerSection => 'Server';
+  String get androidAutoServerSection => 'Serveur';
 
   @override
-  String get androidAutoDefaultServer => 'Default Server';
+  String get androidAutoDefaultServer => 'Serveur par défaut';
 
   @override
   String get androidAutoDefaultServerDesc =>
-      'Select which server to use when you start Android Auto';
+      'Le serveur utilisé quand Android Auto démarre';
 
   @override
-  String get androidAutoUseActiveServer => 'Use app\'s active server';
+  String get androidAutoUseActiveServer => 'Celui utilisé dans l\'app';
 
   @override
   String get colorIntensityLabel => 'Intensité des couleurs';
@@ -3181,4 +3172,345 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get setupSummaryCovers => 'Pochettes';
+
+  @override
+  String get filterMusic => 'Musique';
+
+  @override
+  String get homeJumpBackIn => 'Reprendre l\'écoute';
+
+  @override
+  String get homeListenAgain => 'À réécouter';
+
+  @override
+  String get homeTopHits => 'Tes incontournables';
+
+  @override
+  String get homeArtistsYouLove => 'Tes artistes';
+
+  @override
+  String get artistSingular => 'Artiste';
+
+  @override
+  String get songSingular => 'Titre';
+
+  @override
+  String get albumSingular => 'Album';
+
+  @override
+  String get sortRecents => 'Récents';
+
+  @override
+  String get sortAlphabetical => 'Alphabétique';
+
+  @override
+  String get sortCreator => 'Créateur';
+
+  @override
+  String get libraryLikedSongsSubtitle => 'Playlist • Favoris';
+
+  @override
+  String librarySongsSavedOffline(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count titres hors connexion',
+      one: '1 titre hors connexion',
+      zero: 'Aucun titre hors connexion',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String libraryPlaylistSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Playlist • $count titres',
+      one: 'Playlist • 1 titre',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String libraryAlbumSubtitle(String artist) {
+    return 'Album • $artist';
+  }
+
+  @override
+  String get switchToList => 'Afficher en liste';
+
+  @override
+  String get switchToGrid => 'Afficher en grille';
+
+  @override
+  String get librarySearchHint => 'Rechercher dans la bibliothèque…';
+
+  @override
+  String get librarySearchEmpty => 'Cherche dans ta bibliothèque';
+
+  @override
+  String get browseAll => 'Tout parcourir';
+
+  @override
+  String get genresAndMoods => 'Genres et ambiances';
+
+  @override
+  String get searchCategoryPop => 'Pop et tubes';
+
+  @override
+  String get searchCategoryHipHop => 'Hip-hop et rap';
+
+  @override
+  String get searchCategoryRock => 'Rock et alternatif';
+
+  @override
+  String get searchCategoryChill => 'Chill et détente';
+
+  @override
+  String searchNoResultsFor(String query) {
+    return 'Aucun résultat pour « $query »';
+  }
+
+  @override
+  String get searchNoResultsHint =>
+      'Vérifie l\'orthographe ou essaie une autre recherche.';
+
+  @override
+  String get searchTopResult => 'Meilleur résultat';
+
+  @override
+  String get selectAll => 'Tout sélectionner';
+
+  @override
+  String get deselectAll => 'Tout désélectionner';
+
+  @override
+  String get radioHomepage => 'Site web';
+
+  @override
+  String aboutArtist(String name) {
+    return 'À propos de $name';
+  }
+
+  @override
+  String songAddedToQueue(String title) {
+    return '« $title » ajouté à la file d\'attente';
+  }
+
+  @override
+  String ratingFailed(String error) {
+    return 'Impossible d\'enregistrer la note : $error';
+  }
+
+  @override
+  String get connectChooseOutput => 'Choisis où jouer la musique';
+
+  @override
+  String get connectSpeakersTvs => 'Enceintes et TV';
+
+  @override
+  String get deviceWindowsPc => 'PC Windows';
+
+  @override
+  String get deviceMac => 'Mac';
+
+  @override
+  String get deviceLinuxPc => 'PC Linux';
+
+  @override
+  String get deviceIphone => 'iPhone';
+
+  @override
+  String get deviceThis => 'Cet appareil';
+
+  @override
+  String get playingOnThisDevice => 'Lecture sur cet appareil';
+
+  @override
+  String connectFailed(String name) {
+    return 'Impossible de se connecter à $name';
+  }
+
+  @override
+  String errorWithDetails(String error) {
+    return 'Erreur : $error';
+  }
+
+  @override
+  String get artworkSection => 'Pochettes';
+
+  @override
+  String get artworkResolution => 'Résolution des pochettes';
+
+  @override
+  String get artworkResLow => 'Basse (300 px)';
+
+  @override
+  String get artworkResNormal => 'Normale (600 px)';
+
+  @override
+  String get artworkResHigh => 'Haute (d\'origine)';
+
+  @override
+  String get autoDownloadFavorites => 'Télécharger les titres aimés';
+
+  @override
+  String get autoDownloadFavoritesSubtitle =>
+      'Chaque titre aimé est enregistré pour l\'écoute hors connexion';
+
+  @override
+  String get castConnectedTooltip => 'Cast : connecté';
+
+  @override
+  String dlnaTooltip(String name) {
+    return 'DLNA : $name';
+  }
+
+  @override
+  String get dlnaDeviceFallback => 'appareil';
+
+  @override
+  String get dlnaControlInfo =>
+      'La lecture est envoyée à cet appareil DLNA. Utilise les commandes d\'Octave pour la piloter.';
+
+  @override
+  String get connectionSlow => 'La connexion prend un peu de temps…';
+
+  @override
+  String get freeOnlineStreaming => 'Streaming en ligne gratuit';
+
+  @override
+  String get updateDownloadComplete => 'Téléchargement terminé';
+
+  @override
+  String updateDownloadFailed(String error) {
+    return 'Le téléchargement a échoué : $error';
+  }
+
+  @override
+  String get updateDefaultChangelog => 'Améliorations et corrections.';
+
+  @override
+  String get importEnterLink =>
+      'Saisis le lien ou l\'identifiant d\'une playlist';
+
+  @override
+  String get importStarting => 'Démarrage de l\'import…';
+
+  @override
+  String get importSubtitle => 'Spotify ou YouTube Music, sans compte';
+
+  @override
+  String get importLinkHint => 'Colle un lien Spotify ou YouTube Music…';
+
+  @override
+  String get pasteFromClipboard => 'Coller depuis le presse-papiers';
+
+  @override
+  String get importLoadPreview => 'Afficher l\'aperçu';
+
+  @override
+  String get importPreviewTitle => 'Aperçu de la playlist';
+
+  @override
+  String importAuthor(String author) {
+    return 'Par $author';
+  }
+
+  @override
+  String importIncludedTracks(int count) {
+    return 'Titres inclus ($count)';
+  }
+
+  @override
+  String importButton(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Importer $count titres',
+      one: 'Importer 1 titre',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get importInProgress => 'Import en cours…';
+
+  @override
+  String importTracksProgress(int current, int total) {
+    return 'Titres : $current / $total';
+  }
+
+  @override
+  String get importPreparing => 'Préparation des titres…';
+
+  @override
+  String get importSuccess => 'Playlist importée';
+
+  @override
+  String importReady(String name) {
+    return '« $name » est prête à être écoutée';
+  }
+
+  @override
+  String get openPlaylist => 'Ouvrir la playlist';
+
+  @override
+  String get disconnectConfirm => 'Se déconnecter de ce serveur ?';
+
+  @override
+  String get options => 'Options';
+
+  @override
+  String get hideQueue => 'Masquer la file d\'attente';
+
+  @override
+  String get mute => 'Couper le son';
+
+  @override
+  String get unmute => 'Rétablir le son';
+
+  @override
+  String get queueEmpty => 'La file d\'attente est vide';
+
+  @override
+  String nextUpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'À suivre · $count titres',
+      one: 'À suivre · 1 titre',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get lyricsSyncedBadge => 'Synchro';
+
+  @override
+  String get pausedBadge => 'En pause';
+
+  @override
+  String playbackYear(int year) {
+    return 'Bilan $year';
+  }
+
+  @override
+  String get autoDjOff => 'Désactivé';
+
+  @override
+  String get autoDjShuffleLibrary => 'Bibliothèque en aléatoire';
+
+  @override
+  String get autoDjSimilarSongs => 'Titres similaires';
+
+  @override
+  String get autoDjSameGenre => 'Même genre';
+
+  @override
+  String get autoDjSameArtist => 'Même artiste';
+
+  @override
+  String get autoDjSmartMix => 'Mix intelligent';
 }

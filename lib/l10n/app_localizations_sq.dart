@@ -3162,4 +3162,343 @@ class AppLocalizationsSq extends AppLocalizations {
 
   @override
   String get setupSummaryCovers => 'Covers';
+
+  @override
+  String get filterMusic => 'Music';
+
+  @override
+  String get homeJumpBackIn => 'Jump back in';
+
+  @override
+  String get homeListenAgain => 'Listen again';
+
+  @override
+  String get homeTopHits => 'Your top hits';
+
+  @override
+  String get homeArtistsYouLove => 'Artists you love';
+
+  @override
+  String get artistSingular => 'Artist';
+
+  @override
+  String get songSingular => 'Song';
+
+  @override
+  String get albumSingular => 'Album';
+
+  @override
+  String get sortRecents => 'Recents';
+
+  @override
+  String get sortAlphabetical => 'Alphabetical';
+
+  @override
+  String get sortCreator => 'Creator';
+
+  @override
+  String get libraryLikedSongsSubtitle => 'Playlist • Favorites';
+
+  @override
+  String librarySongsSavedOffline(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count songs saved offline',
+      one: '1 song saved offline',
+      zero: 'No songs saved offline',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String libraryPlaylistSubtitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Playlist • $count songs',
+      one: 'Playlist • 1 song',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String libraryAlbumSubtitle(String artist) {
+    return 'Album • $artist';
+  }
+
+  @override
+  String get switchToList => 'Show as list';
+
+  @override
+  String get switchToGrid => 'Show as grid';
+
+  @override
+  String get librarySearchHint => 'Search in library…';
+
+  @override
+  String get librarySearchEmpty => 'Search your library';
+
+  @override
+  String get browseAll => 'Browse all';
+
+  @override
+  String get genresAndMoods => 'Genres & moods';
+
+  @override
+  String get searchCategoryPop => 'Pop & hits';
+
+  @override
+  String get searchCategoryHipHop => 'Hip-hop & rap';
+
+  @override
+  String get searchCategoryRock => 'Rock & alternative';
+
+  @override
+  String get searchCategoryChill => 'Chill & relax';
+
+  @override
+  String searchNoResultsFor(String query) {
+    return 'No results for “$query”';
+  }
+
+  @override
+  String get searchNoResultsHint => 'Check the spelling or try another search.';
+
+  @override
+  String get searchTopResult => 'Top result';
+
+  @override
+  String get selectAll => 'Select all';
+
+  @override
+  String get deselectAll => 'Deselect all';
+
+  @override
+  String get radioHomepage => 'Website';
+
+  @override
+  String aboutArtist(String name) {
+    return 'About $name';
+  }
+
+  @override
+  String songAddedToQueue(String title) {
+    return '“$title” added to queue';
+  }
+
+  @override
+  String ratingFailed(String error) {
+    return 'Couldn\'t save the rating: $error';
+  }
+
+  @override
+  String get connectChooseOutput => 'Choose where the music plays';
+
+  @override
+  String get connectSpeakersTvs => 'Speakers & TVs';
+
+  @override
+  String get deviceWindowsPc => 'Windows PC';
+
+  @override
+  String get deviceMac => 'Mac';
+
+  @override
+  String get deviceLinuxPc => 'Linux PC';
+
+  @override
+  String get deviceIphone => 'iPhone';
+
+  @override
+  String get deviceThis => 'This device';
+
+  @override
+  String get playingOnThisDevice => 'Playing on this device';
+
+  @override
+  String connectFailed(String name) {
+    return 'Couldn\'t connect to $name';
+  }
+
+  @override
+  String errorWithDetails(String error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get artworkSection => 'Artwork';
+
+  @override
+  String get artworkResolution => 'Artwork resolution';
+
+  @override
+  String get artworkResLow => 'Low (300 px)';
+
+  @override
+  String get artworkResNormal => 'Normal (600 px)';
+
+  @override
+  String get artworkResHigh => 'High (original)';
+
+  @override
+  String get autoDownloadFavorites => 'Download liked songs automatically';
+
+  @override
+  String get autoDownloadFavoritesSubtitle =>
+      'Each song you like is saved for offline listening';
+
+  @override
+  String get castConnectedTooltip => 'Cast: connected';
+
+  @override
+  String dlnaTooltip(String name) {
+    return 'DLNA: $name';
+  }
+
+  @override
+  String get dlnaDeviceFallback => 'device';
+
+  @override
+  String get dlnaControlInfo =>
+      'Playback is sent to this DLNA device. Use Octave\'s controls to manage it.';
+
+  @override
+  String get connectionSlow => 'The connection is taking a while…';
+
+  @override
+  String get freeOnlineStreaming => 'Free online streaming';
+
+  @override
+  String get updateDownloadComplete => 'Download complete';
+
+  @override
+  String updateDownloadFailed(String error) {
+    return 'Download failed: $error';
+  }
+
+  @override
+  String get updateDefaultChangelog => 'Improvements and bug fixes.';
+
+  @override
+  String get importEnterLink => 'Enter a playlist link or ID';
+
+  @override
+  String get importStarting => 'Starting import…';
+
+  @override
+  String get importSubtitle => 'Spotify or YouTube Music, no account needed';
+
+  @override
+  String get importLinkHint => 'Paste a Spotify or YouTube Music link…';
+
+  @override
+  String get pasteFromClipboard => 'Paste from clipboard';
+
+  @override
+  String get importLoadPreview => 'Show preview';
+
+  @override
+  String get importPreviewTitle => 'Playlist preview';
+
+  @override
+  String importAuthor(String author) {
+    return 'By $author';
+  }
+
+  @override
+  String importIncludedTracks(int count) {
+    return 'Included songs ($count)';
+  }
+
+  @override
+  String importButton(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Import $count songs',
+      one: 'Import 1 song',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get importInProgress => 'Importing…';
+
+  @override
+  String importTracksProgress(int current, int total) {
+    return 'Songs: $current / $total';
+  }
+
+  @override
+  String get importPreparing => 'Preparing songs…';
+
+  @override
+  String get importSuccess => 'Playlist imported';
+
+  @override
+  String importReady(String name) {
+    return '“$name” is ready to play';
+  }
+
+  @override
+  String get openPlaylist => 'Open playlist';
+
+  @override
+  String get disconnectConfirm => 'Disconnect from this server?';
+
+  @override
+  String get options => 'Options';
+
+  @override
+  String get hideQueue => 'Hide queue';
+
+  @override
+  String get mute => 'Mute';
+
+  @override
+  String get unmute => 'Unmute';
+
+  @override
+  String get queueEmpty => 'The queue is empty';
+
+  @override
+  String nextUpCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Next up · $count songs',
+      one: 'Next up · 1 song',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get lyricsSyncedBadge => 'Synced';
+
+  @override
+  String get pausedBadge => 'Paused';
+
+  @override
+  String playbackYear(int year) {
+    return 'Playback $year';
+  }
+
+  @override
+  String get autoDjOff => 'Off';
+
+  @override
+  String get autoDjShuffleLibrary => 'Shuffle library';
+
+  @override
+  String get autoDjSimilarSongs => 'Similar songs';
+
+  @override
+  String get autoDjSameGenre => 'Same genre';
+
+  @override
+  String get autoDjSameArtist => 'Same artist';
+
+  @override
+  String get autoDjSmartMix => 'Smart mix';
 }

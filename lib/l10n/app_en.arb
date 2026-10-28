@@ -3882,5 +3882,391 @@
   "setupSummaryCovers": "Covers",
   "@setupSummaryCovers": {
     "description": "Summary row"
+  },
+  "filterMusic": "Music",
+  "@filterMusic": {
+    "description": "Home filter chip"
+  },
+  "homeJumpBackIn": "Jump back in",
+  "@homeJumpBackIn": {
+    "description": "Home section of recent albums"
+  },
+  "homeListenAgain": "Listen again",
+  "@homeListenAgain": {
+    "description": "Home section"
+  },
+  "homeTopHits": "Your top hits",
+  "@homeTopHits": {
+    "description": "Home section of most played songs"
+  },
+  "homeArtistsYouLove": "Artists you love",
+  "@homeArtistsYouLove": {
+    "description": "Home section"
+  },
+  "artistSingular": "Artist",
+  "@artistSingular": {
+    "description": "Type label of an artist"
+  },
+  "songSingular": "Song",
+  "@songSingular": {
+    "description": "Type label of a song"
+  },
+  "albumSingular": "Album",
+  "@albumSingular": {
+    "description": "Type label of an album"
+  },
+  "sortRecents": "Recents",
+  "@sortRecents": {
+    "description": "Library sort option"
+  },
+  "sortAlphabetical": "Alphabetical",
+  "@sortAlphabetical": {
+    "description": "Library sort option"
+  },
+  "sortCreator": "Creator",
+  "@sortCreator": {
+    "description": "Library sort option"
+  },
+  "libraryLikedSongsSubtitle": "Playlist • Favorites",
+  "@libraryLikedSongsSubtitle": {
+    "description": "Subtitle of liked songs in the library"
+  },
+  "librarySongsSavedOffline": "{count, plural, =0{No songs saved offline} =1{1 song saved offline} other{{count} songs saved offline}}",
+  "@librarySongsSavedOffline": {
+    "description": "Subtitle of downloaded songs",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "libraryPlaylistSubtitle": "{count, plural, =1{Playlist • 1 song} other{Playlist • {count} songs}}",
+  "@libraryPlaylistSubtitle": {
+    "description": "Subtitle of a playlist in the library",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "libraryAlbumSubtitle": "Album • {artist}",
+  "@libraryAlbumSubtitle": {
+    "description": "Subtitle of an album in lists",
+    "placeholders": {"artist": {"type": "String"}}
+  },
+  "switchToList": "Show as list",
+  "@switchToList": {
+    "description": "Library view toggle"
+  },
+  "switchToGrid": "Show as grid",
+  "@switchToGrid": {
+    "description": "Library view toggle"
+  },
+  "librarySearchHint": "Search in library…",
+  "@librarySearchHint": {
+    "description": "Library search field hint"
+  },
+  "librarySearchEmpty": "Search your library",
+  "@librarySearchEmpty": {
+    "description": "Library search empty state"
+  },
+  "browseAll": "Browse all",
+  "@browseAll": {
+    "description": "Search screen section"
+  },
+  "genresAndMoods": "Genres & moods",
+  "@genresAndMoods": {
+    "description": "Search category"
+  },
+  "searchCategoryPop": "Pop & hits",
+  "@searchCategoryPop": {
+    "description": "Search category"
+  },
+  "searchCategoryHipHop": "Hip-hop & rap",
+  "@searchCategoryHipHop": {
+    "description": "Search category"
+  },
+  "searchCategoryRock": "Rock & alternative",
+  "@searchCategoryRock": {
+    "description": "Search category"
+  },
+  "searchCategoryChill": "Chill & relax",
+  "@searchCategoryChill": {
+    "description": "Search category"
+  },
+  "searchNoResultsFor": "No results for “{query}”",
+  "@searchNoResultsFor": {
+    "description": "Search without results",
+    "placeholders": {"query": {"type": "String"}}
+  },
+  "searchNoResultsHint": "Check the spelling or try another search.",
+  "@searchNoResultsHint": {
+    "description": "Search without results"
+  },
+  "searchTopResult": "Top result",
+  "@searchTopResult": {
+    "description": "Search section"
+  },
+  "selectAll": "Select all",
+  "@selectAll": {
+    "description": "Selection toolbar"
+  },
+  "deselectAll": "Deselect all",
+  "@deselectAll": {
+    "description": "Selection toolbar"
+  },
+  "radioHomepage": "Website",
+  "@radioHomepage": {
+    "description": "Radio station website row"
+  },
+  "aboutArtist": "About {name}",
+  "@aboutArtist": {
+    "description": "Artist biography title",
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "songAddedToQueue": "“{title}” added to queue",
+  "@songAddedToQueue": {
+    "description": "Snackbar after swiping a song to the queue",
+    "placeholders": {"title": {"type": "String"}}
+  },
+  "ratingFailed": "Couldn't save the rating: {error}",
+  "@ratingFailed": {
+    "description": "Rating error",
+    "placeholders": {"error": {"type": "String"}}
+  },
+  "connectChooseOutput": "Choose where the music plays",
+  "@connectChooseOutput": {
+    "description": "Connect sheet subtitle"
+  },
+  "connectSpeakersTvs": "Speakers & TVs",
+  "@connectSpeakersTvs": {
+    "description": "Connect sheet section"
+  },
+  "deviceWindowsPc": "Windows PC",
+  "@deviceWindowsPc": {
+    "description": "Current device name"
+  },
+  "deviceMac": "Mac",
+  "@deviceMac": {
+    "description": "Current device name"
+  },
+  "deviceLinuxPc": "Linux PC",
+  "@deviceLinuxPc": {
+    "description": "Current device name"
+  },
+  "deviceIphone": "iPhone",
+  "@deviceIphone": {
+    "description": "Current device name"
+  },
+  "deviceThis": "This device",
+  "@deviceThis": {
+    "description": "Current device name"
+  },
+  "playingOnThisDevice": "Playing on this device",
+  "@playingOnThisDevice": {
+    "description": "Connect sheet"
+  },
+  "connectFailed": "Couldn't connect to {name}",
+  "@connectFailed": {
+    "description": "Connection error",
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "errorWithDetails": "Error: {error}",
+  "@errorWithDetails": {
+    "description": "Generic error with details",
+    "placeholders": {"error": {"type": "String"}}
+  },
+  "artworkSection": "Artwork",
+  "@artworkSection": {
+    "description": "Settings section"
+  },
+  "artworkResolution": "Artwork resolution",
+  "@artworkResolution": {
+    "description": "Settings row"
+  },
+  "artworkResLow": "Low (300 px)",
+  "@artworkResLow": {
+    "description": "Artwork resolution"
+  },
+  "artworkResNormal": "Normal (600 px)",
+  "@artworkResNormal": {
+    "description": "Artwork resolution"
+  },
+  "artworkResHigh": "High (original)",
+  "@artworkResHigh": {
+    "description": "Artwork resolution"
+  },
+  "autoDownloadFavorites": "Download liked songs automatically",
+  "@autoDownloadFavorites": {
+    "description": "Storage setting"
+  },
+  "autoDownloadFavoritesSubtitle": "Each song you like is saved for offline listening",
+  "@autoDownloadFavoritesSubtitle": {
+    "description": "Storage setting"
+  },
+  "castConnectedTooltip": "Cast: connected",
+  "@castConnectedTooltip": {
+    "description": "Cast button tooltip"
+  },
+  "dlnaTooltip": "DLNA: {name}",
+  "@dlnaTooltip": {
+    "description": "Cast button tooltip",
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "dlnaDeviceFallback": "device",
+  "@dlnaDeviceFallback": {
+    "description": "DLNA device without a name"
+  },
+  "dlnaControlInfo": "Playback is sent to this DLNA device. Use Octave's controls to manage it.",
+  "@dlnaControlInfo": {
+    "description": "DLNA sheet"
+  },
+  "connectionSlow": "The connection is taking a while…",
+  "@connectionSlow": {
+    "description": "Shown while connecting"
+  },
+  "freeOnlineStreaming": "Free online streaming",
+  "@freeOnlineStreaming": {
+    "description": "Web Stream profile subtitle"
+  },
+  "updateDownloadComplete": "Download complete",
+  "@updateDownloadComplete": {
+    "description": "Update dialog"
+  },
+  "updateDownloadFailed": "Download failed: {error}",
+  "@updateDownloadFailed": {
+    "description": "Update dialog",
+    "placeholders": {"error": {"type": "String"}}
+  },
+  "updateDefaultChangelog": "Improvements and bug fixes.",
+  "@updateDefaultChangelog": {
+    "description": "Update dialog without notes"
+  },
+  "importEnterLink": "Enter a playlist link or ID",
+  "@importEnterLink": {
+    "description": "Import dialog error"
+  },
+  "importStarting": "Starting import…",
+  "@importStarting": {
+    "description": "Import dialog"
+  },
+  "importSubtitle": "Spotify or YouTube Music, no account needed",
+  "@importSubtitle": {
+    "description": "Import dialog"
+  },
+  "importLinkHint": "Paste a Spotify or YouTube Music link…",
+  "@importLinkHint": {
+    "description": "Import dialog field"
+  },
+  "pasteFromClipboard": "Paste from clipboard",
+  "@pasteFromClipboard": {
+    "description": "Tooltip"
+  },
+  "importLoadPreview": "Show preview",
+  "@importLoadPreview": {
+    "description": "Import dialog button"
+  },
+  "importPreviewTitle": "Playlist preview",
+  "@importPreviewTitle": {
+    "description": "Import dialog"
+  },
+  "importAuthor": "By {author}",
+  "@importAuthor": {
+    "description": "Import dialog",
+    "placeholders": {"author": {"type": "String"}}
+  },
+  "importIncludedTracks": "Included songs ({count})",
+  "@importIncludedTracks": {
+    "description": "Import dialog",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "importButton": "{count, plural, =1{Import 1 song} other{Import {count} songs}}",
+  "@importButton": {
+    "description": "Import dialog button",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "importInProgress": "Importing…",
+  "@importInProgress": {
+    "description": "Import dialog"
+  },
+  "importTracksProgress": "Songs: {current} / {total}",
+  "@importTracksProgress": {
+    "description": "Import dialog",
+    "placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}
+  },
+  "importPreparing": "Preparing songs…",
+  "@importPreparing": {
+    "description": "Import dialog"
+  },
+  "importSuccess": "Playlist imported",
+  "@importSuccess": {
+    "description": "Import dialog"
+  },
+  "importReady": "“{name}” is ready to play",
+  "@importReady": {
+    "description": "Import dialog",
+    "placeholders": {"name": {"type": "String"}}
+  },
+  "openPlaylist": "Open playlist",
+  "@openPlaylist": {
+    "description": "Button"
+  },
+  "disconnectConfirm": "Disconnect from this server?",
+  "@disconnectConfirm": {
+    "description": "Desktop sidebar dialog"
+  },
+  "options": "Options",
+  "@options": {
+    "description": "Tooltip"
+  },
+  "hideQueue": "Hide queue",
+  "@hideQueue": {
+    "description": "Desktop player tooltip"
+  },
+  "mute": "Mute",
+  "@mute": {
+    "description": "Tooltip"
+  },
+  "unmute": "Unmute",
+  "@unmute": {
+    "description": "Tooltip"
+  },
+  "queueEmpty": "The queue is empty",
+  "@queueEmpty": {
+    "description": "Desktop queue"
+  },
+  "nextUpCount": "{count, plural, =1{Next up · 1 song} other{Next up · {count} songs}}",
+  "@nextUpCount": {
+    "description": "Desktop queue header",
+    "placeholders": {"count": {"type": "int"}}
+  },
+  "lyricsSyncedBadge": "Synced",
+  "@lyricsSyncedBadge": {
+    "description": "Badge on synced lyrics"
+  },
+  "pausedBadge": "Paused",
+  "@pausedBadge": {
+    "description": "Year in review badge"
+  },
+  "playbackYear": "Playback {year}",
+  "@playbackYear": {
+    "description": "Year in review badge",
+    "placeholders": {"year": {"type": "int"}}
+  },
+  "autoDjOff": "Off",
+  "@autoDjOff": {
+    "description": "Auto DJ mode"
+  },
+  "autoDjShuffleLibrary": "Shuffle library",
+  "@autoDjShuffleLibrary": {
+    "description": "Auto DJ mode"
+  },
+  "autoDjSimilarSongs": "Similar songs",
+  "@autoDjSimilarSongs": {
+    "description": "Auto DJ mode"
+  },
+  "autoDjSameGenre": "Same genre",
+  "@autoDjSameGenre": {
+    "description": "Auto DJ mode"
+  },
+  "autoDjSameArtist": "Same artist",
+  "@autoDjSameArtist": {
+    "description": "Auto DJ mode"
+  },
+  "autoDjSmartMix": "Smart mix",
+  "@autoDjSmartMix": {
+    "description": "Auto DJ mode"
   }
 }

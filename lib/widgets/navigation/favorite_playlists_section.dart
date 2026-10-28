@@ -164,7 +164,7 @@ class _PlaylistCard extends StatelessWidget {
             ),
             if (playlist.songCount != null)
               Text(
-                '${playlist.songCount} ${playlist.songCount == 1 ? 'song' : 'songs'}',
+                AppLocalizations.of(context)!.songsCount(playlist.songCount!),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: context.octave.text2,
                 ),

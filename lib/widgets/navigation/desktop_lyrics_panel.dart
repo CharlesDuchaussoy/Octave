@@ -9,6 +9,7 @@ import 'package:musly/services/services.dart';
 import 'package:musly/widgets/common/album_artwork.dart';
 import 'package:musly/utils/navigation_helper.dart';
 import 'package:musly/octave/theme/octave_theme.dart';
+import 'package:musly/l10n/app_localizations.dart';
 
 class DesktopLyricsPanel extends StatefulWidget {
   final VoidCallback? onClose;
@@ -403,7 +404,7 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
-                          'SYNC',
+                          AppLocalizations.of(context)!.lyricsSyncedBadge.toUpperCase(),
                           style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w800,
@@ -550,7 +551,7 @@ class _DesktopLyricsPanelState extends State<DesktopLyricsPanel> {
 
     return Center(
       child: Text(
-        'No lyrics available',
+        AppLocalizations.of(context)!.noLyricsAvailable,
         style: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.bold,

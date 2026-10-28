@@ -74,7 +74,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
       if (libraryProvider.isLocalOnlyMode) {
         album = libraryProvider.cachedAllAlbums.firstWhere(
           (a) => a.id == widget.albumId,
-          orElse: () => Album(id: widget.albumId, name: 'Unknown Album'),
+          orElse: () => Album(
+              id: widget.albumId, name: AppLocalizations.of(context)!.unknownAlbum),
         );
       } else {
         album = await subsonicService.getAlbum(widget.albumId);
