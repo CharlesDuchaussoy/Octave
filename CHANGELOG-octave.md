@@ -48,7 +48,8 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Pochettes de l'accueil sans cadre, artistes en vrais cercles.
 - Glisser le mini-lecteur vers la gauche passe au titre suivant, vers la droite revient au précédent, comme dans Spotify.
 - Accueil personnalisable : on range les rubriques en les glissant et on masque celles dont on ne se sert pas (Réglages, Affichage, ou en bas de l'accueil).
-- Page d'artiste façon Apple Music : la photo en pleine largeur et le nom en grand.
+- Page d'artiste façon Apple Music : la photo en pleine largeur et le nom en grand. Une fois la page remontée, le nom se range à côté de la flèche retour ; les titres populaires s'alignent sur la marge, sans grand vide autour des listes.
+- Les titres de section (Titres populaires, Albums, genres) sont en gras comme les autres.
 - Tuiles « Tout parcourir » en couleurs unies, sans dégradé ni violet ; champ de recherche plein, comme sur iPhone.
 - Le lecteur plein écran et tout ce qui s'ouvre depuis lui suivent la couleur de l'app et la police Inter (avant : violet et police par défaut).
 - Les filtres de l'Accueil, de la Bibliothèque et de la Recherche défilent jusqu'au bord de l'écran, au lieu d'être coupés net à la marge.

@@ -88,6 +88,8 @@ class OctaveTheme {
         displayMedium: t(28, FontWeight.bold, c.text1, -0.5),
         headlineLarge: t(22, FontWeight.bold, c.text1),
         headlineMedium: t(20, FontWeight.w600, c.text1),
+        // Section headings ("Titres populaires", genres, collections).
+        headlineSmall: t(20, FontWeight.bold, c.text1, -0.3),
         titleLarge: t(17, FontWeight.w600, c.text1),
         titleMedium: t(15, FontWeight.w500, c.text1),
         bodyLarge: t(17, FontWeight.normal, c.text1),
