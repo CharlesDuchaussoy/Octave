@@ -1648,5 +1648,7 @@
   "profileNameHint": "Par exemple : Maison, Travail",
   "clientCertPasswordHint": "Mot de passe du fichier .p12 ou .pfx",
   "serverUrlHint": "https://musique.exemple.fr",
-  "loginUseServer": "Se connecter à un serveur"
+  "loginUseServer": "Se connecter à un serveur",
+  "connectSearching": "Recherche des enceintes et des téléviseurs…",
+  "connectNoDevices": "Aucun appareil trouvé. Le téléphone et l'enceinte doivent être sur le même réseau Wi-Fi, et l'enceinte allumée."
 }

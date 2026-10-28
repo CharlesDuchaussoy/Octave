@@ -2618,4 +2618,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get loginUseServer => 'Connect to a server';
+
+  @override
+  String get connectSearching => 'Looking for speakers and TVs…';
+
+  @override
+  String get connectNoDevices =>
+      'No device found. Your phone and the speaker must be on the same Wi-Fi network, and the speaker must be on.';
 }

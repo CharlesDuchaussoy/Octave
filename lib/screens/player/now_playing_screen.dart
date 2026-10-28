@@ -23,6 +23,7 @@ import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/services/wakelock_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/widgets/common/album_artwork.dart' show coverImageProvider;
+import 'package:musly/octave/theme/octave_theme.dart';
 
 class NowPlayingScreen extends StatefulWidget {
   final ImageProvider image;
@@ -257,8 +258,15 @@ class _NowPlayingScreenState extends State<NowPlayingScreen>
     final effectiveRightPadding =
         viewPadding.right > 0 ? viewPadding.right : mediaQueryPadding.right;
 
+    // The player is always dark, over the artwork colors: use Octave's
+    // dark theme in the user's color, not Flutter's default (purple).
+    final playerTheme = OctaveTheme.build(OctavePalette.build(
+      seed: context.octave.accent,
+      brightness: Brightness.dark,
+    ));
+
     return Theme(
-      data: ThemeData.dark(),
+      data: playerTheme,
       child: Scaffold(
         backgroundColor: Colors.black,
         body: GestureDetector(

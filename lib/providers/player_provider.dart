@@ -34,6 +34,7 @@ import '../services/transcoding_service.dart';
 import '../providers/library_provider.dart';
 
 import '../services/android_auto_service.dart';
+import '../octave/cast/cast_stream.dart';
 
 enum RepeatMode { off, all, one }
 
@@ -1393,15 +1394,21 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
         _castWasPlaying = false;
         if (_audioPlayer.playing) await _audioPlayer.stop();
 
-        final playUrl = song.isLocal == true && song.path != null
-            ? Uri.file(song.path!).toString()
-            : await _subsonicService.resolveStreamUrlAsync(song);
+        // Cast speakers need a format they play and its exact type.
+        final castStream = song.isLocal == true
+            ? null
+            : CastStream.forSong(song, _subsonicService);
+        final playUrl = castStream?.url ??
+            (song.path != null
+                ? Uri.file(song.path!).toString()
+                : await _subsonicService.resolveStreamUrlAsync(song));
         final coverUrl = song.isLocal == true && song.coverArt != null
             ? song.coverArt!
             : _subsonicService.getCoverArtUrl(song.coverArt ?? song.id,
                 size: 800);
-        final mimeType =
-            song.contentType ?? UpnpService.mimeTypeFromSuffix(song.suffix);
+        final mimeType = castStream?.contentType ??
+            song.contentType ??
+            UpnpService.mimeTypeFromSuffix(song.suffix);
 
         final success = await _castService.loadMedia(
           url: playUrl,

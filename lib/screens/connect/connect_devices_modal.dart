@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -61,6 +62,11 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
   bool get _isCastSupported =>
       !kIsWeb && (Platform.isAndroid || Platform.isIOS);
 
+  /// After a few seconds without any device, the search hint becomes a
+  /// tip about the Wi-Fi network.
+  bool _searchTimedOut = false;
+  Timer? _searchTimer;
+
   @override
   void initState() {
     super.initState();
@@ -74,11 +80,15 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
           _discoveryManager.startDiscovery();
         } catch (_) {}
       }
+      _searchTimer = Timer(const Duration(seconds: 8), () {
+        if (mounted) setState(() => _searchTimedOut = true);
+      });
     });
   }
 
   @override
   void dispose() {
+    _searchTimer?.cancel();
     if (_isCastSupported) {
       try {
         _discoveryManager.stopDiscovery();
@@ -192,7 +202,7 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
                             final hasWireless = castDevices.isNotEmpty ||
                                 upnpDevices.isNotEmpty;
 
-                            if (!hasWireless) return const SizedBox.shrink();
+                            if (!hasWireless) return _buildSearchingTile();
 
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,6 +227,36 @@ class _ConnectDevicesModalState extends State<ConnectDevicesModal> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildSearchingTile() {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = context.octave;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 18,
+            height: 18,
+            child: _searchTimedOut
+                ? Icon(CupertinoIcons.wifi, size: 18, color: colors.text2)
+                : CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: colors.accent,
+                  ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              _searchTimedOut ? l10n.connectNoDevices : l10n.connectSearching,
+              style: TextStyle(fontSize: 13, color: colors.text2),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

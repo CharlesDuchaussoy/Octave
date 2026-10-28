@@ -2623,4 +2623,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get loginUseServer => 'Se connecter à un serveur';
+
+  @override
+  String get connectSearching => 'Recherche des enceintes et des téléviseurs…';
+
+  @override
+  String get connectNoDevices =>
+      'Aucun appareil trouvé. Le téléphone et l\'enceinte doivent être sur le même réseau Wi-Fi, et l\'enceinte allumée.';
 }

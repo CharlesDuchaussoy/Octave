@@ -490,6 +490,11 @@ class SubsonicService {
     return _buildUrl('download', {'id': songId});
   }
 
+  /// The file as stored on the server, never transcoded, even when the
+  /// server transcodes for this client by default.
+  String getOriginalStreamUrl(String songId) =>
+      _buildUrl('stream', {'id': songId, 'format': 'raw'});
+
   String getStreamUrl(String songId, {int? maxBitRate, String? format}) {
     final params = <String, String>{'id': songId};
     if (maxBitRate != null && maxBitRate > 0) {
