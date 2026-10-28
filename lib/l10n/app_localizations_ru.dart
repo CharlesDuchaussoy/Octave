@@ -703,11 +703,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get playlistNameHint => 'Название плейлиста';
 
   @override
-  String errorLoadingPlaylists(Object error) {
-    return 'Ошибка при загрузке плейлистов: $error';
-  }
-
-  @override
   String get playlistNotFound => 'Плейлист не найден';
 
   @override
@@ -1147,15 +1142,6 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get audioFocusDenied =>
       'Не удалось начать воспроизведение — аудиофокус занят другим приложением';
-
-  @override
-  String get addToLibrary => 'Add to Library';
-
-  @override
-  String get alreadyInLibrary => 'Song already in server library';
-
-  @override
-  String get selectPlaylist => 'Select Playlist';
 
   @override
   String get endOfSong => 'End of Song';
@@ -2308,6 +2294,7 @@ class AppLocalizationsRu extends AppLocalizations {
       locale: localeName,
       other: 'Playlist • $count songs',
       one: 'Playlist • 1 song',
+      zero: 'Playlist • no songs',
     );
     return '$_temp0';
   }

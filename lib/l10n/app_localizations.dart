@@ -1354,12 +1354,6 @@ abstract class AppLocalizations {
   /// **'Playlist name'**
   String get playlistNameHint;
 
-  /// Snackbar shown when playlists fail to load
-  ///
-  /// In en, this message translates to:
-  /// **'Error loading playlists: {error}'**
-  String errorLoadingPlaylists(Object error);
-
   /// Message when a playlist cannot be found
   ///
   /// In en, this message translates to:
@@ -2163,24 +2157,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t start playback — another app has audio focus'**
   String get audioFocusDenied;
-
-  /// Add to library option in menu
-  ///
-  /// In en, this message translates to:
-  /// **'Add to Library'**
-  String get addToLibrary;
-
-  /// Snackbar message when trying to add a song to the library that is already there
-  ///
-  /// In en, this message translates to:
-  /// **'Song already in server library'**
-  String get alreadyInLibrary;
-
-  /// Title for playlist selection bottom sheet
-  ///
-  /// In en, this message translates to:
-  /// **'Select Playlist'**
-  String get selectPlaylist;
 
   /// Sleep timer option to end at the end of the current song
   ///
@@ -4225,7 +4201,7 @@ abstract class AppLocalizations {
   /// Subtitle of a playlist in the library
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1{Playlist • 1 song} other{Playlist • {count} songs}}'**
+  /// **'{count, plural, =0{Playlist • no songs} =1{Playlist • 1 song} other{Playlist • {count} songs}}'**
   String libraryPlaylistSubtitle(int count);
 
   /// Subtitle of an album in lists

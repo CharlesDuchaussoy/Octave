@@ -49,6 +49,12 @@ class PlaylistArtwork extends StatelessWidget {
           );
         }
 
+        // An empty playlist has no cover of its own: the server would send
+        // its logo on a record instead.
+        if (playlist?.songCount == 0 && (songs?.isEmpty ?? true)) {
+          return _placeholder(context, validSize);
+        }
+
         var effectiveCoverArt = coverArt ?? playlist?.coverArt;
         if ((effectiveCoverArt == null || effectiveCoverArt.isEmpty) &&
             playlistId.isNotEmpty) {
@@ -153,23 +159,27 @@ class PlaylistArtwork extends StatelessWidget {
           );
         }
 
-        return Container(
-          width: validSize,
-          height: validSize,
-          decoration: BoxDecoration(
-            color: context.octave.accentSoft,
-            borderRadius: BorderRadius.circular(borderRadius),
-            boxShadow: shadow != null ? [shadow!] : null,
-          ),
-          child: Center(
-            child: Icon(
-              CupertinoIcons.music_note_list,
-              color: context.octave.accent,
-              size: validSize * 0.4,
-            ),
-          ),
-        );
+        return _placeholder(context, validSize);
       },
+    );
+  }
+
+  Widget _placeholder(BuildContext context, double size) {
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: context.octave.accentSoft,
+        borderRadius: BorderRadius.circular(borderRadius),
+        boxShadow: shadow != null ? [shadow!] : null,
+      ),
+      child: Center(
+        child: Icon(
+          CupertinoIcons.music_note_list,
+          color: context.octave.accent,
+          size: size * 0.4,
+        ),
+      ),
     );
   }
 

@@ -598,15 +598,6 @@
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
   },
-  "errorLoadingPlaylists": "Errore nel caricare le playlist: {error}",
-  "@errorLoadingPlaylists": {
-    "description": "Snackbar shown when playlists fail to load",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "@_PLAYLIST_SCREEN": {},
   "playlistNotFound": "Playlist non trovata",
   "@playlistNotFound": {
@@ -1176,7 +1167,6 @@
     "description": "Link tile title for reporting a bug"
   },
   "@_SUPPORT": {},
-  "selectPlaylist": "Seleziona Playlist",
   "endOfSong": "Fine Brano",
   "connectToDevice": "Connetti a un Dispositivo",
   "wrappedSeasonal": "Octave Playback è Stagionale",

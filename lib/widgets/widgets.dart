@@ -37,7 +37,6 @@ export 'now_playing/marquee_text.dart';
 export 'now_playing/playback_controls.dart';
 export 'now_playing/playback_progress_slider.dart';
 export 'now_playing/volume_slider.dart';
-export 'now_playing/add_to_menu.dart';
 export 'now_playing/now_playing_more_menu.dart';
 export 'now_playing/now_playing_bottom_actions.dart';
 export 'now_playing/queue_view.dart';

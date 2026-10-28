@@ -618,15 +618,6 @@
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
   },
-  "errorLoadingPlaylists": "Impossible de charger les playlists : {error}",
-  "@errorLoadingPlaylists": {
-    "description": "Snackbar shown when playlists fail to load",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "@_PLAYLIST_SCREEN": {},
   "playlistNotFound": "Playlist introuvable",
   "@playlistNotFound": {
@@ -1205,7 +1196,7 @@
   "setupArtistsTitle": "Tes artistes",
   "setupArtistsBody": "Choisis ceux que tu écoutes le plus. Ils deviennent tes favoris et inspirent tes mix.",
   "setupArtistsEmpty": "Aucun artiste dans ta bibliothèque pour l'instant.",
-  "setupArtistsContinue": "{count, plural, =1{Continuer avec 1 artiste} other{Continuer avec {count} artistes}}",
+  "setupArtistsContinue": "{count, plural, =1{Continuer avec {count} artiste} other{Continuer avec {count} artistes}}",
   "setupHomeTitle": "Ton accueil",
   "setupHomeBody": "Choisis ce qui s'affiche sur l'écran d'accueil.",
   "setupHomeFavoritePlaylists": "Playlists favorites",
@@ -1282,7 +1273,7 @@
   "sortCreator": "Créateur",
   "libraryLikedSongsSubtitle": "Playlist • Favoris",
   "librarySongsSavedOffline": "{count, plural, =0{Aucun titre hors connexion} =1{1 titre hors connexion} other{{count} titres hors connexion}}",
-  "libraryPlaylistSubtitle": "{count, plural, =1{Playlist • 1 titre} other{Playlist • {count} titres}}",
+  "libraryPlaylistSubtitle": "{count, plural, =0{Playlist • aucun titre} =1{Playlist • 1 titre} other{Playlist • {count} titres}}",
   "libraryAlbumSubtitle": "Album • {artist}",
   "switchToList": "Afficher en liste",
   "switchToGrid": "Afficher en grille",
@@ -1330,7 +1321,7 @@
   "mute": "Couper le son",
   "unmute": "Rétablir le son",
   "queueEmpty": "La file d'attente est vide",
-  "nextUpCount": "{count, plural, =1{À suivre · 1 titre} other{À suivre · {count} titres}}",
+  "nextUpCount": "{count, plural, =1{À suivre · {count} titre} other{À suivre · {count} titres}}",
   "lyricsSyncedBadge": "Synchro",
   "pausedBadge": "En pause",
   "playbackYear": "Bilan {year}",
@@ -1364,9 +1355,6 @@
   "sleepTimer": "Minuteur de sommeil",
   "sleepTimerMinutes": "{count} min",
   "done": "OK",
-  "addToLibrary": "Ajouter à la bibliothèque",
-  "alreadyInLibrary": "Ce titre est déjà dans ta bibliothèque",
-  "selectPlaylist": "Choisir une playlist",
   "endOfSong": "Fin du titre",
   "connectToDevice": "Écouter sur un appareil",
   "wrappedSeasonal": "Le bilan arrive en fin d'année",
@@ -1389,7 +1377,7 @@
   "activeDownloads": "Téléchargements en cours",
   "noDownloadsInProgress": "Aucun téléchargement en cours",
   "playlistDownloads": "Playlists téléchargées",
-  "playlistSongsDownloadedCount": "{count, plural, =1{1 titre téléchargé} other{{count} titres téléchargés}}",
+  "playlistSongsDownloadedCount": "{count, plural, =1{{count} titre téléchargé} other{{count} titres téléchargés}}",
   "totalCacheDiskUsage": "Cache total : {size}",
   "folderAdded": "Dossier ajouté : {path}",
   "removeFolderTitle": "Retirer le dossier",
@@ -1425,7 +1413,7 @@
   "removeServerConfirm": "Retirer « {name} » des serveurs enregistrés ?",
   "noPlaylistsFound": "Aucune playlist",
   "addAllToQueue": "Tout ajouter à la file d'attente",
-  "songsAddedToQueue": "{count, plural, =1{1 titre ajouté à la file d'attente} other{{count} titres ajoutés à la file d'attente}}",
+  "songsAddedToQueue": "{count, plural, =1{{count} titre ajouté à la file d'attente} other{{count} titres ajoutés à la file d'attente}}",
   "searchInAlbum": "Rechercher dans l'album",
   "searchInPlaylist": "Rechercher dans la playlist",
   "filterTracks": "Filtrer les titres…",
@@ -1464,7 +1452,7 @@
   "topSongsHeader": "TITRES PRÉFÉRÉS",
   "yourMostListenedSongs": "Tes titres les plus écoutés",
   "topArtistsHeader": "ARTISTES PRÉFÉRÉS",
-  "playsCount": "{count, plural, =1{1 écoute} other{{count} écoutes}}",
+  "playsCount": "{count, plural, =1{{count} écoute} other{{count} écoutes}}",
   "topSongBadge": "Titre n° 1",
   "topArtistMetric": "Artiste n° 1",
   "genreMetric": "Genre",

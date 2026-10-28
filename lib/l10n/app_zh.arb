@@ -592,15 +592,6 @@
   "@playlistNameHint": {
     "description": "Hint text for the playlist name input field"
   },
-  "errorLoadingPlaylists": "加载歌单出错：{error}",
-  "@errorLoadingPlaylists": {
-    "description": "Snackbar shown when playlists fail to load",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "@_PLAYLIST_SCREEN": {},
   "playlistNotFound": "未找到歌单",
   "@playlistNotFound": {

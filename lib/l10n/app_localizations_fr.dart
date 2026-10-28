@@ -699,11 +699,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get playlistNameHint => 'Nom de la playlist';
 
   @override
-  String errorLoadingPlaylists(Object error) {
-    return 'Impossible de charger les playlists : $error';
-  }
-
-  @override
   String get playlistNotFound => 'Playlist introuvable';
 
   @override
@@ -1144,15 +1139,6 @@ class AppLocalizationsFr extends AppLocalizations {
       'Lecture impossible : une autre app utilise le son';
 
   @override
-  String get addToLibrary => 'Ajouter à la bibliothèque';
-
-  @override
-  String get alreadyInLibrary => 'Ce titre est déjà dans ta bibliothèque';
-
-  @override
-  String get selectPlaylist => 'Choisir une playlist';
-
-  @override
   String get endOfSong => 'Fin du titre';
 
   @override
@@ -1230,7 +1216,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count titres téléchargés',
-      one: '1 titre téléchargé',
+      one: '$count titre téléchargé',
     );
     return '$_temp0';
   }
@@ -1363,7 +1349,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count titres ajoutés à la file d\'attente',
-      one: '1 titre ajouté à la file d\'attente',
+      one: '$count titre ajouté à la file d\'attente',
     );
     return '$_temp0';
   }
@@ -1505,7 +1491,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count écoutes',
-      one: '1 écoute',
+      one: '$count écoute',
     );
     return '$_temp0';
   }
@@ -2045,7 +2031,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Continuer avec $count artistes',
-      one: 'Continuer avec 1 artiste',
+      one: 'Continuer avec $count artiste',
     );
     return '$_temp0';
   }
@@ -2307,6 +2293,7 @@ class AppLocalizationsFr extends AppLocalizations {
       locale: localeName,
       other: 'Playlist • $count titres',
       one: 'Playlist • 1 titre',
+      zero: 'Playlist • aucun titre',
     );
     return '$_temp0';
   }
@@ -2480,7 +2467,7 @@ class AppLocalizationsFr extends AppLocalizations {
       count,
       locale: localeName,
       other: 'À suivre · $count titres',
-      one: 'À suivre · 1 titre',
+      one: 'À suivre · $count titre',
     );
     return '$_temp0';
   }

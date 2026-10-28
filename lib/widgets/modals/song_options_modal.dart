@@ -14,6 +14,7 @@ import '../../services/offline_service.dart';
 import '../../providers/auth_provider.dart';
 import '../../theme/app_theme.dart';
 import '../common/album_artwork.dart';
+import '../common/playlist_artwork.dart';
 import '../common/multi_artist_widget.dart';
 import '../../screens/detail/album_screen.dart';
 import '../../screens/detail/artist_screen.dart';
@@ -84,7 +85,14 @@ class SongOptionsModal extends StatefulWidget {
             Flexible(
               child: Consumer<LibraryProvider>(
                 builder: (context, libProvider, _) {
-                  if (libProvider.playlists.isEmpty) {
+                  final username = Provider.of<SubsonicService>(
+                    context,
+                    listen: false,
+                  ).config?.username;
+                  final playlists = libProvider.playlists
+                      .where((p) => p.isEditableBy(username))
+                      .toList();
+                  if (playlists.isEmpty) {
                     return Padding(
                       padding: const EdgeInsets.all(32),
                       child: Text(AppLocalizations.of(context)!.noPlaylists),
@@ -92,17 +100,19 @@ class SongOptionsModal extends StatefulWidget {
                   }
                   return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: libProvider.playlists.length,
+                    itemCount: playlists.length,
                     itemBuilder: (context, index) {
-                      final playlist = libProvider.playlists[index];
+                      final playlist = playlists[index];
                       return ListTile(
-                        leading: const Icon(Icons.queue_music_rounded),
+                        leading: PlaylistArtwork(
+                          playlist: playlist,
+                          size: 48,
+                          borderRadius: 6,
+                        ),
                         title: Text(playlist.name),
                         subtitle: Text(AppLocalizations.of(context)!
                             .songsCount(playlist.songCount ?? 0)),
                         onTap: () async {
-                          Navigator.pop(context);
-
                           final subsonicService = Provider.of<SubsonicService>(
                             context,
                             listen: false,
@@ -110,6 +120,11 @@ class SongOptionsModal extends StatefulWidget {
                           final l10n = AppLocalizations.of(context)!;
                           final messenger = ScaffoldMessenger.of(context);
                           final colors = context.octave;
+                          // The sheet closes now: the question below opens
+                          // from the app's navigator, which stays.
+                          final rootNavigator =
+                              Navigator.of(context, rootNavigator: true);
+                          Navigator.pop(context);
 
                           bool isDuplicate = false;
                           try {
@@ -135,9 +150,9 @@ class SongOptionsModal extends StatefulWidget {
                           }
 
                           if (isDuplicate) {
-                            if (!context.mounted) return;
+                            if (!rootNavigator.mounted) return;
                             final confirmed = await showDialog<bool>(
-                              context: context,
+                              context: rootNavigator.context,
                               builder: (ctx) => AlertDialog(
                                 title: Text(l10n.alreadyInPlaylist),
                                 content: Text(

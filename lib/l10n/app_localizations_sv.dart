@@ -698,11 +698,6 @@ class AppLocalizationsSv extends AppLocalizations {
   String get playlistNameHint => 'Spellista namn';
 
   @override
-  String errorLoadingPlaylists(Object error) {
-    return 'Fel vid laddning av spellistor: $error';
-  }
-
-  @override
   String get playlistNotFound => 'Spellistan hittades inte';
 
   @override
@@ -1140,15 +1135,6 @@ class AppLocalizationsSv extends AppLocalizations {
   @override
   String get audioFocusDenied =>
       'Couldn\'t start playback — another app has audio focus';
-
-  @override
-  String get addToLibrary => 'Add to Library';
-
-  @override
-  String get alreadyInLibrary => 'Song already in server library';
-
-  @override
-  String get selectPlaylist => 'Select Playlist';
 
   @override
   String get endOfSong => 'End of Song';
@@ -2301,6 +2287,7 @@ class AppLocalizationsSv extends AppLocalizations {
       locale: localeName,
       other: 'Playlist • $count songs',
       one: 'Playlist • 1 song',
+      zero: 'Playlist • no songs',
     );
     return '$_temp0';
   }
