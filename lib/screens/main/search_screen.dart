@@ -652,11 +652,17 @@ class _SearchScreenState extends State<SearchScreen> {
               padding: EdgeInsets.zero,
               cardSize: _isDesktop ? 175 : 150,
               children: playlists.map((playlist) {
+                final cardSize = _isDesktop ? 175.0 : 150.0;
                 return MediaCard(
                   title: playlist.name,
                   subtitle: 'Playlist • Musly',
                   coverArt: playlist.coverArt,
-                  size: _isDesktop ? 175 : 150,
+                  artwork: PlaylistArtwork(
+                    playlist: playlist,
+                    size: cardSize - 24,
+                    borderRadius: 4,
+                  ),
+                  size: cardSize,
                   onTap: () => NavigationHelper.push(
                     context,
                     PlaylistScreen(

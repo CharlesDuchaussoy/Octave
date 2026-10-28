@@ -5,33 +5,47 @@ class LrcParser {
     final lines = content.split('\n');
     final List<LyricLine> parsedLines = [];
 
-    final RegExp lrcRegex = RegExp(r'\[(\d{2}):(\d{2})\.(\d{2,3})\](.*)');
+    final RegExp tagRegex =
+        RegExp(r'\[(\d{1,3}):(\d{2})(?:[.:](\d{1,3}))?\]');
 
     for (var line in lines) {
-      final match = lrcRegex.firstMatch(line.trim());
-      if (match != null) {
-        final minutes = int.parse(match.group(1)!);
-        final seconds = int.parse(match.group(2)!);
-        final millisecondsStr = match.group(3)!;
-        final milliseconds = millisecondsStr.length == 2
-            ? int.parse(millisecondsStr) * 10
-            : int.parse(millisecondsStr);
+      final trimmed = line.trim();
+      if (trimmed.isEmpty) continue;
 
-        final text = match.group(4)!.trim();
-
-        final duration = Duration(
-          minutes: minutes,
-          seconds: seconds,
-          milliseconds: milliseconds,
-        );
+      final matches = tagRegex.allMatches(trimmed).toList();
+      if (matches.isNotEmpty) {
+        final lastMatch = matches.last;
+        final text = trimmed.substring(lastMatch.end).trim();
 
         if (text.isNotEmpty) {
-          parsedLines.add(LyricLine(
-            text: text,
-            startTime: duration,
-          ));
+          for (final match in matches) {
+            final minutes = int.parse(match.group(1)!);
+            final seconds = int.parse(match.group(2)!);
+            final fracStr = match.group(3);
+            int ms = 0;
+            if (fracStr != null) {
+              if (fracStr.length == 1) {
+                ms = int.parse(fracStr) * 100;
+              } else if (fracStr.length == 2) {
+                ms = int.parse(fracStr) * 10;
+              } else if (fracStr.length >= 3) {
+                ms = int.parse(fracStr.substring(0, 3));
+              }
+            }
+
+            final duration = Duration(
+              minutes: minutes,
+              seconds: seconds,
+              milliseconds: ms,
+            );
+
+            parsedLines.add(LyricLine(
+              text: text,
+              startTime: duration,
+            ));
+          }
         }
-      } else if (line.trim().isNotEmpty) {}
+      }
     }
 
     if (parsedLines.isEmpty && content.trim().isNotEmpty) {
@@ -61,5 +75,9 @@ class LrcParser {
     }
 
     return parsedLines;
+  }
+
+  static bool hasTimestamps(List<LyricLine> lines) {
+    return lines.length > 1 && lines.any((l) => l.startTime > Duration.zero);
   }
 }

@@ -1,0 +1,12 @@
+• Import playlist senza login: Importa playlist Spotify e YouTube Music istantaneamente
+• Sistema di aggiornamento automatico in-app con downloader e dialog dedicato
+• Barra del player desktop: Accesso rapido a playlist e menu opzioni brano
+• Schermata Home: Visualizza le playlist preferite in righe dedicate
+• Integrazione overlay desktop Spotverlay nelle impostazioni display
+• Eliminazione playlist con conferma in dettagli, libreria e menu opzioni
+• Corrispondenza brani Spotify accurata esclusivamente sui brani di YouTube Music
+• Copertine 1:1 in alta risoluzione per playlist importate e riproduzione a schermo intero
+• Normalizzazione volume ReplayGain all'avvio del brano e riproduzione continua
+• Schermo sempre attivo durante la visualizzazione dei testi sincronizzati
+• Equalizzatore animato centrato e sincronizzazione copertine personalizzate
+• Scorrimento automatico della coda al brano corrente e ottimizzazioni prestazioni

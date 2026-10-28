@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
+import 'wakelock_service.dart';
 import '../models/song.dart';
 import '../models/playlist.dart';
 import 'subsonic_service.dart';
@@ -158,7 +159,7 @@ class OfflineService {
     if (await offDir.exists()) {
       await for (final entity in offDir.list()) {
         if (entity is File && entity.path.endsWith('.mp3')) {
-          final songId = entity.path.split('/').last.replaceAll('.mp3', '');
+          final songId = p.basenameWithoutExtension(entity.path);
           if (_isFileValid(songId, entity)) diskIds.add(songId);
         }
       }
@@ -565,13 +566,8 @@ class OfflineService {
     final concurrentDownloads = parallelCount ?? getParallelDownloadsCount();
     final keepScreenOn = getKeepScreenOn();
 
-    if (keepScreenOn && !kIsWeb) {
-      try {
-        await WakelockPlus.enable();
-        debugPrint('Wake lock enabled for library download');
-      } catch (e) {
-        debugPrint('Failed to enable wake lock: $e');
-      }
+    if (keepScreenOn) {
+      await WakelockService().enable('offline_download');
     }
 
     downloadLog.value =
@@ -649,14 +645,7 @@ class OfflineService {
       );
     }
 
-    if (!kIsWeb) {
-      try {
-        await WakelockPlus.disable();
-        debugPrint('Wake lock disabled after download');
-      } catch (e) {
-        debugPrint('Failed to disable wake lock: $e');
-      }
-    }
+    await WakelockService().disable('offline_download');
 
     _isBackgroundDownloadActive = false;
     downloadState.value = downloadState.value.copyWith(

@@ -33,25 +33,49 @@ class StorageService {
     return md5.convert(utf8.encode(raw)).toString();
   }
 
-  String _obfuscate(String plain) {
-    final key = utf8.encode('MuslyFallbackSecretKey2026!');
+  static const String _fallbackEntropyKey = '_fallback_entropy_key_v1';
+  static const String _legacyFallbackSecretKey = 'MuslyFallbackSecretKey2026!';
+
+  Future<List<int>> _getFallbackKey() async {
+    final prefs = await _prefs;
+    String? storedKey = prefs.getString(_fallbackEntropyKey);
+    if (storedKey == null || storedKey.isEmpty) {
+      storedKey = const Uuid().v4() + const Uuid().v4();
+      await prefs.setString(_fallbackEntropyKey, storedKey);
+    }
+    return utf8.encode(storedKey);
+  }
+
+  Future<String> _obfuscate(String plain) async {
+    final key = await _getFallbackKey();
     final bytes = utf8.encode(plain);
     final obfuscated = <int>[];
     for (int i = 0; i < bytes.length; i++) {
       obfuscated.add(bytes[i] ^ key[i % key.length]);
     }
-    return base64Encode(obfuscated);
+    return 'v2:${base64Encode(obfuscated)}';
   }
 
-  String _deobfuscate(String obfuscated) {
+  Future<String> _deobfuscate(String obfuscated) async {
     try {
-      final key = utf8.encode('MuslyFallbackSecretKey2026!');
-      final bytes = base64Decode(obfuscated);
-      final plain = <int>[];
-      for (int i = 0; i < bytes.length; i++) {
-        plain.add(bytes[i] ^ key[i % key.length]);
+      if (obfuscated.startsWith('v2:')) {
+        final raw = obfuscated.substring(3);
+        final key = await _getFallbackKey();
+        final bytes = base64Decode(raw);
+        final plain = <int>[];
+        for (int i = 0; i < bytes.length; i++) {
+          plain.add(bytes[i] ^ key[i % key.length]);
+        }
+        return utf8.decode(plain);
+      } else {
+        final key = utf8.encode(_legacyFallbackSecretKey);
+        final bytes = base64Decode(obfuscated);
+        final plain = <int>[];
+        for (int i = 0; i < bytes.length; i++) {
+          plain.add(bytes[i] ^ key[i % key.length]);
+        }
+        return utf8.decode(plain);
       }
-      return utf8.decode(plain);
     } catch (_) {
       return '';
     }
@@ -64,12 +88,28 @@ class StorageService {
       debugPrint('Secure storage read failed for $key: ${e.message}');
       final prefs = await _prefs;
       final val = prefs.getString('fallback_secure_$key');
-      return val != null ? _deobfuscate(val) : null;
+      if (val != null) {
+        final plain = await _deobfuscate(val);
+        if (!val.startsWith('v2:') && plain.isNotEmpty) {
+          final upgraded = await _obfuscate(plain);
+          await prefs.setString('fallback_secure_$key', upgraded);
+        }
+        return plain;
+      }
+      return null;
     } catch (e) {
       debugPrint('Unknown secure storage read error: $e');
       final prefs = await _prefs;
       final val = prefs.getString('fallback_secure_$key');
-      return val != null ? _deobfuscate(val) : null;
+      if (val != null) {
+        final plain = await _deobfuscate(val);
+        if (!val.startsWith('v2:') && plain.isNotEmpty) {
+          final upgraded = await _obfuscate(plain);
+          await prefs.setString('fallback_secure_$key', upgraded);
+        }
+        return plain;
+      }
+      return null;
     }
   }
 
@@ -79,11 +119,13 @@ class StorageService {
     } on PlatformException catch (e) {
       debugPrint('Secure storage write failed for $key: ${e.message}');
       final prefs = await _prefs;
-      await prefs.setString('fallback_secure_$key', _obfuscate(value));
+      final obfuscated = await _obfuscate(value);
+      await prefs.setString('fallback_secure_$key', obfuscated);
     } catch (e) {
       debugPrint('Unknown secure storage write error: $e');
       final prefs = await _prefs;
-      await prefs.setString('fallback_secure_$key', _obfuscate(value));
+      final obfuscated = await _obfuscate(value);
+      await prefs.setString('fallback_secure_$key', obfuscated);
     }
   }
 

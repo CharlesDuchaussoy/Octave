@@ -21,6 +21,8 @@ import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/services/offline_service.dart';
 import 'package:musly/widgets/common/playlist_artwork.dart';
 import 'package:musly/screens/settings/settings_screen.dart';
+import 'package:musly/widgets/dialogs/import_playlist_dialog.dart';
+import 'package:musly/widgets/modals/playlist_options_modal.dart';
 import 'package:musly/models/playlist.dart';
 import 'package:musly/models/album.dart';
 import 'package:musly/models/artist.dart';
@@ -75,6 +77,19 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   bool get _isDesktop =>
       Platform.isMacOS || Platform.isWindows || Platform.isLinux;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        final lib = Provider.of<LibraryProvider>(context, listen: false);
+        if (lib.cachedAllAlbums.isEmpty || lib.cachedAllSongs.isEmpty) {
+          lib.ensureLibraryLoaded();
+        }
+      }
+    });
+  }
 
   void _navigate(BuildContext context, Widget screen) {
     NavigationHelper.push(context, screen);
@@ -135,6 +150,28 @@ class _LibraryScreenState extends State<LibraryScreen> {
               onTap: () {
                 Navigator.pop(ctx);
                 _showCreatePlaylistDialog(context);
+              },
+            ),
+            const SizedBox(height: 8),
+            ListTile(
+              leading: Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF10B981).withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(CupertinoIcons.square_arrow_down,
+                    color: Color(0xFF10B981), size: 22),
+              ),
+              title: Text(AppLocalizations.of(context)!.importPlaylist,
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text(
+                  AppLocalizations.of(context)!.importPlaylistSubtitle,
+                  style: const TextStyle(fontSize: 12)),
+              onTap: () {
+                Navigator.pop(ctx);
+                ImportPlaylistDialog.show(context);
               },
             ),
             const SizedBox(height: 8),
@@ -362,7 +399,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
         _LibraryItem(
           type: _LibraryItemType.allSongs,
           title: l10n?.songs ?? 'All Songs',
-          subtitle: '${libraryProvider.cachedAllSongs.length} ${l10n?.songs?.toLowerCase() ?? 'songs'}',
+          subtitle: '${libraryProvider.cachedAllSongs.length} ${l10n?.songs.toLowerCase() ?? 'songs'}',
           onTap: () => _navigate(context, const AllSongsScreen()),
         ),
       );
@@ -444,10 +481,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
           isDark ? AppTheme.darkBackground : AppTheme.lightBackground,
       body: Consumer<LibraryProvider>(
         builder: (context, libraryProvider, _) {
-          return CustomScrollView(
-            cacheExtent: 600.0,
-            physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics()),
+          return RefreshIndicator(
+            onRefresh: () => libraryProvider.refresh(),
+            child: CustomScrollView(
+              cacheExtent: 600.0,
+              physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
             slivers: [
               SliverAppBar(
                 automaticallyImplyLeading: false,
@@ -617,19 +656,28 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     context, libraryProvider, isDark, isYoutube, hPad),
               const SliverToBoxAdapter(child: SizedBox(height: 80)),
             ],
-          );
-        },
-      ),
-    );
-  }
+          ),
+        );
+      },
+    ),
+  );
+}
 
   Widget _buildFilterChip(String key, String label, bool isDark) {
     final isSelected = _selectedFilter == key;
     return GestureDetector(
       onTap: () {
+        final willSelect = !isSelected;
         setState(() {
-          _selectedFilter = isSelected ? null : key;
+          _selectedFilter = willSelect ? key : null;
         });
+        if (willSelect && (key == 'Albums' || key == 'Songs')) {
+          final lib = Provider.of<LibraryProvider>(context, listen: false);
+          if ((key == 'Albums' && lib.cachedAllAlbums.isEmpty) ||
+              (key == 'Songs' && lib.cachedAllSongs.isEmpty)) {
+            lib.ensureLibraryLoaded();
+          }
+        }
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
@@ -658,6 +706,80 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
+  Widget _buildEmptySliver(
+    BuildContext context,
+    LibraryProvider libraryProvider,
+    bool isDark,
+    AppLocalizations? l10n,
+  ) {
+    if (libraryProvider.isLoading ||
+        ((_selectedFilter == 'Albums' || _selectedFilter == 'Songs') &&
+            libraryProvider.isBackgroundSyncing)) {
+      return const SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 64, horizontal: 24),
+          child: Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        ),
+      );
+    }
+
+    final (icon, message) = switch (_selectedFilter) {
+      'Albums' => (
+          CupertinoIcons.music_albums,
+          l10n?.noAlbumsFound ?? 'No albums found',
+        ),
+      'Songs' => (
+          CupertinoIcons.music_note,
+          l10n?.noSongsFound ?? 'No songs found',
+        ),
+      'Artists' => (
+          CupertinoIcons.person_2,
+          l10n?.artistDataNotFound ?? 'No artists found',
+        ),
+      'Playlists' => (
+          CupertinoIcons.music_note_list,
+          l10n?.playlistNotFound ?? 'No playlists found',
+        ),
+      'Downloaded' => (
+          CupertinoIcons.arrow_down_circle,
+          l10n?.noDownloadedSongsYet ?? 'No downloaded songs yet',
+        ),
+      _ => (
+          CupertinoIcons.music_albums,
+          l10n?.noSongsFound ?? 'No items found in your library',
+        ),
+    };
+
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 56,
+                color: isDark ? Colors.white30 : Colors.black26,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                message,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: isDark ? Colors.white60 : Colors.black54,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildSliverList(
     BuildContext context,
     LibraryProvider libraryProvider,
@@ -679,32 +801,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
 
     if (items.isEmpty) {
-      return SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.music_albums,
-                  size: 56,
-                  color: isDark ? Colors.white30 : Colors.black26,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  l10n?.noSongsFound ?? 'No items found in your library',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: isDark ? Colors.white60 : Colors.black54,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+      return _buildEmptySliver(context, libraryProvider, isDark, l10n);
     }
 
     return SliverPadding(
@@ -742,32 +839,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
 
     if (items.isEmpty) {
-      return SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 24),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.music_albums,
-                  size: 56,
-                  color: isDark ? Colors.white30 : Colors.black26,
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  l10n?.noSongsFound ?? 'No items found in your library',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: isDark ? Colors.white60 : Colors.black54,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
+      return _buildEmptySliver(context, libraryProvider, isDark, l10n);
     }
 
     return SliverPadding(
@@ -928,7 +1000,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   : AppTheme.lightSecondaryText,
             ),
           ),
+          trailing: IconButton(
+            icon: const Icon(Icons.more_vert, size: 20),
+            onPressed: () => PlaylistOptionsModal.show(context, playlist),
+          ),
           onTap: item.onTap,
+          onLongPress: () => PlaylistOptionsModal.show(context, playlist),
         );
 
       case _LibraryItemType.album:
@@ -1126,6 +1203,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
             child: PlaylistArtwork(playlist: playlist, size: 240),
           ),
           onTap: item.onTap,
+          onLongPress: () => PlaylistOptionsModal.show(context, playlist),
+          onSecondaryTap: () => PlaylistOptionsModal.show(context, playlist),
         );
 
       case _LibraryItemType.album:
@@ -1210,10 +1289,14 @@ class _LibraryScreenState extends State<LibraryScreen> {
     Widget? customArtwork,
     bool isRound = false,
     required VoidCallback onTap,
+    VoidCallback? onLongPress,
+    VoidCallback? onSecondaryTap,
   }) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
+      onSecondaryTap: onSecondaryTap,
       borderRadius: BorderRadius.circular(8),
       child: Column(
         crossAxisAlignment:

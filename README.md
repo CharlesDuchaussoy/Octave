@@ -9,7 +9,7 @@ Une version modifiée de [Musly](https://github.com/dddevid/Musly), pensée pour
 
 [![Licence CC BY-NC-SA 4.0](https://img.shields.io/badge/licence-CC%20BY--NC--SA%204.0-lightgrey?style=for-the-badge)](LICENSE)
 [![Basé sur Musly](https://img.shields.io/badge/bas%C3%A9%20sur-Musly-fa243c?style=for-the-badge)](https://github.com/dddevid/Musly)
-[![Flutter 3.41.7](https://img.shields.io/badge/Flutter-3.41.7-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://docs.flutter.dev/release/archive)
+[![Flutter 3.47.7](https://img.shields.io/badge/Flutter-3.47.7-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://docs.flutter.dev/release/archive)
 
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white)
 ![Windows](https://img.shields.io/badge/Windows-0078D4?style=flat-square&logo=windows11&logoColor=white)
@@ -43,7 +43,7 @@ Octave suit Musly de près et récupère régulièrement ses nouveautés et ses 
 
 | | Étape |
 |:-:|---|
-| ✅ | Base : Musly `master` du 27 septembre 2026 (`44ff278`), qui corrige notamment les titres lus deux fois sur Android ([Musly #244](https://github.com/dddevid/Musly/issues/244)) |
+| ✅ | Base : Musly 2.0.3, `master` du 18 octobre 2026 (`b199276`), qui apporte notamment la mise à jour depuis l'app et l'import de playlists |
 | ⏳ | Nom, icône et identifiant Android propres, pour s'installer à côté de Musly |
 | ⏳ | Traduction française complète (926 textes sur 926) |
 | ⏳ | Compilation automatique des versions Android par GitHub Actions |
@@ -92,7 +92,7 @@ Octave s'installe à côté de Musly sans le remplacer.
 
 ### Prérequis
 
-- [Flutter](https://docs.flutter.dev/release/archive) **3.41.7** (stable)
+- [Flutter](https://docs.flutter.dev/release/archive) **3.47.7** (stable)
 - [Android Studio](https://developer.android.com/studio) pour le SDK Android
 - Pour Windows : Visual Studio 2022 avec « Développement Desktop en C++ »
 - Pour Linux : `clang cmake ninja pkg-config gtk3 libmpv` et leurs dépendances

@@ -573,6 +573,9 @@
   "liveSearchSection": "Rechercher",
   "liveSearch": "Recherche en direct",
   "liveSearchSubtitle": "Mettre à jour les résultats lorsque vous écrivez au lieu d'afficher une liste déroulante",
+  "homeSection": "Accueil",
+  "showFavoritePlaylistsOnHome": "Playlists favorites sur l'accueil",
+  "showFavoritePlaylistsOnHomeSubtitle": "Afficher chaque playlist favorite sur sa propre ligne en haut de l'écran d'accueil",
   "categoryMadeForYou": "Fait pour vous",
   "categoryNewReleases": "Nouvelles sorties",
   "categoryTopRated": "Les mieux notés",
@@ -1757,5 +1760,8 @@
   "@aboutLinkDiscord": {
     "description": "Link tile title for the Discord server"
   },
-  "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio"
+  "audioFocusDenied": "Impossible de démarrer la lecture — une autre application utilise le focus audio",
+  "desktopOverlaySection": "Overlay Bureau",
+  "spotverlayTitle": "Spotverlay",
+  "spotverlayDescription": "Si vous souhaitez un overlay élégant et léger \"Made for Musly\", vous pouvez utiliser Spotverlay (https://github.com/dddevid/Spotverlay)"
 }

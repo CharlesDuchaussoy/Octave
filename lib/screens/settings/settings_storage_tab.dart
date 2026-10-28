@@ -12,6 +12,7 @@ import 'package:musly/services/offline_service.dart';
 import 'package:musly/theme/app_theme.dart';
 import 'package:musly/screens/media/download_playlist_status_screen.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path/path.dart' as p;
 import 'package:musly/widgets/settings/settings_section_card.dart';
 import 'package:musly/widgets/settings/settings_switch_tile.dart';
 import 'package:musly/widgets/settings/settings_list_tile.dart';
@@ -290,7 +291,7 @@ class _SettingsStorageTabState extends State<SettingsStorageTab> {
               ...customPaths.map((path) => SettingsListTile(
                     gradientColors: const [Color(0xFFFF9500), Color(0xFFFFB340)],
                     icon: CupertinoIcons.folder_fill,
-                    title: path.split('/').last,
+                    title: p.basename(path),
                     subtitle: path,
                     trailing: IconButton(
                       icon: const Icon(CupertinoIcons.delete,

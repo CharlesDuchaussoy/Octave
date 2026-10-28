@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -57,7 +56,17 @@ class _YoutubeStreamAudioSource extends StreamAudioSource {
 
   @override
   Future<StreamAudioResponse> request([int? start, int? end]) async {
-    final cleanId = _videoId.replaceFirst('ytmusic://', '');
+    var cleanId = _videoId.replaceFirst('ytmusic://', '');
+    if (cleanId.startsWith('ytsearch:') || cleanId.startsWith('sp_')) {
+      final query = Uri.decodeComponent(
+          cleanId.replaceFirst(RegExp(r'^(ytsearch:|sp_)'), ''));
+      try {
+        final results = await _ytdlp.search(query, limit: 1);
+        if (results.isNotEmpty && results.first['id'] != null) {
+          cleanId = results.first['id'] as String;
+        }
+      } catch (_) {}
+    }
 
     final cachedFile = await _getCachedFile(cleanId);
     if (cachedFile != null) {
@@ -241,14 +250,14 @@ class YoutubeService {
         final match = RegExp(r'/vi/([a-zA-Z0-9_-]{11})').firstMatch(id);
         if (match != null) {
           final vid = match.group(1);
-          return 'https://i.ytimg.com/vi/$vid/hqdefault.jpg';
+          return 'https://i.ytimg.com/vi/$vid/hq720.jpg';
         }
       }
       return id;
     }
 
     if (RegExp(r'^[a-zA-Z0-9_-]{11}$').hasMatch(id)) {
-      return 'https://i.ytimg.com/vi/$id/hqdefault.jpg';
+      return 'https://i.ytimg.com/vi/$id/hq720.jpg';
     }
     return '';
   }
@@ -256,12 +265,33 @@ class YoutubeService {
   String getStreamUrl(String videoId) => 'ytmusic://$videoId';
 
   Future<String> resolveStreamUrl(String videoId) async {
-    final cleanId = videoId.replaceFirst('ytmusic://', '');
+    String cleanId = videoId.replaceFirst('ytmusic://', '');
+    if (cleanId.startsWith('ytsearch:') || cleanId.startsWith('sp_')) {
+      final query = Uri.decodeComponent(
+          cleanId.replaceFirst(RegExp(r'^(ytsearch:|sp_)'), ''));
+      try {
+        final results = await _ytdlp.search(query, limit: 1);
+        if (results.isNotEmpty && results.first['id'] != null) {
+          cleanId = results.first['id'] as String;
+        }
+      } catch (_) {}
+    }
     return await _ytdlp.resolveStreamUrl(cleanId);
   }
 
   Future<StreamAudioSource> buildAudioSource(String videoId) async {
-    return _YoutubeStreamAudioSource(videoId, _ytdlp);
+    String cleanId = videoId.replaceFirst('ytmusic://', '');
+    if (cleanId.startsWith('ytsearch:') || cleanId.startsWith('sp_')) {
+      final query = Uri.decodeComponent(
+          cleanId.replaceFirst(RegExp(r'^(ytsearch:|sp_)'), ''));
+      try {
+        final results = await _ytdlp.search(query, limit: 1);
+        if (results.isNotEmpty && results.first['id'] != null) {
+          cleanId = results.first['id'] as String;
+        }
+      } catch (_) {}
+    }
+    return _YoutubeStreamAudioSource(cleanId, _ytdlp);
   }
 
   Song _mapDictToSong(Map<String, dynamic> d) {

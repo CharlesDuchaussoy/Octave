@@ -659,6 +659,9 @@
   "liveSearchSection": "Search",
   "liveSearch": "Live Search",
   "liveSearchSubtitle": "Update results as you type instead of showing a dropdown",
+  "homeSection": "Home",
+  "showFavoritePlaylistsOnHome": "Favorite playlists on Home",
+  "showFavoritePlaylistsOnHomeSubtitle": "Show each favorite playlist as its own row at the top of the Home screen",
   "categoryMadeForYou": "Made For You",
   "categoryNewReleases": "New Releases",
   "categoryTopRated": "Top Rated",
@@ -1219,6 +1222,50 @@
   "createPlaylist": "Create playlist",
   "@createPlaylist": {
     "description": "Tooltip/label for the create-playlist button in the sidebar library header"
+  },
+  "importPlaylist": "Import Playlist",
+  "@importPlaylist": {
+    "description": "Label for importing a playlist from Spotify or YouTube Music"
+  },
+  "importPlaylistSubtitle": "Import from Spotify or YouTube Music (no login)",
+  "@importPlaylistSubtitle": {
+    "description": "Subtitle for the import playlist option"
+  },
+  "checkForUpdates": "Check for updates",
+  "@checkForUpdates": {
+    "description": "Label for checking app updates"
+  },
+  "checkingForUpdates": "Checking for updates...",
+  "@checkingForUpdates": {
+    "description": "Message shown while checking for updates"
+  },
+  "appUpToDate": "Musly is up to date",
+  "@appUpToDate": {
+    "description": "Message shown when app is on the latest version"
+  },
+  "updateAvailable": "Update available",
+  "@updateAvailable": {
+    "description": "Title when an update is available"
+  },
+  "updateNow": "Update now",
+  "@updateNow": {
+    "description": "Button to start update"
+  },
+  "downloadingUpdate": "Downloading update...",
+  "@downloadingUpdate": {
+    "description": "Progress message while downloading update"
+  },
+  "openOnGitHub": "Open on GitHub",
+  "@openOnGitHub": {
+    "description": "Button to open release on GitHub"
+  },
+  "skipThisVersion": "Skip this version",
+  "@skipThisVersion": {
+    "description": "Button to skip the current update version"
+  },
+  "updateDownloaded": "Download complete. Starting installation...",
+  "@updateDownloaded": {
+    "description": "Message shown when update download finishes"
   },
   "likedSongsSidebar": "Liked Songs",
   "@likedSongsSidebar": {
@@ -2301,6 +2348,14 @@
   "lyricsGlowEffectSubtitle": "Subtle glow effect on currently playing lyric line",
   "@lyricsGlowEffectSubtitle": {
     "description": "Subtitle for active lyric line glow effect toggle"
+  },
+  "lyricsKeepScreenOn": "Keep Screen On",
+  "@lyricsKeepScreenOn": {
+    "description": "Toggle to keep the screen on while viewing lyrics"
+  },
+  "lyricsKeepScreenOnSubtitle": "Prevent the screen from turning off while reading lyrics",
+  "@lyricsKeepScreenOnSubtitle": {
+    "description": "Subtitle for keep screen on while viewing lyrics toggle"
   },
   "hideWindowTitlebar": "Hide Window Titlebar / Decorations",
   "@hideWindowTitlebar": {
@@ -3751,5 +3806,17 @@
   "androidAutoServerSection": "Server",
   "androidAutoDefaultServer": "Default Server",
   "androidAutoDefaultServerDesc": "Select which server to use when you start Android Auto",
-  "androidAutoUseActiveServer": "Use app's active server"
+  "androidAutoUseActiveServer": "Use app's active server",
+  "desktopOverlaySection": "Desktop Overlay",
+  "@desktopOverlaySection": {
+    "description": "Settings section header for desktop overlay recommendation"
+  },
+  "spotverlayTitle": "Spotverlay",
+  "@spotverlayTitle": {
+    "description": "Title for Spotverlay desktop overlay"
+  },
+  "spotverlayDescription": "If you want a beautiful and lightweight \"Made for Musly\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)",
+  "@spotverlayDescription": {
+    "description": "Message recommending Spotverlay desktop overlay for Musly"
+  }
 }

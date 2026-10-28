@@ -10,6 +10,8 @@ import 'package:musly/services/audio_handler.dart';
 import 'package:musly/services/jukebox_service.dart';
 import 'package:musly/services/transcoding_service.dart';
 import 'package:musly/widgets/common/song_tile.dart';
+import 'package:musly/widgets/common/album_artwork.dart';
+import 'package:musly/widgets/common/animated_equalizer.dart';
 import '../test_helpers.dart';
 import '../bootstrap.dart';
 
@@ -111,6 +113,67 @@ void main() {
 
       expect(find.textContaining('Test Artist'), findsOneWidget);
       expect(find.textContaining('Test Album'), findsOneWidget);
+    });
+
+    testWidgets('should show AlbumArtwork with centered AnimatedEqualizer overlay when playing with showArtwork', (tester) async {
+      final song = Song(
+        id: '1',
+        title: 'Playing Song',
+        artist: 'Test Artist',
+        album: 'Test Album',
+        coverArt: 'cover_1',
+      );
+
+      // Set song as current playing song
+      playerProvider.playSong(song, playlist: [song], startIndex: 0);
+
+      await tester.pumpWidget(
+        MultiProvider(
+          providers: [
+            Provider<SubsonicService>.value(value: subsonicService),
+            ChangeNotifierProvider<PlayerProvider>.value(value: playerProvider),
+          ],
+          child: MaterialApp(
+            home: Scaffold(
+              body: SongTile(song: song, showArtwork: true),
+            ),
+          ),
+        ),
+      );
+
+      // Flush internal timers from playSong
+      await tester.pump(const Duration(seconds: 2));
+
+      expect(find.byType(AlbumArtwork), findsOneWidget);
+      expect(find.byType(AnimatedEqualizer), findsOneWidget);
+      expect(find.byType(Stack), findsWidgets);
+    });
+
+    testWidgets('AnimatedEqualizer maintains stable height of 16.0 during animation', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: Center(
+              child: AnimatedEqualizer(
+                color: Colors.white,
+                isPlaying: true,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final initialSize = tester.getSize(find.byType(AnimatedEqualizer));
+      expect(initialSize.height, 16.0);
+
+      // Advance frames to let animations progress
+      await tester.pump(const Duration(milliseconds: 150));
+      final sizeMidway = tester.getSize(find.byType(AnimatedEqualizer));
+      expect(sizeMidway.height, 16.0);
+
+      await tester.pump(const Duration(milliseconds: 200));
+      final sizeLater = tester.getSize(find.byType(AnimatedEqualizer));
+      expect(sizeLater.height, 16.0);
     });
   });
 }

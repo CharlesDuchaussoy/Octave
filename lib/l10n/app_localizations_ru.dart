@@ -1,6 +1,5 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
-
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -597,6 +596,16 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get liveSearchSubtitle =>
       'Сразу показывать результаты при вводе текста';
+
+  @override
+  String get homeSection => 'Home';
+
+  @override
+  String get showFavoritePlaylistsOnHome => 'Favorite playlists on Home';
+
+  @override
+  String get showFavoritePlaylistsOnHomeSubtitle =>
+      'Show each favorite playlist as its own row at the top of the Home screen';
 
   @override
   String get categoryMadeForYou => 'Подборка для вас';
@@ -1199,6 +1208,40 @@ class AppLocalizationsRu extends AppLocalizations {
   String get createPlaylist => 'Создать плейлист';
 
   @override
+  String get importPlaylist => 'Import Playlist';
+
+  @override
+  String get importPlaylistSubtitle =>
+      'Import from Spotify or YouTube Music (no login)';
+
+  @override
+  String get checkForUpdates => 'Check for updates';
+
+  @override
+  String get checkingForUpdates => 'Checking for updates...';
+
+  @override
+  String get appUpToDate => 'Musly is up to date';
+
+  @override
+  String get updateAvailable => 'Доступно обновление';
+
+  @override
+  String get updateNow => 'Update now';
+
+  @override
+  String get downloadingUpdate => 'Downloading update...';
+
+  @override
+  String get openOnGitHub => 'Open on GitHub';
+
+  @override
+  String get skipThisVersion => 'Skip this version';
+
+  @override
+  String get updateDownloaded => 'Download complete. Starting installation...';
+
+  @override
   String get likedSongsSidebar => 'Понравившиеся песни';
 
   @override
@@ -1235,9 +1278,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get offlineModeBanner => 'Автономный режим — только скачанная музыка';
-
-  @override
-  String get updateAvailable => 'Доступно обновление';
 
   @override
   String get updateAvailableSubtitle => 'Доступна новая версия Musly!';
@@ -1999,6 +2039,13 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get lyricsGlowEffectSubtitle =>
       'Subtle glow effect on currently playing lyric line';
+
+  @override
+  String get lyricsKeepScreenOn => 'Keep Screen On';
+
+  @override
+  String get lyricsKeepScreenOnSubtitle =>
+      'Prevent the screen from turning off while reading lyrics';
 
   @override
   String get hideWindowTitlebar => 'Hide Window Titlebar / Decorations';
@@ -3098,4 +3145,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get androidAutoUseActiveServer => 'Use app\'s active server';
+
+  @override
+  String get desktopOverlaySection => 'Desktop Overlay';
+
+  @override
+  String get spotverlayTitle => 'Spotverlay';
+
+  @override
+  String get spotverlayDescription =>
+      'If you want a beautiful and lightweight \"Made for Musly\" overlay, you can use Spotverlay (https://github.com/dddevid/Spotverlay)';
 }
