@@ -72,7 +72,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
         color: context.octave.surface1,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
+          color: context.octave.separator,
         ),
         boxShadow: [
           BoxShadow(
@@ -99,7 +99,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                     ),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(icon, color: Colors.white, size: 24),
+                  child: Icon(icon, color: context.octave.onAccent, size: 24),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
@@ -258,7 +258,6 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
     AuthProvider authProvider,
     ServerConfig? currentConfig,
   ) {
-    final isDark = context.isDark;
     final l10n = AppLocalizations.of(context)!;
 
     return FutureBuilder<List<ServerConfig>>(
@@ -320,9 +319,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(14),
                   side: BorderSide(
-                    color: isDark
-                        ? Colors.white10
-                        : Colors.black.withValues(alpha: 0.05),
+                    color: context.octave.separator,
                   ),
                 ),
                 child: ClipRRect(
@@ -352,7 +349,7 @@ class _SettingsServerTabState extends State<SettingsServerTab> {
                                 gradient: LinearGradient(colors: pGradient),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Icon(pIcon, color: Colors.white, size: 18),
+                              child: Icon(pIcon, color: context.octave.onAccent, size: 18),
                             ),
                             title: Text(
                               profile.displayServerName,

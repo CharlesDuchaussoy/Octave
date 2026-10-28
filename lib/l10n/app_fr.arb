@@ -1650,5 +1650,11 @@
   "serverUrlHint": "https://musique.exemple.fr",
   "loginUseServer": "Se connecter à un serveur",
   "connectSearching": "Recherche des enceintes et des téléviseurs…",
-  "connectNoDevices": "Aucun appareil trouvé. Le téléphone et l'enceinte doivent être sur le même réseau Wi-Fi, et l'enceinte allumée."
+  "connectNoDevices": "Aucun appareil trouvé. Le téléphone et l'enceinte doivent être sur le même réseau Wi-Fi, et l'enceinte allumée.",
+  "customizeHome": "Personnaliser l'accueil",
+  "customizeHomeHint": "Glisse les rubriques pour les ranger, et masque celles dont tu ne te sers pas.",
+  "customizeHomeReset": "Revenir à l'ordre d'origine",
+  "homeSectionQuickAccess": "Raccourcis",
+  "homeSectionFavoritePlaylists": "Playlists favorites",
+  "homeSectionMixes": "Mix"
 }

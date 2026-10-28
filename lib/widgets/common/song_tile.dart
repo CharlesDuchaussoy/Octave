@@ -181,7 +181,7 @@ class SongTile extends StatelessWidget {
         child: Center(
           child: Text(
             '${song.track}',
-            style: const TextStyle(color: Colors.grey, fontSize: 14),
+            style: TextStyle(color: context.octave.text2, fontSize: 14),
           ),
         ),
       );
@@ -218,7 +218,7 @@ class SongTile extends StatelessWidget {
       parts.join(' • '),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
-      style: const TextStyle(fontSize: 12, color: Colors.grey),
+      style: TextStyle(fontSize: 12, color: context.octave.text2),
     );
   }
 
@@ -229,7 +229,7 @@ class SongTile extends StatelessWidget {
         children: [
           Text(
             FormatUtils.formatSeconds(song.duration),
-            style: const TextStyle(fontSize: 12, color: Colors.grey),
+            style: TextStyle(fontSize: 12, color: context.octave.text2),
           ),
           const SizedBox(width: 8),
           IconButton(

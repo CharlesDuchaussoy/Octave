@@ -4809,6 +4809,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No device found. Your phone and the speaker must be on the same Wi-Fi network, and the speaker must be on.'**
   String get connectNoDevices;
+
+  /// Title of the screen ordering and hiding home rows
+  ///
+  /// In en, this message translates to:
+  /// **'Customize home'**
+  String get customizeHome;
+
+  /// Explanation of the customize home screen
+  ///
+  /// In en, this message translates to:
+  /// **'Drag the rows into the order you like, and hide the ones you do not use.'**
+  String get customizeHomeHint;
+
+  /// Button restoring the default home layout
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the original order'**
+  String get customizeHomeReset;
+
+  /// Home row with quick access tiles
+  ///
+  /// In en, this message translates to:
+  /// **'Shortcuts'**
+  String get homeSectionQuickAccess;
+
+  /// Home rows of favorite playlists
+  ///
+  /// In en, this message translates to:
+  /// **'Favorite playlists'**
+  String get homeSectionFavoritePlaylists;
+
+  /// Home rows of generated mixes
+  ///
+  /// In en, this message translates to:
+  /// **'Mixes'**
+  String get homeSectionMixes;
 }
 
 class _AppLocalizationsDelegate

@@ -18,6 +18,8 @@ import 'package:musly/utils/context_extensions.dart';
 import 'package:musly/services/storage_service.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
+import 'package:musly/octave/home/home_layout_screen.dart';
+import 'package:musly/widgets/settings/settings_list_tile.dart';
 
 class SettingsDisplayTab extends StatefulWidget {
   const SettingsDisplayTab({super.key});
@@ -29,7 +31,6 @@ class SettingsDisplayTab extends StatefulWidget {
 class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
   final _playerUiSettings = PlayerUiSettingsService();
   bool _showVolumeSlider = true;
-  bool _showFavoritePlaylistsOnHome = false;
   bool _lyricsKeepScreenOn = true;
   bool _hideWindowTitlebar = false;
 
@@ -58,8 +59,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
 
     setState(() {
       _showVolumeSlider = _playerUiSettings.getShowVolumeSlider();
-      _showFavoritePlaylistsOnHome =
-          _playerUiSettings.getShowFavoritePlaylistsOnHome();
       _lyricsKeepScreenOn = _playerUiSettings.getLyricsKeepScreenOn();
       _themeMode = themeService.themeMode;
       _accentColor = themeService.accentColor;
@@ -107,7 +106,21 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
         SettingsSectionCard(
           title: AppLocalizations.of(context)!.homeSection.toUpperCase(),
           children: [
-            _buildFavoritePlaylistsOnHomeToggle(),
+            SettingsListTile(
+              icon: CupertinoIcons.slider_horizontal_3,
+              title: AppLocalizations.of(context)!.customizeHome,
+              trailing: Align(
+                alignment: Alignment.centerRight,
+                child: Icon(
+                  CupertinoIcons.chevron_forward,
+                  size: 18,
+                  color: context.octave.text3,
+                ),
+              ),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const HomeLayoutScreen()),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 24),
@@ -247,19 +260,6 @@ class _SettingsDisplayTabState extends State<SettingsDisplayTab> {
           setState(() => _showVolumeSlider = value);
           await _playerUiSettings.setShowVolumeSlider(value);
         },
-    );
-  }
-
-  Widget _buildFavoritePlaylistsOnHomeToggle() {
-    return SettingsSwitchTile(
-      icon: CupertinoIcons.heart_fill,
-      title: AppLocalizations.of(context)!.showFavoritePlaylistsOnHome,
-      subtitle: AppLocalizations.of(context)!.showFavoritePlaylistsOnHomeSubtitle,
-      value: _showFavoritePlaylistsOnHome,
-      onChanged: (value) async {
-        setState(() => _showFavoritePlaylistsOnHome = value);
-        await _playerUiSettings.setShowFavoritePlaylistsOnHome(value);
-      },
     );
   }
 

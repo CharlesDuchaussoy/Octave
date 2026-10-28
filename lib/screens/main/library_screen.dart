@@ -666,11 +666,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
             fontSize: 13,
             fontWeight: FontWeight.w600,
             color: isSelected
-                ? (ThemeData.estimateBrightnessForColor(
-                            Theme.of(context).colorScheme.primary) ==
-                        Brightness.dark
-                    ? Colors.white
-                    : Colors.black)
+                ? context.octave.onAccent
                 : (context.octave.text1),
           ),
         ),
@@ -876,7 +872,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           ),
           subtitle: Text(
             item.subtitle,
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
+            style: TextStyle(fontSize: 13, color: context.octave.text2),
           ),
           onTap: item.onTap,
         );
@@ -905,7 +901,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           ),
           subtitle: Text(
             item.subtitle,
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
+            style: TextStyle(fontSize: 13, color: context.octave.text2),
           ),
           onTap: item.onTap,
         );
@@ -934,7 +930,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           ),
           subtitle: Text(
             item.subtitle,
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
+            style: TextStyle(fontSize: 13, color: context.octave.text2),
           ),
           onTap: item.onTap,
         );

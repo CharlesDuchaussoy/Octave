@@ -46,9 +46,7 @@ class _TopResultCardState extends State<TopResultCard> {
             color: _isHovered ? context.octave.surface2 : context.octave.surface1,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-              color: isDark
-                  ? Colors.white10
-                  : Colors.black.withValues(alpha: 0.05),
+              color: context.octave.surface2,
             ),
           ),
           child: Stack(
@@ -132,11 +130,7 @@ class _TopResultCardState extends State<TopResultCard> {
                     child: IconButton(
                       icon: Icon(
                         Icons.play_arrow_rounded,
-                        color: ThemeData.estimateBrightnessForColor(
-                                    Theme.of(context).colorScheme.primary) ==
-                                Brightness.dark
-                            ? Colors.white
-                            : Colors.black,
+                        color: context.octave.onAccent,
                         size: 30,
                       ),
                       onPressed: widget.onPlayPressed,

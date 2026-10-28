@@ -28,9 +28,7 @@ class PillTabBar extends StatelessWidget {
         height: height,
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: isDark
-              ? Colors.white.withValues(alpha: 0.08)
-              : Colors.black.withValues(alpha: 0.05),
+          color: context.octave.surface2,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -41,11 +39,7 @@ class PillTabBar extends StatelessWidget {
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeInOut,
                 decoration: BoxDecoration(
-                  color: isSelected
-                      ? (isDark
-                          ? Colors.white.withValues(alpha: 0.15)
-                          : Colors.white)
-                      : Colors.transparent,
+                  color: isSelected ? context.octave.surface1 : Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: isSelected && !isDark
                       ? [

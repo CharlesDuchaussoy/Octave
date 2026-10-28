@@ -296,7 +296,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
         color: context.octave.surface1,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
+          color: context.octave.separator,
         ),
       ),
       child: Column(
@@ -309,7 +309,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
                 height: 44,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [context.octave.success, Color(0xFF30B0C7)],
+                    colors: [context.octave.accent, context.octave.accent],
                   ),
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -412,7 +412,7 @@ class _AddServerScreenState extends State<AddServerScreen> {
           borderRadius: BorderRadius.circular(18),
           border: Border.all(
             color:
-                isDark ? Colors.white10 : Colors.black.withValues(alpha: 0.06),
+                context.octave.separator,
           ),
         ),
         child: Column(

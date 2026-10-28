@@ -21,6 +21,7 @@ import 'package:musly/screens/media/radio_screen.dart';
 import 'package:musly/services/player_ui_settings_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/octave/widgets/scroll_end_padding.dart';
+import 'package:musly/services/theme_service.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -163,15 +164,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: Container(
                   height: 48,
                   decoration: BoxDecoration(
-                    color: isDark ? Colors.white : const Color(0xFFE5E7EB),
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    color: context.octave.surface2,
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
                     controller: _searchController,
@@ -185,34 +179,35 @@ class _SearchScreenState extends State<SearchScreen> {
                       _performSearch(v.trim());
                       _focusNode.unfocus();
                     },
-                    style: const TextStyle(
-                      color: Colors.black87,
+                    style: TextStyle(
+                      color: context.octave.text1,
                       fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                     ),
                     decoration: InputDecoration(
                       hintText:
                           AppLocalizations.of(context)!.whatDoYouWantToPlay,
                       hintStyle: TextStyle(
-                        color: Colors.black.withValues(alpha: 0.6),
+                        color: context.octave.text3,
                         fontSize: 15,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                       ),
-                      prefixIcon: const Icon(
+                      prefixIcon: Icon(
                         CupertinoIcons.search,
-                        color: Colors.black87,
-                        size: 22,
+                        color: context.octave.text2,
+                        size: 20,
                       ),
                       suffixIcon: query.isNotEmpty
                           ? IconButton(
-                              icon: const Icon(
-                                  CupertinoIcons.clear_circled_solid,
-                                  color: Colors.black54,
-                                  size: 20),
+                              icon: Icon(CupertinoIcons.clear_circled_solid,
+                                  color: context.octave.text3, size: 20),
                               onPressed: _clearSearch,
                             )
                           : null,
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      filled: false,
                       contentPadding: const EdgeInsets.symmetric(vertical: 14),
                     ),
                   ),
@@ -260,10 +255,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget _buildFilterChip(String key, String label, bool isDark) {
     final isSelected = _selectedFilter == key;
     final primary = Theme.of(context).colorScheme.primary;
-    final onPrimary =
-        ThemeData.estimateBrightnessForColor(primary) == Brightness.dark
-            ? Colors.white
-            : Colors.black;
+    final onPrimary = context.octave.onAccent;
 
     return GestureDetector(
       onTap: () => setState(() => _selectedFilter = key),
@@ -322,7 +314,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 TextButton(
                   onPressed: () => setState(() => _recentQueries.clear()),
                   child: Text(AppLocalizations.of(context)!.clear,
-                      style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                      style: TextStyle(color: context.octave.text2, fontSize: 13)),
                 ),
               ],
             ),
@@ -369,10 +361,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.madeForYou,
-                      gradientColors: const [
-                        Color(0xFF1E3264),
-                        Color(0xFF283EA3)
-                      ],
+                      color: AccentColor.octave.color,
                       icon: CupertinoIcons.sparkles,
                       onTap: () => NavigationHelper.push(
                           context, const MadeForYouScreen()),
@@ -382,10 +371,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.categoryNewReleases,
-                      gradientColors: const [
-                        Color(0xFFE8115B),
-                        Color(0xFFFF4081)
-                      ],
+                      color: AccentColor.pink.color,
                       icon: CupertinoIcons.flame_fill,
                       onTap: () => NavigationHelper.push(
                           context, const NewReleasesScreen()),
@@ -395,10 +381,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.topRated,
-                      gradientColors: const [
-                        Color(0xFF8D67AB),
-                        Color(0xFFBA68C8)
-                      ],
+                      color: AccentColor.orange.color,
                       icon: CupertinoIcons.star_fill,
                       onTap: () => NavigationHelper.push(
                           context, const TopRatedScreen()),
@@ -408,10 +391,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       width: cardWidth,
                       child: BrowseCategoryCard(
                         title: AppLocalizations.of(context)!.radioStations,
-                        gradientColors: const [
-                          Color(0xFF148A08),
-                          Color(0xFF43A047)
-                        ],
+                        color: AccentColor.teal.color,
                         icon: CupertinoIcons.antenna_radiowaves_left_right,
                         onTap: () =>
                             NavigationHelper.push(context, const RadioScreen()),
@@ -421,10 +401,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.genresAndMoods,
-                      gradientColors: const [
-                        Color(0xFFE91429),
-                        Color(0xFFFF5252)
-                      ],
+                      color: AccentColor.green.color,
                       icon: CupertinoIcons.music_albums_fill,
                       onTap: () =>
                           NavigationHelper.push(context, const GenresScreen()),
@@ -434,10 +411,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.likedSongs,
-                      gradientColors: const [
-                        Color(0xFF450AF5),
-                        Color(0xFF8E8EE5)
-                      ],
+                      color: AccentColor.red.color,
                       icon: CupertinoIcons.heart_fill,
                       onTap: () => NavigationHelper.push(
                           context, const FavoritesScreen()),
@@ -447,10 +421,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.searchCategoryPop,
-                      gradientColors: const [
-                        Color(0xFF006450),
-                        Color(0xFF00897B)
-                      ],
+                      color: AccentColor.blue.color,
                       icon: CupertinoIcons.music_mic,
                       onTap: () {
                         _searchController.text = 'Pop';
@@ -462,10 +433,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.searchCategoryHipHop,
-                      gradientColors: const [
-                        Color(0xFFBC5900),
-                        Color(0xFFFB8C00)
-                      ],
+                      color: AccentColor.yellow.color,
                       icon: CupertinoIcons.speaker_3_fill,
                       onTap: () {
                         _searchController.text = 'Hip-Hop';
@@ -477,10 +445,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.searchCategoryRock,
-                      gradientColors: const [
-                        Color(0xFF7358FF),
-                        Color(0xFF9575CD)
-                      ],
+                      color: AccentColor.slate.color,
                       icon: CupertinoIcons.guitars,
                       onTap: () {
                         _searchController.text = 'Rock';
@@ -492,10 +457,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     width: cardWidth,
                     child: BrowseCategoryCard(
                       title: AppLocalizations.of(context)!.searchCategoryChill,
-                      gradientColors: const [
-                        Color(0xFF503750),
-                        Color(0xFF8E24AA)
-                      ],
+                      color: AccentColor.mint.color,
                       icon: CupertinoIcons.moon_stars_fill,
                       onTap: () {
                         _searchController.text = 'Chill';
@@ -536,7 +498,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Center(
           child: Column(
             children: [
-              const Icon(CupertinoIcons.search, size: 48, color: Colors.grey),
+              Icon(CupertinoIcons.search, size: 48, color: context.octave.text3),
               const SizedBox(height: 12),
               Text(
                 AppLocalizations.of(context)!.searchNoResultsFor(_searchController.text),
@@ -546,7 +508,7 @@ class _SearchScreenState extends State<SearchScreen> {
               const SizedBox(height: 4),
               Text(
                 AppLocalizations.of(context)!.searchNoResultsHint,
-                style: TextStyle(color: Colors.grey, fontSize: 13),
+                style: TextStyle(color: context.octave.text2, fontSize: 13),
               ),
             ],
           ),
