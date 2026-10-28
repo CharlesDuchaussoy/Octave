@@ -379,6 +379,32 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         notifyListeners();
       }
 
+      // Every song in a few requests (search3 with an empty query). Musly
+      // opened each album one by one, which loaded the server (roadmap,
+      // section 8); that stays as the fallback below.
+      try {
+        var songOffset = 0;
+        while (true) {
+          final page = await _subsonicService.getLibrarySongsPage(
+            offset: songOffset,
+            size: pageSize,
+          );
+          final batch = [
+            for (final song in page)
+              if (seenSongIds.add(song.id)) song,
+          ];
+          if (batch.isNotEmpty) await _db.insertSongsBatch(batch);
+          if (page.length < pageSize) break;
+          songOffset += pageSize;
+        }
+        if (seenSongIds.isNotEmpty) {
+          _cachedAllSongs = await _db.getAllSongs();
+          notifyListeners();
+        }
+      } catch (e) {
+        debugPrint('[LibraryProvider] song listing failed, by album: $e');
+        seenSongIds.clear();
+      }
 
       if (seenSongIds.isEmpty) {
         final albumCount = await _db.getAlbumCount();
