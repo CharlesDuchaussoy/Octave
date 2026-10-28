@@ -19,7 +19,6 @@ export 'common/media_play_button.dart';
 export 'common/pill_tab_bar.dart';
 export 'common/song_tile.dart';
 
-export 'dialogs/privacy_policy_dialog.dart';
 export 'dialogs/update_dialog.dart';
 
 export 'modals/song_options_modal.dart';

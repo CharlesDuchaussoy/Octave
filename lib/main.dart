@@ -18,7 +18,6 @@ import 'services/local_music_service.dart';
 import 'services/analytics_service.dart';
 import 'services/favorite_playlists_service.dart';
 
-import 'package:musly/widgets/dialogs/privacy_policy_dialog.dart';
 import 'package:musly/widgets/dialogs/update_dialog.dart';
 import 'providers/providers.dart';
 import 'screens/screens.dart';
@@ -38,25 +37,6 @@ class AppScrollBehavior extends MaterialScrollBehavior {
         PointerDeviceKind.mouse,
         PointerDeviceKind.trackpad,
       };
-}
-
-Future<void> _showPrivacyPolicyIfNeeded() async {
-  if (await PrivacyPolicyDialog.shouldShow()) {
-    await Future.delayed(const Duration(milliseconds: 300));
-    if (navigatorKey.currentContext != null) {
-      final result = await showDialog<bool>(
-        context: navigatorKey.currentContext!,
-        builder: (context) => const PrivacyPolicyDialog(),
-        barrierDismissible: false,
-      );
-
-      if (result == false) {
-        exit(0);
-      } else {
-        await PrivacyPolicyDialog.markAccepted();
-      }
-    }
-  }
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -343,9 +323,6 @@ class _AuthWrapperState extends State<AuthWrapper> {
             onFinished: () => setState(() => _setupDone = true),
           );
         }
-        WidgetsBinding.instance.addPostFrameCallback((_) async {
-          await _showPrivacyPolicyIfNeeded();
-        });
         return const MainScreen();
       case AuthState.offlineMode:
         if (!_checkedOnboarding) {

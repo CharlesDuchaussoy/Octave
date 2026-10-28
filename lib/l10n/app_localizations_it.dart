@@ -377,13 +377,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get homeSection => 'Home';
 
   @override
-  String get showFavoritePlaylistsOnHome => 'Favorite playlists on Home';
-
-  @override
-  String get showFavoritePlaylistsOnHomeSubtitle =>
-      'Show each favorite playlist as its own row at the top of the Home screen';
-
-  @override
   String get categoryNewReleases => 'Nuovi Rilasci';
 
   @override
@@ -1456,46 +1449,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get nowPlayingHeader => 'IN RIPRODUZIONE';
 
   @override
-  String get privacyFirstTitle => 'La tua Privacy al Primo Posto';
-
-  @override
-  String get privacyFirstSubtitle => 'I tuoi dati restano sempre con te.';
-
-  @override
-  String get noDataSellingTitle => 'Nessuna Vendita di Dati';
-
-  @override
-  String get noDataSellingDescription =>
-      'Non vendiamo, condividiamo né cediamo mai i tuoi dati personali a terzi.';
-
-  @override
-  String get localFirstStorageTitle => 'Salvataggio Locale sul Dispositivo';
-
-  @override
-  String get localFirstStorageDescription =>
-      'La tua libreria musicale e le credenziali rimangono sul tuo dispositivo.';
-
-  @override
-  String get privateOpenTitle => '100% Privata & Aperta';
-
-  @override
-  String get privateOpenDescription =>
-      'Octave non raccoglie alcuna telemetria. Nessun identificatore, dato di tracciamento o analytics.';
-
-  @override
-  String get readFullPrivacyPolicy => 'Leggi la Privacy Policy Completa';
-
-  @override
-  String get viewCompleteDetailsWebsite =>
-      'Visualizza i dettagli completi sul nostro sito web';
-
-  @override
-  String get understandAndContinue => 'Ho capito e continua';
-
-  @override
-  String get declineAndExit => 'Rifiuta ed Esci';
-
-  @override
   String get stop => 'Stop';
 
   @override
@@ -2561,8 +2514,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get coverSaveFailed => 'Could not save the cover';
 
   @override
-  String get coverThisDeviceOnly =>
-      'For now, this cover only shows in Octave on this device.';
+  String get coverSharedNote =>
+      'The cover also shows in the other apps of the server (Arpeggi, the web player), for the playlists you created.';
 
   @override
   String get coverDiscardTitle => 'Discard changes?';
@@ -2649,4 +2602,39 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get homeSectionMixes => 'Mixes';
+
+  @override
+  String get coverSavedThisDevice =>
+      'Cover saved on this device. The server did not accept it.';
+
+  @override
+  String get mixQuickPicks => 'Quick picks';
+
+  @override
+  String get mixDiscover => 'Discovery mix';
+
+  @override
+  String mixOfArtist(String name) {
+    return '$name mix';
+  }
+
+  @override
+  String mixOfGenre(String genre) {
+    return '$genre mix';
+  }
+
+  @override
+  String get mixMorning => 'Morning mood';
+
+  @override
+  String get mixAfternoon => 'Afternoon mood';
+
+  @override
+  String get mixEvening => 'Evening mood';
+
+  @override
+  String get mixNight => 'Night mood';
+
+  @override
+  String get aboutLinkPrivacy => 'Privacy';
 }
