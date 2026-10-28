@@ -20,7 +20,8 @@ class HomeLayoutScreen extends StatelessWidget {
         HomeSection.listenAgain => l10n.homeListenAgain,
         HomeSection.topHits => l10n.homeTopHits,
         HomeSection.playlists => l10n.yourPlaylists,
-        HomeSection.mixes => l10n.homeSectionMixes,
+        HomeSection.mixes => l10n.homeSectionPhoneMixes,
+        HomeSection.serverMixes => l10n.homeServerMixes,
         HomeSection.artists => l10n.homeArtistsYouLove,
       };
 

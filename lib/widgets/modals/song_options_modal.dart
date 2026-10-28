@@ -17,6 +17,7 @@ import '../common/album_artwork.dart';
 import '../common/multi_artist_widget.dart';
 import '../../screens/detail/album_screen.dart';
 import '../../screens/detail/artist_screen.dart';
+import '../../octave/server/library_actions.dart';
 
 class SongOptionsModal extends StatefulWidget {
   static Future<void> show(BuildContext context, Song song) {
@@ -245,11 +246,72 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
   double _downloadProgress = 0.0;
   final _offlineService = OfflineService();
 
+  /// What Octo lets this account do to its library; null until known,
+  /// or on a server without library actions.
+  LibraryActions? _libraryActions;
+
   @override
   void initState() {
     super.initState();
     _isStarred = widget.song.starred ?? false;
     _checkDownloadStatus();
+    if (widget.song.isLocal != true) _loadLibraryActions();
+  }
+
+  Future<void> _loadLibraryActions() async {
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
+    final actions = await LibraryActions.of(subsonic);
+    if (mounted && actions != null) {
+      setState(() => _libraryActions = actions);
+    }
+  }
+
+  /// Runs a library action of Octo on this song and says how it went.
+  Future<void> _libraryAction(String action) async {
+    final l10n = AppLocalizations.of(context)!;
+    final messenger = ScaffoldMessenger.of(context);
+    final subsonic = Provider.of<SubsonicService>(context, listen: false);
+    final navigator = Navigator.of(context);
+
+    if (action == 'remove') {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(l10n.libraryRemoveTitle),
+          content: Text(
+              l10n.libraryRemoveMessage(_libraryActions?.keepDays ?? 30)),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: Text(l10n.cancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              child: Text(
+                l10n.remove,
+                style: TextStyle(color: ctx.octave.danger),
+              ),
+            ),
+          ],
+        ),
+      );
+      if (confirmed != true) return;
+    }
+
+    navigator.pop();
+    String message;
+    try {
+      final state = await subsonic.octoLibraryAction(widget.song.id, action);
+      message = switch (state) {
+        'skipped' => l10n.libraryActionSkipped,
+        _ when action == 'remove' => l10n.libraryRemoved,
+        _ => l10n.libraryUpgradeStarted,
+      };
+    } catch (e) {
+      debugPrint('[SongOptions] library action failed: $e');
+      message = l10n.libraryActionFailed;
+    }
+    messenger.showSnackBar(SnackBar(content: Text(message)));
   }
 
   void _checkDownloadStatus() {
@@ -434,6 +496,19 @@ class _SongOptionsModalState extends State<SongOptionsModal> {
                     ),
                     _buildRatingTile(context),
                     _buildDownloadTile(context),
+                    if (_libraryActions?.canUpgrade ?? false)
+                      _OptionTile(
+                        icon: CupertinoIcons.sparkles,
+                        title: AppLocalizations.of(context)!.libraryUpgrade,
+                        onTap: () => _libraryAction('upgrade'),
+                      ),
+                    if (_libraryActions?.canRemove ?? false)
+                      _OptionTile(
+                        icon: CupertinoIcons.trash,
+                        iconColor: context.octave.danger,
+                        title: AppLocalizations.of(context)!.libraryRemove,
+                        onTap: () => _libraryAction('remove'),
+                      ),
                     const SizedBox(height: 16),
                   ],
                 ),

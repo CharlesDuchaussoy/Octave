@@ -184,6 +184,18 @@ abstract class AppLocalizations {
   /// **'Your Playlists'**
   String get yourPlaylists;
 
+  /// Home row of the mixes and radios the server (Octo) makes for the account
+  ///
+  /// In en, this message translates to:
+  /// **'Your mixes'**
+  String get homeServerMixes;
+
+  /// Customize home: row of mixes computed on the phone, shown only when the server makes none
+  ///
+  /// In en, this message translates to:
+  /// **'Mixes made on this device'**
+  String get homeSectionPhoneMixes;
+
   /// Favorite playlists section title on home screen
   ///
   /// In en, this message translates to:
@@ -1077,6 +1089,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to Artist'**
   String get goToArtist;
+
+  /// Song menu: ask the server (Octo) for a higher-quality copy
+  ///
+  /// In en, this message translates to:
+  /// **'Look for a better quality'**
+  String get libraryUpgrade;
+
+  /// Song menu: upgrade request accepted
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for a better copy. The song is replaced if one is found.'**
+  String get libraryUpgradeStarted;
+
+  /// Song menu: remove the song file from the account's library on the server
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from my library'**
+  String get libraryRemove;
+
+  /// Confirmation title before removing a song from the library
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this song?'**
+  String get libraryRemoveTitle;
+
+  /// Confirmation text before removing a song from the library
+  ///
+  /// In en, this message translates to:
+  /// **'The file is set aside for {days} days, then deleted. It will not be downloaded again.'**
+  String libraryRemoveMessage(int days);
+
+  /// Snack bar after removing a song
+  ///
+  /// In en, this message translates to:
+  /// **'Song removed from your library'**
+  String get libraryRemoved;
+
+  /// Snack bar when the server skipped a library action
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to do for this song'**
+  String get libraryActionSkipped;
+
+  /// Snack bar when a library action failed
+  ///
+  /// In en, this message translates to:
+  /// **'The server could not do it'**
+  String get libraryActionFailed;
 
   /// No description provided for @rateSong.
   ///
@@ -4893,12 +4953,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Favorite playlists'**
   String get homeSectionFavoritePlaylists;
-
-  /// Home rows of generated mixes
-  ///
-  /// In en, this message translates to:
-  /// **'Mixes'**
-  String get homeSectionMixes;
 
   /// Message when the cover could not be sent to the server
   ///

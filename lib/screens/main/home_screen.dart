@@ -296,6 +296,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         .toList();
                   }
 
+                  // Octo's mixes and radios get their own row; "Your
+                  // playlists" keeps the account's playlists.
+                  final serverMixes =
+                      playlists.where((p) => p.isOctoMix).toList();
+                  playlists =
+                      playlists.where((p) => !p.isOctoMix).toList();
+
                   final layout = HomeLayout.instance;
                   return Padding(
                     padding: EdgeInsets.only(
@@ -406,6 +413,34 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: 28),
                           ],
                           ],
+                          HomeSection.serverMixes: [
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'MadeForYou') &&
+                              serverMixes.isNotEmpty) ...[
+                            HorizontalScrollSection(
+                              title: AppLocalizations.of(context)!.homeServerMixes,
+                              padding: EdgeInsets.symmetric(horizontal: hPad),
+                              cardSize: isDesktop ? 180 : 155,
+                              children: serverMixes.map((playlist) {
+                                final cardSize = isDesktop ? 180.0 : 155.0;
+                                return MediaCard(
+                                  title: playlist.name,
+                                  subtitle: AppLocalizations.of(context)!
+                                      .songsCount(playlist.songCount ?? 0),
+                                  coverArt: playlist.coverArt,
+                                  artwork: PlaylistArtwork(
+                                    playlist: playlist,
+                                    size: cardSize - 24,
+                                    borderRadius: 4,
+                                  ),
+                                  size: cardSize,
+                                  onTap: () => _openPlaylist(context, playlist),
+                                );
+                              }).toList(),
+                            ),
+                            const SizedBox(height: 28),
+                          ],
+                          ],
                           HomeSection.playlists: [
                           if ((_selectedCategory == 'All' ||
                                   _selectedCategory == 'Playlists') &&
@@ -433,9 +468,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             const SizedBox(height: 28),
                           ],
                           ],
+                          // Mixes computed on the phone, only when the server
+                          // makes none (no Octo).
                           HomeSection.mixes: [
-                          if (_selectedCategory == 'All' ||
-                              _selectedCategory == 'MadeForYou') ...[
+                          if ((_selectedCategory == 'All' ||
+                                  _selectedCategory == 'MadeForYou') &&
+                              serverMixes.isEmpty) ...[
                             for (final entry in mixes.entries.take(4))
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 28),

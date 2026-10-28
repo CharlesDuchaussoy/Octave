@@ -8,6 +8,9 @@ enum HomeSection {
   quickAccess,
   favoritePlaylists,
   jumpBackIn,
+
+  /// Mixes and radios made by the server (Octo) for this account.
+  serverMixes,
   madeForYou,
   listenAgain,
   topHits,
