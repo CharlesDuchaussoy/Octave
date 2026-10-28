@@ -380,14 +380,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
           onTap: () => _navigate(context, const AllSongsScreen()),
         ),
       );
-      items.add(
-        _LibraryItem(
-          type: _LibraryItemType.radioStations,
-          title: l10n?.radioStations ?? 'Radio Stations',
-          subtitle: l10n?.radios ?? 'Radio',
-          onTap: () => _navigate(context, const RadioScreen()),
-        ),
-      );
+      if (libraryProvider.hasRadioStations) {
+        items.add(
+          _LibraryItem(
+            type: _LibraryItemType.radioStations,
+            title: l10n?.radioStations ?? 'Radio Stations',
+            subtitle: l10n?.radios ?? 'Radio',
+            onTap: () => _navigate(context, const RadioScreen()),
+          ),
+        );
+      }
       items.add(
         _LibraryItem(
           type: _LibraryItemType.likedAlbums,
