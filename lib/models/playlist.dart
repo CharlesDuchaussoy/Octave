@@ -34,6 +34,12 @@ class Playlist {
       id.length == 22 &&
       (id.startsWith('og') || id.startsWith('or'));
 
+  /// Octo's liked songs playlist: a Navidrome smart playlist that a server
+  /// script gives each account with at least one liked song, refreshed
+  /// every 10 minutes. Octave shows its own liked songs instead, always up
+  /// to date. No technical marker exists: read-only with this exact name.
+  bool get isServerLikedSongs => readonly == true && name == 'Titres likés';
+
   /// Whether [username] can add songs to it: automatic playlists are
   /// read-only, and the server only lets the owner change a playlist.
   bool isEditableBy(String? username) =>

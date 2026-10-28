@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -64,6 +65,28 @@ void main() {
 
       expect(find.text('Test Song'), findsOneWidget);
       expect(find.text('Test Artist'), findsOneWidget);
+    });
+
+    testWidgets('marks a song from outside the library with a globe',
+        (tester) async {
+      // The test app owns its player and the texts the badge reads.
+      Widget tile(Song song) => createTestApp(
+            subsonicService: subsonicService,
+            child: SongTile(song: song, showArtist: true),
+          );
+
+      await tester.pumpWidget(tile(Song(
+        id: 'x',
+        title: 'Dancing Queen',
+        artist: 'ABBA',
+        isExternal: true,
+      )));
+      expect(find.byIcon(CupertinoIcons.globe), findsOneWidget);
+      expect(find.text('ABBA'), findsOneWidget);
+
+      await tester.pumpWidget(
+          tile(Song(id: 'y', title: 'Super Trouper', artist: 'ABBA')));
+      expect(find.byIcon(CupertinoIcons.globe), findsNothing);
     });
 
     testWidgets('should show duration when enabled', (tester) async {

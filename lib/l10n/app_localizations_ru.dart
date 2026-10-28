@@ -995,6 +995,9 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get outsideLibrary => 'Not in your library';
+
+  @override
   String get sectionVolumeNormalization =>
       'ВЫРАВНИВАНИЕ ГРОМКОСТИ (REPLAYGAIN)';
 

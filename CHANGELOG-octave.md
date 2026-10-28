@@ -96,6 +96,8 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Reprendre sur un autre appareil : Octave garde sa file sur le serveur (au changement de titre, à la pause, en quittant l'app). À l'ouverture, une bannière de l'Accueil propose de reprendre la file laissée ailleurs plus récemment, sur un autre appareil ou dans une autre app comme Arpeggi, au même titre et au même moment. Le serveur n'a qu'une file par compte : la dernière enregistrée l'emporte. Les fichiers du téléphone et les titres hors bibliothèque n'y vont pas.
 - Octave dit au serveur ce qu'il joue (rapports de lecture OpenSubsonic) : Navidrome affiche le titre en cours, et Octo compte l'écoute dès le tiers du titre. Les rapports ne comptent jamais une écoute de plus : Octo n'en garde qu'une.
 - Pour les comptes qu'Octo autorise, le menu d'un titre propose « Chercher une meilleure qualité » et « Retirer de ma bibliothèque » (après confirmation ; le fichier est mis de côté 30 jours).
+- Les titres trouvés par Octo hors de la bibliothèque (recherche, mix) ont un petit globe devant le nom de l'artiste, dans les listes et la file. Octo ne marque plus leur pochette pour Octave.
+- La playlist « Titres likés » d'Octo n'apparaît plus : elle n'est mise à jour que toutes les 10 minutes, alors que « Titres aimés » d'Octave l'est tout de suite.
 
 ### Lecture
 

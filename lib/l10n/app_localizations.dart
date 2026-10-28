@@ -1894,6 +1894,12 @@ abstract class AppLocalizations {
   /// **'Can\'t play {name} right now.'**
   String radioUnavailable(String name);
 
+  /// Label of the small globe shown before the artist of a song the server finds outside the library
+  ///
+  /// In en, this message translates to:
+  /// **'Not in your library'**
+  String get outsideLibrary;
+
   /// Playback settings section header for ReplayGain
   ///
   /// In en, this message translates to:

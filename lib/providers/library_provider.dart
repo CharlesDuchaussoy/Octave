@@ -310,6 +310,7 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
         _cachedPlaylists = playlistsList
             .map((playlistMap) =>
                 Playlist.fromJson(playlistMap as Map<String, dynamic>))
+            .where((p) => !p.isServerLikedSongs)
             .toList();
         _playlists = _cachedPlaylists;
       }
@@ -617,7 +618,9 @@ class LibraryProvider extends ChangeNotifier implements AndroidAutoLibraryDelega
       final newPlaylists = await _subsonicService.getPlaylists();
       final List<Playlist> mergedPlaylists = [];
 
-      for (final newPlaylist in newPlaylists) {
+      // "Titres aimés" already lists the liked songs, up to date.
+      for (final newPlaylist
+          in newPlaylists.where((p) => !p.isServerLikedSongs)) {
         final cachedIndex = _cachedPlaylists.indexWhere(
           (playlist) => playlist.id == newPlaylist.id,
         );

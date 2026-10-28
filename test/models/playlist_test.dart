@@ -48,6 +48,22 @@ void main() {
       expect(again.validUntil, mix.validUntil);
     });
 
+    test("recognizes Octo's liked songs playlist, not one named alike", () {
+      expect(
+        read({'id': 'a', 'name': 'Titres likés', 'readonly': true})
+            .isServerLikedSongs,
+        isTrue,
+      );
+      // Made by hand with the same name: kept.
+      expect(read({'id': 'a', 'name': 'Titres likés'}).isServerLikedSongs,
+          isFalse);
+      expect(
+        read({'id': 'a', 'name': 'Top France', 'readonly': true})
+            .isServerLikedSongs,
+        isFalse,
+      );
+    });
+
     test('only offers its own, hand-made playlists to add songs to', () {
       expect(read({'id': 'a', 'owner': 'lea'}).isEditableBy('lea'), isTrue);
       expect(read({'id': 'a', 'owner': 'Lea'}).isEditableBy('lea'), isTrue);

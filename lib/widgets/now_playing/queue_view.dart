@@ -4,6 +4,7 @@ import '../../providers/player_provider.dart';
 import '../../l10n/app_localizations.dart';
 import '../modals/song_options_modal.dart';
 import '../common/album_artwork.dart';
+import '../../octave/widgets/outside_library_badge.dart';
 
 class QueueView extends StatefulWidget {
   const QueueView({super.key});
@@ -150,19 +151,24 @@ class _QueueViewState extends State<QueueView> {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                subtitle: Text(
-                  song.artist ?? l10n.unknownArtist,
-                  style: TextStyle(
-                    color: isPlaying
-                        ? Theme.of(context)
-                            .colorScheme
-                            .primary
-                            .withValues(alpha: 0.8)
-                        : (isPast ? Colors.white24 : Colors.white70),
-                    fontSize: 14,
+                subtitle: withOutsideBadge(
+                  outside: song.isExternal,
+                  badgeColor: isPast ? Colors.white24 : Colors.white54,
+                  badgeSize: 13,
+                  text: Text(
+                    song.artist ?? l10n.unknownArtist,
+                    style: TextStyle(
+                      color: isPlaying
+                          ? Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withValues(alpha: 0.8)
+                          : (isPast ? Colors.white24 : Colors.white70),
+                      fontSize: 14,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
