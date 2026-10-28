@@ -190,6 +190,60 @@ abstract class AppLocalizations {
   /// **'Your mixes'**
   String get homeServerMixes;
 
+  /// Home banner: a queue saved by another device or app can be resumed
+  ///
+  /// In en, this message translates to:
+  /// **'Pick up where you left off'**
+  String get queueHandoffTitle;
+
+  /// Home banner: song, when the queue comes from another device running Octave
+  ///
+  /// In en, this message translates to:
+  /// **'{song} · on another device, {ago}'**
+  String queueHandoffOnDevice(String song, String ago);
+
+  /// Home banner: song, app that saved the queue (Arpeggi...), and when
+  ///
+  /// In en, this message translates to:
+  /// **'{song} · in {app}, {ago}'**
+  String queueHandoffInApp(String song, String app, String ago);
+
+  /// Home banner: resume the queue here
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get queueHandoffResume;
+
+  /// Home banner: hide the offer
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get queueHandoffDismiss;
+
+  /// Relative time
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get agoNow;
+
+  /// Relative time in minutes
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min ago'**
+  String agoMinutes(int count);
+
+  /// Relative time in hours
+  ///
+  /// In en, this message translates to:
+  /// **'{count} h ago'**
+  String agoHours(int count);
+
+  /// Relative time in days
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{yesterday} other{{count} days ago}}'**
+  String agoDays(int count);
+
   /// Customize home: row of mixes computed on the phone, shown only when the server makes none
   ///
   /// In en, this message translates to:

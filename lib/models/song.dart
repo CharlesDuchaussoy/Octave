@@ -20,6 +20,11 @@ class Song {
   final bool? starred;
   final int? userRating;
   final bool isLocal;
+
+  /// A song Octo found outside the library (catalog, not downloaded yet):
+  /// it streams, but its id means nothing to Navidrome's own features,
+  /// such as the saved play queue.
+  final bool isExternal;
   final double? replayGainTrackGain;
   final double? replayGainAlbumGain;
   final double? replayGainTrackPeak;
@@ -48,6 +53,7 @@ class Song {
     this.starred,
     this.userRating,
     this.isLocal = false,
+    this.isExternal = false,
     this.replayGainTrackGain,
     this.replayGainAlbumGain,
     this.replayGainTrackPeak,
@@ -94,6 +100,7 @@ class Song {
       starred: json['starred'] != null,
       userRating: json['userRating'] as int?,
       isLocal: json['isLocal'] as bool? ?? false,
+      isExternal: json['isExternal'] == true,
       replayGainTrackGain: parseGain(replayGain?['trackGain'] ??
           json['replayGainTrackGain'] ??
           json['trackGain'] ??
@@ -137,6 +144,7 @@ class Song {
       'size': size,
       'path': path,
       'isLocal': isLocal,
+      if (isExternal) 'isExternal': true,
       'replayGain': {
         if (replayGainTrackGain != null) 'trackGain': replayGainTrackGain,
         if (replayGainAlbumGain != null) 'albumGain': replayGainAlbumGain,
@@ -178,6 +186,7 @@ class Song {
     bool? starred,
     int? userRating,
     bool? isLocal,
+    bool? isExternal,
     double? replayGainTrackGain,
     double? replayGainAlbumGain,
     double? replayGainTrackPeak,
@@ -206,6 +215,7 @@ class Song {
       starred: starred ?? this.starred,
       userRating: userRating ?? this.userRating,
       isLocal: isLocal ?? this.isLocal,
+      isExternal: isExternal ?? this.isExternal,
       replayGainTrackGain: replayGainTrackGain ?? this.replayGainTrackGain,
       replayGainAlbumGain: replayGainAlbumGain ?? this.replayGainAlbumGain,
       replayGainTrackPeak: replayGainTrackPeak ?? this.replayGainTrackPeak,

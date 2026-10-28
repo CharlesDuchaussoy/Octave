@@ -30,6 +30,49 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeServerMixes => 'Tes mix';
 
   @override
+  String get queueHandoffTitle => 'Reprendre là où tu en étais';
+
+  @override
+  String queueHandoffOnDevice(String song, String ago) {
+    return '« $song » · sur un autre appareil, $ago';
+  }
+
+  @override
+  String queueHandoffInApp(String song, String app, String ago) {
+    return '« $song » · dans $app, $ago';
+  }
+
+  @override
+  String get queueHandoffResume => 'Reprendre';
+
+  @override
+  String get queueHandoffDismiss => 'Pas maintenant';
+
+  @override
+  String get agoNow => 'à l\'instant';
+
+  @override
+  String agoMinutes(int count) {
+    return 'il y a $count min';
+  }
+
+  @override
+  String agoHours(int count) {
+    return 'il y a $count h';
+  }
+
+  @override
+  String agoDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'il y a $count jours',
+      one: 'hier',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get homeSectionPhoneMixes => 'Mix faits sur le téléphone';
 
   @override

@@ -26,6 +26,8 @@ import 'package:musly/services/wrapped_service.dart';
 import 'package:musly/l10n/app_localizations.dart';
 import 'package:musly/octave/home/home_layout.dart';
 import 'package:musly/octave/home/home_layout_screen.dart';
+import '../../octave/home/resume_banner.dart';
+import '../../octave/server/queue_handoff.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +36,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   Map<String, List<Song>> _cachedMixes = const {};
   List<Song> _cachedPersonalized = const [];
   List<Song> _cachedListenAgain = const [];
@@ -46,12 +48,30 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     HomeLayout.instance.addListener(_onLayoutChanged);
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _checkQueueOffer());
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     HomeLayout.instance.removeListener(_onLayoutChanged);
     super.dispose();
+  }
+
+  // Back in Octave, maybe after listening on another device.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) _checkQueueOffer();
+  }
+
+  /// Offers the queue another device or app left on the server.
+  void _checkQueueOffer() {
+    if (!mounted) return;
+    QueueHandoff.instance.checkOffer(
+      Provider.of<SubsonicService>(context, listen: false),
+      playing: Provider.of<PlayerProvider>(context, listen: false).currentSong,
+    );
   }
 
   void _onLayoutChanged() {
@@ -310,6 +330,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (!isOffline)
+                          ResumeQueueBanner(horizontalPadding: hPad),
                         if (!isDesktop && WrappedService.isWrappedSeason()) ...[
                           _buildWrappedBanner(context, hPad, isDesktop),
                           const SizedBox(height: 12),
