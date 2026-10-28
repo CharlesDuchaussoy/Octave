@@ -1,5 +1,5 @@
 name: Bug Report
-description: Create a report to help us improve Musly
+description: Report a problem in Octave
 labels: ["bug"]
 body:
   - type: markdown

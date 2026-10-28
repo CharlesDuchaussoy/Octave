@@ -1301,6 +1301,7 @@
   "connectionSlow": "La connexion prend un peu de temps…",
   "updateDownloadComplete": "Téléchargement terminé",
   "updateDownloadFailed": "Le téléchargement a échoué : {error}",
+  "updateFileDamaged": "Le fichier téléchargé est abîmé : il n'a pas été installé. Réessaie.",
   "updateDefaultChangelog": "Améliorations et corrections.",
   "disconnectConfirm": "Se déconnecter de ce serveur ?",
   "options": "Options",

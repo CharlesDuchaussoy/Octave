@@ -1,5 +1,5 @@
 name: Feature Request
-description: Suggest an idea for Musly
+description: Suggest an idea for Octave
 labels: ["enhancement"]
 body:
   - type: textarea

@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
-    id("com.chaquo.python")
 }
 
 import java.util.Properties
@@ -36,13 +35,11 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-
-        ndk {
-            abiFilters += listOf("arm64-v8a", "x86_64", "armeabi-v7a")
-        }
     }
 
-    // Configure signing with custom keystore or debug fallback
+    // Release builds use the Octave key described in android/key.properties
+    // (never committed). Without it they fall back to the debug key, which
+    // cannot update an installed Octave. Debug builds keep the debug key.
     signingConfigs {
         create("release") {
             if (keystorePropertiesFile.exists()) {
@@ -61,22 +58,6 @@ android {
             } else {
                 signingConfigs.getByName("debug")
             }
-        }
-        debug {
-            signingConfig = if (keystorePropertiesFile.exists()) {
-                signingConfigs.getByName("release")
-            } else {
-                signingConfigs.getByName("debug")
-            }
-        }
-    }
-}
-
-chaquopy {
-    defaultConfig {
-        version = "3.11"
-        pip {
-            install("yt-dlp")
         }
     }
 }

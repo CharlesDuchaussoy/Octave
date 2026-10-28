@@ -1,1 +1,0 @@
-Client musical Subsonic et Jellyfin auto-hébergé avec écoute hors-ligne.

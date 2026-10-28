@@ -4336,6 +4336,12 @@ abstract class AppLocalizations {
   /// **'Download failed: {error}'**
   String updateDownloadFailed(String error);
 
+  /// Update dialog: the downloaded installer does not match the checksum of the release
+  ///
+  /// In en, this message translates to:
+  /// **'The downloaded file is damaged, so it was not installed. Try again.'**
+  String get updateFileDamaged;
+
   /// Update dialog without notes
   ///
   /// In en, this message translates to:

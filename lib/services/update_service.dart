@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -6,22 +7,41 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// The downloaded update does not match the checksum of the release.
+class UpdateIntegrityException implements Exception {
+  const UpdateIntegrityException();
+
+  @override
+  String toString() => 'UpdateIntegrityException: checksum mismatch';
+}
+
 class ReleaseAsset {
   final String name;
   final String browserDownloadUrl;
   final int? size;
 
+  /// SHA-256 of the file in lowercase hex, from the `digest` GitHub
+  /// gives each release asset (`sha256:<hex>`), when present.
+  final String? sha256Hex;
+
   const ReleaseAsset({
     required this.name,
     required this.browserDownloadUrl,
     this.size,
+    this.sha256Hex,
   });
 
-  factory ReleaseAsset.fromJson(Map<String, dynamic> json) => ReleaseAsset(
-        name: json['name'] as String? ?? '',
-        browserDownloadUrl: json['browser_download_url'] as String? ?? '',
-        size: json['size'] as int?,
-      );
+  factory ReleaseAsset.fromJson(Map<String, dynamic> json) {
+    final digest = json['digest'];
+    return ReleaseAsset(
+      name: json['name'] as String? ?? '',
+      browserDownloadUrl: json['browser_download_url'] as String? ?? '',
+      size: json['size'] as int?,
+      sha256Hex: digest is String && digest.startsWith('sha256:')
+          ? digest.substring(7).toLowerCase()
+          : null,
+    );
+  }
 
   String get formattedSize {
     if (size == null || size! <= 0) return '';
@@ -61,14 +81,28 @@ class ReleaseInfo {
 
   ReleaseAsset? get targetAsset {
     if (kIsWeb) return assets.isNotEmpty ? assets.first : null;
-    return assetFor(Platform.operatingSystem);
+    return assetFor(Platform.operatingSystem,
+        abi: androidAbiOf(Platform.version));
+  }
+
+  /// Android ABI the app runs on, as written in APK names, read from a
+  /// [Platform.version] string such as `3.12.0 (stable) on "android_arm64"`.
+  static String? androidAbiOf(String dartVersion) {
+    final match = RegExp(r'on "android_(\w+)"').firstMatch(dartVersion);
+    return switch (match?.group(1)) {
+      'arm64' => 'arm64-v8a',
+      'arm' => 'armeabi-v7a',
+      'x64' => 'x86_64',
+      _ => null,
+    };
   }
 
   /// Installer for [platform] (a [Platform.operatingSystem] value).
   ///
-  /// On Android, the arm64-v8a APK fits nearly every phone; then the
-  /// universal APK (no ABI in its name), then any APK.
-  ReleaseAsset? assetFor(String platform) {
+  /// On Android, the APK built for [abi] when there is one, otherwise the
+  /// arm64-v8a APK, which fits nearly every phone; then the universal APK
+  /// (no ABI in its name), then any APK.
+  ReleaseAsset? assetFor(String platform, {String? abi}) {
     if (assets.isEmpty) return null;
     ReleaseAsset? find(bool Function(String name) test) {
       for (final asset in assets) {
@@ -80,7 +114,10 @@ class ReleaseInfo {
     switch (platform) {
       case 'android':
         const abis = ['arm64-v8a', 'armeabi-v7a', 'x86_64', 'x86'];
-        return find((n) => n.endsWith('.apk') && n.contains('arm64-v8a')) ??
+        return (abi == null
+                ? null
+                : find((n) => n.endsWith('.apk') && n.contains(abi))) ??
+            find((n) => n.endsWith('.apk') && n.contains('arm64-v8a')) ??
             find((n) => n.endsWith('.apk') && !abis.any(n.contains)) ??
             find((n) => n.endsWith('.apk')) ??
             assets.first;
@@ -203,7 +240,8 @@ class UpdateService {
 
     // If file already exists and is complete, reuse it immediately
     if (targetFile.existsSync() && asset.size != null && asset.size! > 0) {
-      if (targetFile.lengthSync() == asset.size) {
+      if (targetFile.lengthSync() == asset.size &&
+          await matchesChecksum(asset, filePath)) {
         onProgress?.call(asset.size!, asset.size!);
         return filePath;
       }
@@ -277,6 +315,7 @@ class UpdateService {
               partFile.deleteSync();
             } catch (_) {}
           }
+          await _checkDownload(asset, filePath);
           return filePath;
         } else {
           sink.closeSync();
@@ -318,7 +357,26 @@ class UpdateService {
       } catch (_) {}
     }
 
+    await _checkDownload(asset, filePath);
     return filePath;
+  }
+
+  /// Whether the file at [path] has the SHA-256 GitHub gives for [asset].
+  /// True when the release gives none.
+  static Future<bool> matchesChecksum(ReleaseAsset asset, String path) async {
+    final expected = asset.sha256Hex;
+    if (expected == null) return true;
+    final digest = await sha256.bind(File(path).openRead()).first;
+    return digest.toString() == expected;
+  }
+
+  /// Deletes a damaged or replaced download, so it is never installed.
+  static Future<void> _checkDownload(ReleaseAsset asset, String path) async {
+    if (await matchesChecksum(asset, path)) return;
+    try {
+      await File(path).delete();
+    } catch (_) {}
+    throw const UpdateIntegrityException();
   }
 
   static const MethodChannel _apkChannel =

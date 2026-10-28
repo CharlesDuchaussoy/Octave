@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:musly/services/update_service.dart';
 
@@ -35,6 +37,17 @@ void main() {
           'https://github.com/dddevid/Musly/releases/download/v2.1.0/musly-setup.exe');
       expect(asset.size, 68157440);
       expect(asset.formattedSize, '65.0 MB');
+    });
+
+    test('reads the SHA-256 digest GitHub gives', () {
+      ReleaseAsset read(Object? digest) => ReleaseAsset.fromJson({
+            'name': 'octave.apk',
+            'browser_download_url': 'url',
+            'digest': digest,
+          });
+      expect(read('sha256:ABCDEF0123').sha256Hex, 'abcdef0123');
+      expect(read('md5:abcdef').sha256Hex, isNull);
+      expect(read(null).sha256Hex, isNull);
     });
 
     test('formattedSize handles null and zero correctly', () {
@@ -110,6 +123,45 @@ void main() {
       expect(release.assetFor('linux')!.name, 'octave-linux-x86_64.tar.gz');
     });
 
+    test('assetFor picks the APK of the device ABI', () {
+      const names = [
+        'octave-1.1.0-android-arm64-v8a.apk',
+        'octave-1.1.0-android-armeabi-v7a.apk',
+        'octave-1.1.0-android-x86_64.apk',
+        'octave-1.1.0-linux-x64.tar.gz',
+        'octave-1.1.0-windows-setup.exe',
+        'SHA256SUMS.txt',
+      ];
+      final release = ReleaseInfo(
+        version: '1.1.0',
+        tagName: 'v1.1.0',
+        htmlUrl: 'html-url',
+        body: 'notes',
+        assets: [
+          for (final name in names)
+            ReleaseAsset(name: name, browserDownloadUrl: '$name-url'),
+        ],
+      );
+
+      String? android(String? abi) =>
+          release.assetFor('android', abi: abi)?.name;
+      expect(android('x86_64'), 'octave-1.1.0-android-x86_64.apk');
+      expect(android('armeabi-v7a'), 'octave-1.1.0-android-armeabi-v7a.apk');
+      expect(android(null), 'octave-1.1.0-android-arm64-v8a.apk');
+      expect(
+          release.assetFor('windows')!.name, 'octave-1.1.0-windows-setup.exe');
+      expect(release.assetFor('linux')!.name, 'octave-1.1.0-linux-x64.tar.gz');
+    });
+
+    test('androidAbiOf reads the ABI from the Dart version', () {
+      String? abi(String target) => ReleaseInfo.androidAbiOf(
+          '3.12.0 (stable) (Tue Oct 6 2026) on "$target"');
+      expect(abi('android_arm64'), 'arm64-v8a');
+      expect(abi('android_arm'), 'armeabi-v7a');
+      expect(abi('android_x64'), 'x86_64');
+      expect(abi('linux_x64'), isNull);
+    });
+
     test('assetFor falls back to the universal APK', () {
       final release = ReleaseInfo(
         version: '1.1.0',
@@ -137,7 +189,8 @@ void main() {
       expect(clean.contains('`'), isFalse);
       expect(clean.contains('https://link.com'), isFalse);
       expect(clean.contains('new player'), isTrue);
-      expect(clean.contains('Feature: Added new player and speed improvements.'),
+      expect(
+          clean.contains('Feature: Added new player and speed improvements.'),
           isTrue);
       expect(clean.contains('Fixed bug'), isTrue);
     });
@@ -153,6 +206,43 @@ void main() {
 
       UpdateService.resetStartupCheck();
       expect(UpdateService.hasCheckedStartup, isFalse);
+    });
+  });
+
+  group('UpdateService - checksum', () {
+    late Directory dir;
+    late String path;
+
+    setUp(() {
+      dir = Directory.systemTemp.createTempSync('octave_update_test');
+      path = '${dir.path}/octave.apk';
+      File(path).writeAsStringSync('octave');
+    });
+
+    tearDown(() => dir.deleteSync(recursive: true));
+
+    ReleaseAsset asset(String? sha256Hex) => ReleaseAsset(
+        name: 'octave.apk', browserDownloadUrl: 'url', sha256Hex: sha256Hex);
+
+    test('accepts the file GitHub describes', () async {
+      expect(
+        await UpdateService.matchesChecksum(
+            asset(
+                '6ed9d6a4241b358e88b644615512ed54e29ebfac7e14b1c1f5ca62ac6075c330'),
+            path),
+        isTrue,
+      );
+    });
+
+    test('rejects a different file', () async {
+      expect(
+        await UpdateService.matchesChecksum(asset('0' * 64), path),
+        isFalse,
+      );
+    });
+
+    test('accepts any file when the release gives no checksum', () async {
+      expect(await UpdateService.matchesChecksum(asset(null), path), isTrue);
     });
   });
 }

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Octave
+Comment=Lecteur de musique pour Navidrome
+Exec=octave %U
+Icon=octave
+Terminal=false
+Categories=AudioVideo;Audio;Player;Music;
+StartupWMClass=io.github.charlesduchaussoy.octave

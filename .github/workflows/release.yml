@@ -1,0 +1,269 @@
+# Builds Octave for Android, Linux and Windows.
+#
+# Pushing a tag such as v1.0.0 builds everything and prepares a draft
+# release: check it on GitHub, then publish it so the apps can update.
+# Running the workflow by hand builds the files without a release.
+#
+# Secrets used for the Android signing key:
+#   ANDROID_KEYSTORE_BASE64   the .jks file, encoded with base64
+#   ANDROID_KEYSTORE_PASSWORD password of the keystore
+#   ANDROID_KEY_ALIAS         alias of the key in the keystore
+#   ANDROID_KEY_PASSWORD      password of the key
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: '3.47.7'
+
+jobs:
+  version:
+    name: Check the version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.read.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: read
+        name: Compare pubspec.yaml, UpdateService and the tag
+        run: |
+          pubspec=$(sed -nE 's/^version: *([0-9.]+).*/\1/p' pubspec.yaml | tr -d '\r')
+          app=$(sed -nE "s/.*currentVersion = '([0-9.]+)'.*/\1/p" lib/services/update_service.dart)
+          echo "pubspec.yaml: $pubspec, UpdateService.currentVersion: $app"
+          if [ "$pubspec" != "$app" ]; then
+            echo "::error::pubspec.yaml ($pubspec) and UpdateService.currentVersion ($app) differ."
+            exit 1
+          fi
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && [ "$GITHUB_REF_NAME" != "v$pubspec" ]; then
+            echo "::error::The tag $GITHUB_REF_NAME does not match the version $pubspec."
+            exit 1
+          fi
+          echo "version=$pubspec" >> "$GITHUB_OUTPUT"
+
+  android:
+    name: Android
+    needs: version
+    runs-on: ubuntu-latest
+    outputs:
+      certificate: ${{ steps.certificate.outputs.sha256 }}
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - name: Set up the signing key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            if [ "$GITHUB_REF_TYPE" = "tag" ]; then
+              echo "::error::The signing key secrets are missing: a release needs them."
+              exit 1
+            fi
+            echo "::warning::No signing key: the APKs use the debug key and cannot update an installed Octave."
+            exit 0
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/octave-release.jks"
+          cat > android/key.properties <<EOF
+          storeFile=$RUNNER_TEMP/octave-release.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+      - name: Build the APKs
+        run: flutter build apk --release --split-per-abi
+
+      - name: Name the APKs
+        run: |
+          mkdir dist
+          for abi in arm64-v8a armeabi-v7a x86_64; do
+            cp "build/app/outputs/flutter-apk/app-$abi-release.apk" \
+               "dist/octave-$VERSION-android-$abi.apk"
+          done
+          ls -l dist
+
+      - id: certificate
+        name: Read the signing certificate
+        run: |
+          apksigner=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)/apksigner
+          "$apksigner" verify --print-certs "dist/octave-$VERSION-android-arm64-v8a.apk" | tee certs.txt
+          sha256=$(sed -nE 's/.*certificate SHA-256 digest: ([0-9a-f]+).*/\1/p' certs.txt | head -1)
+          if [ "$GITHUB_REF_TYPE" = "tag" ] && grep -q "CN=Android Debug" certs.txt; then
+            echo "::error::The APKs are signed with the debug key."
+            exit 1
+          fi
+          echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
+          echo "Signing certificate SHA-256: \`$sha256\`" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Remove the signing key
+        if: always()
+        run: rm -f android/key.properties "$RUNNER_TEMP/octave-release.jks"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: dist/*
+          if-no-files-found: error
+
+  linux:
+    name: Linux
+    needs: version
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev \
+            liblzma-dev libstdc++-12-dev libasound2-dev libnotify-dev libsecret-1-dev \
+            libjsoncpp-dev libmpv-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - run: flutter build linux --release
+
+      - name: Package
+        run: |
+          name="octave-$VERSION-linux-x64"
+          mkdir -p "$name" dist
+          cp -r build/linux/x64/release/bundle/. "$name/"
+          cp linux/packaging/install.sh linux/packaging/octave.desktop "$name/"
+          cp assets/branding/octave-icon-rounded.svg "$name/octave.svg"
+          tar -czf "dist/$name.tar.gz" "$name"
+          ls -l dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: dist/*
+          if-no-files-found: error
+
+  windows:
+    name: Windows
+    needs: version
+    runs-on: windows-latest
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - run: flutter build windows --release
+
+      - name: Build the installer
+        shell: pwsh
+        run: |
+          $makensis = "C:\Program Files (x86)\NSIS\makensis.exe"
+          if (-not (Test-Path $makensis)) {
+            choco install nsis -y --no-progress
+          }
+          & $makensis "/DOCTAVE_VERSION=$env:VERSION" installer.nsi
+          if ($LASTEXITCODE -ne 0) { throw "makensis failed ($LASTEXITCODE)" }
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Move-Item octave-setup.exe "dist\octave-$env:VERSION-windows-setup.exe"
+          Get-ChildItem dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: dist/*
+          if-no-files-found: error
+
+  release:
+    name: Draft the release
+    if: github.ref_type == 'tag'
+    needs: [version, android, linux, windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ needs.version.outputs.version }}
+      CERTIFICATE: ${{ needs.android.outputs.certificate }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Checksums
+        working-directory: dist
+        run: sha256sum octave-* | tee SHA256SUMS.txt
+
+      - name: Write the notes
+        run: |
+          {
+            echo "## Quel fichier prendre ?"
+            echo
+            echo "- **Android** : \`octave-$VERSION-android-arm64-v8a.apk\` (presque tous les téléphones)."
+            echo "  Les autres APK servent aux vieux téléphones (\`armeabi-v7a\`) et à l'émulateur (\`x86_64\`)."
+            echo "- **Windows** : \`octave-$VERSION-windows-setup.exe\`."
+            echo "- **Linux** : \`octave-$VERSION-linux-x64.tar.gz\`. Décompresse-le, puis lance \`./install.sh\` dans le dossier (il faut \`mpv\`)."
+            echo
+            echo "Une fois installé, Octave se met à jour tout seul."
+            echo
+            echo "## Vérifier"
+            echo
+            echo "Empreinte SHA-256 du certificat de signature Android :"
+            echo
+            echo "\`$CERTIFICATE\`"
+            echo
+            echo "Les empreintes des fichiers sont dans \`SHA256SUMS.txt\`."
+            echo
+            echo "## Nouveautés"
+            echo
+            echo "Voir le [journal des modifications](https://github.com/$GITHUB_REPOSITORY/blob/$GITHUB_REF_NAME/CHANGELOG-octave.md)."
+          } > notes.md
+          cat notes.md
+
+      - name: Create the draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/* \
+            --draft \
+            --verify-tag \
+            --title "Octave $VERSION" \
+            --notes-file notes.md
