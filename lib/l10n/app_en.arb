@@ -2539,6 +2539,15 @@
   "@setupSkip": {
     "description": "Skip the current setup step"
   },
+  "setupSkipAll": "Skip setup",
+  "@setupSkipAll": {
+    "description": "Button of the first setup screen that ends the guided setup for good"
+  },
+  "setupStepOf": "Step {current} of {total}",
+  "@setupStepOf": {
+    "description": "What screen readers say for the setup progress bar",
+    "placeholders": {"current": {"type": "int"}, "total": {"type": "int"}}
+  },
   "setupBack": "Back",
   "@setupBack": {
     "description": "Go back to the previous setup step"
@@ -2563,10 +2572,6 @@
   "setupHelloStart": "Start",
   "@setupHelloStart": {
     "description": "Start the guided setup"
-  },
-  "setupLater": "Later",
-  "@setupLater": {
-    "description": "Skip the whole guided setup"
   },
   "setupColorTitle": "Your color",
   "@setupColorTitle": {
@@ -2595,23 +2600,6 @@
   "setupModeDark": "Dark",
   "@setupModeDark": {
     "description": "Dark display mode"
-  },
-  "setupArtistsTitle": "Your artists",
-  "@setupArtistsTitle": {
-    "description": "Title of the artists step"
-  },
-  "setupArtistsBody": "Pick the ones you listen to most. They become favorites and shape your mixes.",
-  "@setupArtistsBody": {
-    "description": "Text of the artists step"
-  },
-  "setupArtistsEmpty": "No artists in your library yet.",
-  "@setupArtistsEmpty": {
-    "description": "Shown when the library has no artists"
-  },
-  "setupArtistsContinue": "{count, plural, =1{Continue with 1 artist} other{Continue with {count} artists}}",
-  "@setupArtistsContinue": {
-    "description": "Continue button with the number of selected artists",
-    "placeholders": {"count": {"type": "int"}}
   },
   "setupHomeTitle": "Your home screen",
   "@setupHomeTitle": {
@@ -2753,10 +2741,6 @@
   "@setupSummaryMode": {
     "description": "Summary row"
   },
-  "setupSummaryArtists": "Favorite artists",
-  "@setupSummaryArtists": {
-    "description": "Summary row"
-  },
   "setupSummaryWifi": "Quality on Wi-Fi",
   "@setupSummaryWifi": {
     "description": "Summary row"
@@ -2781,7 +2765,7 @@
   "@setupRedoTitle": {
     "description": "About tile reopening the guided setup"
   },
-  "setupRedoSubtitle": "Color, display, artists, quality and downloads",
+  "setupRedoSubtitle": "Color, display, quality and downloads",
   "@setupRedoSubtitle": {
     "description": "About tile description"
   },

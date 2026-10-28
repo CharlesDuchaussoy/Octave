@@ -32,8 +32,9 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 
 - Un écran d'accueil sobre avant la connexion, à la place des trois pages de présentation de Musly.
 - Une connexion simple, en français : l'adresse du serveur, le nom d'utilisateur et le mot de passe. Le choix du type de serveur (Subsonic, Jellyfin, flux web) disparaît ; les réglages techniques (ancienne authentification, certificats) passent dans les options avancées.
-- Une configuration guidée après la connexion, une question par écran, avec un choix conseillé déjà sélectionné : couleur et mode d'affichage (avec un aperçu en direct), forme des pochettes, artistes favoris, rubriques de l'accueil, qualité du son en Wi-Fi et en données mobiles, téléchargement automatique des titres aimés, autorisations (notifications et batterie), puis un résumé.
-- Chaque étape peut être passée, et l'app reprend à la même étape si elle est fermée en cours de route.
+- Une configuration guidée après la connexion, une question par écran, avec un choix conseillé déjà sélectionné : couleur et mode d'affichage (avec un aperçu en direct), forme des pochettes, rubriques de l'accueil, qualité du son en Wi-Fi et en données mobiles, téléchargement automatique des titres aimés, autorisations (notifications et batterie), puis un résumé.
+- Chaque étape peut être passée. Tant que la configuration n'est ni terminée ni passée en entier (« Passer la configuration » sur le premier écran), elle se rouvre à l'ouverture de l'app, à l'étape où elle s'était arrêtée, avec les choix déjà faits : en revenant en arrière ou dans le résumé, ce sont bien eux qui s'affichent.
+- « Refaire la configuration » (À propos) s'ouvre en plein écran et repart du début. La progression est lue « Étape 5 sur 9 » par les lecteurs d'écran.
 - La configuration se refait depuis Réglages, À propos.
 
 ### Design

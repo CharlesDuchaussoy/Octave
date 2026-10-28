@@ -6,15 +6,12 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../../l10n/app_localizations.dart';
-import '../../models/artist.dart';
 import '../../providers/auth_provider.dart';
 import '../../services/offline_service.dart';
 import '../../services/player_ui_settings_service.dart';
 import '../../services/recommendation_service.dart';
-import '../../services/subsonic_service.dart';
 import '../../services/theme_service.dart';
 import '../../services/transcoding_service.dart';
-import '../../widgets/common/album_artwork.dart';
 import '../theme/octave_theme.dart';
 import '../widgets/appearance_controls.dart';
 import 'setup_progress.dart';
@@ -25,7 +22,6 @@ enum SetupStep {
   color,
   mode,
   covers,
-  artists,
   home,
   quality,
   offline,
@@ -52,16 +48,19 @@ class _SetupFlowState extends State<SetupFlow> {
   int _index = 0;
   bool _ready = false;
 
+  /// Run again from About: starts at the first step, from the current
+  /// settings, and leaves no step to resume.
+  bool _rerun = false;
+
+  /// Index of the furthest step shown (see [SetupProgress.furthestStep]).
+  int _furthest = 0;
+
   String _shape = 'rounded';
   bool _favoritePlaylistsOnHome = true;
   bool _recommendations = true;
   int _wifiBitrate = TranscodeBitrate.original;
   int _mobileBitrate = TranscodeBitrate.kbps192;
   bool _autoDownload = true;
-
-  List<Artist>? _artists;
-  final Set<String> _starredArtistIds = {};
-  final Set<String> _selectedArtistIds = {};
 
   PermissionStatus? _notifications;
   PermissionStatus? _battery;
@@ -79,7 +78,6 @@ class _SetupFlowState extends State<SetupFlow> {
     final isAndroid = !kIsWeb && Platform.isAndroid;
     _steps = SetupStep.values.where((step) {
       switch (step) {
-        case SetupStep.artists:
         case SetupStep.quality:
         case SetupStep.offline:
           return serverLibrary;
@@ -92,10 +90,13 @@ class _SetupFlowState extends State<SetupFlow> {
     _restore();
   }
 
-  /// The first time, recommended choices are preselected; when the setup
-  /// is run again from About, it starts from the current settings.
+  /// The first time, recommended choices are preselected. A setup closed
+  /// before its end resumes at the same step, and the steps already passed
+  /// show what was saved; run again from About, every step starts from
+  /// the current settings.
   Future<void> _restore() async {
     final saved = await SetupProgress.savedStep();
+    final furthest = await SetupProgress.furthestStep();
     final rerun = await SetupProgress.isDone();
     final uiSettings = PlayerUiSettingsService();
     await uiSettings.initialize();
@@ -106,14 +107,30 @@ class _SetupFlowState extends State<SetupFlow> {
     final transcoding =
         Provider.of<TranscodingService>(context, listen: false);
     setState(() {
-      final savedIndex = _steps.indexWhere((s) => s.name == saved);
+      _rerun = rerun;
+      final savedIndex =
+          rerun ? -1 : _steps.indexWhere((s) => s.name == saved);
       if (savedIndex >= 0) _index = savedIndex;
-      if (rerun) {
-        _shape = uiSettings.getArtworkShape();
+      _furthest = rerun
+          ? 0
+          : [_index, _steps.indexWhere((s) => s.name == furthest)]
+              .reduce((a, b) => a > b ? a : b);
+      // Continue or Skip on a step left its setting saved: show that one.
+      bool passed(SetupStep step) {
+        final i = _steps.indexOf(step);
+        return rerun || (i >= 0 && i < _furthest);
+      }
+
+      if (passed(SetupStep.covers)) _shape = uiSettings.getArtworkShape();
+      if (passed(SetupStep.home)) {
         _favoritePlaylistsOnHome =
             uiSettings.getShowFavoritePlaylistsOnHome();
         _recommendations = recommendations.enabled;
+      }
+      if (passed(SetupStep.offline)) {
         _autoDownload = OfflineService().getAutoDownloadFavorites();
+      }
+      if (passed(SetupStep.quality)) {
         if (!transcoding.enabled) {
           _wifiBitrate = TranscodeBitrate.original;
           _mobileBitrate = TranscodeBitrate.original;
@@ -141,30 +158,7 @@ class _SetupFlowState extends State<SetupFlow> {
 
   /// Loads what a step needs when it is shown.
   void _prepare(SetupStep step) {
-    if (step == SetupStep.artists && _artists == null) _loadArtists();
     if (step == SetupStep.permissions) _checkPermissions();
-  }
-
-  Future<void> _loadArtists() async {
-    final subsonic = Provider.of<SubsonicService>(context, listen: false);
-    try {
-      final results = await Future.wait([
-        subsonic.getArtists(),
-        subsonic.getStarred(),
-      ]);
-      final artists = List<Artist>.from(results[0] as List<Artist>)
-        ..sort((a, b) => (b.albumCount ?? 0).compareTo(a.albumCount ?? 0));
-      final starred = (results[1] as SearchResult).artists;
-      if (!mounted) return;
-      setState(() {
-        _artists = artists.take(60).toList();
-        _starredArtistIds.addAll(starred.map((a) => a.id));
-        _selectedArtistIds.addAll(_starredArtistIds);
-      });
-    } catch (e) {
-      debugPrint('[Setup] Could not load artists: $e');
-      if (mounted) setState(() => _artists = []);
-    }
   }
 
   Future<void> _checkPermissions() async {
@@ -184,7 +178,13 @@ class _SetupFlowState extends State<SetupFlow> {
 
   void _goTo(int index) {
     setState(() => _index = index);
-    SetupProgress.saveStep(_step.name);
+    if (!_rerun) {
+      SetupProgress.saveStep(_step.name);
+      if (index > _furthest) {
+        _furthest = index;
+        SetupProgress.saveFurthest(_step.name);
+      }
+    }
     _prepare(_step);
   }
 
@@ -216,8 +216,6 @@ class _SetupFlowState extends State<SetupFlow> {
     switch (step) {
       case SetupStep.covers:
         await PlayerUiSettingsService().setArtworkShape(_shape);
-      case SetupStep.artists:
-        await _starSelectedArtists();
       case SetupStep.home:
         await PlayerUiSettingsService()
             .setShowFavoritePlaylistsOnHome(_favoritePlaylistsOnHome);
@@ -231,28 +229,6 @@ class _SetupFlowState extends State<SetupFlow> {
         await OfflineService().setAutoDownloadFavorites(_autoDownload);
       default:
         break;
-    }
-  }
-
-  Future<void> _starSelectedArtists() async {
-    final subsonic = Provider.of<SubsonicService>(context, listen: false);
-    final toStar = _selectedArtistIds.difference(_starredArtistIds);
-    final toUnstar = _starredArtistIds.difference(_selectedArtistIds);
-    for (final id in toStar) {
-      try {
-        await subsonic.star(artistId: id);
-        _starredArtistIds.add(id);
-      } catch (e) {
-        debugPrint('[Setup] Could not star artist $id: $e');
-      }
-    }
-    for (final id in toUnstar) {
-      try {
-        await subsonic.unstar(artistId: id);
-        _starredArtistIds.remove(id);
-      } catch (e) {
-        debugPrint('[Setup] Could not unstar artist $id: $e');
-      }
     }
   }
 
@@ -318,6 +294,7 @@ class _SetupFlowState extends State<SetupFlow> {
           title: title,
           body: body,
           progress: isFirst ? null : _progress,
+          progressLabel: l10n.setupStepOf(_index + 1, _steps.length),
           onBack: isFirst ? null : _back,
           onSkip: skippable && !isFirst && !isLast ? _skip : null,
           primaryLabel: primaryLabel ?? l10n.setupContinue,
@@ -336,7 +313,7 @@ class _SetupFlowState extends State<SetupFlow> {
           body: l10n.setupHelloBody,
           primaryLabel: l10n.setupHelloStart,
           onPrimary: _continue,
-          secondaryLabel: l10n.setupLater,
+          secondaryLabel: l10n.setupSkipAll,
           onSecondary: _finish,
         );
 
@@ -411,16 +388,6 @@ class _SetupFlowState extends State<SetupFlow> {
                 ),
             ],
           ),
-        );
-
-      case SetupStep.artists:
-        return page(
-          title: l10n.setupArtistsTitle,
-          body: l10n.setupArtistsBody,
-          primaryLabel: _selectedArtistIds.isEmpty
-              ? l10n.setupContinue
-              : l10n.setupArtistsContinue(_selectedArtistIds.length),
-          child: _buildArtists(context, l10n),
         );
 
       case SetupStep.home:
@@ -539,46 +506,6 @@ class _SetupFlowState extends State<SetupFlow> {
     }
   }
 
-  Widget _buildArtists(BuildContext context, AppLocalizations l10n) {
-    final colors = context.octave;
-    final artists = _artists;
-    if (artists == null) {
-      return const Padding(
-        padding: EdgeInsets.only(top: 40),
-        child: Center(child: CircularProgressIndicator()),
-      );
-    }
-    if (artists.isEmpty) {
-      return Text(l10n.setupArtistsEmpty,
-          style: TextStyle(fontSize: 15, color: colors.text2));
-    }
-    return LayoutBuilder(builder: (context, constraints) {
-      const spacing = 12.0;
-      final columns = (constraints.maxWidth / 110).floor().clamp(3, 5);
-      final width = (constraints.maxWidth - spacing * (columns - 1)) / columns;
-      return Wrap(
-        spacing: spacing,
-        runSpacing: 18,
-        children: [
-          for (final artist in artists)
-            SizedBox(
-              width: width,
-              child: _ArtistChoice(
-                artist: artist,
-                size: width,
-                selected: _selectedArtistIds.contains(artist.id),
-                onTap: () => setState(() {
-                  if (!_selectedArtistIds.remove(artist.id)) {
-                    _selectedArtistIds.add(artist.id);
-                  }
-                }),
-              ),
-            ),
-        ],
-      );
-    });
-  }
-
   Widget _buildSummary(BuildContext context, AppLocalizations l10n) {
     final colors = context.octave;
     final theme = Provider.of<ThemeService>(context);
@@ -591,8 +518,6 @@ class _SetupFlowState extends State<SetupFlow> {
             : _modeName(l10n, theme.themeMode),
       ),
       (l10n.setupSummaryCovers, _shapeName(l10n, _shape)),
-      if (_steps.contains(SetupStep.artists))
-        (l10n.setupSummaryArtists, '${_starredArtistIds.length}'),
       if (_steps.contains(SetupStep.quality)) ...[
         (l10n.setupSummaryWifi, _qualityName(l10n, _wifiBitrate)),
         (l10n.setupSummaryMobile, _qualityName(l10n, _mobileBitrate)),
@@ -715,90 +640,6 @@ class _ShapeSample extends StatelessWidget {
       ),
       child: Icon(Icons.music_note_rounded,
           size: 18, color: context.octave.onAccentSoft),
-    );
-  }
-}
-
-class _ArtistChoice extends StatelessWidget {
-  const _ArtistChoice({
-    required this.artist,
-    required this.size,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final Artist artist;
-  final double size;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = context.octave;
-    return Semantics(
-      selected: selected,
-      button: true,
-      label: artist.name,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 150),
-                  padding: const EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: selected ? colors.accent : Colors.transparent,
-                      width: 2,
-                    ),
-                  ),
-                  child: ClipOval(
-                    child: AlbumArtwork(
-                      coverArt: artist.coverArt ??
-                          artist.artistImageUrl ??
-                          (artist.id.isNotEmpty ? 'ar-${artist.id}' : null),
-                      size: size - 10,
-                      borderRadius: size,
-                      shadow: const BoxShadow(color: Colors.transparent),
-                    ),
-                  ),
-                ),
-                if (selected)
-                  Positioned(
-                    right: 2,
-                    bottom: 2,
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: colors.accent,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: colors.background, width: 2),
-                      ),
-                      child: Icon(Icons.check_rounded,
-                          size: 14, color: colors.onAccent),
-                    ),
-                  ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              artist.name,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                color: selected ? colors.text1 : colors.text2,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

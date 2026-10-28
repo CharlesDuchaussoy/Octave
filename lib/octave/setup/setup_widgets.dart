@@ -14,6 +14,7 @@ class SetupScaffold extends StatelessWidget {
     this.body,
     this.child,
     this.progress,
+    this.progressLabel,
     this.onBack,
     this.onSkip,
     this.secondaryLabel,
@@ -26,6 +27,9 @@ class SetupScaffold extends StatelessWidget {
 
   /// From 0 to 1; hidden when null.
   final double? progress;
+
+  /// What screen readers say for [progress] ("Step 5 of 10").
+  final String? progressLabel;
   final VoidCallback? onBack;
   final VoidCallback? onSkip;
   final String primaryLabel;
@@ -58,7 +62,11 @@ class SetupScaffold extends StatelessWidget {
                         duration: const Duration(milliseconds: 300),
                         curve: Curves.easeOut,
                         builder: (context, value, _) =>
-                            LinearProgressIndicator(value: value, minHeight: 3),
+                            LinearProgressIndicator(
+                          value: value,
+                          minHeight: 3,
+                          semanticsLabel: progressLabel,
+                        ),
                       ),
                     ),
                   ),

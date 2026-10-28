@@ -18,8 +18,10 @@ void main() {
 
   test('finishing marks the setup done and forgets the step', () async {
     await SetupProgress.saveStep('done');
+    await SetupProgress.saveFurthest('done');
     await SetupProgress.markDone();
     expect(await SetupProgress.isDone(), isTrue);
     expect(await SetupProgress.savedStep(), isNull);
+    expect(await SetupProgress.furthestStep(), isNull);
   });
 }

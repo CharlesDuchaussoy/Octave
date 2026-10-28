@@ -2023,6 +2023,14 @@ class AppLocalizationsIt extends AppLocalizations {
   String get setupSkip => 'Skip';
 
   @override
+  String get setupSkipAll => 'Skip setup';
+
+  @override
+  String setupStepOf(int current, int total) {
+    return 'Step $current of $total';
+  }
+
+  @override
   String get setupBack => 'Back';
 
   @override
@@ -2042,9 +2050,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get setupHelloStart => 'Start';
-
-  @override
-  String get setupLater => 'Later';
 
   @override
   String get setupColorTitle => 'Your color';
@@ -2067,27 +2072,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get setupModeDark => 'Dark';
-
-  @override
-  String get setupArtistsTitle => 'Your artists';
-
-  @override
-  String get setupArtistsBody =>
-      'Pick the ones you listen to most. They become favorites and shape your mixes.';
-
-  @override
-  String get setupArtistsEmpty => 'No artists in your library yet.';
-
-  @override
-  String setupArtistsContinue(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: 'Continue with $count artists',
-      one: 'Continue with 1 artist',
-    );
-    return '$_temp0';
-  }
 
   @override
   String get setupHomeTitle => 'Your home screen';
@@ -2204,9 +2188,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String get setupSummaryMode => 'Display';
 
   @override
-  String get setupSummaryArtists => 'Favorite artists';
-
-  @override
   String get setupSummaryWifi => 'Quality on Wi-Fi';
 
   @override
@@ -2225,8 +2206,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get setupRedoTitle => 'Run setup again';
 
   @override
-  String get setupRedoSubtitle =>
-      'Color, display, artists, quality and downloads';
+  String get setupRedoSubtitle => 'Color, display, quality and downloads';
 
   @override
   String get colorNameOctave => 'Night';

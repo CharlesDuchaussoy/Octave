@@ -3718,6 +3718,18 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get setupSkip;
 
+  /// Button of the first setup screen that ends the guided setup for good
+  ///
+  /// In en, this message translates to:
+  /// **'Skip setup'**
+  String get setupSkipAll;
+
+  /// What screen readers say for the setup progress bar
+  ///
+  /// In en, this message translates to:
+  /// **'Step {current} of {total}'**
+  String setupStepOf(int current, int total);
+
   /// Go back to the previous setup step
   ///
   /// In en, this message translates to:
@@ -3753,12 +3765,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start'**
   String get setupHelloStart;
-
-  /// Skip the whole guided setup
-  ///
-  /// In en, this message translates to:
-  /// **'Later'**
-  String get setupLater;
 
   /// Title of the color step
   ///
@@ -3801,30 +3807,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dark'**
   String get setupModeDark;
-
-  /// Title of the artists step
-  ///
-  /// In en, this message translates to:
-  /// **'Your artists'**
-  String get setupArtistsTitle;
-
-  /// Text of the artists step
-  ///
-  /// In en, this message translates to:
-  /// **'Pick the ones you listen to most. They become favorites and shape your mixes.'**
-  String get setupArtistsBody;
-
-  /// Shown when the library has no artists
-  ///
-  /// In en, this message translates to:
-  /// **'No artists in your library yet.'**
-  String get setupArtistsEmpty;
-
-  /// Continue button with the number of selected artists
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, =1{Continue with 1 artist} other{Continue with {count} artists}}'**
-  String setupArtistsContinue(int count);
 
   /// Title of the home step
   ///
@@ -4039,12 +4021,6 @@ abstract class AppLocalizations {
   /// Summary row
   ///
   /// In en, this message translates to:
-  /// **'Favorite artists'**
-  String get setupSummaryArtists;
-
-  /// Summary row
-  ///
-  /// In en, this message translates to:
   /// **'Quality on Wi-Fi'**
   String get setupSummaryWifi;
 
@@ -4081,7 +4057,7 @@ abstract class AppLocalizations {
   /// About tile description
   ///
   /// In en, this message translates to:
-  /// **'Color, display, artists, quality and downloads'**
+  /// **'Color, display, quality and downloads'**
   String get setupRedoSubtitle;
 
   /// App color name
