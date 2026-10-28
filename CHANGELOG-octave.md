@@ -46,6 +46,15 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Réglages en une seule liste, comme sur iPhone, à la place des six onglets qui se chevauchaient sur un téléphone.
 - Pochettes de l'accueil sans cadre, artistes en vrais cercles.
 - Glisser le mini-lecteur vers la gauche passe au titre suivant, vers la droite revient au précédent, comme dans Spotify.
+- Accueil personnalisable : on range les rubriques en les glissant et on masque celles dont on ne se sert pas (Réglages, Affichage, ou en bas de l'accueil).
+- Page d'artiste façon Apple Music : la photo en pleine largeur et le nom en grand.
+- Tuiles « Tout parcourir » en couleurs unies, sans dégradé ni violet ; champ de recherche plein, comme sur iPhone.
+- Le lecteur plein écran et tout ce qui s'ouvre depuis lui suivent la couleur de l'app et la police Inter (avant : violet et police par défaut).
+
+### Enceintes Google Home et Chromecast
+
+- Octave envoie aux enceintes un format qu'elles savent lire : le fichier d'origine quand c'est possible (MP3, FLAC jusqu'à 96 kHz, Opus, AAC, WAV), sinon du MP3 à 320 kb/s, toujours avec le bon type annoncé. Musly envoyait le fichier tel quel, parfois transcodé par le serveur sans le dire, ce que les enceintes refusent.
+- La fenêtre « Écouter sur un appareil » indique qu'elle cherche, puis rappelle que le téléphone et l'enceinte doivent être sur le même Wi-Fi.
 
 ### Réglages plus simples
 
@@ -59,6 +68,15 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 - Titre et sous-titre, 5 polices intégrées (Inter, Bebas Neue, DM Serif Display, Space Mono, Pacifico), majuscules, deux couleurs (dont celles tirées des pochettes de la playlist) et une photo du téléphone.
 - Contrairement à Spotify, la pochette se rouvre et se retouche. « Revenir à la pochette automatique » rend la mosaïque.
 - Pour l'instant, la pochette n'apparaît que dans Octave, sur l'appareil où elle a été faite. La partager avec les autres apps du serveur demande une commande dans Octo.
+
+### Uniquement ton serveur
+
+- Octave se connecte à Navidrome (et aux serveurs Subsonic) : Jellyfin, Emby, les flux web YouTube, Android TV, Tizen et la présence Discord sont retirés du code, avec leurs paquets. Environ 37 000 lignes et 2 750 textes inutiles en moins.
+- L'import de playlists, qui associait les titres Spotify à des vidéos YouTube, est retiré.
+
+### Mises à jour
+
+- Sur Android, la mise à jour télécharge l'APK arm64-v8a, celui de presque tous les téléphones.
 
 ### Fichiers du téléphone
 
