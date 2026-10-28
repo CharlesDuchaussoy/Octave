@@ -982,6 +982,51 @@ class SubsonicService {
     await _request('scrobble', {'id': id, 'submission': submission.toString()});
   }
 
+  Set<String>? _extensions;
+  String? _extensionsFor;
+
+  /// Names of the OpenSubsonic extensions of the server, asked once per
+  /// account. Empty when the server lists none or cannot be reached (it
+  /// is asked again next time).
+  Future<Set<String>> openSubsonicExtensions() async {
+    final config = _config;
+    if (config == null) return const {};
+    final account = '${config.serverUrl}|${config.username}';
+    if (_extensionsFor == account && _extensions != null) return _extensions!;
+    try {
+      final response = await _request('getOpenSubsonicExtensions');
+      var list = response['openSubsonicExtensions'];
+      if (list is! List) list = list == null ? const [] : [list];
+      final names = {
+        for (final e in list)
+          if (e is Map && e['name'] != null) e['name'].toString(),
+      };
+      _extensions = names;
+      _extensionsFor = account;
+      return names;
+    } catch (e) {
+      debugPrint('SubsonicService: no OpenSubsonic extensions: $e');
+      return const {};
+    }
+  }
+
+  /// Tells the server what plays (OpenSubsonic "playbackReport"). Never
+  /// counts as a scrobble: Octave scrobbles on its own, and Octo keeps one
+  /// play out of both.
+  Future<void> reportPlayback(
+    String songId,
+    String state,
+    Duration position,
+  ) async {
+    await _request('reportPlayback', {
+      'mediaId': songId,
+      'mediaType': 'song',
+      'positionMs': position.inMilliseconds.toString(),
+      'state': state,
+      'ignoreScrobble': 'true',
+    });
+  }
+
   Future<Map<String, dynamic>?> getLyrics({
     String? artist,
     String? title,

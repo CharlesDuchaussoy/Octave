@@ -34,6 +34,7 @@ import '../providers/library_provider.dart';
 
 import '../services/android_auto_service.dart';
 import '../octave/cast/cast_queue.dart';
+import '../octave/server/playback_reporter.dart';
 import '../octave/cast/cast_stream.dart';
 
 enum RepeatMode { off, all, one }
@@ -2709,6 +2710,7 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
     _windowsPositionTimer?.cancel();
     _castSyncTimer?.cancel();
     _castEndCheck?.cancel();
+    _reporter.dispose();
     _castService.removeListener(_onCastStateChanged);
     _upnpService.removeListener(_onUpnpStateChanged);
     if (_upnpService.onRendererLost == _onUpnpRendererLost) {
@@ -2751,10 +2753,31 @@ class PlayerProvider extends ChangeNotifier with WidgetsBindingObserver implemen
   String? _castErrorSongId;
   int _castErrors = 0;
 
+  /// Reports what plays to the server (OpenSubsonic playbackReport).
+  late final PlaybackReporter _reporter = PlaybackReporter(
+    send: _subsonicService.reportPlayback,
+    supported: () async => (await _subsonicService.openSubsonicExtensions())
+        .contains('playbackReport'),
+  );
+
   @override
   void notifyListeners() {
     super.notifyListeners();
     if (_castService.isConnected) _scheduleCastSync();
+    final song = _currentSong;
+    // Phone files, offline listening and the server's own jukebox are
+    // not reported.
+    final reportable = song != null &&
+        song.isLocal != true &&
+        !_isPlayingRadio &&
+        !_jukeboxService.enabled &&
+        !_offlineService.isOfflineMode;
+    _reporter.observe(
+      songId: reportable ? song.id : null,
+      playing: _isPlaying,
+      position: _position,
+      currentPosition: () => _position,
+    );
   }
 
   /// Checks the speaker's queue against Octave's a moment after a change,
