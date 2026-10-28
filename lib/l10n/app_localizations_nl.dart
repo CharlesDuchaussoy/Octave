@@ -2462,6 +2462,67 @@ class AppLocalizationsNl extends AppLocalizations {
   String get coverTemplateGrid => 'Mosaic';
 
   @override
+  String get coverTemplateFrame => 'Frame';
+
+  @override
+  String get coverTemplateDuo => 'Duo';
+
+  @override
+  String get coverTextSize => 'Size';
+
+  @override
+  String get coverTextSizeSmall => 'Small';
+
+  @override
+  String get coverTextSizeMedium => 'Medium';
+
+  @override
+  String get coverTextSizeLarge => 'Large';
+
+  @override
+  String get coverTextAlign => 'Alignment';
+
+  @override
+  String get coverAlignLeft => 'Left';
+
+  @override
+  String get coverAlignCenter => 'Centered';
+
+  @override
+  String get coverMoreColors => 'Other color';
+
+  @override
+  String get coverHue => 'Hue';
+
+  @override
+  String get coverIntensity => 'Intensity';
+
+  @override
+  String get coverLightness => 'Lightness';
+
+  @override
+  String get coverUseColor => 'Use this color';
+
+  @override
+  String get coverPhotoGesture =>
+      'Drag the picture on the preview to move it, pinch to zoom.';
+
+  @override
+  String get coverRecenter => 'Recenter';
+
+  @override
+  String get coverImageEffect => 'Effect';
+
+  @override
+  String get coverEffectNone => 'Normal';
+
+  @override
+  String get coverEffectMono => 'Black and white';
+
+  @override
+  String get coverEffectTint => 'Tinted';
+
+  @override
   String get coverTitleLabel => 'Title';
 
   @override
@@ -2493,7 +2554,8 @@ class AppLocalizationsNl extends AppLocalizations {
   String get coverUsePlaylistCovers => 'Use the playlist covers';
 
   @override
-  String get coverImageHint => 'The Band and Photo layouts show this picture.';
+  String get coverImageHint =>
+      'The Band, Photo and Frame layouts show this picture.';
 
   @override
   String get coverAutomatic => 'Back to the automatic cover';

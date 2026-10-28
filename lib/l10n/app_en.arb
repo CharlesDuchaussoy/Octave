@@ -3091,6 +3091,86 @@
   "@coverTemplateGrid": {
     "description": "Cover layout name"
   },
+  "coverTemplateFrame": "Frame",
+  "@coverTemplateFrame": {
+    "description": "Cover layout name"
+  },
+  "coverTemplateDuo": "Duo",
+  "@coverTemplateDuo": {
+    "description": "Cover layout name"
+  },
+  "coverTextSize": "Size",
+  "@coverTextSize": {
+    "description": "Cover editor: title size"
+  },
+  "coverTextSizeSmall": "Small",
+  "@coverTextSizeSmall": {
+    "description": "Cover editor: title size option"
+  },
+  "coverTextSizeMedium": "Medium",
+  "@coverTextSizeMedium": {
+    "description": "Cover editor: title size option"
+  },
+  "coverTextSizeLarge": "Large",
+  "@coverTextSizeLarge": {
+    "description": "Cover editor: title size option"
+  },
+  "coverTextAlign": "Alignment",
+  "@coverTextAlign": {
+    "description": "Cover editor: title alignment"
+  },
+  "coverAlignLeft": "Left",
+  "@coverAlignLeft": {
+    "description": "Cover editor: title alignment option"
+  },
+  "coverAlignCenter": "Centered",
+  "@coverAlignCenter": {
+    "description": "Cover editor: title alignment option"
+  },
+  "coverMoreColors": "Other color",
+  "@coverMoreColors": {
+    "description": "Cover editor: opens a picker for any color"
+  },
+  "coverHue": "Hue",
+  "@coverHue": {
+    "description": "Cover editor color picker: hue slider"
+  },
+  "coverIntensity": "Intensity",
+  "@coverIntensity": {
+    "description": "Cover editor color picker: colorfulness slider"
+  },
+  "coverLightness": "Lightness",
+  "@coverLightness": {
+    "description": "Cover editor color picker: lightness slider"
+  },
+  "coverUseColor": "Use this color",
+  "@coverUseColor": {
+    "description": "Cover editor color picker: confirm button"
+  },
+  "coverPhotoGesture": "Drag the picture on the preview to move it, pinch to zoom.",
+  "@coverPhotoGesture": {
+    "description": "Cover editor: how to frame the picture"
+  },
+  "coverRecenter": "Recenter",
+  "@coverRecenter": {
+    "description": "Cover editor: reset the picture framing"
+  },
+  "coverImageEffect": "Effect",
+  "@coverImageEffect": {
+    "description": "Cover editor: picture effect"
+  },
+  "coverEffectNone": "Normal",
+  "@coverEffectNone": {
+    "description": "Cover editor: picture effect option"
+  },
+  "coverEffectMono": "Black and white",
+  "@coverEffectMono": {
+    "description": "Cover editor: picture effect option"
+  },
+  "coverEffectTint": "Tinted",
+  "@coverEffectTint": {
+    "description": "Cover editor: picture effect option, picture in the main color"
+  },
   "coverTitleLabel": "Title",
   "@coverTitleLabel": {
     "description": "Cover title field"
@@ -3131,7 +3211,7 @@
   "@coverUsePlaylistCovers": {
     "description": "Cover picture button"
   },
-  "coverImageHint": "The Band and Photo layouts show this picture.",
+  "coverImageHint": "The Band, Photo and Frame layouts show this picture.",
   "@coverImageHint": {
     "description": "Cover picture tab hint"
   },

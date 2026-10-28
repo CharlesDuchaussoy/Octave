@@ -72,7 +72,11 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 ### Pochettes de playlist
 
 - Un éditeur de pochettes, comme « Créer une pochette » de Spotify : menu d'une playlist, puis « Modifier la pochette ».
-- 8 modèles : Dégradé, Minimal, Typo géante, Bandeau, Photo, Vinyle, Formes et Mosaïque.
+- 10 modèles : Dégradé, Minimal, Duo, Typo géante, Formes, Vinyle, Bandeau, Photo, Cadre et Mosaïque.
+- La photo se cadre au doigt sur l'aperçu (glisser pour la déplacer, pincer pour zoomer), avec un effet au choix : normale, noir et blanc, ou teintée de la couleur principale.
+- Le titre a trois tailles et se centre au besoin. Les couleurs vont au-delà de la palette : « Autre couleur » choisit n'importe quelle teinte, intensité et clarté.
+- La pochette est dessinée à part en 1200 × 1200 une fois toutes ses images chargées : plus de pochette envoyée floue ou avec une image manquante.
+- En Typo géante, les mots longs sont rognés par le bord au lieu d'être coupés en deux ; la Mosaïque montre 9, 4 ou 1 pochettes, sans répéter les mêmes ; la couleur en cours apparaît toujours parmi les pastilles.
 - Titre et sous-titre, 5 polices intégrées (Inter, Bebas Neue, DM Serif Display, Space Mono, Pacifico), majuscules, deux couleurs (dont celles tirées des pochettes de la playlist) et une photo du téléphone.
 - Contrairement à Spotify, la pochette se rouvre et se retouche. « Revenir à la pochette automatique » rend la mosaïque.
 - La pochette est envoyée au serveur par Octo : elle s'affiche dans toutes les apps branchées sur le serveur et sur tous les appareils. Son modèle est gardé aussi, pour la retoucher depuis un autre téléphone. Sans Octo, elle reste sur l'appareil où elle a été faite.
