@@ -212,7 +212,11 @@ jobs:
 
   release:
     name: Draft the release
-    if: github.ref_type == 'tag'
+    # Android comes first: the phones get their release even if the
+    # Windows or Linux build fails; the missing files can be added later.
+    if: >-
+      always() && github.ref_type == 'tag' &&
+      needs.version.result == 'success' && needs.android.result == 'success'
     needs: [version, android, linux, windows]
     runs-on: ubuntu-latest
     permissions:
@@ -239,8 +243,12 @@ jobs:
             echo
             echo "- **Android** : \`octave-$VERSION-android-arm64-v8a.apk\` (presque tous les téléphones)."
             echo "  Les autres APK servent aux vieux téléphones (\`armeabi-v7a\`) et à l'émulateur (\`x86_64\`)."
-            echo "- **Windows** : \`octave-$VERSION-windows-setup.exe\`."
-            echo "- **Linux** : \`octave-$VERSION-linux-x64.tar.gz\`. Décompresse-le, puis lance \`./install.sh\` dans le dossier (il faut \`mpv\`)."
+            if [ -f "dist/octave-$VERSION-windows-setup.exe" ]; then
+              echo "- **Windows** : \`octave-$VERSION-windows-setup.exe\`."
+            fi
+            if [ -f "dist/octave-$VERSION-linux-x64.tar.gz" ]; then
+              echo "- **Linux** : \`octave-$VERSION-linux-x64.tar.gz\`. Décompresse-le, puis lance \`./install.sh\` dans le dossier (il faut \`mpv\`)."
+            fi
             echo
             echo "Une fois installé, Octave se met à jour tout seul."
             echo
