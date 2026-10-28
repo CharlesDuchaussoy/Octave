@@ -1307,7 +1307,7 @@
   "@aboutMadeBy": {
     "description": "Developer credit text in the about tab"
   },
-  "aboutGitHub": "github.com/dddevid",
+  "aboutGitHub": "github.com/dddevid/Musly",
   "@aboutGitHub": {
     "description": "Developer GitHub handle shown as subtitle"
   },
@@ -1322,6 +1322,55 @@
   "aboutLinkReportIssue": "Report Issue",
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
+  },
+  "aboutLicense": "License",
+  "@aboutLicense": {
+    "description": "About screen row linking to the license"
+  },
+  "reportKindBug": "A problem",
+  "@reportKindBug": {
+    "description": "Report form choice: something does not work"
+  },
+  "reportKindIdea": "An idea",
+  "@reportKindIdea": {
+    "description": "Report form choice: a suggestion"
+  },
+  "reportMessageHintBug": "What happened? What were you doing?",
+  "@reportMessageHintBug": {
+    "description": "Hint of the report text when reporting a problem"
+  },
+  "reportMessageHintIdea": "What would you like Octave to do?",
+  "@reportMessageHintIdea": {
+    "description": "Hint of the report text when suggesting an idea"
+  },
+  "reportIncludeDetails": "Include technical details",
+  "@reportIncludeDetails": {
+    "description": "Switch to attach technical details to a report"
+  },
+  "reportIncludeDetailsSubtitle": "App version, device, song playing and the app's recent log. Never a password.",
+  "@reportIncludeDetailsSubtitle": {
+    "description": "What the technical details of a report contain"
+  },
+  "reportSend": "Send",
+  "@reportSend": {
+    "description": "Button sending a report"
+  },
+  "reportSent": "Thanks, your message is sent.",
+  "@reportSent": {
+    "description": "Message after a report is sent"
+  },
+  "reportGitHubNote": "Your server doesn't take reports: the message will open on GitHub, which needs an account.",
+  "@reportGitHubNote": {
+    "description": "Note when the server cannot receive reports"
+  },
+  "reportOpenGitHub": "Continue on GitHub",
+  "@reportOpenGitHub": {
+    "description": "Button opening the GitHub issue page with the report"
+  },
+  "reportSendFailed": "Couldn't send: {error}",
+  "@reportSendFailed": {
+    "description": "Message when a report cannot be sent",
+    "placeholders": {"error": {"type": "String"}}
   },
   "@_SETTINGS_ANALYTICS": {},
   "@_SUPPORT": {},

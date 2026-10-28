@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:musly/l10n/app_localizations.dart';
+import 'package:musly/octave/report/report_problem_screen.dart';
 import 'settings_playback_tab.dart';
 import 'settings_storage_tab.dart';
 import 'settings_server_tab.dart';
@@ -98,8 +99,18 @@ class _SettingsScreenState extends State<SettingsScreen>
               ),
               child: ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                itemCount: tabs.length,
+                itemCount: tabs.length + 1,
                 itemBuilder: (context, index) {
+                  if (index == tabs.length) {
+                    return ListTile(
+                      leading: Icon(
+                        CupertinoIcons.exclamationmark_bubble,
+                        color: context.octave.text2,
+                      ),
+                      title: Text(l10n.aboutLinkReportIssue),
+                      onTap: () => ReportProblemScreen.open(context),
+                    );
+                  }
                   final isSelected = _selectedIndex == index;
                   return ListTile(
                     leading: Icon(
@@ -209,7 +220,25 @@ class _SettingsScreenState extends State<SettingsScreen>
             ],
           ),
           const SizedBox(height: 24),
-          SettingsSectionCard(children: [row(5)]),
+          SettingsSectionCard(
+            children: [
+              row(5),
+              const SettingsDivider(),
+              SettingsListTile(
+                icon: CupertinoIcons.exclamationmark_bubble,
+                title: l10n.aboutLinkReportIssue,
+                trailing: Align(
+                  alignment: Alignment.centerRight,
+                  child: Icon(
+                    CupertinoIcons.chevron_forward,
+                    size: 18,
+                    color: context.octave.text3,
+                  ),
+                ),
+                onTap: () => ReportProblemScreen.open(context),
+              ),
+            ],
+          ),
         ],
       ),
     );

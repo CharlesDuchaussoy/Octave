@@ -1156,7 +1156,7 @@
   "@aboutMadeBy": {
     "description": "Developer credit text in the about tab"
   },
-  "aboutGitHub": "github.com/dddevid",
+  "aboutGitHub": "github.com/dddevid/Musly",
   "@aboutGitHub": {
     "description": "Developer GitHub handle shown as subtitle"
   },
@@ -1172,6 +1172,18 @@
   "@aboutLinkReportIssue": {
     "description": "Link tile title for reporting a bug"
   },
+  "aboutLicense": "Licence",
+  "reportKindBug": "Un problème",
+  "reportKindIdea": "Une idée",
+  "reportMessageHintBug": "Que s'est-il passé ? Que faisais-tu à ce moment-là ?",
+  "reportMessageHintIdea": "Qu'aimerais-tu qu'Octave fasse ?",
+  "reportIncludeDetails": "Joindre les infos techniques",
+  "reportIncludeDetailsSubtitle": "Version de l'app, appareil, titre en cours et journal récent de l'app. Jamais de mot de passe.",
+  "reportSend": "Envoyer",
+  "reportSent": "Merci, ton message est envoyé.",
+  "reportGitHubNote": "Ton serveur ne reçoit pas les signalements : le message s'ouvrira sur GitHub, où il faut un compte.",
+  "reportOpenGitHub": "Continuer sur GitHub",
+  "reportSendFailed": "Envoi impossible : {error}",
   "audioFocusDenied": "Lecture impossible : une autre app utilise le son",
   "colorIntensityLabel": "Intensité des couleurs",
   "colorIntensityNeutral": "Neutre",

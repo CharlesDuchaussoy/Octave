@@ -2107,7 +2107,7 @@ abstract class AppLocalizations {
   /// Developer GitHub handle shown as subtitle
   ///
   /// In en, this message translates to:
-  /// **'github.com/dddevid'**
+  /// **'github.com/dddevid/Musly'**
   String get aboutGitHub;
 
   /// Link tile title for the GitHub repo
@@ -2127,6 +2127,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Report Issue'**
   String get aboutLinkReportIssue;
+
+  /// About screen row linking to the license
+  ///
+  /// In en, this message translates to:
+  /// **'License'**
+  String get aboutLicense;
+
+  /// Report form choice: something does not work
+  ///
+  /// In en, this message translates to:
+  /// **'A problem'**
+  String get reportKindBug;
+
+  /// Report form choice: a suggestion
+  ///
+  /// In en, this message translates to:
+  /// **'An idea'**
+  String get reportKindIdea;
+
+  /// Hint of the report text when reporting a problem
+  ///
+  /// In en, this message translates to:
+  /// **'What happened? What were you doing?'**
+  String get reportMessageHintBug;
+
+  /// Hint of the report text when suggesting an idea
+  ///
+  /// In en, this message translates to:
+  /// **'What would you like Octave to do?'**
+  String get reportMessageHintIdea;
+
+  /// Switch to attach technical details to a report
+  ///
+  /// In en, this message translates to:
+  /// **'Include technical details'**
+  String get reportIncludeDetails;
+
+  /// What the technical details of a report contain
+  ///
+  /// In en, this message translates to:
+  /// **'App version, device, song playing and the app\'s recent log. Never a password.'**
+  String get reportIncludeDetailsSubtitle;
+
+  /// Button sending a report
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get reportSend;
+
+  /// Message after a report is sent
+  ///
+  /// In en, this message translates to:
+  /// **'Thanks, your message is sent.'**
+  String get reportSent;
+
+  /// Note when the server cannot receive reports
+  ///
+  /// In en, this message translates to:
+  /// **'Your server doesn\'t take reports: the message will open on GitHub, which needs an account.'**
+  String get reportGitHubNote;
+
+  /// Button opening the GitHub issue page with the report
+  ///
+  /// In en, this message translates to:
+  /// **'Continue on GitHub'**
+  String get reportOpenGitHub;
+
+  /// Message when a report cannot be sent
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t send: {error}'**
+  String reportSendFailed(String error);
 
   /// Title of the playback speed bottom sheet
   ///

@@ -18,7 +18,9 @@ Basée sur Musly 2.0.3 (`master` au commit `b199276`, 18 octobre 2026).
 
 - Les mises à jour depuis l'app viennent des versions publiées d'Octave, jamais de celles de Musly.
 - Les liens « GitHub », « Nouveautés », « Signaler un problème », traductions et politique de confidentialité mènent à Octave. Le crédit à dddevid, auteur de Musly, reste dans l'écran « À propos ».
-- Politique de confidentialité adaptée à Octave.
+- Politique de confidentialité adaptée à Octave : elle décrit ce qu'Octave envoie au serveur (rapports de lecture, file d'attente, signalements) et ne mentionne plus ce qui a été retiré.
+- À propos indique le développeur d'Octave, garde le crédit à Musly et donne la licence. La plateforme s'écrit « Android » et non « ANDROID ».
+- **Signaler un problème**, dans les Réglages et dans À propos : un formulaire envoie un problème ou une idée au serveur, sans compte GitHub. On peut joindre les infos techniques (version, appareil, titre en cours, journal récent de l'app, nettoyé de l'adresse du serveur et des mots de passe). Si le serveur ne reçoit pas les signalements, l'app ouvre une page GitHub déjà remplie.
 
 ### Français
 
